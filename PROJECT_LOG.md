@@ -22,3 +22,128 @@ Dieses Dokument dient als lückenloser, auditierbarer Entwicklungs- und Architek
 - **Entscheidungsbegründung:**
   - Die strikte Protokollierung ab Schritt 1 gewährleistet Nachvollziehbarkeit und Transparenz aller architektonischen Entscheidungen.
   - Das Repository wird direkt mit GitHub synchronisiert, um einen verifizierbaren Stand im Remote-System zu sichern.
+
+
+---
+
+## Schritt 2: Definition der Architektur- und Verzeichnisstruktur
+- **Ziel:** Aufbau einer lückenlosen Clean-Architecture-Verzeichnisstruktur mit strikter Entkopplung der Schichten und Vorbereitung für die "Eine Klasse pro Datei"-Vorgabe.
+- **Durchgeführte Aktionen:**
+  1. Erstellung der Haupt-Verzeichnishierarchie unter `src/vacation_planner/`:
+     - `core/domain/value_objects/`: Unveränderliche Wertobjekte ohne Identität.
+     - `core/domain/models/`: Domänen-Entitäten und Aggregates mit fachlicher Identität.
+     - `core/interfaces/`: Ports / abstrakte Schnittstellenverträge (DIP - Dependency Inversion Principle).
+     - `core/use_cases/`: Anwendungsfall-Logik, Orchestrierung und Domänenservices.
+     - `infrastructure/adapters/`: Konkrete Adapter für Transport, Unterkünfte, Geodaten und Persistenz.
+     - `infrastructure/mappers/`: Explizite Datentransformatoren für externe Schnittstellendaten mit Inline-Dokumentation.
+     - `entrypoints/web/`: HTTP/REST API Einstiegspunkt.
+     - `entrypoints/cli/`: Interaktive Befehlszeilenschnittstelle zur direkten Ausführung und Prüfung.
+     - `tests/unit/` & `tests/integration/`: Getrennte Testsuiten für Unit- und Integrationstests.
+  2. Initialisierung aller Verzeichnisse mit `__init__.py` zur Etablierung sauberer Python-Paketstrukturen.
+- **Architektur-Konformität:**
+  - Trennung gemäß "Clean Architecture" nach Robert C. Martin: Der Core ist vollständig isoliert.
+  - Gewährleistung, dass keine externen Frameworks in den Core gelangen.
+
+---
+
+## Schritt 3: Implementierung der Core-Schicht (Value Objects, Models, Ports & Use Cases)
+- **Ziel:** Vollständige, platzhalterfreie Implementierung aller Domänenmodelle, Schnittstellen und Anwendungsfälle im Core.
+- **Erstellte Dateien und Klassen (strikte Dateitrennung: 1 Klasse pro Datei):**
+  1. **Value Objects (`core/domain/value_objects/`):**
+     - `TransportType.py`: Enum für Verkehrsmittelarten (`FLIGHT`, `TRAIN`, `CAR`).
+     - `AccommodationType.py`: Enum für Übernachtungskategorien (`HOTEL`, `APARTMENT`, `HOSTEL`, `RESORT`).
+     - `MonetaryAmount.py`: Unveränderliches Wertobjekt mit `Decimal` zur präzisen Währungsberechnung ohne Fließkomma-Rundungsfehler. Bietet Addition, Subtraktion, Multiplikation und Währungskonsistenzprüfungen.
+     - `GeographicCoordinates.py`: Unveränderliches Koordinatenobjekt mit Validierung des Wertebereichs (-90 bis +90 Lat, -180 bis +180 Lon) und nativer Berechnung der sphärischen Großkreisdistanz mittels Haversine-Formel (ohne externe GIS-Bibliotheken).
+     - `DateRange.py`: Unveränderlicher Datumsbereich mit chronologischer Validierung, Übernachtungsberechnung (`calculate_total_nights()`) und Überschneidungsprüfungen.
+     - `RouteSegment.py`: Repräsentiert ein Teilstück einer Reise mit Abfahrts-/Ankunftszeiten, Verkehrsknotenpunkten, Betreiber und Dauer.
+  2. **Domain Models & Entities (`core/domain/models/`):**
+     - `Location.py`: Repräsentiert Ziel- und Startorte mit Länderkennung, Geokoordinaten und Entfernungsberechnung.
+     - `Attraction.py`: Repräsentiert Sehenswürdigkeiten am Zielort mit Geokoordinaten, Eintrittspreisen, Besuchsdauer und Bewertungen.
+     - `TransportOption.py`: Repräsentiert eine Gesamtreiseroute (Flug, Zug oder Auto) mit Segmenten, Gesamtkosten, CO2-Emissionswerten und Umstiegszählern.
+     - `AccommodationOption.py`: Repräsentiert eine Unterkunft mit Gesamtpreis, Preis pro Nacht, Sternekategorie und Ausstattungsmerkmalen.
+     - `VacationSearchCriteria.py`: Kapselt die Suchanfrage des Benutzers (Startort, Zielort, Datumsbereich, Maximalbudget, erlaubte Verkehrsmittel, Personenanzahl).
+     - `VacationPackage.py`: Das zentrale Aggregate-Root, welches Hinreise, Rückreise, Unterkunft, empfohlene Sehenswürdigkeiten und validierte Gesamtkosten vereint.
+  3. **Interfaces / Ports (`core/interfaces/`):**
+     - `TransportGatewayInterface.py`: Abstrakter Vertrag für die Abfrage von Transportalternativen (`search_transport_options`).
+     - `AccommodationGatewayInterface.py`: Abstrakter Vertrag für die Abfrage von Unterkünften (`search_accommodation_options`).
+     - `LocationGatewayInterface.py`: Abstrakter Vertrag für Geocoding und Sehenswürdigkeiten (`resolve_location_by_name`, `fetch_local_attractions_for_location`).
+     - `PackageRepositoryInterface.py`: Abstrakter Vertrag für die Persistierung von Urlaubspaketen (`save_vacation_package`, `get_vacation_package_by_id`, `list_all_vacation_packages`).
+  4. **Use Cases & Domain Services (`core/use_cases/`):**
+     - `CostCalculationService.py`: Berechnet akkurat die Gesamtsumme aus Transport und Unterkunft und validiert die Budgeteinhaltung.
+     - `TravelPackageAggregatorService.py`: Orchestriert die Anbindung aller Subsysteme (Transport, Unterkunft, Lokation), synchronisiert Zeitpläne (z. B. Ankunft vor Abreise, Hotel-Check-in-Synchronisation), validiert die Gesamtkosten und sortiert die Ergebnisse.
+     - `GetVacationPackageDetailsUseCase.py`: Liefert persistierte Reisepakete anhand ihrer ID.
+- **Einhaltung der Richtlinien:**
+  - Keinerlei externe Abhängigkeiten oder Third-Party-Frameworks im gesamten Core.
+  - Keine Platzhalter; sämtliche Berechnungs- und Validierungslogiken sind vollständig ausprogrammiert.
+  - Extrem explizite Namensgebung ohne kryptische Abkürzungen.
+
+
+---
+
+## Schritt 4: Implementierung der Infrastructure-Schicht (Mappers & Adapters)
+- **Ziel:** Umsetzung der externen Schnittstellenanbindungen und Daten-Mapper für alle Komponenten der Funktions-Roadmap (Transport, Unterkünfte, Lokationen, Persistenz).
+- **Erstellte Mapper (`infrastructure/mappers/` mit detaillierter Inline-Dokumentation):**
+  1. `FlightDataMapper.py`: Transformiert Airline- und GDS-Flug-Payloads in `TransportOption`-Modelle. Mappt Multi-Leg-Flugsegmente, IATA-Flughafencodes, Ticketpreise in `MonetaryAmount` und CO2-Emissionswerte.
+  2. `TrainDataMapper.py`: Mappt Bahn-Fahrplandaten (z. B. HAFAS, DB ICE, TGV) inklusive Umstiegen an Zwischenbahnhöfen, Umsteigezeiten und energieeffizientem CO2-Profil.
+  3. `CarRouteDataMapper.py`: Mappt Routing-Engine-Ergebnisse (z. B. OSRM, Directions-APIs) mit Autobahn-Teilstücken, Entfernungen, realitätsnahen Kraftstoffkosten (6,8 l/100 km) und Autobahnmaut.
+  4. `HotelAccommodationDataMapper.py`: Mappt Hotel-, Apartment- und Hostel-Daten, berechnet Gesamtaufenthaltskosten aus Übernachtungsrate multipliziert mit `calculate_total_nights()`, normalisiert Ausstattungsmerkmale (Amenities).
+  5. `GeographicLocationDataMapper.py`: Mappt Geocoding-Payloads (z. B. OpenStreetMap Nominatim) in validierte `Location`-Entitäten mit genauen Geokoordinaten.
+  6. `AttractionDataMapper.py`: Mappt touristische Sehenswürdigkeiten und POIs mit Eintrittspreisen, Aufenthaltsdauer und Bewertungen.
+- **Erstellte Adapter (`infrastructure/adapters/`):**
+  1. `FlightTransportAdapter.py`: Simuliert und kalkuliert Linienflugverbindungen zwischen Metropolen mit unterschiedlichen Tageszeit-Slots (Morgen, Mittag, Abend) und Fluggesellschaften.
+  2. `TrainTransportAdapter.py`: Berechnet Hochgeschwindigkeits- und Fernverkehrszugverbindungen über das europäische Schienennetzwerk inklusive realistischer Umstiegslogik bei Fahrzeiten über vier Stunden.
+  3. `CarRouteTransportAdapter.py`: Berechnet Straßenverbindungen unter Einbeziehung realistischer Umwegfaktoren (+25 % gegenüber Großkreisdistanz), Geschwindigkeiten, Maut und Kraftstoffpreise.
+  4. `CompositeTransportAdapter.py`: Implementiert `TransportGatewayInterface` und bündelt Abfragen über Flug-, Zug- und Pkw-Verbindungen.
+  5. `HotelAccommodationAdapter.py`: Implementiert `AccommodationGatewayInterface` mit Unterkunftsbestand (Hotels, Ferienwohnungen, Hostels, Resorts) für europäische Reiseziele und dynamischer Bedarfsgenerierung.
+  6. `GeographicLocationAdapter.py`: Liefert Geodaten für europäische Ziel- und Startstädte.
+  7. `LocalAttractionAdapter.py`: Liefert kuratierte Sehenswürdigkeiten, Museen und historische Bauwerke.
+  8. `CompositeLocationGatewayAdapter.py`: Implementiert `LocationGatewayInterface` zur kombinierten Auflösung von Orten und Attraktionen.
+  9. `InMemoryPackageRepository.py`: Thread-sichere In-Memory-Persistenz (`threading.RLock`) für `PackageRepositoryInterface`.
+- **Qualitätssicherung:**
+  - 8 neue Unit-Tests für alle Mapper (`test_infrastructure_mappers.py`).
+  - Integrationstest des Aggregator-Services mit echten Adaptern (`test_travel_package_aggregator_service.py`).
+  - Alle 26 Tests erfolgreich (0 Fehler).
+
+
+---
+
+## Schritt 5: Implementierung der Entry-Point-Schicht (Web API & CLI)
+- **Ziel:** Bereitstellung von sicheren, modularen Einstiegspunkten für das Backend, sodass dieses als alleiniger Vermittler fungiert und Frontends keine direkten externen API-Aufrufe tätigen müssen.
+- **Erstellte Klassen (strikte Trennung: 1 Klasse pro Datei):**
+  1. `VacationPackageDtoMapper.py`: Serialisiert Core-Domänenaggregate (`VacationPackage`) in JSON-fähige Data-Transfer-Objects (DTOs) für REST-Clients.
+  2. `VacationPlannerHttpHandler.py`: HTTP-Request-Handler auf Basis der Standardbibliothek (`http.server.BaseHTTPRequestHandler`), der JSON-Parsing, CORS-Header (`Access-Control-Allow-Origin: *`) und Endpunkt-Routing abwickelt:
+     - `POST /api/v1/packages/search`: Nimmt Reisekriterien entgegen, triggert den `TravelPackageAggregatorService` und liefert sortierte Urlaubspakete.
+     - `GET /api/v1/packages/{package_id}`: Liefert detaillierte Informationen zu einem Paket via `GetVacationPackageDetailsUseCase`.
+     - `GET /api/v1/packages`: Listet alle im Repository persistierten Pakete auf.
+     - `GET /api/v1/health`: Liefert Health-Status für Monitoring-Zwecke.
+  3. `VacationPlannerHttpServer.py`: Verwaltet den Server-Lebenszyklus, verbindet alle Clean-Architecture-Schichten per Dependency Injection und unterstützt Hintergrundbetrieb (`run_in_background=True`).
+  4. `VacationPlannerCliApplication.py`: Interaktive Terminal-Oberfläche zur Ausführung und Visualisierung der aggregierten Urlaubspakete mit ASCII-Tabellen, CO2-Bilanzen und Budgetprüfungen.
+  5. `main.py`: Zentrales Startskript zur Ausführung im Web-Server-Modus (`--serve`) oder CLI-Modus mit flexiblen Argumenten (`--origin`, `--destination`, `--start-date`, etc.).
+- **Architektur-Konformität:**
+  - Frontend/Client interagiert ausschließlich über die API; Backend fungiert als Vermittler.
+  - Vollständige Trennung von Präsentations- und Geschäftslogik.
+
+---
+
+## Schritt 6: Qualitätssicherung & Testabdeckung
+- **Ziel:** Verifikation aller Berechnungen, Mappings, Services und Endpunkte ohne externe Test-Framework-Abhängigkeiten.
+- **Erstellte Testsuiten (`tests/`):**
+  1. `tests/unit/test_geographic_coordinates.py`: Validiert Koordinatenbegrenzungen und Haversine-Großkreisdistanzberechnungen.
+  2. `tests/unit/test_monetary_amount.py`: Validiert Währungsarithmetik, Präzision und Immutability.
+  3. `tests/unit/test_date_range.py`: Validiert Datumsbereiche, Übernachtungszahlen und Überschneidungen.
+  4. `tests/unit/test_cost_calculation_service.py`: Prüft Budgetberechnungen und Kostenaggregation.
+  5. `tests/unit/test_infrastructure_mappers.py`: Validiert alle 6 Mapper (Flug, Bahn, Auto, Hotel, Geocoding, Attraktionen).
+  6. `tests/integration/test_travel_package_aggregator_service.py`: End-to-End-Integrationstest des Aggregator-Services mit echten Adaptern.
+  7. `tests/integration/test_api_endpoints.py`: Integrationstest der REST-API-Endpunkte (Health-Check, Paketsuche, Detailabruf, Fehlerbehandlung bei ungültigen Eingaben).
+- **Testergebnis:**
+  - 29 Tests ausgeführt.
+  - 29 Tests erfolgreich bestanden (0 Fehler, 0 Warnungen).
+
+---
+
+## Schritt 7: Dokumentation, Finaler Git-Commit & GitHub-Push
+- **Ziel:** Erstellung der vollständigen Projektdokumentation in `README.md`, Aktualisierung dieses Entwicklungs-Logs und Synchronisation mit dem GitHub-Remote-Repository.
+- **Durchgeführte Aktionen:**
+  1. `README.md` mit Architekturdiagramm, Komponentenübersicht, Schnellstart-Anleitung und API-Schnittstellenbeschreibung erstellt.
+  2. Alle Projektdateien per `git add` gestaged und mit aussagekräftiger Commit-Message festgeschrieben.
+  3. Branch `main` mit Remote-Repository auf GitHub synchronisiert (`git push origin main`).
