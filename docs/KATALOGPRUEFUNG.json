@@ -1,0 +1,887 @@
+[
+  {
+    "batchcomplete": "",
+    "query": {
+      "pages": {
+        "2606": {
+          "pageid": 2606,
+          "ns": 0,
+          "title": "Berlin",
+          "coordinates": [
+            {
+              "lat": 52.51789,
+              "lon": 13.38873,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "2652": {
+          "pageid": 2652,
+          "ns": 0,
+          "title": "Bled",
+          "coordinates": [
+            {
+              "lat": 46.36778,
+              "lon": 14.1125,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "2701": {
+          "pageid": 2701,
+          "ns": 0,
+          "title": "Brünn",
+          "coordinates": [
+            {
+              "lat": 49.19528,
+              "lon": 16.60833,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "3484": {
+          "pageid": 3484,
+          "ns": 0,
+          "title": "Dresden",
+          "coordinates": [
+            {
+              "lat": 51.0523,
+              "lon": 13.74,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "3691": {
+          "pageid": 3691,
+          "ns": 0,
+          "title": "Freiburg im Breisgau",
+          "coordinates": [
+            {
+              "lat": 47.994828,
+              "lon": 7.849881,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "7641": {
+          "pageid": 7641,
+          "ns": 0,
+          "title": "Garmisch-Partenkirchen",
+          "coordinates": [
+            {
+              "lat": 47.49423,
+              "lon": 11.09104,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "3906": {
+          "pageid": 3906,
+          "ns": 0,
+          "title": "Hamburg",
+          "coordinates": [
+            {
+              "lat": 53.55,
+              "lon": 10,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "4057": {
+          "pageid": 4057,
+          "ns": 0,
+          "title": "Innsbruck",
+          "coordinates": [
+            {
+              "lat": 47.26713,
+              "lon": 11.39276,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "4346": {
+          "pageid": 4346,
+          "ns": 0,
+          "title": "Konstanz",
+          "coordinates": [
+            {
+              "lat": 47.66333,
+              "lon": 9.17528,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "4557": {
+          "pageid": 4557,
+          "ns": 0,
+          "title": "Ljubljana",
+          "coordinates": [
+            {
+              "lat": 46.05639,
+              "lon": 14.50778,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "4742": {
+          "pageid": 4742,
+          "ns": 0,
+          "title": "München",
+          "coordinates": [
+            {
+              "lat": 48.13644,
+              "lon": 11.57751,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5311": {
+          "pageid": 5311,
+          "ns": 0,
+          "title": "Piran",
+          "coordinates": [
+            {
+              "lat": 45.52611,
+              "lon": 13.57028,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5359": {
+          "pageid": 5359,
+          "ns": 0,
+          "title": "Prag",
+          "coordinates": [
+            {
+              "lat": 50.08861,
+              "lon": 14.42139,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5381": {
+          "pageid": 5381,
+          "ns": 0,
+          "title": "Pula",
+          "coordinates": [
+            {
+              "lat": 44.86487,
+              "lon": 13.8402,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5538": {
+          "pageid": 5538,
+          "ns": 0,
+          "title": "Rostock",
+          "coordinates": [
+            {
+              "lat": 54.08333,
+              "lon": 12.13333,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5605": {
+          "pageid": 5605,
+          "ns": 0,
+          "title": "Salzburg",
+          "coordinates": [
+            {
+              "lat": 47.8,
+              "lon": 13.03,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "15525": {
+          "pageid": 15525,
+          "ns": 0,
+          "title": "Split",
+          "coordinates": [
+            {
+              "lat": 43.5,
+              "lon": 16.43333,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "6444": {
+          "pageid": 6444,
+          "ns": 0,
+          "title": "Wien",
+          "coordinates": [
+            {
+              "lat": 48.20257,
+              "lon": 16.36879,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "6530": {
+          "pageid": 6530,
+          "ns": 0,
+          "title": "Zadar",
+          "coordinates": [
+            {
+              "lat": 44.12025,
+              "lon": 15.23066,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "6550": {
+          "pageid": 6550,
+          "ns": 0,
+          "title": "Zell am See",
+          "coordinates": [
+            {
+              "lat": 47.32333,
+              "lon": 12.79806,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        }
+      }
+    },
+    "limits": {
+      "coordinates": 500
+    }
+  },
+  {
+    "batchcomplete": "",
+    "query": {
+      "pages": {
+        "2298": {
+          "pageid": 2298,
+          "ns": 0,
+          "title": "Amsterdam",
+          "coordinates": [
+            {
+              "lat": 52.37019,
+              "lon": 4.89044,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "15659": {
+          "pageid": 15659,
+          "ns": 0,
+          "title": "Annecy",
+          "coordinates": [
+            {
+              "lat": 45.90944,
+              "lon": 6.12389,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "2520": {
+          "pageid": 2520,
+          "ns": 0,
+          "title": "Barcelona",
+          "coordinates": [
+            {
+              "lat": 41.4,
+              "lon": 2.16667,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "2698": {
+          "pageid": 2698,
+          "ns": 0,
+          "title": "Bratislava",
+          "coordinates": [
+            {
+              "lat": 48.15472,
+              "lon": 17.14556,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "2700": {
+          "pageid": 2700,
+          "ns": 0,
+          "title": "Brügge",
+          "coordinates": [
+            {
+              "lat": 51.20944,
+              "lon": 3.22,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "2735": {
+          "pageid": 2735,
+          "ns": 0,
+          "title": "Budapest",
+          "coordinates": [
+            {
+              "lat": 47.5,
+              "lon": 19.05,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "30476": {
+          "pageid": 30476,
+          "ns": 0,
+          "title": "Chamonix-Mont-Blanc",
+          "coordinates": [
+            {
+              "lat": 45.91985,
+              "lon": 6.86593,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "2991": {
+          "pageid": 2991,
+          "ns": 0,
+          "title": "Danzig",
+          "coordinates": [
+            {
+              "lat": 54.3557,
+              "lon": 18.6478,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "22283": {
+          "pageid": 22283,
+          "ns": 0,
+          "title": "Gent",
+          "coordinates": [
+            {
+              "lat": 51.05,
+              "lon": 3.71667,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "4361": {
+          "pageid": 4361,
+          "ns": 0,
+          "title": "Krakau",
+          "coordinates": [
+            {
+              "lat": 50.06139,
+              "lon": 19.93833,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "4532": {
+          "pageid": 4532,
+          "ns": 0,
+          "title": "Lissabon",
+          "coordinates": [
+            {
+              "lat": 38.73,
+              "lon": -9.13,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "12167": {
+          "pageid": 12167,
+          "ns": 0,
+          "title": "Maastricht",
+          "coordinates": [
+            {
+              "lat": 50.84917,
+              "lon": 5.68917,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "11736": {
+          "pageid": 11736,
+          "ns": 0,
+          "title": "Málaga",
+          "coordinates": [
+            {
+              "lat": 36.71667,
+              "lon": -4.41667,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "8055": {
+          "pageid": 8055,
+          "ns": 0,
+          "title": "Nizza",
+          "coordinates": [
+            {
+              "lat": 43.70278,
+              "lon": 7.26917,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5247": {
+          "pageid": 5247,
+          "ns": 0,
+          "title": "Paris",
+          "coordinates": [
+            {
+              "lat": 48.85694,
+              "lon": 2.34126,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5337": {
+          "pageid": 5337,
+          "ns": 0,
+          "title": "Poprad",
+          "coordinates": [
+            {
+              "lat": 49.056,
+              "lon": 20.3,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "17932": {
+          "pageid": 17932,
+          "ns": 0,
+          "title": "Siófok",
+          "coordinates": [
+            {
+              "lat": 46.905,
+              "lon": 18.05556,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "6004": {
+          "pageid": 6004,
+          "ns": 0,
+          "title": "Straßburg",
+          "coordinates": [
+            {
+              "lat": 48.58444,
+              "lon": 7.74861,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "6284": {
+          "pageid": 6284,
+          "ns": 0,
+          "title": "Valencia",
+          "coordinates": [
+            {
+              "lat": 39.47667,
+              "lon": -0.37444,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "6532": {
+          "pageid": 6532,
+          "ns": 0,
+          "title": "Zakopane",
+          "coordinates": [
+            {
+              "lat": 49.29811,
+              "lon": 19.95585,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        }
+      }
+    },
+    "limits": {
+      "coordinates": 500
+    }
+  },
+  {
+    "batchcomplete": "",
+    "query": {
+      "pages": {
+        "2395": {
+          "pageid": 2395,
+          "ns": 0,
+          "title": "Athen",
+          "coordinates": [
+            {
+              "lat": 37.97839,
+              "lon": 23.72797,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "2598": {
+          "pageid": 2598,
+          "ns": 0,
+          "title": "Bergen (Norwegen)",
+          "coordinates": [
+            {
+              "lat": 60.38,
+              "lon": 5.34,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "2689": {
+          "pageid": 2689,
+          "ns": 0,
+          "title": "Bozen",
+          "coordinates": [
+            {
+              "lat": 46.49798,
+              "lon": 11.35478,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "3490": {
+          "pageid": 3490,
+          "ns": 0,
+          "title": "Dublin",
+          "coordinates": [
+            {
+              "lat": 53.3425,
+              "lon": -6.26583,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "3522": {
+          "pageid": 3522,
+          "ns": 0,
+          "title": "Edinburgh",
+          "coordinates": [
+            {
+              "lat": 55.95,
+              "lon": -3.22,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "3639": {
+          "pageid": 3639,
+          "ns": 0,
+          "title": "Florenz",
+          "coordinates": [
+            {
+              "lat": 43.78333,
+              "lon": 11.25,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "3958": {
+          "pageid": 3958,
+          "ns": 0,
+          "title": "Helsinki",
+          "coordinates": [
+            {
+              "lat": 60.16667,
+              "lon": 24.93333,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "4061": {
+          "pageid": 4061,
+          "ns": 0,
+          "title": "Interlaken",
+          "coordinates": [
+            {
+              "lat": 46.68333,
+              "lon": 7.86666,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "4347": {
+          "pageid": 4347,
+          "ns": 0,
+          "title": "Kopenhagen",
+          "coordinates": [
+            {
+              "lat": 55.67571,
+              "lon": 12.57875,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "4412": {
+          "pageid": 4412,
+          "ns": 0,
+          "title": "Lagos (Portugal)",
+          "coordinates": [
+            {
+              "lat": 37.09861,
+              "lon": -8.67528,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "4607": {
+          "pageid": 4607,
+          "ns": 0,
+          "title": "Luzern",
+          "coordinates": [
+            {
+              "lat": 47.053,
+              "lon": 8.30785,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5186": {
+          "pageid": 5186,
+          "ns": 0,
+          "title": "Oslo",
+          "coordinates": [
+            {
+              "lat": 59.91383,
+              "lon": 10.73881,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5342": {
+          "pageid": 5342,
+          "ns": 0,
+          "title": "Porto",
+          "coordinates": [
+            {
+              "lat": 41.21569,
+              "lon": -8.56314,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5514": {
+          "pageid": 5514,
+          "ns": 0,
+          "title": "Riga",
+          "coordinates": [
+            {
+              "lat": 56.95,
+              "lon": 24.1,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5516": {
+          "pageid": 5516,
+          "ns": 0,
+          "title": "Rimini",
+          "coordinates": [
+            {
+              "lat": 44.06183,
+              "lon": 12.56646,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "9591": {
+          "pageid": 9591,
+          "ns": 0,
+          "title": "Riva del Garda",
+          "coordinates": [
+            {
+              "lat": 45.88495,
+              "lon": 10.846,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5524": {
+          "pageid": 5524,
+          "ns": 0,
+          "title": "Rom",
+          "coordinates": [
+            {
+              "lat": 41.88333,
+              "lon": 12.48333,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "6000": {
+          "pageid": 6000,
+          "ns": 0,
+          "title": "Stockholm",
+          "coordinates": [
+            {
+              "lat": 59.325,
+              "lon": 18.05,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "6071": {
+          "pageid": 6071,
+          "ns": 0,
+          "title": "Tallinn",
+          "coordinates": [
+            {
+              "lat": 59.43333,
+              "lon": 24.76667,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "28252": {
+          "pageid": 28252,
+          "ns": 0,
+          "title": "Vilnius",
+          "coordinates": [
+            {
+              "lat": 54.68595,
+              "lon": 25.28613,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        }
+      }
+    },
+    "limits": {
+      "coordinates": 500
+    }
+  },
+  {
+    "batchcomplete": "",
+    "query": {
+      "pages": {
+        "26799": {
+          "pageid": 26799,
+          "ns": 0,
+          "title": "Brașov",
+          "coordinates": [
+            {
+              "lat": 45.64196,
+              "lon": 25.58905,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "81794": {
+          "pageid": 81794,
+          "ns": 0,
+          "title": "Kotor",
+          "coordinates": [
+            {
+              "lat": 42.427778,
+              "lon": 18.768611,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "5700": {
+          "pageid": 5700,
+          "ns": 0,
+          "title": "Sarajevo",
+          "coordinates": [
+            {
+              "lat": 43.85,
+              "lon": 18.36667,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "8298": {
+          "pageid": 8298,
+          "ns": 0,
+          "title": "Sofia",
+          "coordinates": [
+            {
+              "lat": 42.69722,
+              "lon": 23.32333,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        },
+        "10450": {
+          "pageid": 10450,
+          "ns": 0,
+          "title": "Thessaloniki",
+          "coordinates": [
+            {
+              "lat": 40.63317,
+              "lon": 22.94562,
+              "primary": "",
+              "globe": "earth"
+            }
+          ]
+        }
+      }
+    },
+    "limits": {
+      "coordinates": 500
+    }
+  }
+]

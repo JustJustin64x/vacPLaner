@@ -1,0 +1,262 @@
+{
+  "checked_at": "2026-10-27T17:07:53+00:00",
+  "request": {
+    "origin": "Berlin",
+    "earliest": "2027-07-01",
+    "latest": "2027-07-31",
+    "min_days": 7,
+    "max_days": 7,
+    "adults": 5,
+    "rooms": 3,
+    "budget": "2000",
+    "interests": {
+      "Wandern": 5,
+      "Baden": 5,
+      "Feiern": 5
+    },
+    "modes": [
+      "Auto",
+      "Zug",
+      "Flug"
+    ],
+    "shortlist": 6
+  },
+  "calls": 14,
+  "results": [
+    {
+      "destination": "Rostock",
+      "start": "2027-07-01",
+      "end": "2027-07-07",
+      "lodgings": [
+        "Hotel Greifennest",
+        "Pentahotel",
+        "Die kleine Sonne",
+        "Scan Hotels City",
+        "Vienna House Sonne",
+        "Casita Maria",
+        "Dünenhotel am Meer",
+        "Hotel Ostseeland"
+      ],
+      "activities": 10,
+      "transports": [
+        "Auto",
+        "Zug",
+        "Flug"
+      ],
+      "cost_summary": {
+        "low": "52.08",
+        "high": "69.43",
+        "status": "Teilsumme",
+        "missing": [
+          "Maut und Vignetten für alle Fahrzeuge",
+          "Parken am Ziel und an der Unterkunft",
+          "Fähren/Autoverlad falls erforderlich",
+          "Unterkunft für Gruppe und Aufenthalt inkl. Pflichtgebühren"
+        ],
+        "budget_delta": null,
+        "budget_ok": null,
+        "coverage": 0.2
+      },
+      "status": "Identitäten recherchiert; Angebote und Belegung unbestätigt"
+    },
+    {
+      "destination": "Kopenhagen",
+      "start": "2027-07-13",
+      "end": "2027-07-19",
+      "lodgings": [
+        "The Huxley Copenhagen",
+        "The Square",
+        "Scandic Webers",
+        "Copenhagen Admiral Hotel",
+        "Hotel Copenhagen",
+        "Ibsens Hotel",
+        "Moxy Copenhagen Sydhavnen",
+        "Bella Sky Comwell"
+      ],
+      "activities": 3,
+      "transports": [
+        "Auto",
+        "Zug",
+        "Flug"
+      ],
+      "cost_summary": {
+        "low": "169.56",
+        "high": "226.08",
+        "status": "Teilsumme",
+        "missing": [
+          "Maut und Vignetten für alle Fahrzeuge",
+          "Parken am Ziel und an der Unterkunft",
+          "Fähren/Autoverlad falls erforderlich",
+          "Unterkunft für Gruppe und Aufenthalt inkl. Pflichtgebühren"
+        ],
+        "budget_delta": null,
+        "budget_ok": null,
+        "coverage": 0.2
+      },
+      "status": "Identitäten recherchiert; Angebote und Belegung unbestätigt"
+    },
+    {
+      "destination": "Split",
+      "start": "2027-07-25",
+      "end": "2027-07-31",
+      "lodgings": [
+        "Hotel Jadran",
+        "Hotel Peristil",
+        "Hotel Luxe Split",
+        "Hotel Park",
+        "Hotel President",
+        "Hotel Globo",
+        "Hotel Consul",
+        "Hotel Atrium"
+      ],
+      "activities": 0,
+      "transports": [
+        "Zug",
+        "Flug"
+      ],
+      "cost_summary": {
+        "low": "0.00",
+        "high": "0.00",
+        "status": "Teilsumme",
+        "missing": [
+          "Zug für gesamte Gruppe hin und zurück",
+          "Zubringer und Unterkunftstransfers hin und zurück",
+          "Unterkunft für Gruppe und Aufenthalt inkl. Pflichtgebühren"
+        ],
+        "budget_delta": null,
+        "budget_ok": null,
+        "coverage": 0.0
+      },
+      "status": "Identitäten recherchiert; Angebote und Belegung unbestätigt"
+    },
+    {
+      "destination": "Danzig",
+      "start": "2027-07-01",
+      "end": "2027-07-07",
+      "lodgings": [
+        "Mercure Gdansk Stare Miasto",
+        "Hampton by Hilton Gdansk Old Town",
+        "Hilton Gdansk",
+        "Królewski Hotel Gdańsk",
+        "Radisson Hotel & Suites Gdansk",
+        "Holiday Inn Gdansk City Centre",
+        "Novotel Gdansk Centrum",
+        "Villa Angela"
+      ],
+      "activities": 1,
+      "transports": [
+        "Auto",
+        "Zug",
+        "Flug"
+      ],
+      "cost_summary": {
+        "low": "116.93",
+        "high": "155.91",
+        "status": "Teilsumme",
+        "missing": [
+          "Maut und Vignetten für alle Fahrzeuge",
+          "Parken am Ziel und an der Unterkunft",
+          "Fähren/Autoverlad falls erforderlich",
+          "Unterkunft für Gruppe und Aufenthalt inkl. Pflichtgebühren"
+        ],
+        "budget_delta": null,
+        "budget_ok": null,
+        "coverage": 0.2
+      },
+      "status": "Identitäten recherchiert; Angebote und Belegung unbestätigt"
+    },
+    {
+      "destination": "Nizza",
+      "start": "2027-07-13",
+      "end": "2027-07-19",
+      "lodgings": [
+        "Hotel Negresco",
+        "Hotel Anis",
+        "Hotel West End",
+        "Hotel Goldstar Resort & Suites Nizza"
+      ],
+      "activities": 3,
+      "transports": [
+        "Zug",
+        "Flug"
+      ],
+      "cost_summary": {
+        "low": "0.00",
+        "high": "0.00",
+        "status": "Teilsumme",
+        "missing": [
+          "Zug für gesamte Gruppe hin und zurück",
+          "Zubringer und Unterkunftstransfers hin und zurück",
+          "Unterkunft für Gruppe und Aufenthalt inkl. Pflichtgebühren"
+        ],
+        "budget_delta": null,
+        "budget_ok": null,
+        "coverage": 0.0
+      },
+      "status": "Identitäten recherchiert; Angebote und Belegung unbestätigt"
+    },
+    {
+      "destination": "Zell am See",
+      "start": "2027-07-25",
+      "end": "2027-07-31",
+      "lodgings": [],
+      "activities": 2,
+      "transports": [
+        "Auto",
+        "Zug",
+        "Flug"
+      ],
+      "cost_summary": {
+        "low": "173.90",
+        "high": "231.87",
+        "status": "Teilsumme",
+        "missing": [
+          "Maut und Vignetten für alle Fahrzeuge",
+          "Parken am Ziel und an der Unterkunft",
+          "Fähren/Autoverlad falls erforderlich",
+          "Unterkunft für Gruppe und Aufenthalt"
+        ],
+        "budget_delta": null,
+        "budget_ok": null,
+        "coverage": 0.2
+      },
+      "status": "Teilergebnis"
+    },
+    {
+      "destination": "Innsbruck",
+      "start": "2027-07-01",
+      "end": "2027-07-07",
+      "lodgings": [
+        "Stage 12 - Hotel by Penz",
+        "Hotel Mondschein",
+        "AC Hotel by Marriott Innsbruck",
+        "Absteige",
+        "Riedz Apartments",
+        "ibis Innsbruck Hotel",
+        "Rooms S14",
+        "Hotel Leipziger Hof"
+      ],
+      "activities": 4,
+      "transports": [
+        "Auto",
+        "Zug",
+        "Flug"
+      ],
+      "cost_summary": {
+        "low": "170.42",
+        "high": "227.23",
+        "status": "Teilsumme",
+        "missing": [
+          "Maut und Vignetten für alle Fahrzeuge",
+          "Parken am Ziel und an der Unterkunft",
+          "Fähren/Autoverlad falls erforderlich",
+          "Unterkunft für Gruppe und Aufenthalt inkl. Pflichtgebühren"
+        ],
+        "budget_delta": null,
+        "budget_ok": null,
+        "coverage": 0.2
+      },
+      "status": "Identitäten recherchiert; Angebote und Belegung unbestätigt"
+    }
+  ]
+}

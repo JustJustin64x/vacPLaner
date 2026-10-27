@@ -1,151 +1,126 @@
-# Modulares Urlaubsplanungs-Tool (Clean Architecture Reiseplanungs-Aggregator)
+# Lokaler Überraschungsreise-Planer
 
-Ein robustes, entkoppeltes und modulares Reiseplanungs-Tool, das Reisedaten aus verschiedenen externen Quellen aggregiert und validierte, bezugsfertige Urlaubspakete generiert.
+Native deutsche Desktop-Anwendung für **ein europäisches Reiseziel**, ohne Zielvorgabe und ohne laufende API-/Hosting-/KI-Kosten. Sie findet reale Ziele, liest reale Unterkunfts-/Aktivitätseinträge, berechnet Straßenrouten, vergleicht transparente Teilsummen und speichert Reisen lokal mit PDF-Export.
 
-[![Continuous Integration](https://img.shields.io/badge/tests-29%20passed-brightgreen.svg)]()
-[![Architecture](https://img.shields.io/badge/Architecture-Clean%20Architecture-blue.svg)]()
-[![Python](https://img.shields.io/badge/Python-3.9+-yellow.svg)]()
+**Stand 28.10.2026 (Live-Quellenprüfung vom 27.10.):** Der durchgängige Rechercheablauf funktioniert. Ein vollständiger Live-Preisvergleich für Hotels, Bahn und Flüge ist **nicht umgesetzt**: Die geprüften Null-Euro-Zugänge liefern dafür keinen geeigneten nachgewiesenen Zugang. Eine Geodaten-/Reiseführeridentität ist kein verfügbares Angebot. Die Anwendung zeigt diese Lücken ausdrücklich, bestätigt bei unvollständigen Preisen kein Budget und erfindet keine Angebote.
 
----
+## Start auf diesem Mac
 
-## 1. Kernziel
-Die Anwendung aggregiert Reisedaten aus unterschiedlichen Verkehrsmodi (Flug, Bahn, Auto), Unterkunftsdaten und Sehenswürdigkeiten, um komplette Urlaubsrouten zu erstellen. Das System kombiniert Startort, Zielort und Reisedaten zu fertigen Paketen aus Transport und Übernachtung inklusive Budget- und Zeitplan-Validierung.
+Die aktuelle Laufzeit ist bereits unter `.venv` eingerichtet (Python 3.13 / Tk 9.1).
 
----
-
-## 2. Architektur & Design-Prinzipien (Strikte Einhaltung)
-
-Das System folgt strikt der **Clean Architecture** (Robert C. Martin) mit Inversion of Control und absoluter Unabhängigkeit des fachlichen Kerns:
-
-```
-src/vacation_planner/
-├── core/                               # Fachlicher Kern (ISOLIERT, ZERO DEPENDENCIES)
-│   ├── domain/
-│   │   ├── models/                    # Entitäten und Aggregate Roots
-│   │   │   ├── Location.py
-│   │   │   ├── Attraction.py
-│   │   │   ├── TransportOption.py
-│   │   │   ├── AccommodationOption.py
-│   │   │   ├── VacationSearchCriteria.py
-│   │   │   └── VacationPackage.py
-│   │   └── value_objects/             # Unveränderliche Wertobjekte
-│   │       ├── TransportType.py
-│   │       ├── AccommodationType.py
-│   │       ├── MonetaryAmount.py
-│   │       ├── GeographicCoordinates.py
-│   │       ├── DateRange.py
-│   │       └── RouteSegment.py
-│   ├── interfaces/                    # Ports (Abstrakte Schnittstellenverträge)
-│   │   ├── TransportGatewayInterface.py
-│   │   ├── AccommodationGatewayInterface.py
-│   │   ├── LocationGatewayInterface.py
-│   │   └── PackageRepositoryInterface.py
-│   └── use_cases/                     # Anwendungsfall-Logik & Domänenservices
-│       ├── CostCalculationService.py
-│       ├── TravelPackageAggregatorService.py
-│       └── GetVacationPackageDetailsUseCase.py
-│
-├── infrastructure/                    # Externe Adapter & Scraper/APIs
-│   ├── adapters/
-│   │   ├── transport/                 # Flug-, Bahn- & Pkw-Adapter
-│   │   │   ├── FlightTransportAdapter.py
-│   │   │   ├── TrainTransportAdapter.py
-│   │   │   ├── CarRouteTransportAdapter.py
-│   │   │   └── CompositeTransportAdapter.py
-│   │   ├── accommodation/             # Hotel-, Apartment- & Hostel-Adapter
-│   │   │   └── HotelAccommodationAdapter.py
-│   │   ├── location/                  # Geocoding & Attraktionen
-│   │   │   ├── GeographicLocationAdapter.py
-│   │   │   ├── LocalAttractionAdapter.py
-│   │   │   └── CompositeLocationGatewayAdapter.py
-│   │   └── persistence/               # Thread-sichere Ablage
-│   │       └── InMemoryPackageRepository.py
-│   └── mappers/                       # Explizite Daten-Mapper mit Inline-Dokumentation
-│       ├── FlightDataMapper.py
-│       ├── TrainDataMapper.py
-│       ├── CarRouteDataMapper.py
-│       ├── HotelAccommodationDataMapper.py
-│       ├── GeographicLocationDataMapper.py
-│       └── AttractionDataMapper.py
-│
-└── entrypoints/                       # Primäre Einfallstore (Backend als Vermittler)
-    ├── web/                           # REST Web API
-    │   ├── VacationPackageDtoMapper.py
-    │   ├── VacationPlannerHttpHandler.py
-    │   └── VacationPlannerHttpServer.py
-    └── cli/                           # Interaktive Terminal-Anwendung
-        └── VacationPlannerCliApplication.py
-```
-
-### Strikte Architektur-Vorgaben:
-1. **Core-Isolierung:** Die Core-Schicht hat **keine** Abhängigkeiten zu externen Frameworks oder APIs. Sie verwendet ausschließlich die Python-Standardbibliothek (`decimal`, `datetime`, `math`, `typing`, `abc`, `uuid`).
-2. **Backend als Vermittler:** Alle externen Datenquellen (Fluggesellschaften, Bahngesellschaften, Routing-Engines, Unterkunftsdatenbanken, Geodaten) werden ausschließlich über die Infrastructure-Schicht des Backends konsumiert. Das Frontend führt **keine** direkten Drittanbieter-Aufrufe aus.
-3. **Strikte Dateitrennung:** Genau eine Klasse bzw. Struktur pro Datei.
-4. **Explizite Namensgebung:** Keine kryptischen Abkürzungen (`GeographicCoordinates` statt `GeoCoord`, `MonetaryAmount` statt `MoneyVal`).
-5. **Keine Platzhalter:** Sämtliche Entfernungsberechnungen (Haversine-Formel), Währungskalkulationen (`Decimal`), Zeitpläne, Umstiegszähler und CO2-Emissionsmodelle sind vollständig und mathematisch korrekt implementiert.
-
----
-
-## 3. Funktions-Roadmap
-
-- **Transport-Modul:** Berechnung und Integration von Flügen (inkl. Layover/Flugsegmenten), Zugverbindungen (ICE, TGV, Umstiege) und Straßenrouten (Entfernung, Maut, Benzinverbrauch, CO2-Bilanz).
-- **Unterkunfts-Modul:** Dynamische Preisberechnung für Hotels, Ferienwohnungen, Hostels und Resorts basierend auf der Aufenthaltsdauer (`calculate_total_nights()`) und Ausstattungsmerkmalen.
-- **Lokations-Modul:** Auflösung von Geokoordinaten und automatische Anreicherung von Sehenswürdigkeiten und Freizeitaktivitäten am Zielort.
-- **Aggregator-Service:** Kernlogik zur Synchronisation von Hinreise, Rückreise und Hotel-Check-in/Check-out sowie Prüfung der Budget-Vorgaben.
-
----
-
-## 4. Ausführung & Schnelleinstieg
-
-### A. Starten des visuellen Dashboards (Standard)
-Das Programm öffnet standardmäßig direkt ein grafisches Fenster:
 ```bash
-python3 main.py
+cd /Users/justinzimmermann/Documents/vacPLaner
+./Urlaubsplaner.command
 ```
-*Funktionen des Dashboards:*
-- **✈️ Urlaubsplaner & Pakete:** Interaktive Paketsuche, Filterung, Budgetprüfung und Detailansicht.
-- **🚆 Transport-Modul:** Isolierter Vergleich von Flügen, Bahn- und Pkw-Verbindungen.
-- **🏨 Unterkunfts-Modul:** Recherche im Unterkunftsbestand mit Ausstattungsmerkmalen und Preisen pro Nacht.
-- **📍 Lokations- & Attraktionen-Modul:** Geodaten, Koordinaten und Sehenswürdigkeiten am Zielort.
-- **💾 Gespeicherte Pakete:** Inspektor für persistierte Reisepakete.
-- **Automatische Erweiterbarkeit:** Zukünftige Modul-Views, die in `src/vacation_planner/entrypoints/gui/views/` abgelegt werden, werden per Auto-Discovery beim Start automatisch als neuer Tab eingefügt.
 
-### B. Ausführung der Testsuite
+Alternativ:
+
 ```bash
-python3 -m unittest discover -s tests -p "test_*.py"
+.venv/bin/python main.py
 ```
-*Ergebnis: 31 Tests (Unit-, Integrations- und GUI-Tests), 100 % Erfolgsquote.*
 
-### C. Interaktive CLI-Nutzung
+Doppelklick auf `Urlaubsplaner.command` startet ebenfalls den Planer. `python3 main.py` nutzt automatisch die vorhandene Projektumgebung, wenn es mit dem System-Python aufgerufen wird.
+
+Für eine neue Installation:
+
 ```bash
-python3 main.py --cli --origin Berlin --destination Paris --start-date 2026-07-01 --end-date 2026-07-07 --budget 1200 --travelers 2
+bash scripts/setup-macos.sh
 ```
 
-### D. Starten des REST Web API Servers
+Das Skript benötigt Homebrew und installiert `python-tk@3.13` sowie die Python-Abhängigkeiten aus PyPI. Es überschreibt keine vorhandene inkompatible virtuelle Umgebung. Alternativ ein aktuelles Python mit Tk von python.org verwenden, `.venv` erstellen und `pip install -r requirements.txt` ausführen. Laufzeit: Python **3.10+**, Tk **8.6+**, `curl`; auf diesem Mac tatsächlich geprüft: Python 3.13.18/Tk 9.1. Apples Python 3.9/Tk 8.5 erzeugte bei der visuellen Prüfung ein leeres Fenster und wird für die neue GUI bewusst abgewiesen. Ein anderer ttk-Stil allein behebt diesen Laufzeitfehler nicht.
+
+**API-Schlüssel:** keine erforderlich oder unterstützt. openrouteservice, DB- und Booking-Schlüssel sind nicht notwendig; dafür existieren in dieser Version keine aktivierten Adapter.
+
+## Benutzung
+
+1. Reisezeitraum mit explizitem Jahr, Kalendertage, Erwachsene, Zimmer und Gruppenbudget eingeben. Kein Ziel nötig. Leere Länder-/Regionsfelder bedeuten die gesamte unterstützte Auswahl.
+2. Interessen und Vergleichsgewichte anpassen. Nullgewichte werden sinnvoll behandelt. Auto, Zug und Flug einzeln aktivieren; Fahrzeugkapazität muss reichen. Ausstattung als Wunsch oder Pflicht wählen: unbekannte Pflichtausstattung wird nicht als erfüllt angenommen.
+3. **Reiseziele entdecken** starten. Während der Recherche bleiben Fenster und Filter bedienbar. Phasen, bearbeitete Ziele, echte Abfragen, Laufzeit und Quellenprobleme werden angezeigt. Abbrechen bewahrt bereits angezeigte Ergebnisse.
+4. Ziel auswählen; Unterkunft und Hin-/Rückreisemittel wechseln. Reisebasis, Bewertung und Hinweise aktualisieren sich. Beide Autofahrten bleiben gekoppelt.
+5. **Reise speichern**, später im Reiter **Gespeicherte Reisen** öffnen, ändern, duplizieren oder löschen. Neue Filter werden bei einer neuen Suche verwendet; sie schreiben eine bestehende konkrete Reise nicht stillschweigend um.
+6. **PDF exportieren** öffnet den lokalen Speichern-Dialog. Enthalten sind gewählte Optionen, Alternativen, Gruppenbezug, Kostenlücken, Aktivitäten, Quellenlinks und Abrufzeiten.
+
+Links zu Anbietern öffnen sich nur auf Klick im Browser. Für die Recherche und Verwaltung ist kein separat zu bedienender Browser nötig. „Mehrere Ziele“ ist sichtbar, aber deaktiviert.
+
+## Was die Zahlen bedeuten
+
+- Sieben **Kalendertage** sind sechs **Übernachtungen**. Alle vorgeschlagenen Datumsoptionen passen in den Zeitraum. Drei Datumsstichproben bedeuten keine Suche nach dem global günstigsten Termin.
+- Die Reisebasis umfasst Hin-/Rückreise, relevante Nebenkosten und Unterkunft für die ganze Gruppe. Verpflegung und Aktivitäten stehen separat und werden nicht im Gruppenbudget verrechnet.
+- Benzin wird aus echten Hin-/Rückstraßenkilometern × Verbrauch × EUR/Liter × Fahrzeuganzahl berechnet. Die sichtbare Verbrauchsspanne beträgt −10/+20 %. Verbrauch und Benzinpreis sind editierbare Nutzereingaben, keine aktuellen Marktpreise.
+- Maut/Vignetten, Parken, mögliche Fähren, Hotelpreis und Pflichtgebühren bleiben ohne Beleg **unbekannt**. Die sichtbare **Teilsumme** ist kein vollständiger Reisepreis. Alle Geldberechnungen verwenden `Decimal` und Cent-Rundung.
+- Autozeiten sind Routingmodell plus ausgewiesene Pausen-/Zugangsannahmen und Zeitreserve. Keine Live-Verkehrsprognose. Die genaue Startadresse bleibt lokal; gerechnet wird ab Ortszentrum. Hotelzufahrt fehlt. Bei über 16 Stunden oberer Schätzung wird Auto wegen möglicher Zwischenübernachtung aus der Ein-Ziel-Auswahl genommen. Hin- und Rückreise per Zug/Flug sind derzeit ausschließlich unbestätigte Rechercheoptionen mit Links.
+- „Belegung [2, 2, 1]“ ist bei fünf Erwachsenen/drei Zimmern die gewünschte Zimmerverteilung, **kein Nachweis**, dass eine genannte Unterkunft diese Zimmer frei hat. Auch Campingausrüstung, Stellplätze und Belegung werden nicht vorausgesetzt.
+- Fehlende Preise/Zeitdaten erhalten im Ranking keinen Billigkeits-/Schnelligkeitsbonus. Gewichte werden normalisiert; alles null ergibt vier gleiche Gewichte. Interessen sind redaktionelle grobe Themenkennzeichen, Komfort eine ausdrücklich benannte Annahme. Keine Klimavorhersage oder KI.
+
+## Geografische Abdeckung und Abfragegrenzen
+
+65 quellenbasierte Orte in 29 Ländern: Deutschland, Tschechien, Österreich, Slowenien, Kroatien, Ungarn, Polen, Slowakei, Niederlande, Belgien, Frankreich, Spanien, Portugal, Italien, Schweiz, Dänemark, Schweden, Norwegen, Finnland, Estland, Lettland, Litauen, Vereinigtes Königreich, Irland, Griechenland, Rumänien, Bulgarien, Bosnien und Herzegowina, Montenegro.
+
+Das ist eine begrenzte Europaauswahl, keine vollständige Länder-/Regionsabdeckung. Alle Ortsseiten und Quellkoordinaten wurden live überprüft. Einzelne Reiseführer haben wenige oder keine maschinenlesbaren Unterkünfte. Untergeordnete Stadtteilartikel werden nicht rekursiv durchsucht. Die vollständige Liste steht in [destinations.json](src/vacation_planner/infrastructure/planning/data/destinations.json) und in der Oberfläche unter „Unterstützte Länder und Regionen“.
+
+Standard: sechs Ziele mit mindestens zwei Unterkunftsidentitäten, bei Lücken maximal drei weitere Ziele, drei Datumsstichproben, 24 HTTP-Aufrufe und fünf Minuten. Obergrenzen: 12 Hauptziele plus drei Reserven, 40 Aufrufe und zehn Minuten. Reihenfolge berücksichtigt Interessen und Luftliniennähe **nur zur Vorauswahl**, nie als Straßenroute; die ersten Kandidaten werden über Länder verteilt. Ein Worker, mindestens 1,1 s je Host, 22 s pro Abruf, keine Sperrumgehung/automatische Wiederholungen. Ortsdaten werden sieben Tage, Geocoding 30 Tage gecacht.
+
+[Quellenprüfung mit Zugang, Lizenz, Limits und tatsächlichen Integrationstests](docs/DATENQUELLEN.md) · [Datenlizenzen](docs/DATENLIZENZEN.md) · [Katalogprüfprotokoll](docs/KATALOGPRUEFUNG.json).
+
+## Speicherung und Konfiguration
+
+Standarddatenbank:
+
+```text
+~/Library/Application Support/Urlaubsplaner/trips.sqlite3
+```
+
+Versioniertes SQLite-Schema (`user_version=1`), versionierte JSON-Reise-Snapshots, getrennte Cache-Tabelle, kurze Verbindungen mit expliziter Freigabe. Gespeichert werden Suchkriterien, konkrete Daten, Auswahl, Alternativen, Kostenstatus und ursprüngliche Quellenzeitpunkte. Keine Cloud-Synchronisation. Keine Schlüssel in Datenbank, PDF, Logs oder Git.
+
+Optionale Umgebungsvariablen:
+
+| Variable | Zweck |
+|---|---|
+| `VACATION_PLANNER_DB` | Eigener lokaler Datenbankpfad, etwa für Tests |
+| `VACATION_ROUTING_URL` | Austauschbarer kompatibler kostenloser OSRM-Endpunkt; Standard FOSSGIS |
+| `VACATION_GEOCODING_URL` | Austauschbarer kompatibler kostenloser Nominatim-Endpunkt |
+
+Keine beliebigen kostenpflichtigen Dienste konfigurieren. Die öffentliche Nominatim-Instanz wird bewusst nur für einzelne benutzerausgelöste Startortsuchen genutzt: keine Adressenübertragung, kein Autocomplete oder Bulk, identifizierender User-Agent, Cache und max. eine Abfrage/Sekunde. [Verbindliche Nutzungsregeln](https://operations.osmfoundation.org/policies/nominatim/).
+
+## Tests und reproduzierbare Abnahme
+
 ```bash
-python3 main.py --serve --port 8080
+.venv/bin/python -m pip install -r requirements-dev.txt
+.venv/bin/python -m unittest discover -s tests -p 'test_*.py'
 ```
 
-#### API Endpunkte:
-- **`GET /api/v1/health`**: Health Check
-- **`POST /api/v1/packages/search`**: Sucht und generiert Urlaubspakete
-  ```bash
-  curl -X POST http://127.0.0.1:8080/api/v1/packages/search \
-    -H "Content-Type: application/json" \
-    -d '{
-      "origin": "Berlin",
-      "destination": "Paris",
-      "start_date": "2026-07-01",
-      "end_date": "2026-07-07",
-      "maximum_budget": 1500.0,
-      "number_of_travelers": 2,
-      "allowed_transport_types": ["FLIGHT", "TRAIN", "CAR"]
-    }'
-  ```
-- **`GET /api/v1/packages/{package_id}`**: Ruft Paketdetails anhand der ID ab.
+72 Tests bestanden (32 unveränderte bestehende Tests plus 40 neue Tests), einschließlich Kosten/Gruppen/Fahrzeuge, Preisstatus, Budget ohne Extras, Tage/Nächte, Datumsstichproben, Gewichtung, Pflichtfilter, Parser/Deduplizierung, Quoten, Abbruch, Zeitzonen, SQLite-Neuöffnung und Desktop-Callbacks einschließlich PDF. Livezugriffe sind **nicht** Bestandteil der deterministischen Tests. GUI-Tests der neuen Oberfläche benötigen modernes Tk und eine Desktop-Sitzung.
 
----
+Separater echter Quellen-/Suchtest:
 
-## 5. Entwicklungs-Log
-Gemäß Anforderung wird jede ausgeführte Aktion lückenlos in [`PROJECT_LOG.md`](PROJECT_LOG.md) chronologisch protokolliert.
+```bash
+PYTHONPATH=. .venv/bin/python scripts/live_check.py
+```
 
+Ergebnis unter `tmp/live-check/report.json`; keine periodische Überwachung. Die Beispielwerte stehen in [docs/beispielsuche.json](docs/beispielsuche.json): Berlin, Europa, fünf Erwachsene, drei Zimmer, 2.000 EUR, Wandern/Baden/Feiern, **Juli 2027**, sieben Kalendertage/sechs Nächte, Auto/Zug/Flug. Das Skript wählt bei späterer Ausführung den nächsten zukünftigen Juli. Die Standardoberfläche speichert diese Testwerte nicht als persönliche Vorgaben.
+
+Echte JSON-Suche ohne GUI:
+
+```bash
+.venv/bin/python main.py --search-json docs/beispielsuche.json > ergebnisse.json
+```
+
+Fortschritt auf stderr, Ergebnis auf stdout. [Abnahme und Einschränkungen](docs/ABNAHME.md) dokumentieren den tatsächlichen Lauf sowie die visuelle Prüfung.
+
+## Architektur und früherer Democode
+
+Der neue Produktionspfad liegt in `core/planning` (Modelle, Providervertrag, Suche, Kosten, Ranking), `infrastructure/planning` (HTTP, Katalog, quellspezifischer Parser, Routing, SQLite, PDF) und `entrypoints/gui/SurprisePlannerApplication.py` (Tkinter). Der Core importiert nur Standardbibliothek und vorhandene Domänenlogik, keine GUI oder externen Bibliotheken. Die bestehende Haversine-Domänenlogik wird weiterverwendet. Geld und Kalenderdaten werden ausdrücklich behandelt.
+
+Die früheren Adapter erzeugen simulierte Flug-/Bahn-/Hotelangebote. Sie bleiben für historische Tests erhalten und sind über den normalen Start nicht erreichbar. Zum expliziten Demobetrieb:
+
+```bash
+.venv/bin/python main.py --demo
+.venv/bin/python main.py --demo --cli
+.venv/bin/python main.py --demo --serve
+```
+
+`--cli` und `--serve` ohne `--demo` werden abgewiesen. Im Demofenster steht ein deutlicher Titelhinweis. Die alten API-Tests belegen weiterhin ausschließlich den Demopfad, keinen Livezugang.
+
+## Verbleibende Grenzen
+
+Keine bestätigten Hotel-/Flug-/Bahnpreise oder Verfügbarkeiten, keine europäischen datierten Bahnverbindungen, keine bestätigte Zimmerbelegung, keine zuverlässigen datierten Veranstaltungen. Ausstattung bleibt bei der derzeitigen Quelle überwiegend unbekannt; harte Ausstattungsfilter können deshalb keine Ergebnisse liefern. Guide-Einträge können veraltet sein. Ein vollständig buchbares Gesamtpaket und ein belegter Preis-Sieger sind damit **nicht** abgenommen. Keine Kinder, Rundreise, Buchung/Zahlung, Wetterprognose oder Währungsumrechnung ohne belegte Fremdwährungsangebote.

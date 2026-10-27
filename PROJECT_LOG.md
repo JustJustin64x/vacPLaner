@@ -217,3 +217,39 @@ Dieses Dokument dient als lückenloser, auditierbarer Entwicklungs- und Architek
 - **Ergebnis:**
   - Das Dashboard-Fenster rendert ab sofort gestochen scharf, hochkontrastreich und vollständig sichtbar im modernen Look.
   - Testsuite auf 32 Tests erweitert (100 % bestanden).
+
+
+---
+
+## Schritt 9: Behebung des macOS Dark-Mode-Rendering-Problems im Visuellen Dashboard
+- **Problem-Diagnose:**
+  - Auf macOS-Systemen im Dark Mode führt das in Python 3.9 enthaltene Apple-System-Tkinter (Tk 8.5) bei Verwendung des Standard-Themas `aqua` zu einem vollständigen Zeichenfehler: Da die Cocoa/Carbon-Zeichenroutinen von Tk 8.5 älter als macOS Mojave (Einführung des Dark Mode) sind, rendert `aqua` alle `ttk`-Widgets transparent oder schwarz auf schwarzem Fensterhintergrund (`systemWindowBody`), wodurch das geöffnete Fenster komplett leer/schwarz erschien.
+- **Durchgeführte Behebungsmaßnahmen:**
+  1. `DashboardThemeManager.py` (`entrypoints/gui/DashboardThemeManager.py`) implementiert:
+     - Erzwingt die native Vektor-Rendering-Engine `clam` anstelle des fehlerhaften Apple-`aqua`-Themas, wodurch das Rendering betriebssystemweit und unabhängig von macOS-Dark-/Light-Mode-Einstellungen 100 % stabil und plattformunabhängig erfolgt.
+     - Definiert eine durchgängige, moderne Farbpalette (Hintergrund `#181824`, Karten `#222533`, Akzente `#3b82f6` und `#38bdf8`, kontrastreiche Typografie `#f8fafc`).
+     - Gestaltet explizit alle `ttk`-Komponenten: `TFrame`, `TLabelframe`, `TLabel`, `TButton`, `TNotebook`, `TNotebook.Tab`, `Treeview`, `Treeview.Heading`, `TCombobox`, `TEntry`, `TSpinbox`, `TCheckbutton` und Scrollbars.
+     - Stellt mit `style_text_widget()` sicher, dass auch Standard-`tk.Text`-Elemente (die nicht automatisch von `ttk.Style` erfasst werden) mit dunklem Hintergrund (`#12131d`) und hellem Text formatiert werden.
+  2. Integration in `VacationPlannerDashboardApplication.py` und alle 5 Views:
+     - `DashboardApplicationContext` stellt den `theme_manager` zentral bereit.
+     - Alle Views nutzen jetzt die `Card.TLabel`- und `Card.TFrame`-Stile sowie abwechselnde Zeilenfarben (`evenrow`/`oddrow`) in den Ergebnistabellen.
+  3. Neuer Unit-Test `tests/unit/test_dashboard_theme_manager.py` hinzugefügt.
+- **Ergebnis:**
+  - Das Dashboard-Fenster rendert ab sofort gestochen scharf, hochkontrastreich und vollständig sichtbar im modernen Look.
+  - Testsuite auf 32 Tests erweitert (100 % bestanden).
+
+
+---
+
+## Schritt 10: Lokaler Überraschungsreise-Planer – Umsetzung 27.10., Abschlussprüfung 28.10.2026
+
+- **Ausgangslage und Bestandsschutz:** Entwicklungsauftrag, README, Projektstruktur und Git-Status untersucht; 32 vorhandene Tests bestanden. Bereits vorhandene uncommittete Änderungen in diesem Log, `DashboardThemeManager.py`, dessen Test und die ungetrackte Auftragsdatei bewahrt. Keine Rücksetzung, kein Commit und kein Push.
+- **Quellen-Machbarkeit:** Offizielle Dokumentation und Regeln für Wikivoyage/Wikidata, OSM/Overpass/Nominatim, FOSSGIS/OSRM, ORS, Booking, CHECK24, Trivago, DB, Amadeus und Bled-Tourismus geprüft. Echte Ortsdaten, Reiseführereinträge und Straßenrouten abgerufen. Overpass lieferte HTTP 406; keine Sperrumgehung. Nicht nachgewiesene oder potenziell zahlungspflichtige Livepreiszugänge bleiben deaktiviert. Ergebnisse samt Lizenz, Datum, Limits und Fallback in `docs/DATENQUELLEN.md` und `docs/DATENLIZENZEN.md` festgehalten.
+- **Produktionsarchitektur:** Getrennte Modelle/Providerverträge, Suchkontext, Zielsuche, Kosten-/Rankinglogik in `core/planning`; HTTP, Katalog, quellspezifischer Wikivoyage-Parser, OSRM, SQLite und PDF in `infrastructure/planning`. Vorhandene geografische Domänenlogik weiterverwendet. Simulationen nur noch über explizites `--demo`; normale Desktop-/JSON-Suche nutzt den neuen Pfad.
+- **Suche und Datenqualität:** 65 quellengeprüfte Ziele in 29 Ländern; begrenzte Vorauswahl, Datumsstichproben und drei Reserveziele bei Unterkunftslücken. Gruppen-/Zimmerbezug, Fahrzeugkapazität, Tage/Nächte, normalisierte Gewichte, harte Pflichtfilter und transparente Kostenlücken implementiert. Keine erfundenen Verfügbarkeiten, Hotel-/Bahn-/Flugpreise. Parkeinträge nicht pauschal als Wandermöglichkeiten eingestuft; unbedingter kostenloser Eintritt benötigt ausdrücklichen Quellenhinweis.
+- **Desktop:** Deutsche Eingaben, Interessen, Details, Ergebnisvergleich, Unterkunfts-/Transportwechsel mit Neuberechnung, laufende Phasen/Abfragen/Zeit, Abbruch und Schutz vor verspäteten Ergebnissen umgesetzt. Einzelner Hintergrundworker mit seriellen, begrenzten HTTPS-Abrufen; curl-Unterprozesse werden bei Abbruch beendet.
+- **Laufzeitkorrektur:** Echte Bildschirmprüfung widerlegte die frühere pauschale Aussage, das Theme behebe das System-Tk-Problem vollständig: Apples Tk 8.5 zeigte weiterhin ein leeres Fenster. Python 3.13.18/Tk 9.1 über Homebrew eingerichtet, Projektumgebung erstellt und sichtbar funktionierende Oberfläche geprüft. Nutzeränderungen am Theme unverändert belassen. Startdatei `Urlaubsplaner.command`, Setup-Skript und Runtime-Prüfung ergänzt.
+- **Speicherung:** SQLite mit versioniertem Schema, getrenntem Cache und versionierten Reise-Snapshots. Benennen, Laden, Änderungen, Duplizieren und Löschen implementiert. Verbindungen ausdrücklich geschlossen; Wiederherstellung eines echten gespeicherten Vorschlags zusätzlich in einem neuen Python-Prozess geprüft.
+- **PDF:** Lokaler Speichern-Dialog, Gruppenbezug, ausgewählte Optionen und Alternativen, Kostenstatus, Aktivitäten, Quellen-/Anbieterlinks und Zeitstempel. Finale Rostock-Beispieldatei aus echtem Suchlauf: neun Seiten, 56 Links; alle Seiten gerendert und visuell auf Lesbarkeit, Umlaute, Umbruch und Ränder geprüft.
+- **Tests:** 72 Tests bestanden, davon 32 bestehende und 40 neue. Fachlogik, Parser, Ausfälle, Quoten, Abbruch, Zeitzonen, Persistenz und Desktop-Callbacks einschließlich PDF geprüft; keine ResourceWarnings im strengen Prüflauf. Separater Live-Suchlauf am 27.10.2026, 18:07 CET: 14 HTTP-Abfragen, sieben Ziele; sechs mit mehreren Unterkunftsidentitäten, Zell am See als Teilergebnis. Öffentlicher Testbericht in `docs/LIVE_TEST_2026-10-27.json`.
+- **Dokumentation und tatsächlicher Abschlussstand:** README vollständig auf den realen Stand gebracht; `docs/ABNAHME.md` ergänzt. Kein vollständiger Livepreisvergleich, keine bestätigte Zimmerbelegung oder datierten Bahn-/Flugverbindungen. Der nutzbare Recherche-/Speicher-/PDF-Ablauf ist fertiggestellt, die vollständige Abnahme eines buchbaren Gesamtangebots ausdrücklich nicht erreicht. Keine laufenden Dienstkosten oder Schlüssel erforderlich.

@@ -46,3 +46,9 @@ htmlcov/
 .env
 .env.local
 
+
+# Local travel database and verification artifacts
+*.sqlite3
+*.sqlite3-*
+output/
+tmp/

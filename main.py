@@ -7,6 +7,15 @@ from __future__ import annotations
 
 import argparse
 import sys
+import os
+from pathlib import Path
+
+# Use the project runtime for direct macOS system-python invocations.
+# Never modify the Apple Python installation or user interpreter settings.
+if __name__ == '__main__' and sys.prefix == sys.base_prefix:
+    project_runtime = Path(__file__).resolve().parent / '.venv' / 'bin' / 'python'
+    if project_runtime.exists():
+        os.execv(str(project_runtime), [str(project_runtime), str(Path(__file__).resolve()), *sys.argv[1:]])
 from src.vacation_planner.entrypoints.cli.VacationPlannerCliApplication import (
     VacationPlannerCliApplication,
 )
@@ -81,7 +90,38 @@ def main() -> None:
         help="Number of travelers (default: 1)",
     )
 
+    parser.add_argument('--demo', action='store_true', help='Expliziter Demomodus mit simulierten Altdaten')
+    parser.add_argument('--search-json', metavar='DATEI', help='Echte Zielsuche mit JSON-Kriterien, Ergebnis als JSON')
     args = parser.parse_args()
+
+    if args.search_json:
+        import json
+        from src.vacation_planner.core.planning.SearchRequest import SearchRequest
+        from src.vacation_planner.core.planning.SearchContext import SearchContext
+        from src.vacation_planner.core.planning.DiscoveryService import DiscoveryService
+        from src.vacation_planner.infrastructure.planning.DestinationCatalog import DestinationCatalog
+        from src.vacation_planner.infrastructure.planning.OpenTravelProvider import OpenTravelProvider
+        from src.vacation_planner.infrastructure.planning.TripStore import TripStore
+        with open(args.search_json) as stream:
+            request = SearchRequest(**json.load(stream))
+        request.validate()
+        results = []
+        def emit(kind, value):
+            if kind == 'result':
+                results.append(value)
+            else:
+                print(value, file=sys.stderr)
+        try:
+            DiscoveryService(DestinationCatalog(), OpenTravelProvider(TripStore())).search(
+                request, SearchContext(seconds=request.timeout_seconds, budget=request.request_budget), emit)
+        except (InterruptedError, KeyboardInterrupt):
+            print('Suche beendet; vorhandene Teilergebnisse folgen.', file=sys.stderr)
+        print(json.dumps(results, ensure_ascii=False, indent=2))
+        return
+    if (args.cli or args.serve) and not args.demo:
+        parser.error('Die alten CLI/API-Adapter simulieren Angebote. Nur mit --demo verfügbar; echte Suche: --search-json DATEI.')
+    if args.demo:
+        print('DEMOMODUS: simulierte Preise und Angebote, nicht buchbar.', file=sys.stderr)
 
     if args.serve:
         print(f"Starting Vacation Planner REST Web API server at http://{args.host}:{args.port}")
@@ -104,8 +144,17 @@ def main() -> None:
         )
     else:
         # Default mode: Launch the Visual Dashboard GUI window
-        dashboard_app = VacationPlannerDashboardApplication()
-        dashboard_app.start_dashboard()
+        if args.demo:
+            dashboard_app = VacationPlannerDashboardApplication()
+        else:
+            from src.vacation_planner.entrypoints.gui.SurprisePlannerApplication import SurprisePlannerApplication
+            dashboard_app = SurprisePlannerApplication()
+        if args.demo:
+            window = dashboard_app.create_window()
+            window.title('DEMOMODUS · Simulierte Angebote · Reiseplaner Dashboard')
+            window.mainloop()
+        else:
+            dashboard_app.start_dashboard()
 
 
 if __name__ == "__main__":

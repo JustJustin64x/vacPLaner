@@ -225,3 +225,4 @@ class DashboardThemeManager:
             pady=8,
             font=("Courier", 11),
         )
+

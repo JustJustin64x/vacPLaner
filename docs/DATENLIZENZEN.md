@@ -1,0 +1,11 @@
+# Quellenattribution für eingebundene Daten
+
+Die Anwendung enthält keine erfundenen Produktiv-Unterkünfte. `destinations.json` enthält eine redaktionelle Vorauswahl realer Orte mit live geprüften Wikivoyage-Ortskoordinaten. Interessenkennzeichen sind grobe redaktionelle Bewertungen, keine extrahierten Bewertungen, Wetterprognosen oder Eignungsgarantien.
+
+`place_snapshots.json`, `tests/fixtures/bled-vcards.html` und `docs/KATALOGPRUEFUNG.json` enthalten Auszüge/Umformungen von Wikivoyage-Daten, abgerufen am 27.10.2026. Quelle und ursprünglicher Abrufzeitpunkt stehen je Eintrag. Änderungen: Auswahl von Identitäten, Koordinaten, Webseiten-/Quellenlinks und typisierten Einträgen; Entfernung nicht belegter Preis- und Verfügbarkeitsbehauptungen; manuelle Interessenklassifikation. Diese abgeleiteten Daten stehen unter **CC BY-SA 3.0** entsprechend den [deutschen Wikivoyage-Lizenzbestimmungen](https://de.wikivoyage.org/wiki/Wikivoyage:Lizenzbestimmungen). Autoren: Wikivoyage-Mitwirkende, vollständig über die Versionsgeschichte der jeweiligen Quellenseite (Quellen-URL mit `?action=history`) auffindbar. [Lizenztext](https://creativecommons.org/licenses/by-sa/3.0/deed.de).
+
+Mitgelieferte Unterkunfts-/Aktivitätssnapshots: Rostock, Kopenhagen, Danzig, Split, Nizza, Innsbruck, Bled und Zell am See (dort zum Abrufzeitpunkt keine vom Parser erfassten Hotel-/Apartmentalternativen). Ein Snapshot ist ein historischer Reiseführereintrag, keine Zusage fortdauernden Betriebs oder Buchbarkeit. Ein Offline-Ergebnis darf deshalb keine bestätigte Reise vortäuschen.
+
+`tests/fixtures/live_route.json` und `tests/fixtures/live_nominatim.json` sind kleine echte API-Testantworten auf Basis von **© OpenStreetMap-Mitwirkende**, [ODbL](https://www.openstreetmap.org/copyright). Straßenrouting: [OSRM / FOSSGIS](https://routing.openstreetmap.de/about.html). Daten korrigieren: [OpenStreetMap](https://www.openstreetmap.org/fixthemap). Die reine Koordinatenantwort `live_wikivoyage.json` ist ebenfalls ein echter Wikivoyage-Testabruf. Keine dieser Fixtures wird als aktuelles Transportangebot geladen.
+
+In UI und PDF werden Wikivoyage, Seitenhistorie, OSM und Routinganbieter mit klickbaren Links genannt. Die hier dokumentierten Datenlizenzen ändern nicht automatisch eine etwaige Lizenz des übrigen Anwendungscodes.

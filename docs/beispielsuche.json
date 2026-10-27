@@ -1,0 +1,13 @@
+{
+  "origin": "Berlin",
+  "earliest": "2027-07-01",
+  "latest": "2027-07-31",
+  "min_days": 7,
+  "max_days": 7,
+  "adults": 5,
+  "rooms": 3,
+  "budget": "2000",
+  "interests": {"Wandern": 5, "Baden": 5, "Feiern": 5},
+  "modes": ["Auto", "Zug", "Flug"],
+  "shortlist": 6
+}
