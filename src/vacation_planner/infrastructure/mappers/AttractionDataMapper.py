@@ -60,3 +60,4 @@ class AttractionDataMapper:
             user_rating=rating_value,
             description=str(raw_attraction_data.get("description", "")),
         )
+

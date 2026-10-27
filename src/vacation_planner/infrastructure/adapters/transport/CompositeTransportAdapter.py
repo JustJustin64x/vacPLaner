@@ -76,3 +76,4 @@ class CompositeTransportAdapter(TransportGatewayInterface):
             combined_results.extend(car_routes)
 
         return combined_results
+

@@ -147,3 +147,28 @@ Dieses Dokument dient als lückenloser, auditierbarer Entwicklungs- und Architek
   1. `README.md` mit Architekturdiagramm, Komponentenübersicht, Schnellstart-Anleitung und API-Schnittstellenbeschreibung erstellt.
   2. Alle Projektdateien per `git add` gestaged und mit aussagekräftiger Commit-Message festgeschrieben.
   3. Branch `main` mit Remote-Repository auf GitHub synchronisiert (`git push origin main`).
+
+
+
+---
+
+## Schritt 8: Implementierung des Visuellen Dashboards & Dynamische Modul-Auto-Discovery
+- **Ziel:** Erstellung einer nativen Desktop-GUI (Visuelles Dashboard), die sich beim Start des Programms automatisch als Fenster öffnet. Aufbau einer offenen Plug-in-/View-Architektur, damit zukünftige Features und Module vollautomatisch und ohne manuelle Verdrahtung im Dashboard eingebunden werden.
+- **Erstellte Klassen & Komponenten (`entrypoints/gui/`):**
+  1. `DashboardViewInterface.py`: Abstrakter Schnittstellenvertrag für alle visuellen Dashboard-Module (`get_view_identifier`, `get_display_title`, `get_sort_order`, `build_view_component`, `refresh_view`).
+  2. `DashboardApplicationContext.py`: Zentraler DI-Container, der den Zugriff auf Use Cases (`TravelPackageAggregatorService`, `GetVacationPackageDetailsUseCase`) und Repositories für alle GUI-Komponenten bereitstellt.
+  3. `DashboardViewRegistry.py`: Dynamischer Entdeckungs- und Registrierungsdienst. Scannt zur Laufzeit das Paket `src.vacation_planner.entrypoints.gui.views` via `pkgutil` und `importlib`, instanziiert gefundene `DashboardViewInterface`-Klassen automatisch und sortiert sie nach `get_sort_order()`.
+     - *Ergebnis:* Neue Funktionen müssen lediglich als Klasse in `views/` abgelegt werden und erscheinen ohne jegliche Code-Änderung am Hauptfenster sofort als Tab im Dashboard.
+  4. `VacationPlannerDashboardApplication.py`: Hauptanwendungsfenster (Tkinter/ttk) mit nativer Aqua-/Modern-Darstellung, Tab-Container (`ttk.Notebook`), Statusleiste und Event-Handling.
+- **Erstellte Dashboard-Views (`entrypoints/gui/views/`):**
+  1. `VacationPackagePlannerDashboardView.py`: Hauptplaner mit Eingabemaske (Start, Ziel, Reisedaten, Budget, Personenanzahl, Verkehrsmittel-Checkboxen), Tabellendarstellung aller synchronisierten Pakete mit Budget-Indikator, Sortierung und interaktivem Detail-Panel (Segmente, Hotelmerkmale, Sehenswürdigkeiten).
+  2. `TransportExplorerDashboardView.py`: Direkter Verkehrsvergleich zwischen Metropolen (Flug vs. Bahn vs. Pkw) mit Abfahrts-/Ankunftszeiten, Reisezeiten, Preisen, Umstiegen und CO2-Bilanzen.
+  3. `AccommodationExplorerDashboardView.py`: Unterkunfts-Katalog-Browser mit Filtern nach Stadt, Nächtezahl, Gästen und Typ (Hotel, Apartment, Hostel, Resort).
+  4. `LocationAttractionsDashboardView.py`: Geodaten- und Sehenswürdigkeiten-Explorer mit Koordinaten, Beschreibungen, Eintrittspreisen und Besucherbewertungen.
+  5. `SavedPackagesDashboardView.py`: Persistenz-Inspektor zur Anzeige aller im Speicher abgelegten Urlaubspakete.
+- **Anpassung des Einstiegspunkts (`main.py`):**
+  - Standardaufruf (`python3 main.py`) öffnet direkt das native Dashboard-Fenster.
+  - Optionale Flags `--cli` (Terminal-Modus) und `--serve` (REST-Web-API) bleiben parallel uneingeschränkt verfügbar.
+- **Tests & Qualitätssicherung:**
+  - `tests/unit/test_dashboard_gui.py`: Testet Modul-Auto-Discovery, View-Eindeutigkeit, Sortierreihenfolge und die Instanziierung des nativen Tkinter-Fensters.
+  - Gesamter Testbestand auf 31 Tests erhöht (100 % Erfolgsquote).

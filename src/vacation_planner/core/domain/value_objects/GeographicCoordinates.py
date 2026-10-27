@@ -77,3 +77,4 @@ class GeographicCoordinates:
 
     def __str__(self) -> str:
         return f"({self._latitude:.6f}, {self._longitude:.6f})"
+

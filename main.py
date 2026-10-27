@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Main entry point for the Modulares Urlaubsplanungs-Tool.
-Provides CLI execution or HTTP REST API server startup.
+Starts the Visual Dashboard Window by default, or provides CLI / REST server modes.
 """
 from __future__ import annotations
 
@@ -9,6 +9,9 @@ import argparse
 import sys
 from src.vacation_planner.entrypoints.cli.VacationPlannerCliApplication import (
     VacationPlannerCliApplication,
+)
+from src.vacation_planner.entrypoints.gui.VacationPlannerDashboardApplication import (
+    VacationPlannerDashboardApplication,
 )
 from src.vacation_planner.entrypoints.web.VacationPlannerHttpServer import (
     VacationPlannerHttpServer,
@@ -18,6 +21,11 @@ from src.vacation_planner.entrypoints.web.VacationPlannerHttpServer import (
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Modulares Urlaubsplanungs-Tool - Clean Architecture Reiseplanungs-Aggregator"
+    )
+    parser.add_argument(
+        "--cli",
+        action="store_true",
+        help="Runs the interactive console CLI application instead of the GUI dashboard",
     )
     parser.add_argument(
         "--serve",
@@ -40,13 +48,13 @@ def main() -> None:
         "--origin",
         type=str,
         default="Berlin",
-        help="Origin location name (default: Berlin)",
+        help="Origin location name for CLI mode (default: Berlin)",
     )
     parser.add_argument(
         "--destination",
         type=str,
         default="Paris",
-        help="Destination location name (default: Paris)",
+        help="Destination location name for CLI mode (default: Paris)",
     )
     parser.add_argument(
         "--start-date",
@@ -84,7 +92,7 @@ def main() -> None:
             print("\nShutting down server...")
             server.stop()
             print("Server stopped cleanly.")
-    else:
+    elif args.cli:
         cli = VacationPlannerCliApplication()
         cli.run_interactive(
             origin=args.origin,
@@ -94,7 +102,12 @@ def main() -> None:
             maximum_budget=args.budget,
             travelers=args.travelers,
         )
+    else:
+        # Default mode: Launch the Visual Dashboard GUI window
+        dashboard_app = VacationPlannerDashboardApplication()
+        dashboard_app.start_dashboard()
 
 
 if __name__ == "__main__":
     main()
+

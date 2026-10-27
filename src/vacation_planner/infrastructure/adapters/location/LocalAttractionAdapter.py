@@ -203,3 +203,4 @@ class LocalAttractionAdapter:
             results.append(attraction)
 
         return results
+

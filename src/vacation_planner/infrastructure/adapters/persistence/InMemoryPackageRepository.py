@@ -44,3 +44,4 @@ class InMemoryPackageRepository(PackageRepositoryInterface):
         """
         with self._lock:
             self._storage.clear()
+

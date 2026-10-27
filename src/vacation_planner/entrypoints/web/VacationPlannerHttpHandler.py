@@ -161,3 +161,4 @@ class VacationPlannerHttpHandler(BaseHTTPRequestHandler):
     def log_message(self, format: str, *args: Any) -> None:
         """Suppresses default stderr logging during automated testing."""
         pass
+

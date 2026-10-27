@@ -102,3 +102,4 @@ class FlightTransportAdapter:
             results.append(option)
 
         return results
+

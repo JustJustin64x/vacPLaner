@@ -106,3 +106,4 @@ class TransportOption:
             f"from='{self._origin_location_name}', to='{self._destination_location_name}', "
             f"price={self._total_price}, transfers={self.count_transfers()})"
         )
+

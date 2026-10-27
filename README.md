@@ -97,18 +97,31 @@ src/vacation_planner/
 
 ## 4. Ausführung & Schnelleinstieg
 
-### A. Ausführung der Testsuite
+### A. Starten des visuellen Dashboards (Standard)
+Das Programm öffnet standardmäßig direkt ein grafisches Fenster:
+```bash
+python3 main.py
+```
+*Funktionen des Dashboards:*
+- **✈️ Urlaubsplaner & Pakete:** Interaktive Paketsuche, Filterung, Budgetprüfung und Detailansicht.
+- **🚆 Transport-Modul:** Isolierter Vergleich von Flügen, Bahn- und Pkw-Verbindungen.
+- **🏨 Unterkunfts-Modul:** Recherche im Unterkunftsbestand mit Ausstattungsmerkmalen und Preisen pro Nacht.
+- **📍 Lokations- & Attraktionen-Modul:** Geodaten, Koordinaten und Sehenswürdigkeiten am Zielort.
+- **💾 Gespeicherte Pakete:** Inspektor für persistierte Reisepakete.
+- **Automatische Erweiterbarkeit:** Zukünftige Modul-Views, die in `src/vacation_planner/entrypoints/gui/views/` abgelegt werden, werden per Auto-Discovery beim Start automatisch als neuer Tab eingefügt.
+
+### B. Ausführung der Testsuite
 ```bash
 python3 -m unittest discover -s tests -p "test_*.py"
 ```
-*Ergebnis: 29 Tests (Unit- und Integrationstests), 100 % Erfolgsquote.*
+*Ergebnis: 31 Tests (Unit-, Integrations- und GUI-Tests), 100 % Erfolgsquote.*
 
-### B. Interaktive CLI-Nutzung
+### C. Interaktive CLI-Nutzung
 ```bash
-python3 main.py --origin Berlin --destination Paris --start-date 2026-07-01 --end-date 2026-07-07 --budget 1200 --travelers 2
+python3 main.py --cli --origin Berlin --destination Paris --start-date 2026-07-01 --end-date 2026-07-07 --budget 1200 --travelers 2
 ```
 
-### C. Starten des REST Web API Servers
+### D. Starten des REST Web API Servers
 ```bash
 python3 main.py --serve --port 8080
 ```
@@ -135,3 +148,4 @@ python3 main.py --serve --port 8080
 
 ## 5. Entwicklungs-Log
 Gemäß Anforderung wird jede ausgeführte Aktion lückenlos in [`PROJECT_LOG.md`](PROJECT_LOG.md) chronologisch protokolliert.
+

@@ -107,3 +107,4 @@ class AccommodationOption:
             f"type={self._accommodation_type}, location='{self._location_name}', "
             f"price={self._total_price}, rating={self._star_rating})"
         )
+

@@ -105,3 +105,4 @@ class VacationPackage:
             f"destination='{self._destination_location.name}', dates={self._date_range}, "
             f"total_cost={self._total_package_cost}, valid_budget={self._is_within_budget})"
         )
+

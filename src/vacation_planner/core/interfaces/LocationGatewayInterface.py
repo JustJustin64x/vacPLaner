@@ -25,3 +25,4 @@ class LocationGatewayInterface(ABC):
         Retrieves cultural, historic, and recreational attractions at or near the given destination.
         """
         pass
+

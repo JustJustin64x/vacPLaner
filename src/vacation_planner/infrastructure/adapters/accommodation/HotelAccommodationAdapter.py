@@ -237,3 +237,4 @@ class HotelAccommodationAdapter(AccommodationGatewayInterface):
             results.append(option)
 
         return results
+

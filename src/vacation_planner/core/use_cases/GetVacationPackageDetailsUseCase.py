@@ -21,3 +21,4 @@ class GetVacationPackageDetailsUseCase:
         if package is None:
             raise KeyError(f"Vacation package with identifier '{vacation_package_id}' not found.")
         return package
+

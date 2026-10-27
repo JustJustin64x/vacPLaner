@@ -131,3 +131,4 @@ class VacationPackageDtoMapper:
             "is_within_budget": package.is_within_budget,
             "validation_notes": list(package.validation_notes),
         }
+

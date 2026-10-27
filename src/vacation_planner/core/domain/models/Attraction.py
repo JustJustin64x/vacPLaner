@@ -88,3 +88,4 @@ class Attraction:
             f"Attraction(id='{self._attraction_id}', name='{self._name}', "
             f"category='{self._category}', fee={self._admission_fee}, rating={self._user_rating})"
         )
+

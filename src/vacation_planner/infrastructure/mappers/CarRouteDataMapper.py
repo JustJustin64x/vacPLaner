@@ -125,3 +125,4 @@ class CarRouteDataMapper:
             carbon_dioxide_emission_in_kilograms=calculated_co2_kg,
             booking_reference_url="https://maps.example.com/route",
         )
+

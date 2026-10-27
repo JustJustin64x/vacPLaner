@@ -82,3 +82,4 @@ class HotelAccommodationDataMapper:
             address_line=str(raw_data.get("address", "")),
             included_amenities=clean_amenities,
         )
+

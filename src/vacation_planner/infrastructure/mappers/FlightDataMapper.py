@@ -110,3 +110,4 @@ class FlightDataMapper:
             carbon_dioxide_emission_in_kilograms=co2_emission_value,
             booking_reference_url=booking_url,
         )
+

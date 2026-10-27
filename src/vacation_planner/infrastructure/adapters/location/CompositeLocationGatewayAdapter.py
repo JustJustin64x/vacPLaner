@@ -47,3 +47,4 @@ class CompositeLocationGatewayAdapter(LocationGatewayInterface):
             destination_location=destination_location,
             maximum_results=maximum_results,
         )
+

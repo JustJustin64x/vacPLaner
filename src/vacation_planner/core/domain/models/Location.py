@@ -65,3 +65,4 @@ class Location:
             f"Location(id='{self._location_id}', name='{self._name}', "
             f"country='{self._country_name}' [{self._country_code}], coordinates={self._coordinates})"
         )
+

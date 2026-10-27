@@ -25,3 +25,4 @@ class TransportGatewayInterface(ABC):
         Searches and returns all available transport options matching the criteria.
         """
         pass
+

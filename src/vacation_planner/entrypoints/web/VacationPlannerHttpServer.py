@@ -98,3 +98,4 @@ class VacationPlannerHttpServer:
             if self._server_thread and self._server_thread.is_alive():
                 self._server_thread.join(timeout=2.0)
             self._server = None
+

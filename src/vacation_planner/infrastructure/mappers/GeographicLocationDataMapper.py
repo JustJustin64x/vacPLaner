@@ -54,3 +54,4 @@ class GeographicLocationDataMapper:
             coordinates=coordinates,
             description=description,
         )
+

@@ -99,3 +99,4 @@ class RouteSegment:
             f"identifier='{self._segment_identifier}', "
             f"duration_minutes={self._duration_in_minutes})"
         )
+

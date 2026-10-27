@@ -110,3 +110,4 @@ class VacationPlannerCliApplication:
 if __name__ == "__main__":
     app = VacationPlannerCliApplication()
     app.run_interactive()
+

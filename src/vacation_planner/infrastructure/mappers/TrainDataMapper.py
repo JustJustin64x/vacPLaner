@@ -122,3 +122,4 @@ class TrainDataMapper:
             carbon_dioxide_emission_in_kilograms=carbon_kg,
             booking_reference_url=booking_url,
         )
+

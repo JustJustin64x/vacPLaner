@@ -114,3 +114,4 @@ class GeographicLocationAdapter:
 
         raw_entry = self.KNOWN_LOCATIONS_DATABASE[key]
         return self._mapper.map_raw_payload_to_location(raw_entry)
+
