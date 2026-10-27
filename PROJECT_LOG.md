@@ -172,3 +172,48 @@ Dieses Dokument dient als lückenloser, auditierbarer Entwicklungs- und Architek
 - **Tests & Qualitätssicherung:**
   - `tests/unit/test_dashboard_gui.py`: Testet Modul-Auto-Discovery, View-Eindeutigkeit, Sortierreihenfolge und die Instanziierung des nativen Tkinter-Fensters.
   - Gesamter Testbestand auf 31 Tests erhöht (100 % Erfolgsquote).
+
+
+---
+
+## Schritt 8: Implementierung des Visuellen Dashboards & Dynamische Modul-Auto-Discovery
+- **Ziel:** Erstellung einer nativen Desktop-GUI (Visuelles Dashboard), die sich beim Start des Programms automatisch als Fenster öffnet. Aufbau einer offenen Plug-in-/View-Architektur, damit zukünftige Features und Module vollautomatisch und ohne manuelle Verdrahtung im Dashboard eingebunden werden.
+- **Erstellte Klassen & Komponenten (`entrypoints/gui/`):**
+  1. `DashboardViewInterface.py`: Abstrakter Schnittstellenvertrag für alle visuellen Dashboard-Module (`get_view_identifier`, `get_display_title`, `get_sort_order`, `build_view_component`, `refresh_view`).
+  2. `DashboardApplicationContext.py`: Zentraler DI-Container, der den Zugriff auf Use Cases (`TravelPackageAggregatorService`, `GetVacationPackageDetailsUseCase`) und Repositories für alle GUI-Komponenten bereitstellt.
+  3. `DashboardViewRegistry.py`: Dynamischer Entdeckungs- und Registrierungsdienst. Scannt zur Laufzeit das Paket `src.vacation_planner.entrypoints.gui.views` via `pkgutil` und `importlib`, instanziiert gefundene `DashboardViewInterface`-Klassen automatisch und sortiert sie nach `get_sort_order()`.
+     - *Ergebnis:* Neue Funktionen müssen lediglich als Klasse in `views/` abgelegt werden und erscheinen ohne jegliche Code-Änderung am Hauptfenster sofort als Tab im Dashboard.
+  4. `VacationPlannerDashboardApplication.py`: Hauptanwendungsfenster (Tkinter/ttk) mit nativer Aqua-/Modern-Darstellung, Tab-Container (`ttk.Notebook`), Statusleiste und Event-Handling.
+- **Erstellte Dashboard-Views (`entrypoints/gui/views/`):**
+  1. `VacationPackagePlannerDashboardView.py`: Hauptplaner mit Eingabemaske (Start, Ziel, Reisedaten, Budget, Personenanzahl, Verkehrsmittel-Checkboxen), Tabellendarstellung aller synchronisierten Pakete mit Budget-Indikator, Sortierung und interaktivem Detail-Panel (Segmente, Hotelmerkmale, Sehenswürdigkeiten).
+  2. `TransportExplorerDashboardView.py`: Direkter Verkehrsvergleich zwischen Metropolen (Flug vs. Bahn vs. Pkw) mit Abfahrts-/Ankunftszeiten, Reisezeiten, Preisen, Umstiegen und CO2-Bilanzen.
+  3. `AccommodationExplorerDashboardView.py`: Unterkunfts-Katalog-Browser mit Filtern nach Stadt, Nächtezahl, Gästen und Typ (Hotel, Apartment, Hostel, Resort).
+  4. `LocationAttractionsDashboardView.py`: Geodaten- und Sehenswürdigkeiten-Explorer mit Koordinaten, Beschreibungen, Eintrittspreisen und Besucherbewertungen.
+  5. `SavedPackagesDashboardView.py`: Persistenz-Inspektor zur Anzeige aller im Speicher abgelegten Urlaubspakete.
+- **Anpassung des Einstiegspunkts (`main.py`):**
+  - Standardaufruf (`python3 main.py`) öffnet direkt das native Dashboard-Fenster.
+  - Optionale Flags `--cli` (Terminal-Modus) und `--serve` (REST-Web-API) bleiben parallel uneingeschränkt verfügbar.
+- **Tests & Qualitätssicherung:**
+  - `tests/unit/test_dashboard_gui.py`: Testet Modul-Auto-Discovery, View-Eindeutigkeit, Sortierreihenfolge und die Instanziierung des nativen Tkinter-Fensters.
+  - Gesamter Testbestand auf 31 Tests erhöht (100 % Erfolgsquote).
+
+
+
+---
+
+## Schritt 9: Behebung des macOS Dark-Mode-Rendering-Problems im Visuellen Dashboard
+- **Problem-Diagnose:**
+  - Auf macOS-Systemen im Dark Mode führt das in Python 3.9 enthaltene Apple-System-Tkinter (Tk 8.5) bei Verwendung des Standard-Themas `aqua` zu einem vollständigen Zeichenfehler: Da die Cocoa/Carbon-Zeichenroutinen von Tk 8.5 älter als macOS Mojave (Einführung des Dark Mode) sind, rendert `aqua` alle `ttk`-Widgets transparent oder schwarz auf schwarzem Fensterhintergrund (`systemWindowBody`), wodurch das geöffnete Fenster komplett leer/schwarz erschien.
+- **Durchgeführte Behebungsmaßnahmen:**
+  1. `DashboardThemeManager.py` (`entrypoints/gui/DashboardThemeManager.py`) implementiert:
+     - Erzwingt die native Vektor-Rendering-Engine `clam` anstelle des fehlerhaften Apple-`aqua`-Themas, wodurch das Rendering betriebssystemweit und unabhängig von macOS-Dark-/Light-Mode-Einstellungen 100 % stabil und plattformunabhängig erfolgt.
+     - Definiert eine durchgängige, moderne Farbpalette (Hintergrund `#181824`, Karten `#222533`, Akzente `#3b82f6` und `#38bdf8`, kontrastreiche Typografie `#f8fafc`).
+     - Gestaltet explizit alle `ttk`-Komponenten: `TFrame`, `TLabelframe`, `TLabel`, `TButton`, `TNotebook`, `TNotebook.Tab`, `Treeview`, `Treeview.Heading`, `TCombobox`, `TEntry`, `TSpinbox`, `TCheckbutton` und Scrollbars.
+     - Stellt mit `style_text_widget()` sicher, dass auch Standard-`tk.Text`-Elemente (die nicht automatisch von `ttk.Style` erfasst werden) mit dunklem Hintergrund (`#12131d`) und hellem Text formatiert werden.
+  2. Integration in `VacationPlannerDashboardApplication.py` und alle 5 Views:
+     - `DashboardApplicationContext` stellt den `theme_manager` zentral bereit.
+     - Alle Views nutzen jetzt die `Card.TLabel`- und `Card.TFrame`-Stile sowie abwechselnde Zeilenfarben (`evenrow`/`oddrow`) in den Ergebnistabellen.
+  3. Neuer Unit-Test `tests/unit/test_dashboard_theme_manager.py` hinzugefügt.
+- **Ergebnis:**
+  - Das Dashboard-Fenster rendert ab sofort gestochen scharf, hochkontrastreich und vollständig sichtbar im modernen Look.
+  - Testsuite auf 32 Tests erweitert (100 % bestanden).

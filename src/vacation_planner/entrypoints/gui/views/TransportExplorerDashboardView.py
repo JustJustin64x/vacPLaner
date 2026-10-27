@@ -59,12 +59,12 @@ class TransportExplorerDashboardView(DashboardViewInterface):
         root_frame.rowconfigure(1, weight=1)
 
         # Query Controls
-        control_frame = ttk.LabelFrame(root_frame, text="Verkehrsverbindungen abfragen", padding="10")
+        control_frame = ttk.LabelFrame(root_frame, text="Verkehrsverbindungen abfragen", padding="12")
         control_frame.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         for i in range(5):
             control_frame.columnconfigure(i, weight=1)
 
-        ttk.Label(control_frame, text="Start:").grid(row=0, column=0, sticky="w", padx=4, pady=4)
+        ttk.Label(control_frame, text="Start:", style="Card.TLabel").grid(row=0, column=0, sticky="w", padx=4, pady=4)
         ttk.Combobox(
             control_frame,
             textvariable=self._origin_var,
@@ -72,7 +72,7 @@ class TransportExplorerDashboardView(DashboardViewInterface):
             width=12,
         ).grid(row=0, column=1, sticky="ew", padx=4, pady=4)
 
-        ttk.Label(control_frame, text="Ziel:").grid(row=0, column=2, sticky="w", padx=4, pady=4)
+        ttk.Label(control_frame, text="Ziel:", style="Card.TLabel").grid(row=0, column=2, sticky="w", padx=4, pady=4)
         ttk.Combobox(
             control_frame,
             textvariable=self._destination_var,
@@ -86,12 +86,12 @@ class TransportExplorerDashboardView(DashboardViewInterface):
             command=self._on_search_clicked,
         ).grid(row=0, column=4, rowspan=2, sticky="e", padx=6, pady=4)
 
-        ttk.Label(control_frame, text="Datum:").grid(row=1, column=0, sticky="w", padx=4, pady=4)
+        ttk.Label(control_frame, text="Datum:", style="Card.TLabel").grid(row=1, column=0, sticky="w", padx=4, pady=4)
         ttk.Entry(control_frame, textvariable=self._date_var, width=12).grid(
             row=1, column=1, sticky="ew", padx=4, pady=4
         )
 
-        ttk.Label(control_frame, text="Personen:").grid(row=1, column=2, sticky="w", padx=4, pady=4)
+        ttk.Label(control_frame, text="Personen:", style="Card.TLabel").grid(row=1, column=2, sticky="w", padx=4, pady=4)
         ttk.Spinbox(control_frame, from_=1, to=8, textvariable=self._passengers_var, width=6).grid(
             row=1, column=3, sticky="w", padx=4, pady=4
         )
@@ -138,7 +138,8 @@ class TransportExplorerDashboardView(DashboardViewInterface):
         detail_frame.rowconfigure(0, weight=1)
         detail_frame.columnconfigure(0, weight=1)
 
-        self._details_text = tk.Text(detail_frame, wrap="word", height=6, font=("Courier", 11))
+        self._details_text = tk.Text(detail_frame, wrap="word", height=6)
+        application_context.theme_manager.style_text_widget(self._details_text)
         det_scroll = ttk.Scrollbar(detail_frame, orient="vertical", command=self._details_text.yview)
         self._details_text.configure(yscrollcommand=det_scroll.set)
         self._details_text.grid(row=0, column=0, sticky="nsew")
@@ -168,22 +169,27 @@ class TransportExplorerDashboardView(DashboardViewInterface):
             number_of_passengers=passengers,
         )
 
-        if not self._tree:
+        if not self._tree or not self._context:
             return
+
+        self._tree.tag_configure("evenrow", background=self._context.theme_manager.COLOR_TREE_EVEN)
+        self._tree.tag_configure("oddrow", background=self._context.theme_manager.COLOR_TREE_ODD)
 
         for item in self._tree.get_children():
             self._tree.delete(item)
 
-        for opt in self._options:
+        for idx, opt in enumerate(self._options):
             carrier_name = opt.segments[0].carrier_or_operator_name if opt.segments else "-"
             dur_hours = opt.calculate_total_duration_in_minutes() // 60
             dur_mins = opt.calculate_total_duration_in_minutes() % 60
             dur_str = f"{dur_hours}h {dur_mins:02d}m"
+            row_tag = "evenrow" if idx % 2 == 0 else "oddrow"
 
             self._tree.insert(
                 "",
                 "end",
                 iid=opt.transport_option_id,
+                tags=(row_tag,),
                 values=(
                     opt.transport_option_id,
                     opt.transport_type.value,

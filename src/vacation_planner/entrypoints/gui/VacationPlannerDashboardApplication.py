@@ -47,33 +47,28 @@ class VacationPlannerDashboardApplication:
             master=self._root, value="Bereit | Clean Architecture Backend aktiv"
         )
 
-        # Apply clean theme
-        style = ttk.Style(self._root)
-        available_themes = style.theme_names()
-        if "aqua" in available_themes:
-            style.theme_use("aqua")
-        elif "clam" in available_themes:
-            style.theme_use("clam")
+        # Apply modern, reliable theme
+        self._context.theme_manager.apply_theme(self._root)
 
         self._root.columnconfigure(0, weight=1)
         self._root.rowconfigure(1, weight=1)
 
         # 1. Top Header Banner
-        header_frame = ttk.Frame(self._root, padding="10")
+        header_frame = ttk.Frame(self._root, padding="12")
         header_frame.grid(row=0, column=0, sticky="ew")
         header_frame.columnconfigure(0, weight=1)
 
         title_label = ttk.Label(
             header_frame,
             text="🌍 Modulares Urlaubsplanungs-Tool",
-            font=("Helvetica", 16, "bold"),
+            style="Header.TLabel",
         )
         title_label.grid(row=0, column=0, sticky="w")
 
         subtitle_label = ttk.Label(
             header_frame,
             text="Clean Architecture Reiseplanungs-Aggregator: Flüge, Bahn, Pkw & Unterkünfte",
-            font=("Helvetica", 10),
+            style="SubHeader.TLabel",
         )
         subtitle_label.grid(row=1, column=0, sticky="w")
 
@@ -94,21 +89,21 @@ class VacationPlannerDashboardApplication:
         self._notebook.bind("<<NotebookTabChanged>>", self._on_tab_changed)
 
         # 3. Bottom Status Bar
-        status_frame = ttk.Frame(self._root, relief="sunken", padding="4")
+        status_frame = ttk.Frame(self._root, style="Card.TFrame", padding="6")
         status_frame.grid(row=2, column=0, sticky="ew")
         status_frame.columnconfigure(0, weight=1)
 
         status_label = ttk.Label(
             status_frame,
             textvariable=self._status_bar_var,
-            font=("Helvetica", 9),
+            style="Status.TLabel",
         )
         status_label.grid(row=0, column=0, sticky="w")
 
         modules_count_label = ttk.Label(
             status_frame,
             text=f"Aktive Module: {len(discovered_views)} | Status: Verbunden",
-            font=("Helvetica", 9),
+            style="Status.TLabel",
         )
         modules_count_label.grid(row=0, column=1, sticky="e")
 

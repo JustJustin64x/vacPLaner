@@ -74,13 +74,13 @@ class VacationPackagePlannerDashboardView(DashboardViewInterface):
         root_frame.rowconfigure(1, weight=1)
 
         # 1. Search Criteria Input Box
-        criteria_frame = ttk.LabelFrame(root_frame, text="Reisekriterien & Budget-Vorgaben", padding="10")
+        criteria_frame = ttk.LabelFrame(root_frame, text="Reisekriterien & Budget-Vorgaben", padding="12")
         criteria_frame.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         for i in range(6):
             criteria_frame.columnconfigure(i, weight=1)
 
         # Row 0: Cities and dates
-        ttk.Label(criteria_frame, text="Startort:").grid(row=0, column=0, sticky="w", padx=4, pady=4)
+        ttk.Label(criteria_frame, text="Startort:", style="Card.TLabel").grid(row=0, column=0, sticky="w", padx=4, pady=4)
         origin_combo = ttk.Combobox(
             criteria_frame,
             textvariable=self._origin_var,
@@ -89,7 +89,7 @@ class VacationPackagePlannerDashboardView(DashboardViewInterface):
         )
         origin_combo.grid(row=0, column=1, sticky="ew", padx=4, pady=4)
 
-        ttk.Label(criteria_frame, text="Zielort:").grid(row=0, column=2, sticky="w", padx=4, pady=4)
+        ttk.Label(criteria_frame, text="Zielort:", style="Card.TLabel").grid(row=0, column=2, sticky="w", padx=4, pady=4)
         dest_combo = ttk.Combobox(
             criteria_frame,
             textvariable=self._destination_var,
@@ -98,31 +98,31 @@ class VacationPackagePlannerDashboardView(DashboardViewInterface):
         )
         dest_combo.grid(row=0, column=3, sticky="ew", padx=4, pady=4)
 
-        ttk.Label(criteria_frame, text="Reisende:").grid(row=0, column=4, sticky="w", padx=4, pady=4)
+        ttk.Label(criteria_frame, text="Reisende:", style="Card.TLabel").grid(row=0, column=4, sticky="w", padx=4, pady=4)
         ttk.Spinbox(criteria_frame, from_=1, to=10, textvariable=self._travelers_var, width=5).grid(
             row=0, column=5, sticky="w", padx=4, pady=4
         )
 
         # Row 1: Dates and Budget
-        ttk.Label(criteria_frame, text="Hinreise (JJJJ-MM-TT):").grid(row=1, column=0, sticky="w", padx=4, pady=4)
+        ttk.Label(criteria_frame, text="Hinreise (JJJJ-MM-TT):", style="Card.TLabel").grid(row=1, column=0, sticky="w", padx=4, pady=4)
         ttk.Entry(criteria_frame, textvariable=self._start_date_var, width=14).grid(
             row=1, column=1, sticky="ew", padx=4, pady=4
         )
 
-        ttk.Label(criteria_frame, text="Rückreise (JJJJ-MM-TT):").grid(row=1, column=2, sticky="w", padx=4, pady=4)
+        ttk.Label(criteria_frame, text="Rückreise (JJJJ-MM-TT):", style="Card.TLabel").grid(row=1, column=2, sticky="w", padx=4, pady=4)
         ttk.Entry(criteria_frame, textvariable=self._end_date_var, width=14).grid(
             row=1, column=3, sticky="ew", padx=4, pady=4
         )
 
-        ttk.Label(criteria_frame, text="Max. Budget (€):").grid(row=1, column=4, sticky="w", padx=4, pady=4)
+        ttk.Label(criteria_frame, text="Max. Budget (€):", style="Card.TLabel").grid(row=1, column=4, sticky="w", padx=4, pady=4)
         ttk.Entry(criteria_frame, textvariable=self._budget_var, width=8).grid(
             row=1, column=5, sticky="w", padx=4, pady=4
         )
 
         # Row 2: Transport checkboxes and Search button
-        transport_frame = ttk.Frame(criteria_frame)
+        transport_frame = ttk.Frame(criteria_frame, style="Card.TFrame")
         transport_frame.grid(row=2, column=0, columnspan=4, sticky="w", pady=6)
-        ttk.Label(transport_frame, text="Verkehrsmittel:").pack(side="left", padx=(0, 8))
+        ttk.Label(transport_frame, text="Verkehrsmittel:", style="Card.TLabel").pack(side="left", padx=(0, 8))
         ttk.Checkbutton(transport_frame, text="Flug", variable=self._allow_flight_var).pack(side="left", padx=5)
         ttk.Checkbutton(transport_frame, text="Bahn", variable=self._allow_train_var).pack(side="left", padx=5)
         ttk.Checkbutton(transport_frame, text="Auto (Pkw)", variable=self._allow_car_var).pack(side="left", padx=5)
@@ -186,7 +186,8 @@ class VacationPackagePlannerDashboardView(DashboardViewInterface):
         detail_frame.rowconfigure(0, weight=1)
         detail_frame.columnconfigure(0, weight=1)
 
-        self._detail_text = tk.Text(detail_frame, wrap="word", height=8, font=("Courier", 11))
+        self._detail_text = tk.Text(detail_frame, wrap="word", height=8)
+        application_context.theme_manager.style_text_widget(self._detail_text)
         detail_scroll = ttk.Scrollbar(detail_frame, orient="vertical", command=self._detail_text.yview)
         self._detail_text.configure(yscrollcommand=detail_scroll.set)
 
@@ -237,8 +238,11 @@ class VacationPackagePlannerDashboardView(DashboardViewInterface):
             messagebox.showerror("Fehler bei der Paketsuche", str(search_error))
 
     def _render_packages_table(self) -> None:
-        if not self._tree:
+        if not self._tree or not self._context:
             return
+
+        self._tree.tag_configure("evenrow", background=self._context.theme_manager.COLOR_TREE_EVEN)
+        self._tree.tag_configure("oddrow", background=self._context.theme_manager.COLOR_TREE_ODD)
 
         # Clear existing items
         for item in self._tree.get_children():
@@ -248,11 +252,13 @@ class VacationPackagePlannerDashboardView(DashboardViewInterface):
             status_text = "✓ Im Budget" if pkg.is_within_budget else "✗ Budget überschritten"
             outbound_desc = f"{pkg.outbound_transport_option.transport_type.value} ({pkg.outbound_transport_option.segments[0].carrier_or_operator_name})"
             return_desc = f"{pkg.return_transport_option.transport_type.value} ({pkg.return_transport_option.segments[0].carrier_or_operator_name})"
+            row_tag = "evenrow" if index % 2 == 0 else "oddrow"
 
             item_id = self._tree.insert(
                 "",
                 "end",
                 iid=pkg.package_id,
+                tags=(row_tag,),
                 values=(
                     pkg.package_id,
                     status_text,

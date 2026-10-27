@@ -19,6 +19,7 @@ from src.vacation_planner.core.use_cases.GetVacationPackageDetailsUseCase import
 from src.vacation_planner.core.use_cases.TravelPackageAggregatorService import (
     TravelPackageAggregatorService,
 )
+from src.vacation_planner.entrypoints.gui.DashboardThemeManager import DashboardThemeManager
 from src.vacation_planner.infrastructure.adapters.accommodation.HotelAccommodationAdapter import (
     HotelAccommodationAdapter,
 )
@@ -62,6 +63,7 @@ class DashboardApplicationContext:
         self._cost_calculation_service: CostCalculationService = (
             cost_calculation_service or CostCalculationService()
         )
+        self._theme_manager: DashboardThemeManager = DashboardThemeManager()
 
         self._aggregator_service = TravelPackageAggregatorService(
             transport_gateway=self._transport_gateway,
@@ -102,3 +104,8 @@ class DashboardApplicationContext:
     @property
     def cost_calculation_service(self) -> CostCalculationService:
         return self._cost_calculation_service
+
+    @property
+    def theme_manager(self) -> DashboardThemeManager:
+        return self._theme_manager
+

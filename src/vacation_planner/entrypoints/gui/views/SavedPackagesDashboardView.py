@@ -97,7 +97,8 @@ class SavedPackagesDashboardView(DashboardViewInterface):
         detail_frame.rowconfigure(0, weight=1)
         detail_frame.columnconfigure(0, weight=1)
 
-        self._detail_text = tk.Text(detail_frame, wrap="word", height=5, font=("Courier", 11))
+        self._detail_text = tk.Text(detail_frame, wrap="word", height=5)
+        application_context.theme_manager.style_text_widget(self._detail_text)
         det_scroll = ttk.Scrollbar(detail_frame, orient="vertical", command=self._detail_text.yview)
         self._detail_text.configure(yscrollcommand=det_scroll.set)
         self._detail_text.grid(row=0, column=0, sticky="nsew")
@@ -111,17 +112,22 @@ class SavedPackagesDashboardView(DashboardViewInterface):
         if not self._context or not self._tree:
             return
 
+        self._tree.tag_configure("evenrow", background=self._context.theme_manager.COLOR_TREE_EVEN)
+        self._tree.tag_configure("oddrow", background=self._context.theme_manager.COLOR_TREE_ODD)
+
         self._packages = self._context.package_repository.list_all_vacation_packages()
 
         for item in self._tree.get_children():
             self._tree.delete(item)
 
-        for pkg in self._packages:
+        for idx, pkg in enumerate(self._packages):
             budget_str = "✓ Im Budget" if pkg.is_within_budget else "✗ Überschritten"
+            row_tag = "evenrow" if idx % 2 == 0 else "oddrow"
             self._tree.insert(
                 "",
                 "end",
                 iid=pkg.package_id,
+                tags=(row_tag,),
                 values=(
                     pkg.package_id,
                     pkg.origin_location.name,
@@ -154,3 +160,4 @@ class SavedPackagesDashboardView(DashboardViewInterface):
             f"Attraktionen:  {', '.join(a.name for a in pkg.recommended_attractions)}",
         ]
         self._detail_text.insert("1.0", "\n".join(lines))
+

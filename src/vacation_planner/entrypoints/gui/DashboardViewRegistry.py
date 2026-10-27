@@ -66,3 +66,4 @@ class DashboardViewRegistry:
     def get_registered_views(self) -> list[DashboardViewInterface]:
         """Returns the registered views sorted by sort order."""
         return list(self._registered_views)
+

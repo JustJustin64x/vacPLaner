@@ -60,12 +60,12 @@ class AccommodationExplorerDashboardView(DashboardViewInterface):
         root_frame.rowconfigure(1, weight=1)
 
         # Search Controls
-        filter_frame = ttk.LabelFrame(root_frame, text="Unterkünfte filtern & durchsuchen", padding="10")
+        filter_frame = ttk.LabelFrame(root_frame, text="Unterkünfte filtern & durchsuchen", padding="12")
         filter_frame.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         for i in range(5):
             filter_frame.columnconfigure(i, weight=1)
 
-        ttk.Label(filter_frame, text="Zielort:").grid(row=0, column=0, sticky="w", padx=4, pady=4)
+        ttk.Label(filter_frame, text="Zielort:", style="Card.TLabel").grid(row=0, column=0, sticky="w", padx=4, pady=4)
         ttk.Combobox(
             filter_frame,
             textvariable=self._destination_var,
@@ -73,7 +73,7 @@ class AccommodationExplorerDashboardView(DashboardViewInterface):
             width=12,
         ).grid(row=0, column=1, sticky="ew", padx=4, pady=4)
 
-        ttk.Label(filter_frame, text="Kategorie:").grid(row=0, column=2, sticky="w", padx=4, pady=4)
+        ttk.Label(filter_frame, text="Kategorie:", style="Card.TLabel").grid(row=0, column=2, sticky="w", padx=4, pady=4)
         ttk.Combobox(
             filter_frame,
             textvariable=self._type_filter_var,
@@ -87,12 +87,12 @@ class AccommodationExplorerDashboardView(DashboardViewInterface):
             command=self._on_search_clicked,
         ).grid(row=0, column=4, rowspan=2, sticky="e", padx=6, pady=4)
 
-        ttk.Label(filter_frame, text="Check-in:").grid(row=1, column=0, sticky="w", padx=4, pady=4)
+        ttk.Label(filter_frame, text="Check-in:", style="Card.TLabel").grid(row=1, column=0, sticky="w", padx=4, pady=4)
         ttk.Entry(filter_frame, textvariable=self._start_date_var, width=12).grid(
             row=1, column=1, sticky="ew", padx=4, pady=4
         )
 
-        ttk.Label(filter_frame, text="Check-out:").grid(row=1, column=2, sticky="w", padx=4, pady=4)
+        ttk.Label(filter_frame, text="Check-out:", style="Card.TLabel").grid(row=1, column=2, sticky="w", padx=4, pady=4)
         ttk.Entry(filter_frame, textvariable=self._end_date_var, width=12).grid(
             row=1, column=3, sticky="ew", padx=4, pady=4
         )
@@ -135,7 +135,8 @@ class AccommodationExplorerDashboardView(DashboardViewInterface):
         detail_frame.rowconfigure(0, weight=1)
         detail_frame.columnconfigure(0, weight=1)
 
-        self._detail_text = tk.Text(detail_frame, wrap="word", height=6, font=("Courier", 11))
+        self._detail_text = tk.Text(detail_frame, wrap="word", height=6)
+        application_context.theme_manager.style_text_widget(self._detail_text)
         det_scroll = ttk.Scrollbar(detail_frame, orient="vertical", command=self._detail_text.yview)
         self._detail_text.configure(yscrollcommand=det_scroll.set)
         self._detail_text.grid(row=0, column=0, sticky="nsew")
@@ -168,17 +169,22 @@ class AccommodationExplorerDashboardView(DashboardViewInterface):
             preferred_accommodation_type=pref_type,
         )
 
-        if not self._tree:
+        if not self._tree or not self._context:
             return
+
+        self._tree.tag_configure("evenrow", background=self._context.theme_manager.COLOR_TREE_EVEN)
+        self._tree.tag_configure("oddrow", background=self._context.theme_manager.COLOR_TREE_ODD)
 
         for item in self._tree.get_children():
             self._tree.delete(item)
 
-        for acc in self._accommodations:
+        for idx, acc in enumerate(self._accommodations):
+            row_tag = "evenrow" if idx % 2 == 0 else "oddrow"
             self._tree.insert(
                 "",
                 "end",
                 iid=acc.accommodation_id,
+                tags=(row_tag,),
                 values=(
                     acc.accommodation_id,
                     acc.name,

@@ -54,11 +54,11 @@ class LocationAttractionsDashboardView(DashboardViewInterface):
         root_frame.rowconfigure(1, weight=1)
 
         # Controls
-        ctrl_frame = ttk.LabelFrame(root_frame, text="Stadt / Reiseziel auswählen", padding="10")
+        ctrl_frame = ttk.LabelFrame(root_frame, text="Stadt / Reiseziel auswählen", padding="12")
         ctrl_frame.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         ctrl_frame.columnconfigure(1, weight=1)
 
-        ttk.Label(ctrl_frame, text="Reiseziel:").grid(row=0, column=0, sticky="w", padx=4, pady=4)
+        ttk.Label(ctrl_frame, text="Reiseziel:", style="Card.TLabel").grid(row=0, column=0, sticky="w", padx=4, pady=4)
         city_combo = ttk.Combobox(
             ctrl_frame,
             textvariable=self._city_var,
@@ -76,8 +76,8 @@ class LocationAttractionsDashboardView(DashboardViewInterface):
         ttk.Label(
             ctrl_frame,
             textvariable=self._city_info_var,
+            style="Card.TLabel",
             font=("Helvetica", 10, "italic"),
-            foreground="#2c3e50",
         ).grid(row=1, column=0, columnspan=3, sticky="w", padx=4, pady=4)
 
         # Paned Window
@@ -116,7 +116,8 @@ class LocationAttractionsDashboardView(DashboardViewInterface):
         detail_frame.rowconfigure(0, weight=1)
         detail_frame.columnconfigure(0, weight=1)
 
-        self._detail_text = tk.Text(detail_frame, wrap="word", height=5, font=("Courier", 11))
+        self._detail_text = tk.Text(detail_frame, wrap="word", height=5)
+        application_context.theme_manager.style_text_widget(self._detail_text)
         det_scroll = ttk.Scrollbar(detail_frame, orient="vertical", command=self._detail_text.yview)
         self._detail_text.configure(yscrollcommand=det_scroll.set)
         self._detail_text.grid(row=0, column=0, sticky="nsew")
@@ -144,18 +145,23 @@ class LocationAttractionsDashboardView(DashboardViewInterface):
             f"| Koordinaten: {self._current_location.coordinates} | {self._current_location.description}"
         )
 
-        if not self._tree:
+        if not self._tree or not self._context:
             return
+
+        self._tree.tag_configure("evenrow", background=self._context.theme_manager.COLOR_TREE_EVEN)
+        self._tree.tag_configure("oddrow", background=self._context.theme_manager.COLOR_TREE_ODD)
 
         for item in self._tree.get_children():
             self._tree.delete(item)
 
-        for attr in self._attractions:
+        for idx, attr in enumerate(self._attractions):
             fee_str = "Kostenlos" if attr.is_admission_free() else f"{attr.admission_fee.amount:.2f} €"
+            row_tag = "evenrow" if idx % 2 == 0 else "oddrow"
             self._tree.insert(
                 "",
                 "end",
                 iid=attr.attraction_id,
+                tags=(row_tag,),
                 values=(
                     attr.attraction_id,
                     attr.name,

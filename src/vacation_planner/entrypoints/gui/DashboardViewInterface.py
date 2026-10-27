@@ -49,3 +49,4 @@ class DashboardViewInterface(ABC):
         Triggered when the view becomes active or when global application state is updated.
         """
         pass
+
