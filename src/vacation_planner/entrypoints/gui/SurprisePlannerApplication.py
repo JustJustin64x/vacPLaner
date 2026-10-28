@@ -1,5 +1,7 @@
 from __future__ import annotations
 import copy
+import json
+from pathlib import Path
 import queue
 import sqlite3
 import threading
@@ -36,14 +38,17 @@ class SurprisePlannerApplication:
         self.checks={}
         self.workers=[]
         self.closed=False
+        self.diagnostic=None
 
     def create_window(self):
         if tk.TkVersion < 8.6:
             raise RuntimeError('Tk 8.6 oder neuer benötigt. Bitte scripts/setup-macos.sh ausführen; Apple-System-Tk 8.5 rendert fehlerhaft.')
         self.root=tk.Tk()
         self.root.title('Überraschungsreise · Europa entdecken')
-        self.root.geometry('1380x900')
-        self.root.minsize(1050,720)
+        width=min(1380,max(1000,self.root.winfo_screenwidth()-80))
+        height=min(900,max(650,self.root.winfo_screenheight()-120))
+        self.root.geometry(f'{width}x{height}+20+40')
+        self.root.minsize(1000,650)
         self.theme=DashboardThemeManager()
         self.theme.apply_theme(self.root)
         style=ttk.Style(self.root)
@@ -85,15 +90,16 @@ class SurprisePlannerApplication:
         self._entry(f,'countries','Länder oder Ländercodes · Komma; leer = alle','')
         self._entry(f,'regions','Regionen · Komma; leer = alle','')
         self._entry(f,'excluded','Ausschlüsse: Orte, Länder, Codes oder Regionen','')
-        ttk.Button(f,text='Unterstützte Länder und Regionen',command=self.show_coverage).pack(fill='x',pady=6)
+        ttk.Button(f,text='Gebiete suchen und auswählen',command=self.show_coverage).pack(fill='x',pady=6)
+        self._entry(f,'target_type','Zieltypen','gemischt',values=('gemischt','Stadt','kleiner Ort','See/Küste','Berge/Natur'))
         self._note(f,'2 · Verkehrsmittel')
         self._checkboxes(f,'modes',('Auto','Zug','Flug'),default.modes)
         self._entry(f,'max_hours','Max. Stunden je Richtung (leer = offen)','')
-        self._note(f,'Zeitlimit gilt für die obere Modellschätzung; Hotelzufahrt unbekannt. Optionen ohne Zeitdaten werden ausgeschlossen.')
+        self._note(f,'Zeitlimit gilt für die obere Modellschätzung. Unbekannte Zeiten sind keine Filtertreffer; offene Ideen können unter Details separat aktiviert werden.')
         f=self.filter_tabs['Interessen']
         self._note(f,'Interessen · 0 = unwichtig, 5 = sehr wichtig')
         for name in INTERESTS:
-            self._entry(f,'interest:'+name,name,default.interests[name])
+            self._entry(f,'interest:'+name,name,default.interests[name],values=tuple(range(6)))
         self._note(f,'Gewichtung des Vergleichs · 0 bis 100')
         for name in default.weights:
             self._entry(f,'weight:'+name,name,1)
@@ -108,8 +114,12 @@ class SurprisePlannerApplication:
         for name in AMENITIES:
             self._entry(f,'amenity:'+name,name,'egal',values=('egal','Wunsch','Pflicht'))
         self._entry(f,'max_center_km','Max. Zentrumsentfernung · km Luftlinie','')
+        self._entry(f,'surroundings','Umgebungssuche','ja',values=('ja','nein'))
+        self._entry(f,'lodging_radius_km','Unterkünfte: Umkreis · km Luftlinie (max. 50)',default.lodging_radius_km)
+        self._entry(f,'activity_radius_km','Aktivitäten: Umkreis · km Luftlinie (max. 50)',default.activity_radius_km)
+        self._entry(f,'show_ideas','Ideen mit unbelegten Pflichtangaben separat anzeigen','nein',values=('ja','nein'))
         self._note(f,'Begrenzte Suche')
-        for key,label in [('shortlist','Ziele untersuchen · 3 bis 12'),('request_budget','Maximale Quellenabfragen · 4 bis 40'),('timeout_seconds','Zeitlimit · 10 bis 600 Sekunden')]:
+        for key,label in [('shortlist','Gewünschte Filtertreffer · 3 bis 12'),('request_budget','Maximale Quellenabfragen · 4 bis 40'),('timeout_seconds','Zeitlimit · 10 bis 600 Sekunden')]:
             self._entry(f,key,label,getattr(default,key))
         self._note(f,'Öffentliche Quellen: Ortsnamen an OSM, Ziele an Wikivoyage, Koordinaten an FOSSGIS. Keine Adressenübertragung. Max. eine Anfrage/Sekunde; Cache, kein Massenabruf.')
         ttk.Button(f,text='Nominatim-Nutzungsregeln',command=lambda:webbrowser.open('https://operations.osmfoundation.org/policies/nominatim/')).pack(fill='x',pady=4)
@@ -126,11 +136,17 @@ class SurprisePlannerApplication:
         self.output_tabs.add(results,text='Reisevergleich')
         self.output_tabs.add(saved,text='Gespeicherte Reisen')
         self._note(results,'Echte Orte und Quellen · Preise und Belegung nur soweit nachweisbar. Keine Buchung in der App.')
-        self.tree=ttk.Treeview(results,columns=('place','date','price','quality'),show='headings',height=7,selectmode='browse')
+        self.tree=ttk.Treeview(results,columns=('place','date','price','quality'),show='headings',height=5,selectmode='browse')
         for key,label,width in [('place','Reiseziel',140),('date','Termine',190),('price','Reisebasis / Lücken',230),('quality','Bewertung',85)]:
             self.tree.heading(key,text=label);self.tree.column(key,width=width,minwidth=65,stretch=True)
         self.tree.pack(fill='x',pady=(5,10))
-        self.tree.bind('<<TreeviewSelect>>',self.select_trip)
+        self.tree.bind('<<TreeviewSelect>>',lambda e:self.select_trip(tree=self.tree))
+        ttk.Label(results,text='Passende Reiseideen – Angaben noch offen (keine Filtertreffer)').pack(anchor='w')
+        self.idea_tree=ttk.Treeview(results,columns=('place','date','price','quality'),show='headings',height=2,selectmode='browse')
+        for key,label,width in [('place','Ziel / offene Kriterien',210),('date','Termine',160),('price','Reisebasis / Lücken',180),('quality','Bewertung',70)]:
+            self.idea_tree.heading(key,text=label);self.idea_tree.column(key,width=width,minwidth=50)
+        self.idea_tree.pack(fill='x',pady=4)
+        self.idea_tree.bind('<<TreeviewSelect>>',lambda e:self.select_trip(tree=self.idea_tree))
         swaps=ttk.Frame(results);swaps.pack(fill='x',pady=4)
         ttk.Label(swaps,text='Unterkunft').grid(row=0,column=0,sticky='w')
         self.lodging_box=ttk.Combobox(swaps,state='readonly',width=30)
@@ -146,7 +162,7 @@ class SurprisePlannerApplication:
         ttk.Button(buttons,text='Als neue Reise speichern',command=lambda:self.save_trip(True)).pack(side='left',padx=6)
         ttk.Button(buttons,text='PDF exportieren',command=self.export_pdf).pack(side='left')
         textframe=ttk.Frame(results);textframe.pack(fill='both',expand=True)
-        self.details=tk.Text(textframe,wrap='word',height=12)
+        self.details=tk.Text(textframe,wrap='word',height=12,width=45)
         self.theme.style_text_widget(self.details)
         self.details.configure(font=('Helvetica',11),state='disabled')
         bar=ttk.Scrollbar(textframe,command=self.details.yview)
@@ -161,12 +177,17 @@ class SurprisePlannerApplication:
         for label,command in [('Öffnen / ändern',self.open_saved),('Duplizieren',self.duplicate_saved),('Löschen',self.delete_saved)]:
             ttk.Button(row,text=label,command=command).pack(side='left',padx=4)
         statusframe=ttk.Frame(self.root,padding=(18,8));statusframe.pack(fill='x')
-        self.status=tk.StringVar(value='Bereit. Europa umfasst die dokumentierte Auswahl von 65 Zielen; kein vollständiger Marktvergleich.')
+        self.status=tk.StringVar(value=f'Bereit. {len(self.catalog.destinations)} belegte Katalogziele; Interessen sind Wünsche, keine Pflichtfilter.')
         ttk.Label(statusframe,textvariable=self.status,wraplength=1250).pack(anchor='w')
         self.elapsed=tk.StringVar(value='')
         ttk.Label(statusframe,textvariable=self.elapsed,style='SubHeader.TLabel').pack(anchor='w')
         self.source_log=tk.Text(statusframe,height=3,wrap='word',font=('Helvetica',10),bg='#181824',fg='#e2e8f0',relief='flat')
         self.source_log.pack(fill='x');self.source_log.configure(state='disabled')
+        diagnostic_frame=ttk.Frame(self.output_tabs,padding=10)
+        self.output_tabs.add(diagnostic_frame,text='Suchdiagnose')
+        self.diagnostic_text=tk.Text(diagnostic_frame,wrap='word',state='disabled')
+        self.diagnostic_text.pack(fill='both',expand=True)
+        ttk.Button(diagnostic_frame,text='Diagnose ohne genaue Adresse exportieren',command=self.export_diagnostic).pack(anchor='w')
         self.refresh_saved()
         self.root.protocol('WM_DELETE_WINDOW',self.close)
         self.root.after(150,self.poll)
@@ -191,13 +212,15 @@ class SurprisePlannerApplication:
         data={}
         integers={'min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds'}
         lists={'countries','regions','excluded'}
-        decimals={'budget','consumption','petrol','max_hours','max_center_km'}
+        decimals={'budget','consumption','petrol','max_hours','max_center_km','lodging_radius_km','activity_radius_km'}
         for key,var in self.vars.items():
             if ':' in key: continue
             value=var.get().strip()
+            if key in ('surroundings','show_ideas'):
+                data[key]=value=='ja';continue
             data[key]=int(value) if key in integers else [v.strip() for v in value.split(',') if v.strip()] if key in lists else value.replace(',','.') if key in decimals else value
-        data['interests']={k:int(self.vars['interest:'+k].get()) for k in INTERESTS}
-        data['weights']={k:int(self.vars['weight:'+k].get()) for k in ('Preis','Reisezeit','Komfort','Interessen')}
+        data['interests']={k:float(self.vars['interest:'+k].get().replace(',','.')) for k in INTERESTS}
+        data['weights']={k:float(self.vars['weight:'+k].get().replace(',','.')) for k in ('Preis','Reisezeit','Komfort','Interessen')}
         data['required']=[k for k in AMENITIES if self.vars['amenity:'+k].get()=='Pflicht']
         data['desired']=[k for k in AMENITIES if self.vars['amenity:'+k].get()=='Wunsch']
         for key,choices in self.checks.items():data[key]=[k for k,v in choices.items() if v.get()]
@@ -205,10 +228,11 @@ class SurprisePlannerApplication:
         return request
 
     def populate_request(self,request):
+        request={**SearchRequest().to_dict(),**request}
         for key,value in request.items():
-            if key in self.vars:self.vars[key].set(', '.join(value) if isinstance(value,list) else str(value))
-        for k,v in request['interests'].items():self.vars['interest:'+k].set(v)
-        for k,v in request['weights'].items():self.vars['weight:'+k].set(v)
+            if key in self.vars:self.vars[key].set(('ja' if value else 'nein') if isinstance(value,bool) else ', '.join(value) if isinstance(value,list) else str(value))
+        for k in INTERESTS:self.vars['interest:'+k].set(request['interests'].get(k,0))
+        for k in ('Preis','Reisezeit','Komfort','Interessen'):self.vars['weight:'+k].set(request['weights'].get(k,0))
         for k in AMENITIES:self.vars['amenity:'+k].set('Pflicht' if k in request['required'] else 'Wunsch' if k in request['desired'] else 'egal')
         for key,choices in self.checks.items():
             for k,v in choices.items():v.set(k in request[key])
@@ -221,20 +245,28 @@ class SurprisePlannerApplication:
         self.generation+=1;generation=self.generation
         context=SearchContext(seconds=request.timeout_seconds,budget=request.request_budget)
         self.context=context;self.running=True
-        self.trips={};self.active=None;self.saved_id=None
+        self.trips={};self.active=None;self.saved_id=None;self.diagnostic=None
         self.tree.delete(*self.tree.get_children())
+        self.idea_tree.delete(*self.idea_tree.get_children())
         self.lodging_box.set('');self.lodging_box.configure(values=[])
         self.transport_box.set('');self.transport_box.configure(values=[])
         self.details.configure(state='normal');self.details.delete('1.0','end');self.details.configure(state='disabled')
         self.source_log.configure(state='normal');self.source_log.delete('1.0','end');self.source_log.configure(state='disabled')
         self.search_button.configure(state='disabled');self.cancel_button.configure(state='normal')
         self.output_tabs.select(0)
-        def emit(kind,value):self.events.put((generation,kind,value))
+        def emit(kind,value):
+            if kind=='diagnostic':
+                try:
+                    folder=self.store.path.parent/'diagnostics';folder.mkdir(exist_ok=True)
+                    (folder/(value['search_id']+'.json')).write_text(json.dumps(value,ensure_ascii=False,indent=2))
+                except OSError:
+                    self.events.put((generation,'warning','Diagnose konnte nicht lokal gespeichert werden; Export bleibt verfügbar.'))
+            self.events.put((generation,kind,value))
         def work():
             try:
                 DiscoveryService(self.catalog,self.provider).search(request,context,emit)
             except (InterruptedError,ValueError,OSError) as exc:emit('warning',str(exc))
-            except Exception as exc:emit('warning','Suche wegen unerwartetem Fehler beendet: '+type(exc).__name__)
+            except Exception:emit('warning','Unerwarteter Suchfehler. Details mit Such-ID stehen im Reiter Suchdiagnose.')
             finally:emit('done',None)
         worker=threading.Thread(target=work,name='travel-search',daemon=False)
         self.workers=[t for t in self.workers if t.is_alive()]+[worker];worker.start()
@@ -244,7 +276,7 @@ class SurprisePlannerApplication:
         # Invalidate queued/late results immediately, even if another search starts.
         self.generation+=1;self.running=False
         self.search_button.configure(state='normal');self.cancel_button.configure(state='disabled')
-        self.status.set('Abgebrochen. Vorhandene Teilergebnisse bleiben erhalten.')
+        self.status.set('Abgebrochen. Vorhandene Teilergebnisse bleiben erhalten. Diagnose kann nach Ende des Workers exportiert werden.')
 
     def poll(self):
         if self.closed:return
@@ -257,27 +289,41 @@ class SurprisePlannerApplication:
                 self.source_log.configure(state='normal');self.source_log.insert('end',value+'\n');self.source_log.see('end');self.source_log.configure(state='disabled')
             elif kind=='result':
                 self.trips[value['id']]=value;self.update_row(value)
-                if self.active is None:self.tree.selection_set(value['id']);self.select_trip()
+                if self.active is None:
+                    tree=self.idea_tree if value.get('filter_status')=='offen' else self.tree
+                    tree.selection_set(value['id']);self.select_trip(tree=tree)
+            elif kind=='diagnostic':
+                self.diagnostic=value
+                self.diagnostic_text.configure(state='normal');self.diagnostic_text.delete('1.0','end')
+                self.diagnostic_text.insert('end',value['summary']+'\n\n'+json.dumps(value,ensure_ascii=False,indent=2))
+                self.diagnostic_text.configure(state='disabled')
             elif kind=='done':
                 self.running=False;self.search_button.configure(state='normal');self.cancel_button.configure(state='disabled')
-                self.status.set(f"Suche beendet · {len(self.trips)} Reiseziele. Quellenprobleme und Datenlücken bitte beachten.")
+                self.status.set(self.diagnostic['summary'] if self.diagnostic else f'Suche beendet · {len(self.trips)} Reiseideen. Hinweise beachten.')
         if self.context:
             seconds=int(time.monotonic()-self.context.started)
-            if self.running:self.elapsed.set(f'{seconds//60:02d}:{seconds%60:02d} verstrichen · {len(self.trips)} Ergebnisse · {self.context.calls}/{self.context.budget} Quellenabfragen')
+            if self.running:
+                c=getattr(self.context,'diagnostics',{}).get('counts',{})
+                self.elapsed.set(f"{seconds//60:02d}:{seconds%60:02d} · {c.get('locally_scored',0)} lokal bewertet · {c.get('examined',0)} näher geprüft · {len(self.trips)} Ideen · {self.context.calls}/{self.context.budget} HTTP-Abfragen")
         self.root.after(150,self.poll)
 
     def update_row(self,trip):
         s=trip['cost_summary']
         price=(s['status']+' '+euros(s['low'])+'–'+euros(s['high'])) if s['coverage'] else 'Preis unbekannt'
         if s['missing']:price+=' + Lücken'
-        values=(trip['destination']['name'],trip['start']+' – '+trip['end'],price,str(trip['score']))
-        if self.tree.exists(trip['id']):self.tree.item(trip['id'],values=values)
-        else:self.tree.insert('','end',iid=trip['id'],values=values)
-        for index,identifier in enumerate(sorted(self.trips,key=lambda k:self.trips[k]['score'],reverse=True)):
-            self.tree.move(identifier,'',index)
+        tree=self.idea_tree if trip.get('filter_status')=='offen' else self.tree
+        label=trip['destination']['name']+' · '+trip['destination'].get('type','Ort')
+        if trip.get('open_criteria'):label+=' · '+trip['open_criteria'][0]
+        values=(label,trip['start']+' – '+trip['end'],price,str(trip['score']))
+        if tree.exists(trip['id']):tree.item(trip['id'],values=values)
+        else:tree.insert('','end',iid=trip['id'],values=values)
+        for widget in (self.tree,self.idea_tree):
+            for index,identifier in enumerate(sorted(widget.get_children(),key=lambda k:self.trips[k]['score'],reverse=True)):
+                widget.move(identifier,'',index)
 
-    def select_trip(self,event=None):
-        selection=self.tree.selection()
+    def select_trip(self,event=None,tree=None):
+        tree=tree or self.tree
+        selection=tree.selection()
         if not selection:return
         if self.active is not self.trips[selection[0]]:self.saved_id=None
         self.active=self.trips[selection[0]]
@@ -329,7 +375,8 @@ class SurprisePlannerApplication:
         if self.running:self.cancel_search()
         trip=self.store.load(selected[0]);RankingService.recompute(trip)
         self.trips[trip['id']]=trip;self.update_row(trip)
-        self.tree.selection_set(trip['id']);self.select_trip();self.saved_id=selected[0]
+        tree=self.idea_tree if trip.get('filter_status')=='offen' else self.tree
+        tree.selection_set(trip['id']);self.select_trip(tree=tree);self.saved_id=selected[0]
         self.populate_request(trip['request']);self.output_tabs.select(0)
         self.status.set('Gespeicherter Stand geöffnet. Neue Suche verwendet geänderte Filter; gespeicherte Preise sind keine aktuellen Angebote.')
 
@@ -354,10 +401,33 @@ class SurprisePlannerApplication:
                 TripPdfExporter().export(path,TripPresenter.sections(self.active));self.status.set('PDF lokal gespeichert: '+path)
             except Exception as exc:messagebox.showerror('PDF-Export fehlgeschlagen',str(exc),parent=self.root)
 
+    def export_diagnostic(self):
+        report=self.diagnostic or getattr(self.context,'diagnostics',None)
+        if not report:return
+        path=filedialog.asksaveasfilename(parent=self.root,defaultextension='.json',filetypes=[('JSON','*.json')],initialfile='Suchdiagnose-'+report['search_id']+'.json')
+        if path:Path(path).write_text(json.dumps(report,ensure_ascii=False,indent=2))
+
     def show_coverage(self):
-        countries=sorted({d['country']+' ('+d['code']+')' for d in self.catalog.destinations})
-        regions=sorted({d['region'] for d in self.catalog.destinations})
-        messagebox.showinfo('Unterstützte Europaauswahl',f'{len(self.catalog.destinations)} kuratierte Ziele; keine vollständige Europaabdeckung.\n\nLänder: '+', '.join(countries)+'\n\nRegionen: '+', '.join(regions),parent=self.root)
+        window=tk.Toplevel(self.root);window.title('Unterstützte Gebiete suchen');window.geometry('540x420')
+        query=tk.StringVar();kind=tk.StringVar(value='regions')
+        ttk.Label(window,text='Suchen, Eintrag auswählen und übernehmen. Mehrere Werte bleiben möglich.').pack(pady=8)
+        ttk.Entry(window,textvariable=query).pack(fill='x',padx=12)
+        for value,label in [('regions','Region'),('countries','Land'),('excluded','Ausschluss')]:
+            ttk.Radiobutton(window,text=label,variable=kind,value=value).pack(anchor='w',padx=12)
+        listing=tk.Listbox(window);listing.pack(fill='both',expand=True,padx=12)
+        def refresh(*args):
+            from ...infrastructure.planning.DestinationCatalog import normalize
+            listing.delete(0,'end')
+            for label in self.catalog.supported(kind.get()):
+                if normalize(query.get()) in normalize(label):listing.insert('end',label)
+        def apply():
+            if not listing.curselection():return
+            value=listing.get(listing.curselection()[0]);var=self.vars[kind.get()]
+            existing=[s.strip() for s in var.get().split(',') if s.strip()]
+            if value not in existing:existing.append(value)
+            var.set(', '.join(existing));window.destroy()
+        query.trace_add('write',refresh);kind.trace_add('write',refresh);refresh()
+        ttk.Button(window,text='Auswahl übernehmen',command=apply).pack(pady=8)
 
     def close(self):
         self.closed=True

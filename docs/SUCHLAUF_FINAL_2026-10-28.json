@@ -1,0 +1,455 @@
+{
+  "started": "2026-10-28T15-28-20+00-00",
+  "request": {
+    "origin": "Berlin",
+    "address": "",
+    "earliest": "2027-07-01",
+    "latest": "2027-07-31",
+    "min_days": 7,
+    "max_days": 7,
+    "adults": 5,
+    "rooms": 3,
+    "budget": "2000",
+    "countries": [],
+    "regions": [],
+    "excluded": [],
+    "interests": {
+      "Wandern": 5,
+      "Baden": 5,
+      "Feiern": 5
+    },
+    "weights": {
+      "Preis": 1,
+      "Reisezeit": 1,
+      "Komfort": 1,
+      "Interessen": 1
+    },
+    "modes": [
+      "Auto",
+      "Zug",
+      "Flug"
+    ],
+    "max_hours": "",
+    "cars": 1,
+    "seats": 5,
+    "consumption": "7.0",
+    "petrol": "1.80",
+    "accommodation_types": [
+      "Hotel",
+      "Ferienwohnung"
+    ],
+    "required": [],
+    "desired": [],
+    "max_center_km": "",
+    "shortlist": 3,
+    "request_budget": 8,
+    "timeout_seconds": 300,
+    "target_type": "gemischt",
+    "surroundings": true,
+    "lodging_radius_km": "15",
+    "activity_radius_km": "30",
+    "show_ideas": true
+  },
+  "calls": [
+    {
+      "url": "https://de.wikivoyage.org/wiki/Rostock",
+      "retrieved_at": "2026-10-28T15:28:21+00:00",
+      "file": "01.body"
+    },
+    {
+      "url": "https://routing.openstreetmap.de/routed-car/route/v1/driving/13.38873,52.51789;12.13333,54.08333;13.38873,52.51789?overview=false&steps=false",
+      "retrieved_at": "2026-10-28T15:28:22+00:00",
+      "file": "02.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde",
+      "retrieved_at": "2026-10-28T15:28:23+00:00",
+      "file": "03.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/Mi%C4%99dzyzdroje",
+      "retrieved_at": "2026-10-28T15:28:25+00:00",
+      "file": "04.body"
+    },
+    {
+      "url": "https://routing.openstreetmap.de/routed-car/route/v1/driving/13.38873,52.51789;14.25,53.91667;13.38873,52.51789?overview=false&steps=false",
+      "retrieved_at": "2026-10-28T15:28:25+00:00",
+      "file": "05.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/Zell_am_See",
+      "retrieved_at": "2026-10-28T15:28:27+00:00",
+      "file": "06.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/D%C4%9B%C4%8D%C3%ADn",
+      "retrieved_at": "2026-10-28T15:28:29+00:00",
+      "file": "07.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/H%C5%99ensko",
+      "retrieved_at": "2026-10-28T15:28:30+00:00",
+      "file": "08.body"
+    }
+  ],
+  "http_calls": 8,
+  "diagnostic": {
+    "search_id": "4b5d38a6-dd76-4271-95ee-3f9d4c875bf5",
+    "started_at": "2026-10-28T15:28:20.710046+00:00",
+    "criteria": {
+      "origin": "Berlin",
+      "earliest": "2027-07-01",
+      "latest": "2027-07-31",
+      "min_days": 7,
+      "max_days": 7,
+      "adults": 5,
+      "rooms": 3,
+      "budget": "2000",
+      "countries": [],
+      "regions": [],
+      "excluded": [],
+      "interests": {
+        "Wandern": 5,
+        "Baden": 5,
+        "Feiern": 5
+      },
+      "weights": {
+        "Preis": 1,
+        "Reisezeit": 1,
+        "Komfort": 1,
+        "Interessen": 1
+      },
+      "modes": [
+        "Auto",
+        "Zug",
+        "Flug"
+      ],
+      "max_hours": "",
+      "cars": 1,
+      "seats": 5,
+      "consumption": "7.0",
+      "petrol": "1.80",
+      "accommodation_types": [
+        "Hotel",
+        "Ferienwohnung"
+      ],
+      "required": [],
+      "desired": [],
+      "max_center_km": "",
+      "shortlist": 3,
+      "request_budget": 8,
+      "timeout_seconds": 300,
+      "target_type": "gemischt",
+      "surroundings": true,
+      "lodging_radius_km": "15",
+      "activity_radius_km": "30",
+      "show_ideas": true
+    },
+    "counts": {
+      "catalog": 298,
+      "geographic": 297,
+      "locally_scored": 297,
+      "examined": 4,
+      "online_examined": 4,
+      "with_lodgings": 2,
+      "with_activities": 2,
+      "with_known_transport": 2,
+      "matches": 1,
+      "ideas": 2
+    },
+    "outcomes": [
+      {
+        "id": "wv-de-title:Rostock",
+        "name": "Rostock",
+        "status": "passend",
+        "reasons": []
+      },
+      {
+        "id": "wv-de:6047",
+        "name": "Świnoujście",
+        "status": "offen",
+        "reasons": [
+          "Weniger als zwei Unterkunftsidentitäten"
+        ]
+      },
+      {
+        "id": "wv-de-title:Zell_am_See",
+        "name": "Zell am See",
+        "status": "offen",
+        "reasons": [
+          "Unterkunftsdaten fehlen",
+          "Weniger als zwei Unterkunftsidentitäten"
+        ]
+      },
+      {
+        "id": "wv-de:14810",
+        "name": "Děčín",
+        "status": "unterbrochen",
+        "reasons": [
+          "Kontrollabbruch während Recherche"
+        ]
+      }
+    ],
+    "errors": [],
+    "stop_reason": "Abfragebudget erreicht; vorhandene Teilergebnisse bleiben erhalten.",
+    "http_calls": 8,
+    "finished_at": "2026-10-28T15:28:31.419364+00:00",
+    "primary_reasons": {
+      "passend": 1,
+      "Weniger als zwei Unterkunftsidentitäten": 1,
+      "Unterkunftsdaten fehlen": 1,
+      "Kontrollabbruch während Recherche": 1
+    },
+    "suggestions": [
+      "Umgebungssuche aktivieren oder Unterkunftstypen erweitern."
+    ],
+    "summary": "297 Ziele lokal bewertet, 4 näher geprüft: 1 Filtertreffer, 2 Ideen mit offenen Angaben. Abfragebudget erreicht; vorhandene Teilergebnisse bleiben erhalten. Hauptgründe (je Ziel genau einer): 1 × passend; 1 × Weniger als zwei Unterkunftsidentitäten; 1 × Unterkunftsdaten fehlen; 1 × Kontrollabbruch während Recherche. Umgebungssuche aktivieren oder Unterkunftstypen erweitern."
+  },
+  "results": [
+    {
+      "destination": "Rostock",
+      "type": "Klein-/Mittelstadt",
+      "base": "Rostock",
+      "status": "passend",
+      "lodgings": [
+        {
+          "name": "Hotel Greifennest",
+          "place": "Rostock",
+          "distance_km": 0.42,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAuE"
+        },
+        {
+          "name": "Pentahotel",
+          "place": "Rostock",
+          "distance_km": 0.51,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#vCard_Q111388237"
+        },
+        {
+          "name": "Die kleine Sonne",
+          "place": "Rostock",
+          "distance_km": 0.66,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAuU"
+        },
+        {
+          "name": "Scan Hotels City",
+          "place": "Rostock",
+          "distance_km": 0.72,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#vCard_Q136152567"
+        },
+        {
+          "name": "Vienna House Sonne",
+          "place": "Rostock",
+          "distance_km": 0.74,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAv0"
+        },
+        {
+          "name": "Casita Maria",
+          "place": "Rostock",
+          "distance_km": 0.79,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAuk"
+        },
+        {
+          "name": "Dünenhotel am Meer",
+          "place": "Rostock",
+          "distance_km": 12.58,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAvk"
+        },
+        {
+          "name": "Hotel Ostseeland",
+          "place": "Rostock",
+          "distance_km": 13.06,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAu0"
+        }
+      ],
+      "activities": [
+        {
+          "name": "Pleitegeier 2",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAp8"
+        },
+        {
+          "name": "Pub Carolina",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAqM"
+        },
+        {
+          "name": "Pub Mambo No. One",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAqg"
+        },
+        {
+          "name": "Desaster",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAq0"
+        },
+        {
+          "name": "Empire",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwArI"
+        },
+        {
+          "name": "LT-Club",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwArg"
+        },
+        {
+          "name": "ST-Club",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwArs"
+        },
+        {
+          "name": "Studentenkeller",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAr8"
+        }
+      ],
+      "budget_ok": null
+    },
+    {
+      "destination": "Świnoujście",
+      "type": "Dorf/Ferienort",
+      "base": "Świnoujście",
+      "status": "offen",
+      "lodgings": [
+        {
+          "name": "Vienna House Amber Baltic",
+          "place": "Międzyzdroje",
+          "distance_km": 13.28,
+          "source": "https://de.wikivoyage.org/wiki/Mi%C4%99dzyzdroje#mwmg"
+        }
+      ],
+      "activities": [
+        {
+          "name": "Akwarium",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mwsg"
+        },
+        {
+          "name": "Boss Pub",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mwtw"
+        },
+        {
+          "name": "Cech Pub & Pizzeria",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mwuw"
+        },
+        {
+          "name": "Fenix Bar & Steakhouse",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mwvw"
+        },
+        {
+          "name": "Hoangson Bar",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mwxA"
+        },
+        {
+          "name": "Osada",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mwyQ"
+        },
+        {
+          "name": "Pasztecik Bar",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mwzg"
+        },
+        {
+          "name": "Promway Bar",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mw0w"
+        },
+        {
+          "name": "Royal Joker",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mw2A"
+        },
+        {
+          "name": "Sfinks Pub",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mw3A"
+        },
+        {
+          "name": "Skansen Bar",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mw4A"
+        },
+        {
+          "name": "Zachód",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Świnoujście",
+          "source": "https://de.wikivoyage.org/wiki/Swinem%C3%BCnde#mw5A"
+        }
+      ],
+      "budget_ok": null
+    },
+    {
+      "destination": "Zell am See",
+      "type": "Dorf/Ferienort",
+      "base": "Zell am See",
+      "status": "offen",
+      "lodgings": [],
+      "activities": [],
+      "budget_ok": null
+    }
+  ]
+}

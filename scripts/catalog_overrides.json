@@ -1,0 +1,48 @@
+{
+  "Titisee-Neustadt": {
+    "type": "Klein-/Mittelstadt"
+  },
+  "Triberg im Schwarzwald": {
+    "type": "Klein-/Mittelstadt"
+  },
+  "Todtnau": {
+    "type": "Klein-/Mittelstadt"
+  },
+  "St. Blasien": {
+    "type": "Klein-/Mittelstadt"
+  },
+  "Lienz": {
+    "type": "Klein-/Mittelstadt"
+  },
+  "Blanes": {
+    "type": "Klein-/Mittelstadt"
+  },
+  "Pärnu": {
+    "type": "Klein-/Mittelstadt"
+  },
+  "Bohinj": {
+    "type": "Region",
+    "base_name": "Bohinjska Bistrica",
+    "base_type": "Dorf/Ferienort",
+    "regional_name": "Bohinj / Julische Alpen",
+    "aliases": [
+      "Wochein"
+    ],
+    "regions": [
+      "Alpen",
+      "Julische Alpen",
+      "Triglav/Bohinj"
+    ]
+  },
+  "Bettmeralp": {
+    "base_name": "Betten (Gemeinde Bettmeralp)",
+    "coordinate_note": "Wikivoyage-Primärkoordinate im Tal; keine Autozufahrt auf die autofreie Bettmeralp zugesagt."
+  },
+  "Riederalp": {
+    "base_name": "Riederalp",
+    "coordinate_note": "Gemeinde-Primärkoordinate; keine Autozufahrt bis zur Unterkunft auf der autofreien Riederalp zugesagt."
+  },
+  "Bad Schandau": {
+    "type": "Klein-/Mittelstadt"
+  }
+}

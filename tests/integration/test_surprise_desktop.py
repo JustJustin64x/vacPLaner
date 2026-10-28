@@ -99,4 +99,61 @@ class DesktopTests(unittest.TestCase):
         self.assertEqual(self.app.trips,{})
 
 
+
+@unittest.skipIf(tk.TkVersion < 8.6,'Modern Tk required')
+class ImprovedDesktopTests(unittest.TestCase):
+    def setUp(self):
+        from tests.unit.test_search_improvement import GeographicProvider,catalog
+        self.directory=tempfile.TemporaryDirectory()
+        self.app=SurprisePlannerApplication(TripStore(Path(self.directory.name)/'trips.sqlite3'),GeographicProvider())
+        self.app.catalog=catalog('Hinterzarten','Titisee-Neustadt','Hřensko','Bad Schandau','Trogir')
+        self.root=self.app.create_window();self.root.withdraw()
+
+    def tearDown(self):
+        self.app.close()
+        for t in self.app.workers:t.join(2)
+        self.directory.cleanup()
+
+    def finish_search(self,request):
+        self.app.populate_request(request.to_dict());self.app.start_search()
+        deadline=time.monotonic()+3
+        while self.app.running and time.monotonic()<deadline:
+            self.root.update();time.sleep(.01)
+        self.assertFalse(self.app.running)
+        self.assertIsNotNone(self.app.diagnostic)
+
+    def test_form_scenarios_and_interests_do_not_leak_between_searches(self):
+        from tests.unit.test_search_improvement import request
+        scenarios=[dict(interests={'Wandern':5,'Baden':5,'Feiern':5}),dict(interests={'Wandern':5}),
+                   dict(interests={'Baden':5,'Natur':5}),dict(regions=['Schwarzwald']),dict(target_type='kleiner Ort')]
+        for args in scenarios:
+            with self.subTest(args=args):
+                self.finish_search(request(surroundings=False,**args))
+                self.assertGreater(len(self.app.tree.get_children()),0)
+                self.assertEqual(len(self.app.idea_tree.get_children()),0)
+                self.assertEqual(self.app.read_request().interests.get('Feiern',0),args.get('interests',{}).get('Feiern',0))
+        self.app.vars['petrol'].set('1,85')
+        self.assertEqual(self.app.read_request().petrol,'1.85')
+
+    def test_pool_and_train_separate_ideas_export_redacts_address(self):
+        from tests.unit.test_search_improvement import request
+        for args in (dict(required=['Pool']),dict(modes=['Zug'],max_hours='8')):
+            self.finish_search(request(show_ideas=True,surroundings=False,address='Nicht exportieren 123',**args))
+            self.assertEqual(len(self.app.tree.get_children()),0)
+            self.assertGreater(len(self.app.idea_tree.get_children()),0)
+            self.assertIn('0 Filtertreffer',self.app.status.get())
+            self.assertIn('offen',self.app.active['filter_status'])
+        path=Path(self.directory.name)/'diagnosis.json'
+        with patch('tkinter.filedialog.asksaveasfilename',return_value=str(path)):
+            self.app.export_diagnostic()
+        self.assertNotIn('Nicht exportieren',path.read_text())
+        self.assertIn('Reisezeit unbekannt',path.read_text())
+
+    def test_unknown_area_explains_empty_results_in_dashboard(self):
+        from tests.unit.test_search_improvement import request
+        self.finish_search(request(regions=['Schwarzwaldd']))
+        self.assertEqual(len(self.app.tree.get_children()),0)
+        self.assertIn('Gebiet nicht erkannt',self.app.status.get())
+        self.assertIn('Schwarzwald',self.app.status.get())
+
 if __name__=='__main__':unittest.main()

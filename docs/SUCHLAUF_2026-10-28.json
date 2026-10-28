@@ -1,0 +1,742 @@
+{
+  "started": "2026-10-28T10-22-10+00-00",
+  "request": {
+    "origin": "Berlin",
+    "address": "",
+    "earliest": "2027-07-01",
+    "latest": "2027-07-31",
+    "min_days": 7,
+    "max_days": 7,
+    "adults": 5,
+    "rooms": 3,
+    "budget": "2000",
+    "countries": [],
+    "regions": [],
+    "excluded": [],
+    "interests": {
+      "Wandern": 5,
+      "Baden": 5,
+      "Feiern": 5
+    },
+    "weights": {
+      "Preis": 1,
+      "Reisezeit": 1,
+      "Komfort": 1,
+      "Interessen": 1
+    },
+    "modes": [
+      "Auto",
+      "Zug",
+      "Flug"
+    ],
+    "max_hours": "",
+    "cars": 1,
+    "seats": 5,
+    "consumption": "7.0",
+    "petrol": "1.80",
+    "accommodation_types": [
+      "Hotel",
+      "Ferienwohnung"
+    ],
+    "required": [],
+    "desired": [],
+    "max_center_km": "",
+    "shortlist": 6,
+    "request_budget": 24,
+    "timeout_seconds": 300,
+    "target_type": "gemischt",
+    "surroundings": true,
+    "lodging_radius_km": "15",
+    "activity_radius_km": "30",
+    "show_ideas": true
+  },
+  "calls": [
+    {
+      "url": "https://de.wikivoyage.org/wiki/Rostock",
+      "retrieved_at": "2026-10-28T10:22:11+00:00",
+      "file": "01.body"
+    },
+    {
+      "url": "https://routing.openstreetmap.de/routed-car/route/v1/driving/13.38873,52.51789;12.13333,54.08333;13.38873,52.51789?overview=false&steps=false",
+      "retrieved_at": "2026-10-28T10:22:12+00:00",
+      "file": "02.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/Kopenhagen",
+      "retrieved_at": "2026-10-28T10:22:13+00:00",
+      "file": "03.body"
+    },
+    {
+      "url": "https://routing.openstreetmap.de/routed-car/route/v1/driving/13.38873,52.51789;12.57875,55.67571;13.38873,52.51789?overview=false&steps=false",
+      "retrieved_at": "2026-10-28T10:22:13+00:00",
+      "file": "04.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/Danzig",
+      "retrieved_at": "2026-10-28T10:22:15+00:00",
+      "file": "05.body"
+    },
+    {
+      "url": "https://routing.openstreetmap.de/routed-car/route/v1/driving/13.38873,52.51789;18.6478,54.3557;13.38873,52.51789?overview=false&steps=false",
+      "retrieved_at": "2026-10-28T10:22:15+00:00",
+      "file": "06.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/Zell_am_See",
+      "retrieved_at": "2026-10-28T10:22:17+00:00",
+      "file": "07.body"
+    },
+    {
+      "url": "https://routing.openstreetmap.de/routed-car/route/v1/driving/13.38873,52.51789;12.79806,47.32333;13.38873,52.51789?overview=false&steps=false",
+      "retrieved_at": "2026-10-28T10:22:17+00:00",
+      "file": "08.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/H%C5%99ensko",
+      "retrieved_at": "2026-10-28T10:22:19+00:00",
+      "file": "09.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/Bad_Schandau",
+      "retrieved_at": "2026-10-28T10:22:21+00:00",
+      "file": "10.body"
+    },
+    {
+      "url": "https://routing.openstreetmap.de/routed-car/route/v1/driving/13.38873,52.51789;14.242621,50.874482;13.38873,52.51789?overview=false&steps=false",
+      "retrieved_at": "2026-10-28T10:22:21+00:00",
+      "file": "11.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/Split",
+      "retrieved_at": "2026-10-28T10:22:23+00:00",
+      "file": "12.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/Trogir",
+      "retrieved_at": "2026-10-28T10:22:24+00:00",
+      "file": "13.body"
+    },
+    {
+      "url": "https://routing.openstreetmap.de/routed-car/route/v1/driving/13.38873,52.51789;16.43333,43.5;13.38873,52.51789?overview=false&steps=false",
+      "retrieved_at": "2026-10-28T10:22:25+00:00",
+      "file": "14.body"
+    },
+    {
+      "url": "https://de.wikivoyage.org/wiki/Nizza",
+      "retrieved_at": "2026-10-28T10:22:26+00:00",
+      "file": "15.body"
+    },
+    {
+      "url": "https://routing.openstreetmap.de/routed-car/route/v1/driving/13.38873,52.51789;7.26917,43.70278;13.38873,52.51789?overview=false&steps=false",
+      "retrieved_at": "2026-10-28T10:22:26+00:00",
+      "file": "16.body"
+    }
+  ],
+  "http_calls": 16,
+  "diagnostic": {
+    "search_id": "c7ce1d13-dc80-42e4-a479-ba871586cd56",
+    "started_at": "2026-10-28T10:22:10.252275+00:00",
+    "criteria": {
+      "origin": "Berlin",
+      "earliest": "2027-07-01",
+      "latest": "2027-07-31",
+      "min_days": 7,
+      "max_days": 7,
+      "adults": 5,
+      "rooms": 3,
+      "budget": "2000",
+      "countries": [],
+      "regions": [],
+      "excluded": [],
+      "interests": {
+        "Wandern": 5,
+        "Baden": 5,
+        "Feiern": 5
+      },
+      "weights": {
+        "Preis": 1,
+        "Reisezeit": 1,
+        "Komfort": 1,
+        "Interessen": 1
+      },
+      "modes": [
+        "Auto",
+        "Zug",
+        "Flug"
+      ],
+      "max_hours": "",
+      "cars": 1,
+      "seats": 5,
+      "consumption": "7.0",
+      "petrol": "1.80",
+      "accommodation_types": [
+        "Hotel",
+        "Ferienwohnung"
+      ],
+      "required": [],
+      "desired": [],
+      "max_center_km": "",
+      "shortlist": 6,
+      "request_budget": 24,
+      "timeout_seconds": 300,
+      "target_type": "gemischt",
+      "surroundings": true,
+      "lodging_radius_km": "15",
+      "activity_radius_km": "30",
+      "show_ideas": true
+    },
+    "counts": {
+      "catalog": 298,
+      "geographic": 297,
+      "locally_scored": 297,
+      "examined": 7,
+      "with_lodgings": 6,
+      "with_activities": 6,
+      "with_known_transport": 5,
+      "matches": 6,
+      "ideas": 1
+    },
+    "outcomes": [
+      {
+        "id": "wv-de-title:Rostock",
+        "name": "Rostock",
+        "status": "passend",
+        "reasons": []
+      },
+      {
+        "id": "wv-de-title:Kopenhagen",
+        "name": "Kopenhagen",
+        "status": "passend",
+        "reasons": []
+      },
+      {
+        "id": "wv-de-title:Danzig",
+        "name": "Danzig",
+        "status": "passend",
+        "reasons": []
+      },
+      {
+        "id": "wv-de-title:Zell_am_See",
+        "name": "Zell am See",
+        "status": "offen",
+        "reasons": [
+          "Unterkunftsdaten fehlen",
+          "Weniger als zwei Unterkunftsidentitäten"
+        ]
+      },
+      {
+        "id": "wv-de:57953",
+        "name": "Hřensko",
+        "status": "passend",
+        "reasons": []
+      },
+      {
+        "id": "wv-de-title:Split",
+        "name": "Split",
+        "status": "passend",
+        "reasons": []
+      },
+      {
+        "id": "wv-de-title:Nizza",
+        "name": "Nizza",
+        "status": "passend",
+        "reasons": []
+      }
+    ],
+    "errors": [],
+    "stop_reason": "Gewünschte Ergebnisanzahl erreicht.",
+    "http_calls": 16,
+    "finished_at": "2026-10-28T10:22:26.908175+00:00",
+    "primary_reasons": {
+      "passend": 6,
+      "Unterkunftsdaten fehlen": 1
+    },
+    "suggestions": [
+      "Umgebungssuche aktivieren oder Unterkunftstypen erweitern."
+    ],
+    "summary": "297 Ziele lokal bewertet, 7 näher geprüft: 6 Filtertreffer, 1 Ideen mit offenen Angaben. Gewünschte Ergebnisanzahl erreicht. Hauptgründe (je Ziel genau einer): 6 × passend; 1 × Unterkunftsdaten fehlen. Umgebungssuche aktivieren oder Unterkunftstypen erweitern."
+  },
+  "implementation_stage": "Erster Live-Lauf vor Nachschärfung der Landschaftspräferenz",
+  "results": [
+    {
+      "destination": "Rostock",
+      "status": "passend",
+      "lodgings": [
+        {
+          "name": "Hotel Greifennest",
+          "place": "Rostock",
+          "distance_km": 0.42,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAuE"
+        },
+        {
+          "name": "Pentahotel",
+          "place": "Rostock",
+          "distance_km": 0.51,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#vCard_Q111388237"
+        },
+        {
+          "name": "Die kleine Sonne",
+          "place": "Rostock",
+          "distance_km": 0.66,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAuU"
+        },
+        {
+          "name": "Scan Hotels City",
+          "place": "Rostock",
+          "distance_km": 0.72,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#vCard_Q136152567"
+        },
+        {
+          "name": "Vienna House Sonne",
+          "place": "Rostock",
+          "distance_km": 0.74,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAv0"
+        },
+        {
+          "name": "Casita Maria",
+          "place": "Rostock",
+          "distance_km": 0.79,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAuk"
+        },
+        {
+          "name": "Dünenhotel am Meer",
+          "place": "Rostock",
+          "distance_km": 12.58,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAvk"
+        },
+        {
+          "name": "Hotel Ostseeland",
+          "place": "Rostock",
+          "distance_km": 13.06,
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAu0"
+        }
+      ],
+      "activities": [
+        {
+          "name": "Braugasthaus „Zum alten Fritz“",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwApQ"
+        },
+        {
+          "name": "Brauhaus Trotzenburg",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwApg"
+        },
+        {
+          "name": "Pleitegeier 2",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAp8"
+        },
+        {
+          "name": "Pub Carolina",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAqM"
+        },
+        {
+          "name": "Pub Mambo No. One",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAqg"
+        },
+        {
+          "name": "Desaster",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAq0"
+        },
+        {
+          "name": "Empire",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwArI"
+        },
+        {
+          "name": "LT-Club",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwArg"
+        },
+        {
+          "name": "ST-Club",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwArs"
+        },
+        {
+          "name": "Studentenkeller",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Rostock",
+          "source": "https://de.wikivoyage.org/wiki/Rostock#mwAr8"
+        }
+      ],
+      "budget_ok": null
+    },
+    {
+      "destination": "Kopenhagen",
+      "status": "passend",
+      "lodgings": [
+        {
+          "name": "The Huxley Copenhagen",
+          "place": "Kopenhagen",
+          "distance_km": 0.69,
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#mwAX4"
+        },
+        {
+          "name": "The Square",
+          "place": "Kopenhagen",
+          "distance_km": 0.78,
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#mwAYo"
+        },
+        {
+          "name": "Scandic Webers",
+          "place": "Kopenhagen",
+          "distance_km": 1.08,
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#mwAXo"
+        },
+        {
+          "name": "Copenhagen Admiral Hotel",
+          "place": "Kopenhagen",
+          "distance_km": 1.15,
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#vCard_Q3489755"
+        },
+        {
+          "name": "Hotel Copenhagen",
+          "place": "Kopenhagen",
+          "distance_km": 1.18,
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#vCard_Q111122184"
+        },
+        {
+          "name": "Ibsens Hotel",
+          "place": "Kopenhagen",
+          "distance_km": 1.28,
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#vCard_Q111409495"
+        },
+        {
+          "name": "Moxy Copenhagen Sydhavnen",
+          "place": "Kopenhagen",
+          "distance_km": 3.54,
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#vCard_Q111873512"
+        },
+        {
+          "name": "Bella Sky Comwell",
+          "place": "Kopenhagen",
+          "distance_km": 4.01,
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#vCard_Q545283"
+        }
+      ],
+      "activities": [
+        {
+          "name": "Ruby Bar",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Kopenhagen",
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#mwAT4"
+        },
+        {
+          "name": "Berlin Bar",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Kopenhagen",
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#mwAUI"
+        },
+        {
+          "name": "Mikkeller Bar",
+          "topics": [
+            "Feiern"
+          ],
+          "place": "Kopenhagen",
+          "source": "https://de.wikivoyage.org/wiki/Kopenhagen#mwAUY"
+        }
+      ],
+      "budget_ok": null
+    },
+    {
+      "destination": "Danzig",
+      "status": "passend",
+      "lodgings": [
+        {
+          "name": "Mercure Gdansk Stare Miasto",
+          "place": "Danzig",
+          "distance_km": 0.28,
+          "source": "https://de.wikivoyage.org/wiki/Danzig#mwAYY"
+        },
+        {
+          "name": "Hampton by Hilton Gdansk Old Town",
+          "place": "Danzig",
+          "distance_km": 0.43,
+          "source": "https://de.wikivoyage.org/wiki/Danzig#mwAX4"
+        },
+        {
+          "name": "Hilton Gdansk",
+          "place": "Danzig",
+          "distance_km": 0.73,
+          "source": "https://de.wikivoyage.org/wiki/Danzig#mwAZA"
+        },
+        {
+          "name": "Królewski Hotel Gdańsk",
+          "place": "Danzig",
+          "distance_km": 0.83,
+          "source": "https://de.wikivoyage.org/wiki/Danzig#mwAYw"
+        },
+        {
+          "name": "Radisson Hotel & Suites Gdansk",
+          "place": "Danzig",
+          "distance_km": 0.99,
+          "source": "https://de.wikivoyage.org/wiki/Danzig#mwAZg"
+        },
+        {
+          "name": "Holiday Inn Gdansk City Centre",
+          "place": "Danzig",
+          "distance_km": 1.01,
+          "source": "https://de.wikivoyage.org/wiki/Danzig#mwAYI"
+        },
+        {
+          "name": "Novotel Gdansk Centrum",
+          "place": "Danzig",
+          "distance_km": 1.76,
+          "source": "https://de.wikivoyage.org/wiki/Danzig#mwAZQ"
+        },
+        {
+          "name": "Villa Angela",
+          "place": "Danzig",
+          "distance_km": null,
+          "source": "https://de.wikivoyage.org/wiki/Danzig#mwAXY"
+        }
+      ],
+      "activities": [
+        {
+          "name": "FKK-Strand",
+          "topics": [
+            "Baden"
+          ],
+          "place": "Danzig",
+          "source": "https://de.wikivoyage.org/wiki/Danzig"
+        }
+      ],
+      "budget_ok": null
+    },
+    {
+      "destination": "Zell am See",
+      "status": "offen",
+      "lodgings": [],
+      "activities": [],
+      "budget_ok": null
+    },
+    {
+      "destination": "Hřensko",
+      "status": "passend",
+      "lodgings": [
+        {
+          "name": "Hotel Labe",
+          "place": "Hřensko",
+          "distance_km": 0.41,
+          "source": "https://de.wikivoyage.org/wiki/H%C5%99ensko#mwZw"
+        },
+        {
+          "name": "Hotel Helvetia",
+          "place": "Bad Schandau",
+          "distance_km": 2.43,
+          "source": "https://de.wikivoyage.org/wiki/Bad_Schandau#mwAYQ"
+        },
+        {
+          "name": "Hotel Villa Waldfrieden",
+          "place": "Bad Schandau",
+          "distance_km": 2.49,
+          "source": "https://de.wikivoyage.org/wiki/Bad_Schandau#mwAVI"
+        },
+        {
+          "name": "Panoramahotel Wolfsberg",
+          "place": "Bad Schandau",
+          "distance_km": 4.32,
+          "source": "https://de.wikivoyage.org/wiki/Bad_Schandau#mwAWE"
+        },
+        {
+          "name": "Hotel Elbpromenade",
+          "place": "Bad Schandau",
+          "distance_km": 6.8,
+          "source": "https://de.wikivoyage.org/wiki/Bad_Schandau#mwAVw"
+        },
+        {
+          "name": "Hotel Ostrauer Scheibe",
+          "place": "Bad Schandau",
+          "distance_km": 7.0,
+          "source": "https://de.wikivoyage.org/wiki/Bad_Schandau#mwAWY"
+        },
+        {
+          "name": "Parkhotel Bad Schandau",
+          "place": "Bad Schandau",
+          "distance_km": 7.31,
+          "source": "https://de.wikivoyage.org/wiki/Bad_Schandau#vCard_Q111853086"
+        },
+        {
+          "name": "Hotel Lindenhof",
+          "place": "Bad Schandau",
+          "distance_km": 7.73,
+          "source": "https://de.wikivoyage.org/wiki/Bad_Schandau#mwAXo"
+        }
+      ],
+      "activities": [
+        {
+          "name": "Bequemer Weg nach Pfaffendorf",
+          "topics": [
+            "Natur",
+            "Wandern"
+          ],
+          "place": "Bad Schandau",
+          "source": "https://de.wikivoyage.org/wiki/Bad_Schandau"
+        }
+      ],
+      "budget_ok": null
+    },
+    {
+      "destination": "Split",
+      "status": "passend",
+      "lodgings": [
+        {
+          "name": "Hotel Jadran",
+          "place": "Split",
+          "distance_km": 0.75,
+          "source": "https://de.wikivoyage.org/wiki/Split#mwAWw"
+        },
+        {
+          "name": "Hotel Peristil",
+          "place": "Split",
+          "distance_km": 1.08,
+          "source": "https://de.wikivoyage.org/wiki/Split#mwAXs"
+        },
+        {
+          "name": "Hotel Luxe Split",
+          "place": "Split",
+          "distance_km": 1.11,
+          "source": "https://de.wikivoyage.org/wiki/Split#mwAZk"
+        },
+        {
+          "name": "Hotel Park",
+          "place": "Split",
+          "distance_km": 1.25,
+          "source": "https://de.wikivoyage.org/wiki/Split#mwAYY"
+        },
+        {
+          "name": "Hotel President",
+          "place": "Split",
+          "distance_km": 1.51,
+          "source": "https://de.wikivoyage.org/wiki/Split#mwAZA"
+        },
+        {
+          "name": "Hotel Globo",
+          "place": "Split",
+          "distance_km": 1.78,
+          "source": "https://de.wikivoyage.org/wiki/Split#mwAYs"
+        },
+        {
+          "name": "Hotel Consul",
+          "place": "Split",
+          "distance_km": 1.97,
+          "source": "https://de.wikivoyage.org/wiki/Split#mwAXE"
+        },
+        {
+          "name": "Hotel Atrium",
+          "place": "Split",
+          "distance_km": 2.4,
+          "source": "https://de.wikivoyage.org/wiki/Split#mwAYE"
+        }
+      ],
+      "activities": [
+        {
+          "name": "Stadtstrand von Trogir",
+          "topics": [
+            "Baden"
+          ],
+          "place": "Trogir",
+          "source": "https://de.wikivoyage.org/wiki/Trogir#mwiA"
+        },
+        {
+          "name": "öffentlicher Strand von Trogir auf Čiovo",
+          "topics": [
+            "Baden"
+          ],
+          "place": "Trogir",
+          "source": "https://de.wikivoyage.org/wiki/Trogir#mwjA"
+        }
+      ],
+      "budget_ok": null
+    },
+    {
+      "destination": "Nizza",
+      "status": "passend",
+      "lodgings": [
+        {
+          "name": "Hotel Negresco",
+          "place": "Nizza",
+          "distance_km": 1.27,
+          "source": "https://de.wikivoyage.org/wiki/Nizza#vCard_Q743147"
+        },
+        {
+          "name": "Hotel Anis",
+          "place": "Nizza",
+          "distance_km": null,
+          "source": "https://de.wikivoyage.org/wiki/Nizza#mwAfM"
+        },
+        {
+          "name": "Hotel West End",
+          "place": "Nizza",
+          "distance_km": null,
+          "source": "https://de.wikivoyage.org/wiki/Nizza#mwAfg"
+        },
+        {
+          "name": "Hotel Goldstar Resort & Suites Nizza",
+          "place": "Nizza",
+          "distance_km": null,
+          "source": "https://de.wikivoyage.org/wiki/Nizza#mwAfw"
+        }
+      ],
+      "activities": [
+        {
+          "name": "Tour Bellanda",
+          "topics": [
+            "Natur",
+            "Wandern"
+          ],
+          "place": "Nizza",
+          "source": "https://de.wikivoyage.org/wiki/Nizza#mwATk"
+        },
+        {
+          "name": "Cliff Walk",
+          "topics": [
+            "Natur",
+            "Wandern"
+          ],
+          "place": "Nizza",
+          "source": "https://de.wikivoyage.org/wiki/Nizza#mwAbo"
+        }
+      ],
+      "budget_ok": null
+    }
+  ]
+}

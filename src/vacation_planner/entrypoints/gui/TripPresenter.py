@@ -37,6 +37,9 @@ class TripPresenter:
             f"{trip['nights']+1} Kalendertage / {trip['nights']} Übernachtungen | {request['adults']} Erwachsene / {request['rooms']} Zimmer",
             f"Ab {request['origin']} | Anfrage: {request['earliest']} bis {request['latest']} | Gruppenbudget {euros(request['budget'])}",
             f"Recherche: {local_stamp(trip['researched_at'])}. Gespeicherte Angaben sind ein damaliger Stand, keine neue Preisabfrage.",
+            'Region: '+trip['destination'].get('regional_name',trip['destination'].get('region',''))+' | Zieltyp: '+trip['destination'].get('type','nicht erfasst')+' | Basisort: '+trip['destination'].get('base_name',trip['destination']['name']),
+            'Datensicherheit Interessen: '+(f"{trip['evidence_confidence']:.0%}" if 'evidence_confidence' in trip else 'nicht separat erfasst'),
+            'Terminoptionen (Stichproben): '+', '.join(a+' bis '+b for a,b in trip.get('date_options',[(trip['start'],trip['end'])])),
             trip['research_status'],trip['explanation'],trip['recommendation'],
             'Normalisierte Gewichte: '+', '.join(f'{k} {v:.0%}' for k,v in trip['normalized_weights'].items()),
             'Unterkunftswünsche: '+(', '.join(request['desired']) or 'keine')+' | Pflichtmerkmale: '+(', '.join(request['required']) or 'keine'),
@@ -60,7 +63,8 @@ class TripPresenter:
             amenities=', '.join(k+': '+('ja' if v is True else 'nein' if v is False else 'unbekannt') for k,v in l.get('amenities',{}).items())
             distance=f"{l['distance_km']:.1f} km Luftlinie zum Zentrum" if l.get('distance_km') is not None else 'Zentrumsentfernung unbekannt'
             sections.append((('Ausgewählte Unterkunft: ' if i==trip['selected_lodging'] else 'Unterkunftsalternative: ')+l['name'],
-                             [f"{l['type']} | {l['address']} | {distance}",l['occupancy_status'],
+                             [f"{l['type']} | {l['address']} | {distance}",l['occupancy_status'], 'Quellort: '+l.get('source_place',trip['destination']['name'])+' | '+l.get('distance_kind','Luftlinie'),
+                              'Offene Pflichtangaben: '+('; '.join(l.get('open_criteria',[])) or 'keine zusätzlich erfasst'),
                               l['booking_status'],l['price']['scope'],
                               'Gruppen-/Aufenthaltspreis: '+price_text(l['price']),
                               'Ausstattung: '+(amenities or 'unbekannt')+'. Storno- und Verpflegungsbedingungen unbekannt.',
@@ -72,6 +76,7 @@ class TripPresenter:
         for a in trip['activities']:
             location=f"{a['latitude']}, {a['longitude']}" if a['latitude'] is not None else 'Lage unbekannt'
             sections.append((a['name'],[a['description'],f"Lage: {location}; {a['price_status']}; {a['duration']}",
+                                       'Quellort: '+a.get('source_place',trip['destination']['name'])+' | '+(f"{a['distance_km']:.1f} km Luftlinie; Erreichbarkeit offen" if a.get('distance_km') is not None else 'Abstand unbekannt'),
                                        'Quelle abgerufen: '+local_stamp(a['retrieved_at'])],[(a['link_kind'],a['url']),('Quelleneintrag',a['source'])]))
         sections.append(('Datenlücken und Quellen',trip['notes'],[
             ('Wikivoyage: Autoren und Versionsgeschichte',trip['destination']['source']+'?action=history'),

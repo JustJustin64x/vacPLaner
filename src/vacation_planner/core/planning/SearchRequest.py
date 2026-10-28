@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field, asdict
 from datetime import date, timedelta
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from zoneinfo import ZoneInfo
 from datetime import datetime
 
@@ -34,7 +34,7 @@ class SearchRequest:
     countries: list = field(default_factory=list)
     regions: list = field(default_factory=list)
     excluded: list = field(default_factory=list)
-    interests: dict = field(default_factory=lambda: {k: 1 for k in INTERESTS})
+    interests: dict = field(default_factory=lambda: {k: 0 for k in INTERESTS})
     weights: dict = field(default_factory=lambda: {'Preis': 1, 'Reisezeit': 1, 'Komfort': 1, 'Interessen': 1})
     modes: list = field(default_factory=lambda: ['Auto', 'Zug', 'Flug'])
     max_hours: str = ''
@@ -50,8 +50,49 @@ class SearchRequest:
     request_budget: int = 24
     timeout_seconds: int = 300
 
+    target_type: str = 'gemischt'
+    surroundings: bool = True
+    lodging_radius_km: str = '15'
+    activity_radius_km: str = '30'
+    show_ideas: bool = False
+
     def validate(self):
-        first, last = date.fromisoformat(self.earliest), date.fromisoformat(self.latest)
+        for key in ('min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds'):
+            if isinstance(getattr(self,key),bool) or not isinstance(getattr(self,key),int):
+                raise ValueError(key+': bitte eine ganze Zahl angeben.')
+        if not isinstance(self.origin,str) or not isinstance(self.address,str):
+            raise ValueError('Startort und Adresse müssen Text sein.')
+        for key in ('countries','regions','excluded','modes','accommodation_types','required','desired'):
+            value=getattr(self,key)
+            if not isinstance(value,list) or any(not isinstance(v,str) or not v.strip() for v in value):
+                raise ValueError(key+': bitte eine Liste nichtleerer Namen angeben.')
+        if not isinstance(self.surroundings,bool) or not isinstance(self.show_ideas,bool):
+            raise ValueError('Umgebungssuche und Ideenanzeige müssen ja/nein sein.')
+        for group in (self.interests,self.weights):
+            if not isinstance(group,dict):raise ValueError('Gewichte müssen als benannte Zahlen vorliegen.')
+            for key,value in group.items():
+                try:number=Decimal(str(value).replace(',','.'))
+                except InvalidOperation:raise ValueError('Gewicht für '+key+' ist keine Zahl.') from None
+                if not number.is_finite():raise ValueError('Gewichte müssen endliche Zahlen sein.')
+                group[key]=int(number) if number==number.to_integral_value() else float(number)
+        for key in ('budget','consumption','petrol','max_hours','max_center_km','lodging_radius_km','activity_radius_km'):
+            value=str(getattr(self,key)).strip().replace(',','.')
+            if not value and key not in ('max_hours','max_center_km'):
+                raise ValueError(key+': bitte eine positive Zahl eingeben.')
+            try:
+                if value:Decimal(value)
+            except InvalidOperation:raise ValueError(key+': bitte eine Zahl eingeben.') from None
+            setattr(self,key,value)
+        if self.target_type not in ('gemischt','Stadt','kleiner Ort','See/Küste','Berge/Natur'):
+            raise ValueError('Unbekannter Zieltyp.')
+        for key in ('lodging_radius_km','activity_radius_km'):
+            value=Decimal(getattr(self,key))
+            if not value.is_finite() or not 0 < value <= 50:
+                raise ValueError('Umkreis muss zwischen 0 und 50 km liegen (größer als null).')
+        try:
+            first, last = date.fromisoformat(self.earliest), date.fromisoformat(self.latest)
+        except (TypeError,ValueError):
+            raise ValueError('Reisezeitraum bitte als JJJJ-MM-TT eingeben.') from None
         if first < today() or last < first:
             raise ValueError('Der Zeitraum muss in der Zukunft liegen und richtig geordnet sein.')
         if first.year != last.year:
@@ -77,9 +118,9 @@ class SearchRequest:
         for value in (self.max_hours, self.max_center_km):
             if value and (not Decimal(value).is_finite() or Decimal(value) <= 0):
                 raise ValueError('Reisezeit und Entfernung müssen positiv sein oder leer bleiben.')
-        for group in (self.interests, self.weights):
-            if any(not Decimal(str(v)).is_finite() or not 0 <= Decimal(str(v)) <= 100 for v in group.values()):
-                raise ValueError('Gewichte müssen zwischen 0 und 100 liegen.')
+        for group,limit in ((self.interests,5),(self.weights,100)):
+            if any(not Decimal(str(v)).is_finite() or not 0 <= Decimal(str(v)) <= limit for v in group.values()):
+                raise ValueError(f'Interessen: 0–5; Vergleichsgewichte: 0–100 (Grenze {limit}).')
         if set(self.interests)-set(INTERESTS) or set(self.weights)-{'Preis','Reisezeit','Komfort','Interessen'}:
             raise ValueError('Unbekannte Gewichtung.')
         if not 3 <= self.shortlist <= 12 or not 4 <= self.request_budget <= 40 or not 10 <= self.timeout_seconds <= 600:

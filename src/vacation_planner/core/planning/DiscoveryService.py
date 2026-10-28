@@ -1,124 +1,176 @@
 from __future__ import annotations
 from datetime import date, datetime, timezone
-from decimal import Decimal
 from urllib.parse import urlencode
 from uuid import uuid4
 from .CostService import CostService
 from .RankingService import RankingService
 from .TravelProvider import TravelProvider
-from ..domain.value_objects.GeographicCoordinates import GeographicCoordinates
+from .SearchDiagnostics import SearchDiagnostics
+from .PlaceResearch import PlaceResearch, distance
 
 
 class DiscoveryService:
-    def __init__(self, catalog, provider: TravelProvider):
-        self.catalog,self.provider = catalog,provider
+    def __init__(self,catalog,provider: TravelProvider):
+        self.catalog,self.provider=catalog,provider
 
-    def search(self, request, context, emit):
+    def search(self,request,context,emit):
+        self.diagnostics=SearchDiagnostics(request)
+        context.diagnostics=self.diagnostics.data
+        reason='Kandidatenliste ausgeschöpft.'
+        try:
+            result=self._search(request,context,emit)
+            reason=self.diagnostics.data.get('stop_reason') or reason
+            return result
+        except InterruptedError as exc:
+            reason=str(exc)
+            raise
+        except Exception as exc:
+            reason=str(exc) if isinstance(exc,ValueError) else 'Technischer Suchfehler; Details im Diagnosebericht.'
+            self.diagnostics.error('Suche',exc,request.address)
+            raise
+        finally:
+            report=self.diagnostics.finish(context,reason)
+            emit('diagnostic',report)
+            emit('phase',report['summary'])
+
+    def _search(self,request,context,emit):
+        context.check()
         request.validate()
+        counts=self.diagnostics.data['counts']
+        counts['catalog']=len(self.catalog.destinations)
+        candidates=self.catalog.candidates(request)
+        counts['geographic']=sum(self.catalog.allowed(d,request) for d in self.catalog.destinations)
         emit('phase','Startort auflösen')
-        origin = self.provider.origin(request.origin,request.address,context)
-        candidates = self.catalog.candidates(request)
-        origin_coords = GeographicCoordinates(origin['latitude'],origin['longitude'])
+        origin=self.provider.origin(request.origin,request.address,context)
+        candidates=[d for d in candidates if distance(origin,d)>5]
+        counts['locally_scored']=len(candidates)
         def priority(d):
-            distance = origin_coords.calculate_distance_in_kilometers_to(GeographicCoordinates(d['latitude'],d['longitude']))
-            weights = request.normalized_weights()
-            interest_weight = float(weights['Interessen'])
-            time_weight = float(weights['Reisezeit'])
-            # Price and comfort cannot be inferred from a city name. Use only the
-            # two available signals, with distance explicitly a shortlist proxy.
-            total = interest_weight+time_weight
-            if not total:
-                interest_weight=time_weight=.5
-                total=1
-            return (RankingService.interest_match(d,request)*interest_weight + max(0,1-distance/2000)*time_weight)/total
-        candidates.sort(key=priority,reverse=True)
-        # Geographic diversity before expensive retrieval: at most two per country first.
-        ordered, deferred, counts = [],[],{}
-        for d in candidates:
-            if counts.get(d['country'],0) >= 2:
-                deferred.append(d)
-            else:
-                ordered.append(d)
-                counts[d['country']] = counts.get(d['country'],0)+1
-        chosen = (ordered+deferred)[:request.shortlist+3]  # bounded reserves for missing lodging alternatives
-        emit('phase',f'Bis zu {len(chosen)} von {len(candidates)} passenden Katalogzielen einschließlich Reserven; kein globales Preisoptimum.')
-        results = []
-        for index,destination in enumerate(chosen):
-            if sum(len(t['lodgings']) >= 2 for t in results) >= request.shortlist:
-                break
+            match=RankingService.interest_match(d,request)
+            proximity=max(0,1-distance(origin,d)/2000)
+            weights=request.normalized_weights()
+            iw,tw=float(weights['Interessen']),float(weights['Reisezeit'])
+            if not iw+tw:iw=tw=.5
+            nature_weight=sum(request.interests.get(k,0) for k in ('Wandern','Baden','Natur','Berge'))/max(1,sum(request.interests.values()))
+            landscape_fit=bool(set(d.get('landscapes',[])) & {'Berge/Natur','See/Küste'})
+            rural_preference=.22*nature_weight if landscape_fit and d.get('type')!='Großstadt' else 0
+            return (match*iw+proximity*tw)/(iw+tw)+rural_preference
+        # Greedy soft diversity: never force every country ahead of more suitable places.
+        pending=list(candidates);chosen=[]
+        scores={d['source']:priority(d) for d in candidates}
+        while pending:
             context.check()
-            emit('phase',f'Ziel {index+1}/{len(chosen)}: {destination["name"]} – Unterkünfte und Aktivitäten')
-            places = self.provider.places(destination,context)
+            best=max(pending,key=lambda d:scores[d['source']]);pending.remove(best);chosen.append(best)
+            for d in pending:
+                penalty=(.07 if best['code']==d['code'] else 0)+(.035 if best.get('type')==d.get('type') else 0)
+                penalty+=(.25 if distance(best,d)<45 else 0)+(.06 if best.get('area_id',best['region'])==d.get('area_id',d['region']) else 0)
+                scores[d['source']]-=penalty
+        emit('phase',f"{len(chosen)} Ziele lokal bewertet; adaptive Recherche bis {request.shortlist} Filtertreffer oder Quellen-/Zeitlimit.")
+        results=[]
+        for destination in chosen:
+            if counts['matches']>=request.shortlist:
+                self.diagnostics.data['stop_reason']='Gewünschte Ergebnisanzahl erreicht.';break
             context.check()
-            for warning in places.get('warnings',[]):
-                emit('warning',warning)
-            lodgings=[]
-            for raw in places['lodgings']:
-                item = dict(raw)
-                if item.get('latitude') is not None and item.get('longitude') is not None:
-                    item['distance_km'] = GeographicCoordinates(item['latitude'],item['longitude']).calculate_distance_in_kilometers_to(GeographicCoordinates(destination['latitude'],destination['longitude']))
-                if item['type'] not in request.accommodation_types:
-                    continue
-                if any(item.get('amenities',{}).get(k) is not True for k in request.required):
-                    continue
-                if request.max_center_km and (item['distance_km'] is None or item['distance_km'] > float(request.max_center_km)):
-                    continue
-                item['requested_occupancy'] = request.room_occupancy()
-                item['occupancy_status'] = f'Anfrage: {request.adults} Erwachsene / {request.rooms} Zimmer, Aufteilung {request.room_occupancy()}; Belegung und freie Zimmer unbestätigt'
-                if item['type']=='Camping':
-                    item['occupancy_status'] += '; Stellplätze, eigene Ausrüstung und Belegung gesondert prüfen; Zimmer nicht in Stellplätze umgerechnet'
-                lodgings.append(item)
-            lodgings.sort(key=lambda x:(-sum(x.get('amenities',{}).get(k) is True for k in request.desired),x.get('distance_km') if x.get('distance_km') is not None else 9999))
-            lodgings=lodgings[:8]
-            start,end=request.dates()[index % len(request.dates())]
-            for item in lodgings:
-                item['search_url']='https://www.booking.com/searchresults.de.html?'+urlencode(dict(
-                    ss=item['name']+' '+destination['name'],checkin=start,checkout=end,
-                    group_adults=request.adults,no_rooms=request.rooms,group_children=0,selected_currency='EUR'))
-                item['price']=dict(item['price'],scope=f'{request.adults} Erwachsene / {request.rooms} Zimmer / {(date.fromisoformat(end)-date.fromisoformat(start)).days} Nächte; Verfügbarkeit und Gesamtpreis unbekannt')
-            if len(lodgings)<2:
-                emit('warning',f'{destination["name"]}: nur {len(lodgings)} passende reale Unterkunftseinträge; nächstes Ziel wird ebenfalls geprüft.')
-            emit('phase',f'{destination["name"]} – Hin- und Rückreise prüfen')
-            transports = self.transports(request,context,origin,destination,start,end,emit)
-            if not transports:
-                emit('warning',destination['name']+': keine Option erfüllt die maximale Reisezeit mit ausreichenden Daten.')
+            counts['examined']+=1
+            emit('phase',f"{counts['examined']} Ziele näher geprüft: {destination['name']}")
+            before_calls=context.calls
+            try:
+                trip=self.research(request,context,origin,destination,emit)
+            except InterruptedError:
+                self.diagnostics.outcome(destination,'unterbrochen',['Kontrollabbruch während Recherche'])
+                raise
+            except Exception as exc:
+                self.diagnostics.error(destination['name'],exc,request.address)
+                self.diagnostics.outcome(destination,'Fehler',['Quelle fehlgeschlagen' if isinstance(exc,(OSError,ValueError)) else 'Programmfehler'])
+                emit('warning',destination['name']+': Recherche fehlgeschlagen; weitere Ziele werden geprüft. Diagnose enthält Details.')
                 continue
-            if not lodgings and (request.required or request.max_center_km):
-                emit('warning',destination['name']+': Pflichtfilter nicht belegt; Ziel ausgeschlossen.')
-                continue
-            activities = [a for a in places['activities'] if any(request.interests.get(t,0)>0 for t in a['topics'])]
-            activities.sort(key=lambda a:sum(request.interests.get(t,0) for t in a['topics']),reverse=True)
-            notes = [places['cache_note'],
-                     f'Begrenzte Suche: maximal {len(chosen)}/{len(candidates)} Katalogziele, {len(request.dates())} Datumsstichproben; keine Prüfung aller Termine.',
-                     'Reiseführer-Einträge belegen Identität, keine Verfügbarkeit oder Belegung. Preise müssen beim Anbieter geprüft werden.',
-                     'Optional: Verpflegung und Aktivitäten sind nicht im Budgetvergleich enthalten. Ohne belastbare Daten keine pauschalen Zusatzkosten.',
-                     'Zug-/Flugpreise und Fahrpläne sowie datierte Veranstaltungen sind derzeit nicht angebunden.',
-                     'Entfernungen von Unterkünften zum Zentrum sind Luftlinie. Unterkunftsanbindung und genaue Startadresse fehlen im Routing.']
-            if len(lodgings)<2:
-                notes.append('Unvollständig recherchiert: weniger als zwei Unterkunftsalternativen gefunden.')
-            topics = [k for k in destination['interests'] if request.interests.get(k,0)>0]
-            trip=dict(id=str(uuid4()),destination=destination,origin=origin,request=request.to_dict(),
-                      start=start,end=end,nights=(date.fromisoformat(end)-date.fromisoformat(start)).days,
-                      lodgings=lodgings,activities=activities[:12],transports=transports,
-                      selected_lodging=0,selected_transport=0,interest_match=RankingService.interest_match(destination,request),
-                      researched_at=datetime.now(timezone.utc).isoformat(timespec='seconds'),notes=notes,
-                      explanation=f"{destination['name']} passt redaktionell zu {', '.join(topics) or 'einer offenen Zielsuche'}. "
-                      f"{start} bis {end} liegt vollständig im gewünschten Zeitraum; keine Behauptung eines günstigsten Termins. "
-                      'Die Unterkunftsauswahl berücksichtigt Typ, belegbare Pflichtmerkmale und Lage; unbekannte Wünsche bleiben offen.',
-                      research_status='Identitäten recherchiert; Angebote und Belegung unbestätigt' if len(lodgings)>=2 else 'Teilergebnis')
-            # Choose a recommendation using the same weights as later swaps.
-            variants=[]
-            for t in range(len(transports)):
-                trip['selected_transport']=t
-                RankingService.recompute(trip)
-                variants.append(trip['score'])
-            trip['selected_transport']=max(range(len(variants)),key=variants.__getitem__)
-            RankingService.recompute(trip)
-            context.check()
+            finally:
+                if context.calls>before_calls:counts['online_examined']+=1
+            if trip is None:continue
+            if trip['filter_status']=='offen' and not request.show_ideas:continue
             results.append(trip)
             emit('result',trip)
-        emit('phase',f'Abgeschlossen: {len(results)} Ziele, {context.calls} echte Abfragen. Datenlücken in den Ergebnissen beachten.')
-        return sorted(results,key=lambda t:t['score'],reverse=True)
+        return sorted(results,key=lambda t:(t['filter_status']=='passend',t['score']),reverse=True)
+
+    def research(self,request,context,origin,destination,emit):
+        counts=self.diagnostics.data['counts']
+        places=PlaceResearch(self.catalog,self.provider).collect(destination,request,context,emit)
+        for warning in places['warnings']:emit('warning',warning)
+        lodgings=[];unverified=[];reasons=[];violations=[]
+        for item in places['lodgings']:
+            if item['type'] not in request.accommodation_types:continue
+            amenities=item.get('amenities',{})
+            if any(amenities.get(k) is False for k in request.required):
+                violations.append('Pflichtausstattung nachweislich verletzt');continue
+            if request.max_center_km and item.get('distance_km') is not None and item['distance_km']>float(request.max_center_km):
+                violations.append('Zentrumsentfernung überschritten');continue
+            unknown=[]
+            if any(amenities.get(k) is not True for k in request.required):unknown.append('Pflichtausstattung unbelegt: '+', '.join(k for k in request.required if amenities.get(k) is not True))
+            if request.max_center_km and item.get('distance_km') is None:unknown.append('Zentrumsentfernung unbekannt')
+            item['open_criteria']=unknown
+            (unverified if unknown else lodgings).append(item)
+        if lodgings:counts['with_lodgings']+=1
+        if not lodgings:
+            if unverified:
+                lodgings=unverified
+                reasons+=list(dict.fromkeys(r for l in unverified for r in l['open_criteria']))
+            elif violations:
+                self.diagnostics.outcome(destination,'ausgeschlossen',violations);return None
+            else:reasons.append('Quelle fehlgeschlagen' if places['warnings'] and not places['lodgings'] else 'Unterkunftsdaten fehlen')
+        if len(lodgings)<2:reasons.append('Weniger als zwei Unterkunftsidentitäten')
+        # Do not spend routing calls when mandatory lodging criteria are unresolved.
+        transport_request=request
+        if reasons and (request.required or not lodgings):
+            from dataclasses import replace
+            transport_request=replace(request,modes=[m for m in request.modes if m!='Auto'] or ['Auto'])
+            if transport_request.modes==['Auto']:
+                transports=[dict(mode='Auto',costs=[dict(label='Auto Hin-/Rückfahrt',low=None,status='unbekannt')],
+                    hours_high=None,hours_low=None,comfort=0,scope='Gesamte Gruppe',notes=['Route wegen fehlender oder unbelegter Unterkunftsdaten nicht abgefragt.'],links=[],status='Nicht geprüft',filter_status='unbekannt')]
+            else:transports=self.transports(transport_request,context,origin,destination,*request.dates()[0],emit)
+        else:transports=self.transports(request,context,origin,destination,*request.dates()[0],emit)
+        if not transports:
+            self.diagnostics.outcome(destination,'ausgeschlossen',['Reisezeit überschritten']);return None
+        valid=[t for t in transports if t.get('filter_status')!='unbekannt']
+        if request.max_hours and not valid:reasons.append('Reisezeit unbekannt')
+        if valid:transports=valid
+        if any(t.get('hours_high') is not None for t in transports):counts['with_known_transport']+=1
+        active=any(request.interests.values())
+        activities=[a for a in places['activities'] if not active or any(request.interests.get(t,0)>0 for t in a['topics'])]
+        activities.sort(key=lambda a:sum(request.interests.get(t,0) for t in a['topics']),reverse=True)
+        if activities:counts['with_activities']+=1
+        lodgings.sort(key=lambda x:(-sum(x.get('amenities',{}).get(k) is True for k in request.desired),x.get('distance_km') if x.get('distance_km') is not None else 9999))
+        lodgings=lodgings[:8]
+        start,end=request.dates()[0] # Stable, independent of ranking; no date-price provider.
+        for item in lodgings:
+            item['requested_occupancy']=request.room_occupancy()
+            item['occupancy_status']=f'Anfrage: {request.adults} Erwachsene / {request.rooms} Zimmer, Aufteilung {request.room_occupancy()}; Belegung und freie Zimmer unbestätigt'
+            if item['type']=='Camping':item['occupancy_status']+='; Stellplätze und eigene Ausrüstung gesondert prüfen'
+            item['search_url']='https://www.booking.com/searchresults.de.html?'+urlencode(dict(ss=item['name']+' '+item.get('source_place',destination['name']),checkin=start,checkout=end,group_adults=request.adults,no_rooms=request.rooms,group_children=0,selected_currency='EUR'))
+            item['price']=dict(item['price'],scope=f'{request.adults} Erwachsene / {request.rooms} Zimmer / {(date.fromisoformat(end)-date.fromisoformat(start)).days} Nächte; Gesamtpreis unbekannt')
+        evidence=RankingService.interest_evidence(destination,activities,request)
+        status='offen' if reasons else 'passend'
+        counts['ideas' if reasons else 'matches']+=1
+        self.diagnostics.outcome(destination,status,reasons)
+        trip=dict(id=str(uuid4()),destination=destination,origin=origin,request=request.to_dict(),start=start,end=end,
+            date_options=request.dates(),nights=(date.fromisoformat(end)-date.fromisoformat(start)).days,
+            lodgings=lodgings,activities=activities[:12],transports=transports,selected_lodging=0,selected_transport=0,
+            interest_match=RankingService.interest_match(destination,request,activities),interest_evidence=evidence,
+            evidence_confidence=sum(v['confidence'] for v in evidence.values())/len(evidence) if evidence else 0,
+            filter_status=status,open_criteria=reasons,search_id=self.diagnostics.data['search_id'],
+            researched_at=datetime.now(timezone.utc).isoformat(timespec='seconds'),
+            notes=[places['cache_note'],destination.get('coordinate_note','Routing ab Basisortkoordinate; Unterkunftszufahrt nicht belegt'),'Adaptive begrenzte Suche; kein vollständiger Marktvergleich. Natur-/Badeinteressen bevorzugen in der Vorauswahl passende kleinere Landschaftsziele; keine Aktivitätszusage.',
+                   'Termine sind plausible Stichproben, keine Optimierung datierter Preise.',
+                   'Reiseführer-Einträge belegen Identität, keine Verfügbarkeit oder Zimmerbelegung.',
+                   'Lageabstände sind Luftlinie, keine belegte Erreichbarkeit. Hotelzufahrt fehlt.',
+                   'Optionale Verpflegung und Aktivitäten liegen außerhalb des Budgets.',
+                   'Zug-/Flugfahrpläne und Preise sowie datierte Veranstaltungen sind nicht angebunden.'],
+            explanation='; '.join(k+': '+v['explanation'] for k,v in evidence.items()) or 'Offene Suche ohne Interessenfilter.',
+            research_status='Passende Reiseidee – Angaben noch offen: '+'; '.join(reasons) if reasons else 'Filtertreffer: zwei Unterkunftsidentitäten; Preise, Verfügbarkeit und Belegung weiterhin unbestätigt')
+        scores=[]
+        for i in range(len(transports)):
+            trip['selected_transport']=i;RankingService.recompute(trip);scores.append(trip['score'])
+        trip['selected_transport']=max(range(len(scores)),key=scores.__getitem__)
+        RankingService.recompute(trip)
+        return trip
 
     def transports(self, request, context, origin, destination, start, end, emit):
         result=[]
@@ -147,6 +199,8 @@ class DiscoveryService:
                     if high>16:
                         emit('warning',destination['name']+': Autofahrt benötigt eventuell eine Zwischenübernachtung; aus Ein-Ziel-Vergleich ausgeschlossen.')
                         continue
+                except InterruptedError:
+                    raise
                 except (OSError,ValueError,KeyError) as exc:
                     emit('warning',str(exc))
                     option['costs'].append(dict(label='Benzin Hin-/Rückfahrt',low=None,status='unbekannt',scope=scope))
@@ -163,7 +217,11 @@ class DiscoveryService:
                 else:
                     query=f'Flights from {request.origin} to {destination["name"]} {start} return {end} {request.adults} adults'
                     option['links']=[dict(label='Google Flights',url='https://www.google.com/travel/flights?'+urlencode({'q':query}),kind='Parametrierter Suchlink; Eingaben dort prüfen')]
-            if request.max_hours and (option['hours_high'] is None or option['hours_high'] > float(request.max_hours)):
-                continue
+            if request.max_hours:
+                if option['hours_high'] is None:
+                    option['filter_status']='unbekannt'
+                    option['notes'].append('Reisezeit unbekannt: erfüllt das gesetzte Limit NICHT nachweislich.')
+                elif option['hours_high'] > float(request.max_hours):
+                    continue
             result.append(option)
         return result

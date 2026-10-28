@@ -1,0 +1,4241 @@
+{
+  "calls": 9,
+  "accepted": 240,
+  "rejected": [
+    {
+      "name": "Hohnstein (Sächsische Schweiz)",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Göhren (Rügen)",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Carolinensiel",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Lindau (Bodensee)",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Immenstaad am Bodensee",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "St. Wolfgang im Salzkammergut",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Traunkirchen",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Sölden",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Alpbach",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Matrei in Osttirol",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Nauders",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Millstatt",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Faak am See",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Weissensee",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Wengen",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Brienz",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Corvara",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Garda",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Levanto",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Camogli",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Bohinjska Bistrica",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Ribčev Laz",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Bovec",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Tolmin",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Krásná Lípa",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Jetřichovice",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Lipno nad Vltavou",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Frymburk",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Třeboň",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Umag",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Medulin",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Rabac",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Motovun",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Brela",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Baška Voda",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Omiš",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Primošten",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Vodice",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Bol",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Morzine",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Megève",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Pont-Aven",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Perros-Guirec",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Cancale",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Palafrugell",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Ouddorp",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Bergen aan Zee",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Egmond aan Zee",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "De Koog",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Durbuy",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Bouillon",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Ebeltoft",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Rättvik",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Tällberg",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Vadstena",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Loen",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Stryn",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Kerimäki",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Sulkava",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Puumala",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Haapsalu",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Kuressaare",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Kärdla",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Juodkrantė",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Palanga",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Dingle",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Westport",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Clifden",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Lahinch",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Keswick",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Windermere",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Keszthely",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Badacsony",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Balatonalmádi",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Štrbské Pleso",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Tatranská Lomnica",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Starý Smokovec",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Ždiar",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Bran",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Predeal",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    },
+    {
+      "name": "Perast",
+      "reason": "Keine eindeutige Seite mit Primärkoordinaten"
+    }
+  ],
+  "reports": [
+    {
+      "retrieved_at": "2026-10-27T23:41:16+00:00",
+      "response": {
+        "continue": {
+          "excontinue": 20,
+          "continue": "||coordinates|pageprops"
+        },
+        "query": {
+          "redirects": [
+            {
+              "from": "Malchow",
+              "to": "Malchow (Mecklenburg)"
+            }
+          ],
+          "pages": {
+            "-1": {
+              "ns": 0,
+              "title": "Hohnstein (Sächsische Schweiz)",
+              "missing": ""
+            },
+            "16896": {
+              "pageid": 16896,
+              "ns": 0,
+              "title": "Altenau",
+              "coordinates": [
+                {
+                  "lat": 51.80278,
+                  "lon": 10.44556,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Die Bergstadt Altenau, mit dem Ortsteil Torfhaus, ist ein heilklimatischer Kurort und ein bekannter Erholungs- und Wintersportort im Oberharz.\nAltenau ist zu jeder Jahreszeit ein attraktives Urlaubsziel mit zentraler Lage im Harz und zahlreichen Sehenswürdigkeiten wie dem Kräuterpark, einer kleinen Altstadt oder der letzten noch im Oberharz aktiven Brauerei."
+            },
+            "14565": {
+              "pageid": 14565,
+              "ns": 0,
+              "title": "Bad Harzburg",
+              "coordinates": [
+                {
+                  "lat": 51.8887,
+                  "lon": 10.5621,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Bad Harzburg ist eine renommierte Kurstadt am Nordrand des Harzes. Die Stadt bezeichnet sich als das Tor zum Harz und bietet alles, was sich ihre Kurgäste, Wanderfreunde und Radfahrer wünschen."
+            },
+            "2458": {
+              "pageid": 2458,
+              "ns": 0,
+              "title": "Bad Schandau",
+              "coordinates": [
+                {
+                  "lat": 50.91667,
+                  "lon": 14.15,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Der an der Elbe gelegene Kurort Bad Schandau ist Mittelpunkt der Sächsischen Schweiz und ein beliebtes touristisches Ziel. Das Städtchen Bad Schandau hat etwa 4.000 Einwohner."
+            },
+            "15373": {
+              "pageid": 15373,
+              "ns": 0,
+              "title": "Bad Wildbad",
+              "coordinates": [
+                {
+                  "lat": 48.75028,
+                  "lon": 8.55056,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Bad Wildbad ist eine Stadt im Nordschwarzwald."
+            },
+            "10807": {
+              "pageid": 10807,
+              "ns": 0,
+              "title": "Baiersbronn",
+              "coordinates": [
+                {
+                  "lat": 48.50583,
+                  "lon": 8.37111,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Baiersbronn ist eine bekannte Feriengemeinde im Nordschwarzwald. Die Ortsteile der Gemeinde liegen im oberen Murgtal auf ca."
+            },
+            "9961": {
+              "pageid": 9961,
+              "ns": 0,
+              "title": "Braunlage",
+              "coordinates": [
+                {
+                  "lat": 51.72694,
+                  "lon": 10.61194,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": ""
+            },
+            "8724": {
+              "pageid": 8724,
+              "ns": 0,
+              "title": "Feldberg (Mecklenburg)",
+              "coordinates": [
+                {
+                  "lat": 53.33611,
+                  "lon": 13.43417,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Feldberg ist eine Kleinstadt in Mecklenburg-Vorpommern. Der heute zur Gemeinde Feldberger Seenlandschaft gehörende Ort liegt inmitten der lieblichen Seenlandschaft, die durch die Gletscher der letzten Eiszeit entstand."
+            },
+            "46323": {
+              "pageid": 46323,
+              "ns": 0,
+              "title": "Feldberg (Schwarzwald)",
+              "coordinates": [
+                {
+                  "lat": 47.856111,
+                  "lon": 8.111667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Feldberg (Schwarzwald) ist eine Feriengemeinde im  Hochschwarzwald. Im Gemeindegebiet liegt der bekannte Feldberg, der mit 1493 m die höchste Erhebung des Schwarzwalds ist."
+            },
+            "15517": {
+              "pageid": 15517,
+              "ns": 0,
+              "title": "Freudenstadt",
+              "coordinates": [
+                {
+                  "lat": 48.46333,
+                  "lon": 8.41111,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Freudenstadt ist ein heilklimatischer Kurort und Kneippkurort und liegt im Zentrum des Nordschwarzwaldes."
+            },
+            "3814": {
+              "pageid": 3814,
+              "ns": 0,
+              "title": "Goslar",
+              "coordinates": [
+                {
+                  "lat": 51.90722,
+                  "lon": 10.43,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Goslar ist eine Stadt an der Nordseite des Harzes in Niedersachsen."
+            },
+            "47767": {
+              "pageid": 47767,
+              "ns": 0,
+              "title": "Hahnenklee",
+              "coordinates": [
+                {
+                  "lat": 51.857222,
+                  "lon": 10.34,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Hahnenklee ist ein Ortsteil von Goslar im Oberharz in Niedersachsen."
+            },
+            "12391": {
+              "pageid": 12391,
+              "ns": 0,
+              "title": "Heiligendamm",
+              "coordinates": [
+                {
+                  "lat": 54.14278,
+                  "lon": 11.84389,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Das Seebad Heiligendamm liegt an der Ostseeküste in Mecklenburg-Vorpommern. Heiligendamm ist der älteste Seebadeort Deutschlands und wird die Weiße Stadt am Meer genannt."
+            },
+            "3981": {
+              "pageid": 3981,
+              "ns": 0,
+              "title": "Hinterzarten",
+              "coordinates": [
+                {
+                  "lat": 47.90556,
+                  "lon": 8.10722,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Hinterzarten ist eine Gemeinde im Hochschwarzwald."
+            },
+            "69010": {
+              "pageid": 69010,
+              "ns": 0,
+              "title": "Krakow am See",
+              "coordinates": [
+                {
+                  "lat": 53.65,
+                  "lon": 12.27,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Krakow am See ist eine Kleinstadt im deutschen Bundesland Mecklenburg-Vorpommern."
+            },
+            "12818": {
+              "pageid": 12818,
+              "ns": 0,
+              "title": "Königstein (Sächsische Schweiz)",
+              "coordinates": [
+                {
+                  "lat": 50.91889,
+                  "lon": 14.07139,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Königstein ist eine Stadt in der Sächsischen Schweiz."
+            },
+            "4273": {
+              "pageid": 4273,
+              "ns": 0,
+              "title": "Kühlungsborn",
+              "coordinates": [
+                {
+                  "lat": 54.13333,
+                  "lon": 11.75,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Kühlungsborn ist ein berühmtes Seebad an der Mecklenburgischen Ostseeküste und hat mit über 3100 m die längste deutsche Strandpromenade nach den Kaiserbädern auf Usedom. Der Ort bildet das Herzstück der „mecklenburgischen Riviera“."
+            },
+            "77921": {
+              "pageid": 77921,
+              "ns": 0,
+              "title": "Mirow",
+              "coordinates": [
+                {
+                  "lat": 53.2764,
+                  "lon": 12.8158,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Mirow ist eine Kleinstadt an der Mecklenburgischen Kleinseenplatte im Süden des Landkreises Mecklenburgische Seenplatte in Mecklenburg-Vorpommern. Die Stadt ist auch Sitz des \"Amtes Mecklenburgische Kleinseenplatte\" und ein staatlich anerkannter Erholungsort."
+            },
+            "12382": {
+              "pageid": 12382,
+              "ns": 0,
+              "title": "Neustrelitz",
+              "coordinates": [
+                {
+                  "lat": 53.36472,
+                  "lon": 13.06361,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Neustrelitz ist eine Stadt in Mecklenburg-Vorpommern am Ufer des Zierker Sees. Sie ist die ehemalige Residenz des Großherzogtums Mecklenburg-Strelitz."
+            },
+            "12390": {
+              "pageid": 12390,
+              "ns": 0,
+              "title": "Plau am See",
+              "coordinates": [
+                {
+                  "lat": 53.45806,
+                  "lon": 12.2625,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Plau am See, Kleinstadt mit malerischer Altstadt, befindet sich direkt am Westufer des Plauer See und der Mündung der Müritz-Elde-Wasserstraße und ist das westliche Tor zur Mecklenburgischen Seenplatte in Mecklenburg-Vorpommern. Wer gerne das maritime Leben genießt, der ist in der Stadt mit ihrer sehenswerten, über 100 Jahre alten Hubbrücke, der Eldeschleuse von 1834 mit „Hühnerleiter“ und dem Leuchtturm mit seiner Aussichtsplatform am richtigen Ort."
+            },
+            "5430": {
+              "pageid": 5430,
+              "ns": 0,
+              "title": "Quedlinburg",
+              "coordinates": [
+                {
+                  "lat": 51.79167,
+                  "lon": 11.14722,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Quedlinburg, die einstige Königspfalz, ist eine reizvolle, über 1000-jährige mittelalterliche Stadt nördlich des Harzes in Sachsen-Anhalt mit etwa 23.000 Einwohnern."
+            },
+            "10003": {
+              "pageid": 10003,
+              "ns": 0,
+              "title": "Rathen",
+              "coordinates": [
+                {
+                  "lat": 50.95,
+                  "lon": 14.08333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "111883": {
+              "pageid": 111883,
+              "ns": 0,
+              "title": "Rechlin",
+              "coordinates": [
+                {
+                  "lat": 53.332276,
+                  "lon": 12.723413,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "26786": {
+              "pageid": 26786,
+              "ns": 0,
+              "title": "Röbel/Müritz",
+              "coordinates": [
+                {
+                  "lat": 53.378,
+                  "lon": 12.585,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "17780": {
+              "pageid": 17780,
+              "ns": 0,
+              "title": "Sankt Andreasberg",
+              "coordinates": [
+                {
+                  "lat": 51.71056,
+                  "lon": 10.51833,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "10812": {
+              "pageid": 10812,
+              "ns": 0,
+              "title": "Schierke",
+              "coordinates": [
+                {
+                  "lat": 51.76389,
+                  "lon": 10.66472,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "9929": {
+              "pageid": 9929,
+              "ns": 0,
+              "title": "Schluchsee",
+              "coordinates": [
+                {
+                  "lat": 47.81889,
+                  "lon": 8.17833,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "22722": {
+              "pageid": 22722,
+              "ns": 0,
+              "title": "Schonach im Schwarzwald",
+              "coordinates": [
+                {
+                  "lat": 48.15,
+                  "lon": 8.2,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "12822": {
+              "pageid": 12822,
+              "ns": 0,
+              "title": "Sebnitz",
+              "coordinates": [
+                {
+                  "lat": 50.96667,
+                  "lon": 14.28333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "22666": {
+              "pageid": 22666,
+              "ns": 0,
+              "title": "St. Blasien",
+              "coordinates": [
+                {
+                  "lat": 47.76667,
+                  "lon": 8.13333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "12799": {
+              "pageid": 12799,
+              "ns": 0,
+              "title": "Stadt Wehlen",
+              "coordinates": [
+                {
+                  "lat": 50.95694,
+                  "lon": 14.03222,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "6137": {
+              "pageid": 6137,
+              "ns": 0,
+              "title": "Thale",
+              "coordinates": [
+                {
+                  "lat": 51.755,
+                  "lon": 11.046,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "6171": {
+              "pageid": 6171,
+              "ns": 0,
+              "title": "Titisee-Neustadt",
+              "coordinates": [
+                {
+                  "lat": 47.91667,
+                  "lon": 8.21667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "10248": {
+              "pageid": 10248,
+              "ns": 0,
+              "title": "Todtmoos",
+              "coordinates": [
+                {
+                  "lat": 47.73944,
+                  "lon": 8.00083,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "61681": {
+              "pageid": 61681,
+              "ns": 0,
+              "title": "Todtnau",
+              "coordinates": [
+                {
+                  "lat": 47.829444,
+                  "lon": 7.943889,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "22714": {
+              "pageid": 22714,
+              "ns": 0,
+              "title": "Triberg im Schwarzwald",
+              "coordinates": [
+                {
+                  "lat": 48.13333,
+                  "lon": 8.23333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "12384": {
+              "pageid": 12384,
+              "ns": 0,
+              "title": "Waren (Müritz)",
+              "coordinates": [
+                {
+                  "lat": 53.51667,
+                  "lon": 12.68333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "12642": {
+              "pageid": 12642,
+              "ns": 0,
+              "title": "Warnemünde",
+              "coordinates": [
+                {
+                  "lat": 54.17476,
+                  "lon": 12.08225,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "8118": {
+              "pageid": 8118,
+              "ns": 0,
+              "title": "Wernigerode",
+              "coordinates": [
+                {
+                  "lat": 51.835,
+                  "lon": 10.78528,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "26902": {
+              "pageid": 26902,
+              "ns": 0,
+              "title": "Malchow (Mecklenburg)",
+              "coordinates": [
+                {
+                  "lat": 53.476,
+                  "lon": 12.42798,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            }
+          }
+        },
+        "limits": {
+          "coordinates": 500,
+          "extracts": 20
+        }
+      }
+    },
+    {
+      "retrieved_at": "2026-10-27T23:41:28+00:00",
+      "response": {
+        "continue": {
+          "excontinue": 20,
+          "continue": "||coordinates|pageprops"
+        },
+        "query": {
+          "redirects": [
+            {
+              "from": "Dorum",
+              "to": "Wurster Nordseeküste"
+            }
+          ],
+          "pages": {
+            "-1": {
+              "ns": 0,
+              "title": "Göhren (Rügen)",
+              "missing": ""
+            },
+            "-2": {
+              "ns": 0,
+              "title": "Carolinensiel",
+              "missing": ""
+            },
+            "-3": {
+              "ns": 0,
+              "title": "Lindau (Bodensee)",
+              "missing": ""
+            },
+            "15996": {
+              "pageid": 15996,
+              "ns": 0,
+              "title": "Ahrenshoop",
+              "coordinates": [
+                {
+                  "lat": 54.3697,
+                  "lon": 12.4176,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Ahrenshoop ist ein Seebad auf der Halbinsel Fischland-Darß-Zingst an der deutschen Ostseeküste an der Mecklenburger Bucht in Mecklenburg-Vorpommern."
+            },
+            "7742": {
+              "pageid": 7742,
+              "ns": 0,
+              "title": "Berchtesgaden",
+              "coordinates": [
+                {
+                  "lat": 47.63139,
+                  "lon": 13.00417,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Der Markt und heilklimatische Kurort Berchtesgaden liegt im äußersten Südosten Oberbayerns in malerischer Lage mitten in der hochalpinen Bergwelt der Berchtesgadener Alpen und des gleichnamigen Schutzgebiets des Biosphärenreservats. Die Kernzone, der Nationalpark Berchtesgaden, liegt südlich des Ortes."
+            },
+            "2646": {
+              "pageid": 2646,
+              "ns": 0,
+              "title": "Binz",
+              "coordinates": [
+                {
+                  "lat": 54.4,
+                  "lon": 13.6,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Binz, das größte Seebad auf Rügen, liegt auf der Ostseite der Insel zwischen Prorer Wiek und Schmachter See sowie am Nordfuß des Höhenzugs Granitz. Sein breiter Sandstrand und die vielen hübschen Bauten im Stil der Bäderarchitektur erinnern an das „Nizza des Ostens“ des frühen 20."
+            },
+            "41192": {
+              "pageid": 41192,
+              "ns": 0,
+              "title": "Boltenhagen",
+              "coordinates": [
+                {
+                  "lat": 53.984,
+                  "lon": 11.206,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Boltenhagen ist ein staatlich anerkanntes Seeheilbad an der Ostsee in Mecklenburg-Vorpommern. Die Gemeinde liegt in der Region Klützer Winkel direkt an der Ostseeküste der Boltenhagenbucht als Teil der Mecklenburger Bucht und gehört dem Amt Klützer Winkel an."
+            },
+            "8968": {
+              "pageid": 8968,
+              "ns": 0,
+              "title": "Borkum",
+              "coordinates": [
+                {
+                  "lat": 53.58806,
+                  "lon": 6.66972,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Borkum ist die größte und westlichste der sieben Ostfriesischen Inseln. \nBorkum bietet endlose Sandstrände, eine einzigartige Dünenlandschaft, ein Hochseeklima mit gesunder Luft sowie zahlreiche Freizeitmöglichkeiten wie Radfahren, Wattwanderungen und historische Sehenswürdigkeiten."
+            },
+            "16203": {
+              "pageid": 16203,
+              "ns": 0,
+              "title": "Büsum",
+              "coordinates": [
+                {
+                  "lat": 54.13762,
+                  "lon": 8.84768,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Büsum ist ein Hafenort und Seebad an der Nordseeküste von Dithmarschen in Schleswig-Holstein."
+            },
+            "2965": {
+              "pageid": 2965,
+              "ns": 0,
+              "title": "Cuxhaven",
+              "coordinates": [
+                {
+                  "lat": 53.87176,
+                  "lon": 8.69087,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Cuxhaven liegt an der Elbemündung in Niedersachsen. Die Spitze markiert die Kugelbake."
+            },
+            "8324": {
+              "pageid": 8324,
+              "ns": 0,
+              "title": "Füssen",
+              "coordinates": [
+                {
+                  "lat": 47.567,
+                  "lon": 10.7,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Der Urlaubs- und Kurort Füssen ist eine Stadt im Ostallgäu in Bayern. Bekannt ist Füssen durch seine malerische Altstadt und die nahen Königsschlösser Neuschwanstein und Hohenschwangau."
+            },
+            "7641": {
+              "pageid": 7641,
+              "ns": 0,
+              "title": "Garmisch-Partenkirchen",
+              "coordinates": [
+                {
+                  "lat": 47.49423,
+                  "lon": 11.09104,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Die Marktgemeinde Garmisch-Partenkirchen liegt am Fuß der Zugspitze im Werdenfelser Land in Oberbayern und ist Deutschlands wichtigste Wintersportmetropole, Olympia-Ort und bedeutendes internationales Wintersportzentrum im gesamten Alpenraum."
+            },
+            "58208": {
+              "pageid": 58208,
+              "ns": 0,
+              "title": "Greetsiel",
+              "coordinates": [
+                {
+                  "lat": 53.501111,
+                  "lon": 7.091667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Greetsiel ist das touristische Zentrum der Gemeinde Krummhörn im Landkreis Aurich in Ostfriesland in Niedersachsen."
+            },
+            "3844": {
+              "pageid": 3844,
+              "ns": 0,
+              "title": "Greifswald",
+              "coordinates": [
+                {
+                  "lat": 54.08333,
+                  "lon": 13.38333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Die Hanse- und Universitätsstadt Greifswald im nordöstlichen Mecklenburg-Vorpommern ist nicht nur Sitz eines evangelischen Bischofs mit dazugehörigem Dom, sondern auch Heimathafen des stadteigenen Segelschulschiffes \"Greif\" (ex \"Wilhelm Pieck\").  Die Stadt liegt an dem Ryck am Greifswalder Bodden, der den Zugang zur Ostsee bildet."
+            },
+            "124358": {
+              "pageid": 124358,
+              "ns": 0,
+              "title": "Hagnau am Bodensee",
+              "coordinates": [
+                {
+                  "lat": 47.675,
+                  "lon": 9.31666667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Hagnau am Bodensee ist eine Stadt in Baden-Württemberg.\nHagnau am Bodensee ist ein idyllischer Weinort am Nordufer des Bodensees."
+            },
+            "4129": {
+              "pageid": 4129,
+              "ns": 0,
+              "title": "Juist",
+              "coordinates": [
+                {
+                  "lat": 53.67861,
+                  "lon": 6.9975,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Juist ist eine der sieben Ostfriesischen Inseln in Niedersachsen. Obwohl sie mit 17 km die längste der Inseln ist, ist sie nicht die größte."
+            },
+            "4435": {
+              "pageid": 4435,
+              "ns": 0,
+              "title": "Langeoog",
+              "coordinates": [
+                {
+                  "lat": 53.74833,
+                  "lon": 7.47972,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Die autofreie Insel Langeoog ist eine von sieben ostfriesischen Inseln in der Nordsee. Sie ist Teil des Nationalparks Niedersächsisches Wattenmeer."
+            },
+            "7286": {
+              "pageid": 7286,
+              "ns": 0,
+              "title": "Meersburg",
+              "coordinates": [
+                {
+                  "lat": 47.69583,
+                  "lon": 9.27083,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Meersburg ist eine Stadt am Bodensee gegenüber von Konstanz."
+            },
+            "7585": {
+              "pageid": 7585,
+              "ns": 0,
+              "title": "Mittenwald",
+              "coordinates": [
+                {
+                  "lat": 47.4413,
+                  "lon": 11.26403,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Mittenwald im Werdenfelser Land ist Geigenbauerort und Touristenzentrum  in Bayern an der Grenze zu Österreich. Die Marktgemeinde liegt im oberen Isartal und wird umrahmt von der Alpenwelt des Wetterstein- und Karwendelgebirges."
+            },
+            "23980": {
+              "pageid": 23980,
+              "ns": 0,
+              "title": "Neuharlingersiel",
+              "coordinates": [
+                {
+                  "lat": 53.7,
+                  "lon": 7.7,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Das Nordseeheilbad Neuharlingersiel ist eine Gemeinde in Ostfriesland. Vom Hafen aus verkehren bis zu dreimal täglich Personen- bzw."
+            },
+            "18418": {
+              "pageid": 18418,
+              "ns": 0,
+              "title": "Norddeich",
+              "coordinates": [
+                {
+                  "lat": 53.61444,
+                  "lon": 7.15083,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Norddeich ist ein staatlich anerkanntes Nordseeheilbad (seit 2010) in der nordwestlichsten Ecke Ostfriesland. Der Ferienort ist Fährhafen zu den Inseln Juist und Norderney, er ist zugleich der größte Personenfährhafen Niedersachsens."
+            },
+            "5066": {
+              "pageid": 5066,
+              "ns": 0,
+              "title": "Norderney",
+              "coordinates": [
+                {
+                  "lat": 53.70722,
+                  "lon": 7.14694,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Norderney ist eine der ostfriesischen Inseln in Niedersachsen. Die Kleinstadt ist 14 Kilometer lang und zwei Kilometer breit."
+            },
+            "7652": {
+              "pageid": 7652,
+              "ns": 0,
+              "title": "Oberammergau",
+              "coordinates": [
+                {
+                  "lat": 47.59667,
+                  "lon": 11.06444,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Das Holzschnitzerdorf Oberammergau liegt in Oberbayern, ist internationales Tourismuszentrum in den Alpen, die Wiege der Lüftlmalerei und weltweit bekannt für seine Passionsspiele, dem wichtigsten kulturellen Ereignis."
+            },
+            "5141": {
+              "pageid": 5141,
+              "ns": 0,
+              "title": "Oberstdorf",
+              "coordinates": [
+                {
+                  "lat": 47.40972,
+                  "lon": 10.27917,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "9882": {
+              "pageid": 9882,
+              "ns": 0,
+              "title": "Pfronten",
+              "coordinates": [
+                {
+                  "lat": 47.58333,
+                  "lon": 10.5,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "29196": {
+              "pageid": 29196,
+              "ns": 0,
+              "title": "Prerow",
+              "coordinates": [
+                {
+                  "lat": 54.45,
+                  "lon": 12.56667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "20205": {
+              "pageid": 20205,
+              "ns": 0,
+              "title": "Ramsau bei Berchtesgaden",
+              "coordinates": [
+                {
+                  "lat": 47.60792,
+                  "lon": 12.89648,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "10004": {
+              "pageid": 10004,
+              "ns": 0,
+              "title": "Reit im Winkl",
+              "coordinates": [
+                {
+                  "lat": 47.67806,
+                  "lon": 12.47,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "18440": {
+              "pageid": 18440,
+              "ns": 0,
+              "title": "Rerik",
+              "coordinates": [
+                {
+                  "lat": 54.1,
+                  "lon": 11.61667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "18701": {
+              "pageid": 18701,
+              "ns": 0,
+              "title": "Ruhpolding",
+              "coordinates": [
+                {
+                  "lat": 47.76429,
+                  "lon": 12.64592,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "7196": {
+              "pageid": 7196,
+              "ns": 0,
+              "title": "Sankt Peter-Ording",
+              "coordinates": [
+                {
+                  "lat": 54.30417,
+                  "lon": 8.65111,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "8325": {
+              "pageid": 8325,
+              "ns": 0,
+              "title": "Schwangau",
+              "coordinates": [
+                {
+                  "lat": 47.57861,
+                  "lon": 10.74028,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "7751": {
+              "pageid": 7751,
+              "ns": 0,
+              "title": "Schönau am Königssee",
+              "coordinates": [
+                {
+                  "lat": 47.60049,
+                  "lon": 12.97485,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "20166": {
+              "pageid": 20166,
+              "ns": 0,
+              "title": "Sellin",
+              "coordinates": [
+                {
+                  "lat": 54.38333,
+                  "lon": 13.7,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "6005": {
+              "pageid": 6005,
+              "ns": 0,
+              "title": "Stralsund",
+              "coordinates": [
+                {
+                  "lat": 54.31462,
+                  "lon": 13.09201,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "8954": {
+              "pageid": 8954,
+              "ns": 0,
+              "title": "Wangerooge",
+              "coordinates": [
+                {
+                  "lat": 53.79083,
+                  "lon": 7.89917,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "6489": {
+              "pageid": 6489,
+              "ns": 0,
+              "title": "Wismar",
+              "coordinates": [
+                {
+                  "lat": 53.8925,
+                  "lon": 11.465,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "29501": {
+              "pageid": 29501,
+              "ns": 0,
+              "title": "Zingst",
+              "coordinates": [
+                {
+                  "lat": 54.43333,
+                  "lon": 12.68333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "2787": {
+              "pageid": 2787,
+              "ns": 0,
+              "title": "Überlingen",
+              "coordinates": [
+                {
+                  "lat": 47.76667,
+                  "lon": 9.15833,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "12770": {
+              "pageid": 12770,
+              "ns": 0,
+              "title": "Wurster Nordseeküste",
+              "coordinates": [
+                {
+                  "lat": 53.719,
+                  "lon": 8.56,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            }
+          }
+        },
+        "limits": {
+          "coordinates": 500,
+          "extracts": 20
+        }
+      }
+    },
+    {
+      "retrieved_at": "2026-10-27T23:41:35+00:00",
+      "response": {
+        "continue": {
+          "excontinue": 20,
+          "continue": "||coordinates|pageprops"
+        },
+        "query": {
+          "redirects": [
+            {
+              "from": "Radolfzell am Bodensee",
+              "to": "Radolfzell"
+            },
+            {
+              "from": "Seeboden",
+              "to": "Seeboden am Millstätter See"
+            }
+          ],
+          "pages": {
+            "-1": {
+              "ns": 0,
+              "title": "Immenstaad am Bodensee",
+              "missing": ""
+            },
+            "-2": {
+              "ns": 0,
+              "title": "St. Wolfgang im Salzkammergut",
+              "missing": ""
+            },
+            "-3": {
+              "ns": 0,
+              "title": "Traunkirchen",
+              "missing": ""
+            },
+            "-4": {
+              "ns": 0,
+              "title": "Alpbach",
+              "missing": ""
+            },
+            "-5": {
+              "ns": 0,
+              "title": "Matrei in Osttirol",
+              "missing": ""
+            },
+            "-6": {
+              "ns": 0,
+              "title": "Nauders",
+              "missing": ""
+            },
+            "-7": {
+              "ns": 0,
+              "title": "Millstatt",
+              "missing": ""
+            },
+            "-8": {
+              "ns": 0,
+              "title": "Faak am See",
+              "missing": ""
+            },
+            "2211": {
+              "pageid": 2211,
+              "ns": 0,
+              "title": "Adelboden",
+              "coordinates": [
+                {
+                  "lat": 46.49333,
+                  "lon": 7.55879,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Adelboden (auf gsw.: Adëlbodë) ist ein großes Bergdorf im oberen Teil des Engstligental im Berner Oberland und ist eine Gemeinde im Verwaltungskreis Frutigen-Niedersimmental des Kanton Bern."
+            },
+            "79807": {
+              "pageid": 79807,
+              "ns": 0,
+              "title": "Altaussee",
+              "coordinates": [
+                {
+                  "lat": 47.633333,
+                  "lon": 13.766667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Altaussee ist eine Gemeinde im Ausseerland, es ist der zu Steiermark gehörende Teil des Salzkammergutes. Bekannt ist Altaussee als Luftkurort."
+            },
+            "2440": {
+              "pageid": 2440,
+              "ns": 0,
+              "title": "Bad Aussee",
+              "coordinates": [
+                {
+                  "lat": 47.61,
+                  "lon": 13.78278,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Bad Aussee ist ein Kurort (Soleheilbad) in der Steiermark und Zentrum des steirischen Teiles der Region Salzkammergut-Ausseerland. Die Stadt hat etwa 5.000 Einwohner."
+            },
+            "2450": {
+              "pageid": 2450,
+              "ns": 0,
+              "title": "Bad Ischl",
+              "coordinates": [
+                {
+                  "lat": 47.72028,
+                  "lon": 13.63333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Bad Ischl ist eine Kurstadt in Oberösterreich und das Zentrum des Salzkammergut genannten Feriengebietes. Im 19."
+            },
+            "8276": {
+              "pageid": 8276,
+              "ns": 0,
+              "title": "Brienz",
+              "pageprops": {
+                "disambiguation": ""
+              },
+              "extract": "Der Name Brienz wird von zwei Schweizer Gemeinden verwendet."
+            },
+            "19859": {
+              "pageid": 19859,
+              "ns": 0,
+              "title": "Ellmau",
+              "coordinates": [
+                {
+                  "lat": 47.51389,
+                  "lon": 12.30361,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Ellmau ist eine Tourismusgemeinde im Sölllandl zu Füßen des Wilden Kaiser im Bundesland Tirol."
+            },
+            "17554": {
+              "pageid": 17554,
+              "ns": 0,
+              "title": "Fuschl am See",
+              "coordinates": [
+                {
+                  "lat": 47.79611,
+                  "lon": 13.30278,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Fuschl am See ist eine Gemeinde im Salzkammergut und liegt an der Wolfgangsee-Straße (B 158) zwischen den Gemeinden Hof bei Salzburg und St. Gilgen am Wolfgangsee."
+            },
+            "3799": {
+              "pageid": 3799,
+              "ns": 0,
+              "title": "Gmunden",
+              "coordinates": [
+                {
+                  "lat": 47.91806,
+                  "lon": 13.79944,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Gmunden ist eine Stadt in Oberösterreich, der Region Salzkammergut zuzurechnen, am Nordufer des Traunsees und hat etwa 13.000 Einwohner."
+            },
+            "3850": {
+              "pageid": 3850,
+              "ns": 0,
+              "title": "Grindelwald",
+              "coordinates": [
+                {
+                  "lat": 46.62583,
+                  "lon": 8.03334,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Grindelwald ist ein Gemeinde im Berner Oberland."
+            },
+            "115862": {
+              "pageid": 115862,
+              "ns": 0,
+              "title": "Grundlsee",
+              "coordinates": [
+                {
+                  "lat": 47.62666667,
+                  "lon": 13.8375,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Der Grundlsee ist ein 4,22 km² großer Bergsee in der Steiermark in Österreich."
+            },
+            "3902": {
+              "pageid": 3902,
+              "ns": 0,
+              "title": "Hallstatt",
+              "coordinates": [
+                {
+                  "lat": 47.55583,
+                  "lon": 13.64667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Hallstatt ist eine Marktgemeinde im Inneren Salzkammergut am Westufer des Hallstättersees. Seit etwa 1200 v. Chr."
+            },
+            "11391": {
+              "pageid": 11391,
+              "ns": 0,
+              "title": "Kandersteg",
+              "coordinates": [
+                {
+                  "lat": 46.49667,
+                  "lon": 7.67472,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Kandersteg ist eine schweizerische Gemeinde im Kanton Bern."
+            },
+            "4309": {
+              "pageid": 4309,
+              "ns": 0,
+              "title": "Kitzbühel",
+              "coordinates": [
+                {
+                  "lat": 47.44639,
+                  "lon": 12.39194,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Kitzbühel ist eine Stadt in Tirol und eines der bedeutendsten Wintersportzentren Österreichs. Kitzbühel war ab dem 15."
+            },
+            "8752": {
+              "pageid": 8752,
+              "ns": 0,
+              "title": "Lauterbrunnen",
+              "coordinates": [
+                {
+                  "lat": 46.59999,
+                  "lon": 7.90889,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Lauterbrunnen ist eine Gemeinde im Kanton Bern."
+            },
+            "4513": {
+              "pageid": 4513,
+              "ns": 0,
+              "title": "Lienz",
+              "coordinates": [
+                {
+                  "lat": 46.82972,
+                  "lon": 12.76972,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Lienz ist die Bezirkshauptstadt von Osttirol an der Einmündung der Isel in die Drau. Die Stadt hat ca."
+            },
+            "19725": {
+              "pageid": 19725,
+              "ns": 0,
+              "title": "Mayrhofen",
+              "coordinates": [
+                {
+                  "lat": 47.16778,
+                  "lon": 11.86372,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Mayrhofen ist eine Marktgemeinde im hinteren Zillertal zu Füßen der Zillertaler Alpen in Nordtirol."
+            },
+            "16726": {
+              "pageid": 16726,
+              "ns": 0,
+              "title": "Mondsee",
+              "coordinates": [
+                {
+                  "lat": 47.85,
+                  "lon": 13.35,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Mondsee ist eine Marktgemeinde in Oberösterreich an der Grenze zum Bundesland Salzburg und der Region Salzkammergut-Ausseerland zuzurechnen, gelegen am gleichnamigen See."
+            },
+            "7899": {
+              "pageid": 7899,
+              "ns": 0,
+              "title": "Mürren",
+              "coordinates": [
+                {
+                  "lat": 46.55981,
+                  "lon": 7.89403,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Mürren ist eine schweizerische Ortschaft im Lauterbrunnental im Kanton Bern."
+            },
+            "16118": {
+              "pageid": 16118,
+              "ns": 0,
+              "title": "Obergurgl",
+              "coordinates": [
+                {
+                  "lat": 46.96667,
+                  "lon": 11,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Obergurgl ist Teil der Gemeinde Sölden im hinteren Ötztal im Bezirk Imst, Tirol.\nAm Ende des Gurgltales liegt Obergurgl, mit 1.930 m das höchste Kirchdorf Österreichs."
+            },
+            "27177": {
+              "pageid": 27177,
+              "ns": 0,
+              "title": "Obertraun",
+              "coordinates": [
+                {
+                  "lat": 47.55861,
+                  "lon": 13.68361,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Obertraun ist eine Gemeinde in Oberösterreich, sie liegt in der Region Dachstein Salzkammergut."
+            },
+            "128979": {
+              "pageid": 128979,
+              "ns": 0,
+              "title": "Ossiach",
+              "coordinates": [
+                {
+                  "lat": 46.67541,
+                  "lon": 13.98517,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "40822": {
+              "pageid": 40822,
+              "ns": 0,
+              "title": "Pörtschach am Wörther See",
+              "coordinates": [
+                {
+                  "lat": 46.63522,
+                  "lon": 14.14629,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "15172": {
+              "pageid": 15172,
+              "ns": 0,
+              "title": "Sankt Anton am Arlberg",
+              "coordinates": [
+                {
+                  "lat": 47.1285,
+                  "lon": 10.26687,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "7530": {
+              "pageid": 7530,
+              "ns": 0,
+              "title": "Seefeld in Tirol",
+              "coordinates": [
+                {
+                  "lat": 47.32944,
+                  "lon": 11.18917,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "5827": {
+              "pageid": 5827,
+              "ns": 0,
+              "title": "Serfaus",
+              "coordinates": [
+                {
+                  "lat": 47.03861,
+                  "lon": 10.60583,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "17745": {
+              "pageid": 17745,
+              "ns": 0,
+              "title": "St. Gilgen",
+              "coordinates": [
+                {
+                  "lat": 47.76667,
+                  "lon": 13.36667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "27822": {
+              "pageid": 27822,
+              "ns": 0,
+              "title": "Sölden",
+              "pageprops": {
+                "disambiguation": ""
+              }
+            },
+            "45878": {
+              "pageid": 45878,
+              "ns": 0,
+              "title": "Velden am Wörther See",
+              "coordinates": [
+                {
+                  "lat": 46.6125,
+                  "lon": 14.04194,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "69881": {
+              "pageid": 69881,
+              "ns": 0,
+              "title": "Weissensee",
+              "pageprops": {
+                "disambiguation": ""
+              }
+            },
+            "8749": {
+              "pageid": 8749,
+              "ns": 0,
+              "title": "Wengen",
+              "pageprops": {
+                "disambiguation": ""
+              }
+            },
+            "14855": {
+              "pageid": 14855,
+              "ns": 0,
+              "title": "Radolfzell",
+              "coordinates": [
+                {
+                  "lat": 47.7369,
+                  "lon": 8.9697,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "18693": {
+              "pageid": 18693,
+              "ns": 0,
+              "title": "Seeboden am Millstätter See",
+              "coordinates": [
+                {
+                  "lat": 46.81885,
+                  "lon": 13.51821,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            }
+          }
+        },
+        "limits": {
+          "coordinates": 500,
+          "extracts": 20
+        }
+      }
+    },
+    {
+      "retrieved_at": "2026-10-27T23:41:40+00:00",
+      "response": {
+        "continue": {
+          "excontinue": 20,
+          "continue": "||coordinates|pageprops"
+        },
+        "query": {
+          "redirects": [
+            {
+              "from": "Desenzano del Garda",
+              "to": "Desenzano"
+            },
+            {
+              "from": "Torbole",
+              "to": "Nago-Torbole"
+            }
+          ],
+          "pages": {
+            "-1": {
+              "ns": 0,
+              "title": "Corvara",
+              "missing": ""
+            },
+            "-2": {
+              "ns": 0,
+              "title": "Garda",
+              "missing": ""
+            },
+            "-3": {
+              "ns": 0,
+              "title": "Levanto",
+              "missing": ""
+            },
+            "-4": {
+              "ns": 0,
+              "title": "Camogli",
+              "missing": ""
+            },
+            "-5": {
+              "ns": 0,
+              "title": "Bohinjska Bistrica",
+              "missing": ""
+            },
+            "-6": {
+              "ns": 0,
+              "title": "Ribčev Laz",
+              "missing": ""
+            },
+            "83592": {
+              "pageid": 83592,
+              "ns": 0,
+              "title": "Bardolino",
+              "coordinates": [
+                {
+                  "lat": 45.5475,
+                  "lon": 10.724167,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Bardolino ist eine Stadt in Norditalien. Der Ort befindet sich am Ostufer des Gardasees nördlich von Lazise und südlich von Garda und wird durchzogen von der Gardesana orientale, einer Staatsstraße (SS249), die seit jeher den Norden des Sees mit dem Süden verbindet."
+            },
+            "95971": {
+              "pageid": 95971,
+              "ns": 0,
+              "title": "Bettmeralp",
+              "coordinates": [
+                {
+                  "lat": 46.3775,
+                  "lon": 8.0708333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Die Bettmeralp ist eine Gemeinde im Aletschgebiet im schweizer Kanton Wallis. Zu dieser Gemeinde gehören das Dorf 1 Betten ​46.3764458.069202, der Weiler 2 Egga ​46.3779368.070475und die Feriensiedlung 3 Bettmeralp ​46.3901678.062387."
+            },
+            "15206": {
+              "pageid": 15206,
+              "ns": 0,
+              "title": "Bohinj",
+              "coordinates": [
+                {
+                  "lat": 46.27111,
+                  "lon": 13.95194,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Bohinj ist eine Gemeinde im gleichnamigen Tal der Julischen Alpen in der Gorenjska in Slowenien. Der deutsche Name des Ortes lautet Wochein."
+            },
+            "74256": {
+              "pageid": 74256,
+              "ns": 0,
+              "title": "Canazei",
+              "coordinates": [
+                {
+                  "lat": 46.483333,
+                  "lon": 11.766667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Canazei (ladinisch Cianacèi)  ist eine Gemeinde mit ca. 1.900 Einwohnern, sie liegt im oberen Fassatal in der italienischen Provinz Trentino."
+            },
+            "2946": {
+              "pageid": 2946,
+              "ns": 0,
+              "title": "Corniglia",
+              "coordinates": [
+                {
+                  "lat": 44.11972,
+                  "lon": 9.70861,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Corniglia ist eine der fünf Ortschaften der Kulturlandschaft Cinque Terre an der Küste Liguriens. Sie gehört zur Kommune Vernazza, der nördlich angrenzenden Ortschaft."
+            },
+            "15533": {
+              "pageid": 15533,
+              "ns": 0,
+              "title": "Cortina d’Ampezzo",
+              "coordinates": [
+                {
+                  "lat": 46.53,
+                  "lon": 12.13,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Cortina (ital. Cortina d’Ampezzo) ist  ein mondäner Urlaubsort in den östlichen Dolomiten und liegt in der Region Venetien in Italien."
+            },
+            "95989": {
+              "pageid": 95989,
+              "ns": 0,
+              "title": "Fiesch",
+              "coordinates": [
+                {
+                  "lat": 46.401,
+                  "lon": 8.134,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Fiesch ist eine Schweizer Gemeinde im Rhonetal im Kanton Wallis."
+            },
+            "43872": {
+              "pageid": 43872,
+              "ns": 0,
+              "title": "Innichen",
+              "coordinates": [
+                {
+                  "lat": 46.7328,
+                  "lon": 12.28309,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Innichen  (italienisch: San Candido) ist eine Marktgemeinde und ein Urlaubsort im Hochpustertal in Südtirol (Italien)."
+            },
+            "4061": {
+              "pageid": 4061,
+              "ns": 0,
+              "title": "Interlaken",
+              "coordinates": [
+                {
+                  "lat": 46.68333,
+                  "lon": 7.86666,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Interlaken ist eine Stadt im Kanton Bern. Sie liegt zwischen dem Thunersee und dem Brienzersee."
+            },
+            "18958": {
+              "pageid": 18958,
+              "ns": 0,
+              "title": "Kastelruth",
+              "coordinates": [
+                {
+                  "lat": 46.56667,
+                  "lon": 11.56667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Kastelruth ist eine Gemeinde in Südtirol unterhalb der Seiser Alm."
+            },
+            "15543": {
+              "pageid": 15543,
+              "ns": 0,
+              "title": "Kranjska Gora",
+              "coordinates": [
+                {
+                  "lat": 46.48587,
+                  "lon": 13.78603,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Kranjska Gora (Kronau) ist eine Gemeinde in Slowenien."
+            },
+            "4497": {
+              "pageid": 4497,
+              "ns": 0,
+              "title": "Leukerbad",
+              "coordinates": [
+                {
+                  "lat": 46.38333,
+                  "lon": 7.63333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Leukerbad ist eine bekannte Destination für Winterferien im Kanton Wallis, in der Schweiz."
+            },
+            "68871": {
+              "pageid": 68871,
+              "ns": 0,
+              "title": "Limone sul Garda",
+              "coordinates": [
+                {
+                  "lat": 45.816667,
+                  "lon": 10.783333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Limone sul Garda ist eine Stadt am westlichen Ufer des Gardasees in der Provinz Brescia, die zur Lombardei in Norditalien gehört."
+            },
+            "9915": {
+              "pageid": 9915,
+              "ns": 0,
+              "title": "Malcesine",
+              "coordinates": [
+                {
+                  "lat": 45.76663,
+                  "lon": 10.81437,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Malcesine ist eine Stadt in Norditalien. Der malerische Ort befindet sich am Ostufer des Gardasees und wird durchzogen von der Gardesana orientale, einer Staatsstraße (SS249), die seit jeher den Norden des Sees mit dem Süden verbindet."
+            },
+            "26112": {
+              "pageid": 26112,
+              "ns": 0,
+              "title": "Manarola",
+              "coordinates": [
+                {
+                  "lat": 44.10639,
+                  "lon": 9.72806,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Manarola ist nach Riomaggiore die zweitsüdlichste Ortschaft der Cinque Terre an der Küste Liguriens. Sie ist gleichzeitig ein Ortsteil der Gemeinde Riomaggiore."
+            },
+            "74362": {
+              "pageid": 74362,
+              "ns": 0,
+              "title": "Moena",
+              "coordinates": [
+                {
+                  "lat": 46.383333,
+                  "lon": 11.666667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Moena ist eine Kleinstadt im Trentino, sie liegt am Ausgang des Fassatals und ist mit etwa 2.600 Einwohnern dessen größter Ort."
+            },
+            "4895": {
+              "pageid": 4895,
+              "ns": 0,
+              "title": "Monterosso al Mare",
+              "coordinates": [
+                {
+                  "lat": 44.1475,
+                  "lon": 9.65528,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Monterosso al Mare ist die größte und nördlichste Ortschaft der Cinque Terre an der Küste Liguriens. Sie ist gleichsam touristisch am stärksten frequentiert und besitzt einige größere, apartere Hotels."
+            },
+            "80827": {
+              "pageid": 80827,
+              "ns": 0,
+              "title": "Peschiera del Garda",
+              "coordinates": [
+                {
+                  "lat": 45.433333,
+                  "lon": 10.683333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Peschiera del Garda ist eine Stadt in der Provinz Verona in Venetien. Sie liegt am Südostufer des Gardasees, wo der Fluss Mincio den Abfluss des Sees bildet."
+            },
+            "26126": {
+              "pageid": 26126,
+              "ns": 0,
+              "title": "Portofino",
+              "coordinates": [
+                {
+                  "lat": 44.3,
+                  "lon": 9.2,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Portofino ist ein ausgesprochen malerischer kleiner Ort an der Südwestspitze der gleichnamigen Halbinsel und liegt am Golfo del Tigullio an der Riviera di Levante in der Region Ligurien. Etwas weiter nördlich am Golfo des Tigullio liegt das größere Städtchen Santa Margherita Ligure."
+            },
+            "96003": {
+              "pageid": 96003,
+              "ns": 0,
+              "title": "Riederalp",
+              "coordinates": [
+                {
+                  "lat": 46.38333333,
+                  "lon": 8.03333333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Die Riederalp ist eine Gemeinde im Wallis in der Schweiz. Zur Gemeinde gehören die Dörfer Ried-Mörel, Greich und Goppisberg sowie die Riederalp, die eigentlich aus den drei Alpen Riederalp, Greicheralp und Goppisberger Alp (Von West nach Ost) besteht."
+            },
+            "26042": {
+              "pageid": 26042,
+              "ns": 0,
+              "title": "Riomaggiore",
+              "coordinates": [
+                {
+                  "lat": 44.09861,
+                  "lon": 9.73778,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "9591": {
+              "pageid": 9591,
+              "ns": 0,
+              "title": "Riva del Garda",
+              "coordinates": [
+                {
+                  "lat": 45.88495,
+                  "lon": 10.846,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "9071": {
+              "pageid": 9071,
+              "ns": 0,
+              "title": "Saas-Fee",
+              "coordinates": [
+                {
+                  "lat": 46.10972,
+                  "lon": 7.92916,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "69949": {
+              "pageid": 69949,
+              "ns": 0,
+              "title": "Sestri Levante",
+              "coordinates": [
+                {
+                  "lat": 44.3,
+                  "lon": 9.2,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "18177": {
+              "pageid": 18177,
+              "ns": 0,
+              "title": "Sexten",
+              "coordinates": [
+                {
+                  "lat": 46.7,
+                  "lon": 12.35,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "9959": {
+              "pageid": 9959,
+              "ns": 0,
+              "title": "Sirmione",
+              "coordinates": [
+                {
+                  "lat": 45.4825,
+                  "lon": 10.60861,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "8108": {
+              "pageid": 8108,
+              "ns": 0,
+              "title": "Spiez",
+              "coordinates": [
+                {
+                  "lat": 46.6885,
+                  "lon": 7.6792,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "16468": {
+              "pageid": 16468,
+              "ns": 0,
+              "title": "St. Ulrich in Gröden",
+              "coordinates": [
+                {
+                  "lat": 46.57339,
+                  "lon": 11.67402,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "43939": {
+              "pageid": 43939,
+              "ns": 0,
+              "title": "Toblach",
+              "coordinates": [
+                {
+                  "lat": 46.735556,
+                  "lon": 12.223611,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "6310": {
+              "pageid": 6310,
+              "ns": 0,
+              "title": "Vernazza",
+              "coordinates": [
+                {
+                  "lat": 44.13472,
+                  "lon": 9.68361,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "16466": {
+              "pageid": 16466,
+              "ns": 0,
+              "title": "Wolkenstein in Gröden",
+              "coordinates": [
+                {
+                  "lat": 46.55,
+                  "lon": 11.76667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "6561": {
+              "pageid": 6561,
+              "ns": 0,
+              "title": "Zermatt",
+              "coordinates": [
+                {
+                  "lat": 46.0236,
+                  "lon": 7.74861,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "13558": {
+              "pageid": 13558,
+              "ns": 0,
+              "title": "Desenzano",
+              "coordinates": [
+                {
+                  "lat": 45.46667,
+                  "lon": 10.53333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "17028": {
+              "pageid": 17028,
+              "ns": 0,
+              "title": "Nago-Torbole",
+              "coordinates": [
+                {
+                  "lat": 45.87139,
+                  "lon": 10.87333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            }
+          }
+        },
+        "limits": {
+          "coordinates": 500,
+          "extracts": 20
+        }
+      }
+    },
+    {
+      "retrieved_at": "2026-10-27T23:41:47+00:00",
+      "response": {
+        "continue": {
+          "excontinue": 20,
+          "continue": "||coordinates|pageprops"
+        },
+        "query": {
+          "redirects": [
+            {
+              "from": "Kołobrzeg",
+              "to": "Kolberg"
+            },
+            {
+              "from": "Świnoujście",
+              "to": "Swinemünde"
+            }
+          ],
+          "pages": {
+            "-1": {
+              "ns": 0,
+              "title": "Bovec",
+              "missing": ""
+            },
+            "-2": {
+              "ns": 0,
+              "title": "Tolmin",
+              "missing": ""
+            },
+            "-3": {
+              "ns": 0,
+              "title": "Krásná Lípa",
+              "missing": ""
+            },
+            "-4": {
+              "ns": 0,
+              "title": "Jetřichovice",
+              "missing": ""
+            },
+            "-5": {
+              "ns": 0,
+              "title": "Lipno nad Vltavou",
+              "missing": ""
+            },
+            "-6": {
+              "ns": 0,
+              "title": "Frymburk",
+              "missing": ""
+            },
+            "-7": {
+              "ns": 0,
+              "title": "Třeboň",
+              "missing": ""
+            },
+            "-8": {
+              "ns": 0,
+              "title": "Umag",
+              "missing": ""
+            },
+            "-9": {
+              "ns": 0,
+              "title": "Medulin",
+              "missing": ""
+            },
+            "-10": {
+              "ns": 0,
+              "title": "Rabac",
+              "missing": ""
+            },
+            "-11": {
+              "ns": 0,
+              "title": "Motovun",
+              "missing": ""
+            },
+            "-12": {
+              "ns": 0,
+              "title": "Brela",
+              "missing": ""
+            },
+            "-13": {
+              "ns": 0,
+              "title": "Baška Voda",
+              "missing": ""
+            },
+            "-14": {
+              "ns": 0,
+              "title": "Omiš",
+              "missing": ""
+            },
+            "19872": {
+              "pageid": 19872,
+              "ns": 0,
+              "title": "Darłowo",
+              "coordinates": [
+                {
+                  "lat": 54.41667,
+                  "lon": 16.4,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Darłowo (deutsch: Rügenwalde) ist ein Ostseebad in Polen in der Woiwodschaft Westpommern an der Slowinzischen Küste an der Pommerschen Bucht. Der Stadtteil Darłówko liegt unmittelbar am Strand."
+            },
+            "14810": {
+              "pageid": 14810,
+              "ns": 0,
+              "title": "Děčín",
+              "coordinates": [
+                {
+                  "lat": 50.77361,
+                  "lon": 14.19611,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Die Stadt Děčín (dt. Tetschen) liegt am Südrand der Böhmischen Schweiz und beidseits der Elbe."
+            },
+            "11120": {
+              "pageid": 11120,
+              "ns": 0,
+              "title": "Giżycko",
+              "coordinates": [
+                {
+                  "lat": 54.0425,
+                  "lon": 21.76944,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Giżycko (deutsch: Lötzen) ist eine polnische Stadt im historischen Masuren im Zentrum der Großen Masurischen Seen auf der Masurischen Seenplatte."
+            },
+            "3954": {
+              "pageid": 3954,
+              "ns": 0,
+              "title": "Hel",
+              "coordinates": [
+                {
+                  "lat": 54.60472,
+                  "lon": 18.80361,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Hel (deutsch: Hela)  ist ein Ostseebad in Polen in der Woiwodschaft Pommern am südöstlichen Ende der Halbinsel Hel an der Polnischen Ostseeküste. Der Ort liegt sowohl an der offenen Ostsee im Norden als auch an der Putziger Bucht, Teil der Danziger Bucht im Süden."
+            },
+            "57953": {
+              "pageid": 57953,
+              "ns": 0,
+              "title": "Hřensko",
+              "coordinates": [
+                {
+                  "lat": 50.874482,
+                  "lon": 14.242621,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Hřensko (Herrnskretschen) ist ein geschäftiger Grenzort in Nordböhmen in der Tschechischen Republik an der Grenze zu Sachsen. Der Ort liegt mitten im Elbsandsteingebirge an der Grenze von der Böhmischen Schweiz zur Sächsischen Schweiz und ist bekannt durch das nahe gelegene Prebischtor, eine natürliche Felsenbrücke."
+            },
+            "4135": {
+              "pageid": 4135,
+              "ns": 0,
+              "title": "Jastarnia",
+              "coordinates": [
+                {
+                  "lat": 54.699444,
+                  "lon": 18.676667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Jastarnia (deutsch: Heisternest)  ist ein Ostseebad in Polen in der Woiwodschaft Pommern auf der Halbinsel Hel an der Polnischen Ostseeküste. Der Ort liegt sowohl an der offenen Ostsee im Norden als auch an der Putziger Bucht, Teil der Danziger Bucht im Süden."
+            },
+            "78130": {
+              "pageid": 78130,
+              "ns": 0,
+              "title": "Jindřichův Hradec",
+              "coordinates": [
+                {
+                  "lat": 49.14411,
+                  "lon": 15.003025,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Jindřichův Hradec (deutsch: Neuhaus) ist eine Bezirksstadt in der Region Südböhmen und Standort einer der größten Burgen Böhmens. Im städtischen Museum gibt es weiters die größte mechanische Weihnachtskrippe der Welt zu besichtigen."
+            },
+            "71352": {
+              "pageid": 71352,
+              "ns": 0,
+              "title": "Kobarid",
+              "coordinates": [
+                {
+                  "lat": 46.24765,
+                  "lon": 13.57917,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Kobarid ist eine kleine Stadt in der statistischen Region Goriška."
+            },
+            "13687": {
+              "pageid": 13687,
+              "ns": 0,
+              "title": "Makarska",
+              "coordinates": [
+                {
+                  "lat": 43.29817,
+                  "lon": 17.01795,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Makarska ist eine Stadt in Dalmatien und gibt ihren Namen der Makarska Riviera, einem schmalen Küstenstreifen zwischen dem Biokovo-Karstgebirge und der Adria."
+            },
+            "11121": {
+              "pageid": 11121,
+              "ns": 0,
+              "title": "Mikołajki",
+              "coordinates": [
+                {
+                  "lat": 53.8,
+                  "lon": 21.58333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Mikołajki (deutsch: Nikolaiken) ist eine Stadt in der polnischen Woiwodschaft Ermland-Masuren."
+            },
+            "4830": {
+              "pageid": 4830,
+              "ns": 0,
+              "title": "Międzyzdroje",
+              "coordinates": [
+                {
+                  "lat": 53.91667,
+                  "lon": 14.45,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Misdroy (polnisch: Międzyzdroje) ist ein Ostseebad in Polen in der Woiwodschaft Westpommern auf der Insel Wollin an der Pommerschen Bucht. Der Ort ist staatlich als potentieller Kurort anerkannt."
+            },
+            "11126": {
+              "pageid": 11126,
+              "ns": 0,
+              "title": "Mrągowo",
+              "coordinates": [
+                {
+                  "lat": 53.86717,
+                  "lon": 21.3043,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Mrągowo (deutsch: Sensburg) ist eine Stadt in der Woiwodschaft Ermland-Masuren."
+            },
+            "116580": {
+              "pageid": 116580,
+              "ns": 0,
+              "title": "Novigrad (Istrien)",
+              "coordinates": [
+                {
+                  "lat": 45.322313,
+                  "lon": 13.566241,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Novigrad (Istrien) ist eine Stadt in Istrien."
+            },
+            "98773": {
+              "pageid": 98773,
+              "ns": 0,
+              "title": "Pisz",
+              "coordinates": [
+                {
+                  "lat": 53.628889,
+                  "lon": 21.8125,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Pisz (deutsch: Johannesburg) ist ein historischer Ort in der Woiwodschaft Ermland-Masuren auf der Masurischen Seenplatte. Der Ort ist vor allem als Marina am Südrand des Roschsees, mit Polens größtem See, dem Spirdingsee, durch den Jeglinner Kanal verbunden, bekannt."
+            },
+            "92779": {
+              "pageid": 92779,
+              "ns": 0,
+              "title": "Poreč",
+              "coordinates": [
+                {
+                  "lat": 45.2271722,
+                  "lon": 13.59522388,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Poreč ist eine Stadt an der Westküste der Halbinsel Istrien in Kroatien."
+            },
+            "9502": {
+              "pageid": 9502,
+              "ns": 0,
+              "title": "Rovinj",
+              "coordinates": [
+                {
+                  "lat": 45.08273,
+                  "lon": 13.63318,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Rovinj ist eine Stadt auf der Halbinsel Istrien in Kroatien."
+            },
+            "98775": {
+              "pageid": 98775,
+              "ns": 0,
+              "title": "Ruciane-Nida",
+              "coordinates": [
+                {
+                  "lat": 53.650297,
+                  "lon": 21.549944,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Ruciane-Nida (deutsch: Rudczanny-Nieden) ist ein historischer Ort in der Woiwodschaft Ermland-Masuren auf der Masurischen Seenplatte. Der Ort ist vor allem als Marina am Nordwestrand des Niedersees bekannt."
+            },
+            "98777": {
+              "pageid": 98777,
+              "ns": 0,
+              "title": "Ryn",
+              "coordinates": [
+                {
+                  "lat": 53.937778,
+                  "lon": 21.548056,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Ryn (deutsch: Rhein) ist ein historischer Ort in der Woiwodschaft Ermland-Masuren auf der Masurischen Seenplatte. Der Ort ist vor allem als Marina am Nordrand des Rheiner Sees bekannt."
+            },
+            "11857": {
+              "pageid": 11857,
+              "ns": 0,
+              "title": "Trogir",
+              "coordinates": [
+                {
+                  "lat": 43.51619,
+                  "lon": 16.24981,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Trogir ist eine dalmatische Stadt in Kroatien, die für ihr Weltkulturerbe berühmt ist."
+            },
+            "20199": {
+              "pageid": 20199,
+              "ns": 0,
+              "title": "Ustka",
+              "coordinates": [
+                {
+                  "lat": 54.58333,
+                  "lon": 16.85,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Ustka (deutsch Stolpmünde) ist ein Ostseebad und staatlich anerkanntes Seeheilbad in Polen im Westen der Küste der Woiwodschaft Pommern (unweit der Grenze zur Woiwodschaft Westpommern) an der Slowinzischen Küste, dem zentralen Teil der Polnischen Ostseeküste. Ustka ist auch Hafenstadt und Sitz der gleichnamigen Landgemeinde."
+            },
+            "116983": {
+              "pageid": 116983,
+              "ns": 0,
+              "title": "Vrsar",
+              "coordinates": [
+                {
+                  "lat": 45.15,
+                  "lon": 13.61,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "11123": {
+              "pageid": 11123,
+              "ns": 0,
+              "title": "Węgorzewo",
+              "coordinates": [
+                {
+                  "lat": 54.21667,
+                  "lon": 21.75,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "50691": {
+              "pageid": 50691,
+              "ns": 0,
+              "title": "Český Krumlov",
+              "coordinates": [
+                {
+                  "lat": 48.812777,
+                  "lon": 14.317468,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "4471": {
+              "pageid": 4471,
+              "ns": 0,
+              "title": "Łeba",
+              "coordinates": [
+                {
+                  "lat": 54.75917,
+                  "lon": 17.55306,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "4331": {
+              "pageid": 4331,
+              "ns": 0,
+              "title": "Kolberg",
+              "coordinates": [
+                {
+                  "lat": 54.16667,
+                  "lon": 15.56667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "6047": {
+              "pageid": 6047,
+              "ns": 0,
+              "title": "Swinemünde",
+              "coordinates": [
+                {
+                  "lat": 53.91667,
+                  "lon": 14.25,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            }
+          }
+        },
+        "limits": {
+          "coordinates": 500,
+          "extracts": 20
+        }
+      }
+    },
+    {
+      "retrieved_at": "2026-10-27T23:41:57+00:00",
+      "response": {
+        "continue": {
+          "excontinue": 20,
+          "continue": "||coordinates|pageprops"
+        },
+        "query": {
+          "pages": {
+            "-1": {
+              "ns": 0,
+              "title": "Primošten",
+              "missing": ""
+            },
+            "-2": {
+              "ns": 0,
+              "title": "Vodice",
+              "missing": ""
+            },
+            "-3": {
+              "ns": 0,
+              "title": "Bol",
+              "missing": ""
+            },
+            "-4": {
+              "ns": 0,
+              "title": "Morzine",
+              "missing": ""
+            },
+            "-5": {
+              "ns": 0,
+              "title": "Megève",
+              "missing": ""
+            },
+            "-6": {
+              "ns": 0,
+              "title": "Pont-Aven",
+              "missing": ""
+            },
+            "-7": {
+              "ns": 0,
+              "title": "Perros-Guirec",
+              "missing": ""
+            },
+            "-8": {
+              "ns": 0,
+              "title": "Cancale",
+              "missing": ""
+            },
+            "-9": {
+              "ns": 0,
+              "title": "Palafrugell",
+              "missing": ""
+            },
+            "75803": {
+              "pageid": 75803,
+              "ns": 0,
+              "title": "Aljezur",
+              "coordinates": [
+                {
+                  "lat": 37.316667,
+                  "lon": -8.8,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Aljezur ist eine kleine Kreisstadt im äußersten Nordwesten der Algarve im Nationalpark Parque Natural do Sudoeste Alentejano e da Costa Vicentina  unweit der Küste."
+            },
+            "15659": {
+              "pageid": 15659,
+              "ns": 0,
+              "title": "Annecy",
+              "coordinates": [
+                {
+                  "lat": 45.90944,
+                  "lon": 6.12389,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Die französische Stadt Annecy ist Hauptstadt des Départements Haute-Savoie. \nDie am Lac d’Annecy gelegene prächtige alte Residenzstadt der Genfer Herzöge mit dem schönen Schloss hat eine sehenswerte Altstadt mit Arkadenhäusern."
+            },
+            "29974": {
+              "pageid": 29974,
+              "ns": 0,
+              "title": "Barcelonnette",
+              "coordinates": [
+                {
+                  "lat": 44.38333,
+                  "lon": 6.65,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Barcelonnette ist eine Gemeinde im Département Alpes-de-Haute-Provence im Tal der Ubaye am Rande des Parc National du Mercantou gelegen."
+            },
+            "45021": {
+              "pageid": 45021,
+              "ns": 0,
+              "title": "Begur",
+              "coordinates": [
+                {
+                  "lat": 41.953889,
+                  "lon": 3.207222,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Begur (span. Bagur) ist eine Gemeinde an der Costa Brava in Katalonien."
+            },
+            "79216": {
+              "pageid": 79216,
+              "ns": 0,
+              "title": "Blanes",
+              "coordinates": [
+                {
+                  "lat": 41.675,
+                  "lon": 2.791667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Blanes ist eine Stadt in der katalonischen Provinz Girona. Sie liegt am südlichen Ende der Costa Brava unmittelbar an der Mündung des Flusses Tordera und ist rund 60 Kilometer nordöstlich der Regionshauptstadt Barcelona gelegen."
+            },
+            "104389": {
+              "pageid": 104389,
+              "ns": 0,
+              "title": "Briançon",
+              "coordinates": [
+                {
+                  "lat": 44.895833,
+                  "lon": 6.635,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Briançon ist eine Stadt in den französischen Alpen."
+            },
+            "26023": {
+              "pageid": 26023,
+              "ns": 0,
+              "title": "Cadaqués",
+              "coordinates": [
+                {
+                  "lat": 42.28882,
+                  "lon": 3.27747,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Das 2.800 Einwohner zählende Fischerdorf Cadaqués liegt an der Costa Brava."
+            },
+            "11057": {
+              "pageid": 11057,
+              "ns": 0,
+              "title": "Carnac",
+              "coordinates": [
+                {
+                  "lat": 47.58556,
+                  "lon": -3.07667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Carnac (bretonisch Karnag) ist eine französische Gemeinde im Département Morbihan, in der Bretagne."
+            },
+            "125427": {
+              "pageid": 125427,
+              "ns": 0,
+              "title": "Carvoeiro",
+              "coordinates": [
+                {
+                  "lat": 37.097,
+                  "lon": -8.4692,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Carvoeiro ist ein Dorf an der Algarve, etwa 5 km südlich der Stadt Lagoa und liegt am Atlantischen Ozean. Dieses malerische Fischerdorf hat sich in den letzten Jahrzehnten zum Haupttouristengebiet des Concelho entwickelt und ist besonders bei deutschen Touristen beliebt."
+            },
+            "30476": {
+              "pageid": 30476,
+              "ns": 0,
+              "title": "Chamonix-Mont-Blanc",
+              "coordinates": [
+                {
+                  "lat": 45.91985,
+                  "lon": 6.86593,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Die Gemeinde Chamonix-Mont-Blanc liegt zu Füßen des Mont Blanc im Département Haute-Savoie in den französischen Alpen. Das mondäne Touristenzentrum Chamonix ist bedeutender Wintersportort und als Ausgangspunkt der historischen Erstbesteigung des Mont Blanc auch eine Hauptstadt des Alpinismus."
+            },
+            "11093": {
+              "pageid": 11093,
+              "ns": 0,
+              "title": "Concarneau",
+              "coordinates": [
+                {
+                  "lat": 47.8738,
+                  "lon": -3.91855,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Concarneau (bretonisch Konk-Kerne) ist eine französische Stadt im Département Finistère in der Bretagne. Politisch gehört die Stadt zum Arrondissement Quimper und ist Verwaltungssitz des Kanton Concarneau."
+            },
+            "10968": {
+              "pageid": 10968,
+              "ns": 0,
+              "title": "Dinard",
+              "coordinates": [
+                {
+                  "lat": 48.63312,
+                  "lon": -2.05755,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Dinard ist eine französische Stadt im Département Ille-et-Vilaine in der Bretagne."
+            },
+            "41602": {
+              "pageid": 41602,
+              "ns": 0,
+              "title": "Domburg",
+              "coordinates": [
+                {
+                  "lat": 51.56117,
+                  "lon": 3.49672,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Domburg ist ein traditionelles Seebad an der Nordsee auf Walcheren in der niederländischen Provinz Zeeland. Es gehört zur Gemeinde Veere."
+            },
+            "82648": {
+              "pageid": 82648,
+              "ns": 0,
+              "title": "Hvar",
+              "coordinates": [
+                {
+                  "lat": 43.1514,
+                  "lon": 16.6569,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Hvar     (italienisch: Lesina) ist die viertgrößte Insel im Adriatischen Meer in Kroatien mit rund 11.500 ständigen Bewohnern. Sie hat eine Fläche von 297,37 km² und ist bis zu 626 m hoch."
+            },
+            "82644": {
+              "pageid": 82644,
+              "ns": 0,
+              "title": "Korčula",
+              "coordinates": [
+                {
+                  "lat": 42.95,
+                  "lon": 17.117,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Korčula     (italienisch: Curzola) ist eine Insel im Adriatischen Meer in Kroatien.\nDie 271,46 km² große und bis zu 568 m hohe Insel hat rund 17.000 ständige Bewohner und ist die am dichtesten besiedelte in Kroatien."
+            },
+            "45290": {
+              "pageid": 45290,
+              "ns": 0,
+              "title": "L’Escala",
+              "coordinates": [
+                {
+                  "lat": 42.125,
+                  "lon": 3.129167,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "L’Escala (kat.; span: La Escala) ist ein Ort in Katalonien. Als Ferienort liegt er an der Costa Brava im Golf von Roses und hat ca."
+            },
+            "125426": {
+              "pageid": 125426,
+              "ns": 0,
+              "title": "Monchique",
+              "coordinates": [
+                {
+                  "lat": 37.317358,
+                  "lon": -8.555614,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Monchique ist ein Kurort an der Algarve. Die Stadt ist der Hauptort der Serra de Monchique, der Gebirgskette, die die Algarve von Alentejo und dem restlichen Portugal im Norden trennt."
+            },
+            "125439": {
+              "pageid": 125439,
+              "ns": 0,
+              "title": "Olhão",
+              "coordinates": [
+                {
+                  "lat": 37.027778,
+                  "lon": -7.838889,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Olhão ist ein Fischereihafen an der Algarve. Er ist ein wichtiger Hafen und der größte Fischereihafen an der Algarve."
+            },
+            "41568": {
+              "pageid": 41568,
+              "ns": 0,
+              "title": "Quiberon",
+              "coordinates": [
+                {
+                  "lat": 47.483333,
+                  "lon": -3.120556,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Quiberon (bret. Kiberen) ist eine Hafenstadt im gleichnamigen Kanton des französischen Départements Morbihan im Süden der Bretagne."
+            },
+            "32110": {
+              "pageid": 32110,
+              "ns": 0,
+              "title": "Renesse",
+              "coordinates": [
+                {
+                  "lat": 51.7325,
+                  "lon": 3.77139,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Renesse ist ein Badeort an der Nordsee auf Schouwen-Duiveland in der niederländischen Provinz Zeeland."
+            },
+            "10989": {
+              "pageid": 10989,
+              "ns": 0,
+              "title": "Roscoff",
+              "coordinates": [
+                {
+                  "lat": 48.73,
+                  "lon": -3.98,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "5535": {
+              "pageid": 5535,
+              "ns": 0,
+              "title": "Roses",
+              "coordinates": [
+                {
+                  "lat": 42.26333,
+                  "lon": 3.175,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "30477": {
+              "pageid": 30477,
+              "ns": 0,
+              "title": "Sagres",
+              "coordinates": [
+                {
+                  "lat": 37.00773,
+                  "lon": -8.94484,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "10995": {
+              "pageid": 10995,
+              "ns": 0,
+              "title": "Saint-Malo",
+              "coordinates": [
+                {
+                  "lat": 48.64837,
+                  "lon": -2.02604,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "15914": {
+              "pageid": 15914,
+              "ns": 0,
+              "title": "Tavira",
+              "coordinates": [
+                {
+                  "lat": 37.12604,
+                  "lon": -7.64981,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "29195": {
+              "pageid": 29195,
+              "ns": 0,
+              "title": "Thonon-les-Bains",
+              "coordinates": [
+                {
+                  "lat": 46.37056,
+                  "lon": 6.47972,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "28959": {
+              "pageid": 28959,
+              "ns": 0,
+              "title": "Tossa de Mar",
+              "coordinates": [
+                {
+                  "lat": 41.71667,
+                  "lon": 2.93333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "105936": {
+              "pageid": 105936,
+              "ns": 0,
+              "title": "Vila do Bispo",
+              "coordinates": [
+                {
+                  "lat": 37.085,
+                  "lon": -8.909,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "41473": {
+              "pageid": 41473,
+              "ns": 0,
+              "title": "Westkapelle",
+              "coordinates": [
+                {
+                  "lat": 51.529283,
+                  "lon": 3.441153,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "45410": {
+              "pageid": 45410,
+              "ns": 0,
+              "title": "Zoutelande",
+              "coordinates": [
+                {
+                  "lat": 51.501389,
+                  "lon": 3.484722,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "26594": {
+              "pageid": 26594,
+              "ns": 0,
+              "title": "Évian-les-Bains",
+              "coordinates": [
+                {
+                  "lat": 46.40093,
+                  "lon": 6.58943,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            }
+          }
+        },
+        "limits": {
+          "coordinates": 500,
+          "extracts": 20
+        }
+      }
+    },
+    {
+      "retrieved_at": "2026-10-27T23:42:05+00:00",
+      "response": {
+        "continue": {
+          "excontinue": 20,
+          "continue": "||coordinates|pageprops"
+        },
+        "query": {
+          "redirects": [
+            {
+              "from": "Jūrmala",
+              "to": "Riga",
+              "tofragment": "Ausflüge"
+            }
+          ],
+          "pages": {
+            "-1": {
+              "ns": 0,
+              "title": "Ouddorp",
+              "missing": ""
+            },
+            "-2": {
+              "ns": 0,
+              "title": "Bergen aan Zee",
+              "missing": ""
+            },
+            "-3": {
+              "ns": 0,
+              "title": "Egmond aan Zee",
+              "missing": ""
+            },
+            "-4": {
+              "ns": 0,
+              "title": "De Koog",
+              "missing": ""
+            },
+            "-5": {
+              "ns": 0,
+              "title": "Durbuy",
+              "missing": ""
+            },
+            "-6": {
+              "ns": 0,
+              "title": "Bouillon",
+              "missing": ""
+            },
+            "-7": {
+              "ns": 0,
+              "title": "Ebeltoft",
+              "missing": ""
+            },
+            "-8": {
+              "ns": 0,
+              "title": "Rättvik",
+              "missing": ""
+            },
+            "-9": {
+              "ns": 0,
+              "title": "Tällberg",
+              "missing": ""
+            },
+            "-10": {
+              "ns": 0,
+              "title": "Vadstena",
+              "missing": ""
+            },
+            "-11": {
+              "ns": 0,
+              "title": "Loen",
+              "missing": ""
+            },
+            "-12": {
+              "ns": 0,
+              "title": "Stryn",
+              "missing": ""
+            },
+            "-13": {
+              "ns": 0,
+              "title": "Kerimäki",
+              "missing": ""
+            },
+            "-14": {
+              "ns": 0,
+              "title": "Sulkava",
+              "missing": ""
+            },
+            "-15": {
+              "ns": 0,
+              "title": "Puumala",
+              "missing": ""
+            },
+            "-16": {
+              "ns": 0,
+              "title": "Haapsalu",
+              "missing": ""
+            },
+            "-17": {
+              "ns": 0,
+              "title": "Kuressaare",
+              "missing": ""
+            },
+            "-18": {
+              "ns": 0,
+              "title": "Kärdla",
+              "missing": ""
+            },
+            "30395": {
+              "pageid": 30395,
+              "ns": 0,
+              "title": "Aurland",
+              "coordinates": [
+                {
+                  "lat": 60.9,
+                  "lon": 7.16667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Aurland ist eine Gemeinde am gleichnamigen Fjord in der norwegischen Fylke Vestland."
+            },
+            "51028": {
+              "pageid": 51028,
+              "ns": 0,
+              "title": "Balestrand",
+              "coordinates": [
+                {
+                  "lat": 61.1775,
+                  "lon": 6.403889,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Balestrand ist eine Kommune am Sognefjord."
+            },
+            "69246": {
+              "pageid": 69246,
+              "ns": 0,
+              "title": "Blokhus",
+              "coordinates": [
+                {
+                  "lat": 57.251389,
+                  "lon": 9.584167,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Blokhus ist ein Badeort an der Jammerbucht in Nordjütland."
+            },
+            "20715": {
+              "pageid": 20715,
+              "ns": 0,
+              "title": "Dinant",
+              "coordinates": [
+                {
+                  "lat": 50.25,
+                  "lon": 4.91667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Dinant ist eine Stadt in Belgien. Der an der Maas gelegene Ort gilt als der sehenswerteste der Wallonie."
+            },
+            "30094": {
+              "pageid": 30094,
+              "ns": 0,
+              "title": "Flåm",
+              "coordinates": [
+                {
+                  "lat": 60.83333,
+                  "lon": 7.11667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Flåm ist ein Ort am Aurlandsfjord in Norwegen."
+            },
+            "45918": {
+              "pageid": 45918,
+              "ns": 0,
+              "title": "Geiranger",
+              "coordinates": [
+                {
+                  "lat": 62.099722,
+                  "lon": 7.205,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Geiranger ist ein Ort am Geirangerfjord im Fylke Møre og Romsdal."
+            },
+            "41749": {
+              "pageid": 41749,
+              "ns": 0,
+              "title": "Gränna",
+              "coordinates": [
+                {
+                  "lat": 58.024167,
+                  "lon": 14.468056,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Gränna ist ein zur Kommune Jönköping gehörender Ort in Småland."
+            },
+            "67734": {
+              "pageid": 67734,
+              "ns": 0,
+              "title": "Hvide Sande",
+              "coordinates": [
+                {
+                  "lat": 55.996111,
+                  "lon": 8.126111,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Hvide Sande ist eine Stadt an der Westküste von Mitteljütland. Sie liegt etwa in der Mitte der Nehrung Holmsland Klit, dem schmalen Dünenstreifen, der den Ringkøbing-Fjord vom Meer trennt."
+            },
+            "108571": {
+              "pageid": 108571,
+              "ns": 0,
+              "title": "La Roche-en-Ardenne",
+              "coordinates": [
+                {
+                  "lat": 50.18166667,
+                  "lon": 5.575,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "La Roche-en-Ardenne ist eine Kleinstadt in der belgischen Provinz Luxemburg."
+            },
+            "109380": {
+              "pageid": 109380,
+              "ns": 0,
+              "title": "Leksand",
+              "coordinates": [
+                {
+                  "lat": 60.73083313,
+                  "lon": 14.99739778,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Leksand ist eine Stadt in Dalarna."
+            },
+            "69240": {
+              "pageid": 69240,
+              "ns": 0,
+              "title": "Løkken",
+              "coordinates": [
+                {
+                  "lat": 57.369919,
+                  "lon": 9.715014,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Løkken ist eine Kleinstadt an der Jammerbucht in Nordjütland."
+            },
+            "17106": {
+              "pageid": 17106,
+              "ns": 0,
+              "title": "Malmedy",
+              "coordinates": [
+                {
+                  "lat": 50.41667,
+                  "lon": 6.01667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Malmedy ist eine Stadt in der Provinz Lüttich."
+            },
+            "109366": {
+              "pageid": 109366,
+              "ns": 0,
+              "title": "Mora",
+              "coordinates": [
+                {
+                  "lat": 61.0048238,
+                  "lon": 14.53707907,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Mora ist eine Stadt in Dalarna am Siljan-See und Zielort des 90 km langen Wasalaufes auf Skiern."
+            },
+            "129039": {
+              "pageid": 129039,
+              "ns": 0,
+              "title": "Punkaharju",
+              "coordinates": [
+                {
+                  "lat": 61.75,
+                  "lon": 29.4,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Punkaharju ist eine 2013 nach Savonlinna eingemeindete ehemalige Gemeinde in Ostfinnland."
+            },
+            "5271": {
+              "pageid": 5271,
+              "ns": 0,
+              "title": "Pärnu",
+              "coordinates": [
+                {
+                  "lat": 58.38472,
+                  "lon": 24.51861,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Pärnu ist eine Stadt in Estland und dessen „Sommerhauptstadt“."
+            },
+            "17485": {
+              "pageid": 17485,
+              "ns": 0,
+              "title": "Savonlinna",
+              "coordinates": [
+                {
+                  "lat": 61.86667,
+                  "lon": 28.88333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Savonlinna (schwedisch: Nyslott) ist eine Stadt in Ostfinnland nahe der Grenze zu Russland. Sie befindet sich an der Strecke Joensuu-Helsinki."
+            },
+            "16742": {
+              "pageid": 16742,
+              "ns": 0,
+              "title": "Skagen",
+              "coordinates": [
+                {
+                  "lat": 57.72194,
+                  "lon": 10.58528,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Skagen ist die nördlichste Ortschaft von Dänemark und aufgrund ihrer Lage an der Spitze Jütlands die einzige, die sowohl an der Ost-, als auch an der Nordsee liegt. Es ist zudem der Ort mit der größten Sonnenscheindauer in Dänemark."
+            },
+            "21157": {
+              "pageid": 21157,
+              "ns": 0,
+              "title": "Spa",
+              "coordinates": [
+                {
+                  "lat": 50.49139,
+                  "lon": 5.86667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Spa ist eine Stadt im Hohen Venn."
+            },
+            "14739": {
+              "pageid": 14739,
+              "ns": 0,
+              "title": "Sønderborg",
+              "coordinates": [
+                {
+                  "lat": 54.91167,
+                  "lon": 9.81083,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Sønderborg (deutsch: Sonderburg) ist eine Stadt in Dänemark. Sie liegt am Nordende der Flensburger Förde, beiderseits des Als-Sundes, der die Insel Als vom dänischen Festland trennt."
+            },
+            "67777": {
+              "pageid": 67777,
+              "ns": 0,
+              "title": "Søndervig",
+              "coordinates": [
+                {
+                  "lat": 56.11916,
+                  "lon": 8.116389,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Søndervig ist eine kleine, stark touristisch geprägte Ortschaft am nördlichen Ende des Holmsland Klit am Ringkøbing-Fjord in Mitteljütland."
+            },
+            "53484": {
+              "pageid": 53484,
+              "ns": 0,
+              "title": "Åndalsnes",
+              "coordinates": [
+                {
+                  "lat": 62.566667,
+                  "lon": 7.683333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "5514": {
+              "pageid": 5514,
+              "ns": 0,
+              "title": "Riga",
+              "coordinates": [
+                {
+                  "lat": 56.95,
+                  "lon": 24.1,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            }
+          }
+        },
+        "limits": {
+          "coordinates": 500,
+          "extracts": 20
+        }
+      }
+    },
+    {
+      "retrieved_at": "2026-10-27T23:42:11+00:00",
+      "response": {
+        "continue": {
+          "excontinue": 20,
+          "continue": "||coordinates|pageprops"
+        },
+        "query": {
+          "redirects": [
+            {
+              "from": "Kardamyli",
+              "to": "Kardamili"
+            }
+          ],
+          "pages": {
+            "-1": {
+              "ns": 0,
+              "title": "Juodkrantė",
+              "missing": ""
+            },
+            "-2": {
+              "ns": 0,
+              "title": "Palanga",
+              "missing": ""
+            },
+            "-3": {
+              "ns": 0,
+              "title": "Clifden",
+              "missing": ""
+            },
+            "-4": {
+              "ns": 0,
+              "title": "Lahinch",
+              "missing": ""
+            },
+            "-5": {
+              "ns": 0,
+              "title": "Keswick",
+              "missing": ""
+            },
+            "-6": {
+              "ns": 0,
+              "title": "Windermere",
+              "missing": ""
+            },
+            "-7": {
+              "ns": 0,
+              "title": "Keszthely",
+              "missing": ""
+            },
+            "-8": {
+              "ns": 0,
+              "title": "Badacsony",
+              "missing": ""
+            },
+            "-9": {
+              "ns": 0,
+              "title": "Balatonalmádi",
+              "missing": ""
+            },
+            "-10": {
+              "ns": 0,
+              "title": "Štrbské Pleso",
+              "missing": ""
+            },
+            "-11": {
+              "ns": 0,
+              "title": "Tatranská Lomnica",
+              "missing": ""
+            },
+            "-12": {
+              "ns": 0,
+              "title": "Starý Smokovec",
+              "missing": ""
+            },
+            "-13": {
+              "ns": 0,
+              "title": "Ždiar",
+              "missing": ""
+            },
+            "-14": {
+              "ns": 0,
+              "title": "Bran",
+              "missing": ""
+            },
+            "-15": {
+              "ns": 0,
+              "title": "Predeal",
+              "missing": ""
+            },
+            "-16": {
+              "ns": 0,
+              "title": "Perast",
+              "missing": ""
+            },
+            "55617": {
+              "pageid": 55617,
+              "ns": 0,
+              "title": "Ambleside",
+              "coordinates": [
+                {
+                  "lat": 54.43195,
+                  "lon": -2.96323,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Ambleside ist eine kleine Stadt im nordenglischen Lake District. Der Ort liegt in der Nähe des nördlichen Endes von Windermere, dem größten natürlichen See Englands."
+            },
+            "19985": {
+              "pageid": 19985,
+              "ns": 0,
+              "title": "Balatonfüred",
+              "coordinates": [
+                {
+                  "lat": 46.95417,
+                  "lon": 17.88583,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Balatonfüred ist eine Stadt in Ungarn."
+            },
+            "11990": {
+              "pageid": 11990,
+              "ns": 0,
+              "title": "Baltschik",
+              "coordinates": [
+                {
+                  "lat": 43.40833,
+                  "lon": 28.16667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Baltschik (bulgarisch: Балчик; auch Balčik oder Balchik) ist eine Hafenstadt in Bulgarien und liegt am Schwarzen Meer."
+            },
+            "54593": {
+              "pageid": 54593,
+              "ns": 0,
+              "title": "Bușteni",
+              "coordinates": [
+                {
+                  "lat": 45.415278,
+                  "lon": 25.5375,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Bușteni ist eine Stadt in Zentral-Rumänien, sie liegt am Südrand der Karpaten und gehört zur Großen Walachei."
+            },
+            "55686": {
+              "pageid": 55686,
+              "ns": 0,
+              "title": "Coniston",
+              "coordinates": [
+                {
+                  "lat": 54.36896,
+                  "lon": -3.0758,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Coniston ist ein Dorf im nordenglischen Lake District. Der Ort, der bei Wanderern sehr beliebt ist, liegt zwischen Coniston Water (einem der größeren Seen) und dem Berg Old Man of Coniston."
+            },
+            "70432": {
+              "pageid": 70432,
+              "ns": 0,
+              "title": "Dingle",
+              "pageprops": {
+                "disambiguation": ""
+              },
+              "extract": "Das Reiseziel  Dingle ist nicht eindeutig ."
+            },
+            "68765": {
+              "pageid": 68765,
+              "ns": 0,
+              "title": "Doolin",
+              "coordinates": [
+                {
+                  "lat": 53.013611,
+                  "lon": -9.385556,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Doolin (irisch Dúlainn) ist ein Küstendorf im County Clare in der Nähe der Cliffs of Moher. Der Ort ist als Zentrum traditioneller irischer Musik bekannt."
+            },
+            "55775": {
+              "pageid": 55775,
+              "ns": 0,
+              "title": "Grasmere",
+              "coordinates": [
+                {
+                  "lat": 54.45832,
+                  "lon": -3.02403,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Grasmere ist ein Dorf im nordenglischen Nationalpark Lake District. Das Dorf, das in der Nähe des gleichnamigen Sees liegt, ist ein beliebtes Touristenziel."
+            },
+            "26885": {
+              "pageid": 26885,
+              "ns": 0,
+              "title": "Gythio",
+              "coordinates": [
+                {
+                  "lat": 36.76667,
+                  "lon": 22.56667,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Gythio ist eine Stadt in der östlichen Mani in der Region Lakonien. Seit 2010 ist in Gythio der Verwaltungssitz der Gemeinde Östliche Mani (Anatoliki Mani)."
+            },
+            "82612": {
+              "pageid": 82612,
+              "ns": 0,
+              "title": "Herceg Novi",
+              "coordinates": [
+                {
+                  "lat": 42.45295,
+                  "lon": 18.531203,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Herceg Novi (kyrillisch: Херцег Нови) ist eine Stadt an der Adria im Westen von Montenegro. Die Stadt ist weniger überlaufen als etwa Kotor oder Dubrovnik, hat aber recht viele Besucher aus Serbien und Russland."
+            },
+            "15725": {
+              "pageid": 15725,
+              "ns": 0,
+              "title": "Kenmare",
+              "coordinates": [
+                {
+                  "lat": 51.87917,
+                  "lon": -9.58306,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Kenmare (Irisch: An Neidín) ist eine Stadt am Ring of Kerry, auf der Halbinsel Iveragh im County Kerry im Südwesten der Republik Irland.\nKenmare gewinnt Jahr für Jahr Preise beim Wettbewerb \"Tidy Towns\"."
+            },
+            "81794": {
+              "pageid": 81794,
+              "ns": 0,
+              "title": "Kotor",
+              "coordinates": [
+                {
+                  "lat": 42.427778,
+                  "lon": 18.768611,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Kotor ist eine Stadt in Montenegro, sie liegt am südöstlichen Ende der Bucht von Kotor, die sich fjordartig von der Adria in die dalmatinische Küste einschneidet und einen geschützten Naturhafen mit vier Becken bildet."
+            },
+            "48252": {
+              "pageid": 48252,
+              "ns": 0,
+              "title": "Liepāja",
+              "coordinates": [
+                {
+                  "lat": 56.511667,
+                  "lon": 21.013889,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Liepāja (, früher deutsch: Liebau) in Lettland bietet eine faszinierende Mischung aus historischen Sehenswürdigkeiten wie der Karosta-Militärfestung, wunderschönen Stränden und lebendiger Kultur mit Musik- und Kunstveranstaltungen."
+            },
+            "26861": {
+              "pageid": 26861,
+              "ns": 0,
+              "title": "Monemvasia",
+              "coordinates": [
+                {
+                  "lat": 36.68333,
+                  "lon": 23.05,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "1 Monemvasia    ​  ​36.68777777777823.055555555556 (griechisch: Μονεμβασία) oder Monemvassia, bei den Franken als Malvasia bekannt, ist eine kleine historische Stadt auf einem etwa 300 m hohen Felsen an der Ostküste von Lakonien in Griechenland."
+            },
+            "4945": {
+              "pageid": 4945,
+              "ns": 0,
+              "title": "Nafplio",
+              "coordinates": [
+                {
+                  "lat": 37.56841,
+                  "lon": 22.80286,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Nafplio, griechisch: Ναύπλιο, auch Nauplion oder Nafplion, gilt mit seinen verwinkelten Altstadtgassen und malerischen Plätzen als die schönste Stadt des Peloponnes. Die Hafenstadt hat ca."
+            },
+            "4999": {
+              "pageid": 4999,
+              "ns": 0,
+              "title": "Nessebar",
+              "coordinates": [
+                {
+                  "lat": 42.65917,
+                  "lon": 27.72833,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Nessebar     (Несебър) ist eine kleine Stadt an der bulgarischen Schwarzmeerküste."
+            },
+            "25330": {
+              "pageid": 25330,
+              "ns": 0,
+              "title": "Nida",
+              "coordinates": [
+                {
+                  "lat": 55.3,
+                  "lon": 21,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Nida ist eine Kleinstadt auf der Kurischen Nehrung in Litauen. Früher war der Ort auch unter seinem deutschen Namen „Nidden“ bekannt."
+            },
+            "26970": {
+              "pageid": 26970,
+              "ns": 0,
+              "title": "Parga",
+              "coordinates": [
+                {
+                  "lat": 39.28333,
+                  "lon": 20.4,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Parga ist ein Ort an einer schönen Bucht des Ionischen Meeres und liegt in der griechischen Provinz Epirus. \nDie Stadt Parga ist vor allem für ihre malerische Altstadt mit den farbenfrohen Häusern, die venezianische Burg über der Bucht und die schönen Strände bekannt."
+            },
+            "53716": {
+              "pageid": 53716,
+              "ns": 0,
+              "title": "Sinaia",
+              "coordinates": [
+                {
+                  "lat": 45.34576,
+                  "lon": 25.54816,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Sinaia ist eine Kleinstadt im Zentrum Rumäniens. Sie liegt ca."
+            },
+            "12010": {
+              "pageid": 12010,
+              "ns": 0,
+              "title": "Sosopol",
+              "coordinates": [
+                {
+                  "lat": 42.41718,
+                  "lon": 27.69885,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Sosopol ist eine Stadt im Bezirk (Oblast) Burgas."
+            },
+            "20094": {
+              "pageid": 20094,
+              "ns": 0,
+              "title": "Tihany",
+              "coordinates": [
+                {
+                  "lat": 46.91417,
+                  "lon": 17.88583,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "73653": {
+              "pageid": 73653,
+              "ns": 0,
+              "title": "Ventspils",
+              "coordinates": [
+                {
+                  "lat": 57.390556,
+                  "lon": 21.573333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            },
+            "8669": {
+              "pageid": 8669,
+              "ns": 0,
+              "title": "Westport",
+              "pageprops": {
+                "disambiguation": ""
+              }
+            },
+            "57680": {
+              "pageid": 57680,
+              "ns": 0,
+              "title": "Kardamili",
+              "coordinates": [
+                {
+                  "lat": 36.887402,
+                  "lon": 22.232374,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ]
+            }
+          }
+        },
+        "limits": {
+          "coordinates": 500,
+          "extracts": 20
+        }
+      }
+    },
+    {
+      "retrieved_at": "2026-10-27T23:42:13+00:00",
+      "response": {
+        "batchcomplete": "",
+        "query": {
+          "pages": {
+            "6251": {
+              "pageid": 6251,
+              "ns": 0,
+              "title": "Ulcinj",
+              "coordinates": [
+                {
+                  "lat": 41.92444,
+                  "lon": 19.20333,
+                  "primary": "",
+                  "globe": "earth"
+                }
+              ],
+              "extract": "Ulcinj ist das südlichste Strandbad Montenegros an der Adria."
+            }
+          }
+        },
+        "limits": {
+          "coordinates": 500,
+          "extracts": 20
+        }
+      }
+    }
+  ]
+}

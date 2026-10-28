@@ -40,3 +40,13 @@ Keine automatische Browserintegration: Für erlaubte öffentliche strukturierte 
 ## Datenweitergabe und Attribution
 
 Standardquellen empfangen lediglich die für die gewählte Suche nötigen öffentlichen Ortsnamen bzw. Ortskoordinaten. Exakte Adressen bleiben im lokalen Reise-Snapshot. Öffentliche Dienste können IP-Adressen und Abrufwege protokollieren. Die Anwendung sendet keine Reise-Snapshots an eine Cloud und unterstützt keine API-Schlüsselspeicherung. Maßgebliche Datenlizenzen und abgeleitete Quellendateien: [DATENLIZENZEN.md](DATENLIZENZEN.md).
+
+## Ergänzung 28.10.2026 – räumliche Suche
+
+Die bisherigen Zugangsbeschränkungen für Preis-/Verfügbarkeitsanbieter gelten unverändert. Neu geprüft: [MediaWiki-Koordinaten/Geosearch-Dokumentation](https://www.mediawiki.org/wiki/API:Geosearch) und [Wikivoyage-vCard-Dokumentation](https://de.wikivoyage.org/wiki/Vorlage:VCard). Tatsächlich verwendet wurden gebündelte `action=query`-Abrufe mit `coordinates`, `pageprops`, `extracts` und Redirect-Auflösung, **keine** flächendeckende Geocoding- oder Geosearch-API-Abfrage.
+
+Neun manuelle Katalogabfragen prüften 321 Kandidatennamen, 240 wurden eindeutig mit Koordinaten aufgelöst, 81 verworfen; sieben waren schon vorhanden. Ergebnis: 298 Kandidaten/29 Länder. Prüfantworten in `KATALOGERWEITERUNG_2026-10-28.json`. Herkunft, Typisierung, Basisorte und Grenzen siehe [Suchverbesserung](SUCHVERBESSERUNG.md). Einführungstexte, Koordinaten und Fixtures sind abgeleitete Wikivoyage-Daten; gleiche Attribution/Lizenz wie bisher.
+
+Die echte Suchkampagne benötigte insgesamt 24 HTTP-Aufrufe (16 plus acht gezielte Nachprüfung), separat von der Katalogpflege. Frische isolierte Testdatenbanken verhinderten unerkannte Cache-Erfolge. Abgerufene Ortsseiten unter anderem Hřensko, Bad Schandau, Trogir, Świnoujście, Międzyzdroje und Děčín; FOSSGIS-Straßenrouten weiterhin ohne Schlüssel. Einzelheiten und ursprüngliche URLs/Zeitstempel in `SUCHLAUF_2026-10-28.json` und `SUCHLAUF_FINAL_2026-10-28.json`. Kein erfolgreicher Preis-/Verfügbarkeitsabruf wird behauptet.
+
+Parseränderungen beruhen auf gespeicherten echten vCards (u. a. `hotel_garni`, `landscape,viewpoint`, `parking,hiking`, `church,monastery`). Mehrfachtypen werden zerlegt; ein Parkplatz mit Wanderkennzeichen wird nicht automatisch zum Wanderweg. See/Gipfel allein belegen Baden/Wandern nicht. Cachepräfix jetzt `places-v4:`; alte v3-Ortsdaten werden nicht als neu klassifizierte Daten geladen. Historische mitgelieferte Snapshots behalten Zeit und Hinweis; frühere breite See-/Gipfelklassifikationen werden konservativ bereinigt. Maximal zwei belegte Unterseiten/erlaubte Katalognachbarn pro Ziel; kein unkontrolliertes Crawling und keine zusätzlichen kostenpflichtigen Provider.

@@ -38,7 +38,7 @@ class OpenTravelProvider:
         return result
 
     def places(self, destination, context):
-        key = 'places-v3:'+destination['source']
+        key = 'places-v4:'+destination['source']
         cached = self.store.cache_get(key,7*86400)
         if cached:
             return dict(cached[0],cache_note='Ortsdaten aus Cache (bis 7 Tage); keine gespeicherten Live-Preise',warnings=[])
@@ -47,6 +47,8 @@ class OpenTravelProvider:
             parsed = self.parser.parse(html,destination,stamp)
             self.store.cache_set(key,parsed,stamp)
             return dict(parsed,cache_note='Ortsdaten neu abgerufen',warnings=[])
+        except InterruptedError:
+            raise
         except (OSError,ValueError) as exc:
             stale = self.store.cache_get(key)
             if stale:
@@ -54,7 +56,8 @@ class OpenTravelProvider:
             snapshot = Path(__file__).parent/'data/place_snapshots.json'
             data = json.loads(snapshot.read_text()) if snapshot.exists() else {}
             if destination['name'] in data:
-                return dict(data[destination['name']],cache_note='Mitgelieferter Quellenstand vom 27.10.2026; möglicherweise veraltet',warnings=[str(exc)])
+                snapshot_data=self.parser.migrate_snapshot(data[destination['name']])
+                return dict(snapshot_data,cache_note='Mitgelieferter Quellenstand vom 27.10.2026; möglicherweise veraltet',warnings=[str(exc)])
             return dict(lodgings=[],activities=[],cache_note='Keine Ortsdaten abrufbar',warnings=[str(exc)])
 
     def route(self, origin, destination, context):

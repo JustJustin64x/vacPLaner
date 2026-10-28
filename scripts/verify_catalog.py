@@ -1,4 +1,4 @@
-"""Explicit developer maintenance, not a periodic task. Four grouped Wikimedia reads.
+"""Explicit developer maintenance, not a periodic task. Grouped Wikimedia reads, maximum 40 titles per call.
 
 Usage: PYTHONPATH=. .venv/bin/python scripts/verify_catalog.py
 Updates coordinates/source provenance, not editorial interests.
@@ -14,11 +14,11 @@ items=json.loads(path.read_text())
 for d in items:
     if d['name']=='Lagos':d['source']='https://de.wikivoyage.org/wiki/Lagos_(Portugal)'
     if d['name']=='Bergen':d['source']='https://de.wikivoyage.org/wiki/Bergen_(Norwegen)'
-context=SearchContext(seconds=120,budget=8)
+context=SearchContext(seconds=300,budget=20)
 http=PublicHttpClient()
 reports=[]
-for offset in range(0,len(items),20):
-    batch=items[offset:offset+20]
+for offset in range(0,len(items),40):
+    batch=items[offset:offset+40]
     titles='|'.join(unquote(d['source'].rsplit('/',1)[1]).replace('_',' ') for d in batch)
     params=dict(action='query',titles=titles,prop='coordinates|pageprops',ppprop='disambiguation',colimit='max',coprimary='primary',redirects=1,format='json')
     data,stamp=http.json('https://de.wikivoyage.org/w/api.php?'+urlencode(params),context)

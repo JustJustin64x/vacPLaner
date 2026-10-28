@@ -4,9 +4,32 @@ from .CostService import CostService
 
 class RankingService:
     @staticmethod
-    def interest_match(destination, request):
+    def interest_match(destination, request, activities=None):
         total = sum(request.interests.values())
-        return sum(v for k,v in request.interests.items() if k in destination['interests'])/total if total else 0.5
+        strengths=destination.get('interest_strengths',{k:3 for k in destination['interests'] if k not in ('Kostenlos','Veranstaltungen')})
+        strengths=dict(strengths)
+        if activities is not None:
+            for topic in request.interests:
+                if any(topic in a['topics'] for a in activities):
+                    # A concrete source entry refines suitability, never by raw POI count.
+                    strengths[topic]=max(strengths.get(topic,0),3 if topic=='Feiern' else 4)
+        return sum(v*strengths.get(k,0)/5 for k,v in request.interests.items())/total if total else 0.5
+
+    @staticmethod
+    def interest_evidence(destination,activities,request):
+        result={}
+        for topic,weight in request.interests.items():
+            if not weight:continue
+            hits=[a for a in activities if topic in a['topics']]
+            local=[a for a in hits if not a.get('vicinity')]
+            editorial=topic in destination['interests'] and topic not in ('Kostenlos','Veranstaltungen')
+            explanation=('belegte Einträge am Ort' if local else 'belegte Einträge im Umfeld (Erreichbarkeit offen)' if hits else
+                         'redaktionelle Eignung; konkrete Aktivitäten unbelegt' if editorial else 'Eignung und konkrete Angebote unbekannt')
+            if topic=='Feiern' and hits:explanation+='; einzelne Angebote belegen kein ausgeprägtes Nachtleben'
+            result[topic]=dict(editorial=editorial,local=len(local),vicinity=len(hits)-len(local),
+                               confidence=1 if local else .7 if hits else .2 if editorial else 0,
+                               explanation=explanation,sources=list(dict.fromkeys(a['source'] for a in hits)))
+        return result
 
     @staticmethod
     def recompute(trip):

@@ -2,7 +2,7 @@
 
 Native deutsche Desktop-Anwendung für **ein europäisches Reiseziel**, ohne Zielvorgabe und ohne laufende API-/Hosting-/KI-Kosten. Sie findet reale Ziele, liest reale Unterkunfts-/Aktivitätseinträge, berechnet Straßenrouten, vergleicht transparente Teilsummen und speichert Reisen lokal mit PDF-Export.
 
-**Stand 28.10.2026 (Live-Quellenprüfung vom 27.10.):** Der durchgängige Rechercheablauf funktioniert. Ein vollständiger Live-Preisvergleich für Hotels, Bahn und Flüge ist **nicht umgesetzt**: Die geprüften Null-Euro-Zugänge liefern dafür keinen geeigneten nachgewiesenen Zugang. Eine Geodaten-/Reiseführeridentität ist kein verfügbares Angebot. Die Anwendung zeigt diese Lücken ausdrücklich, bestätigt bei unvollständigen Preisen kein Budget und erfindet keine Angebote.
+**Stand 28.10.2026 (Suchverbesserung und begrenzte Liveprüfung vom 28.10.):** Der durchgängige Rechercheablauf funktioniert. Ein vollständiger Live-Preisvergleich für Hotels, Bahn und Flüge ist **nicht umgesetzt**: Die geprüften Null-Euro-Zugänge liefern dafür keinen geeigneten nachgewiesenen Zugang. Eine Geodaten-/Reiseführeridentität ist kein verfügbares Angebot. Die Anwendung zeigt diese Lücken ausdrücklich, bestätigt bei unvollständigen Preisen kein Budget und erfindet keine Angebote.
 
 ## Start auf diesem Mac
 
@@ -31,6 +31,14 @@ Das Skript benötigt Homebrew und installiert `python-tk@3.13` sowie die Python-
 
 **API-Schlüssel:** keine erforderlich oder unterstützt. openrouteservice, DB- und Booking-Schlüssel sind nicht notwendig; dafür existieren in dieser Version keine aktivierten Adapter.
 
+## Verbesserte Zielsuche
+
+298 quellenbasierte Ziele in 29 Ländern, davon 252 außerhalb der Kategorie Großstadt. Kleine Orte, Seen-/Küstengebiete und Bergregionen sind über konkrete Basisorte vertreten. Interessen sind Wünsche auf **0–5**; alle null erlaubt eine offene Suche. Der neue Gebiets-Auswahldialog unterstützt Regionssuche, Länderkennungen und Aliasse, etwa „Schwarzwald“, „Black Forest“, „Österreich“ und „AT“.
+
+Die Suche zieht bei Lücken weitere Kandidaten nach, bis die gewünschte Trefferzahl oder das vorhandene Zeit-/Abfragebudget erreicht ist. Unter **Details**: Umgebungssuche (Unterkünfte 15 km, Aktivitäten 30 km Luftlinie, abschaltbar) und optionale Anzeige **„Ideen mit unbelegten Pflichtangaben“**. Diese Ideen stehen getrennt von Filtertreffern; kein Filter wird automatisch gelockert.
+
+Bei null Treffern erklärt die **Suchdiagnose** die Ursachen, zählt jede Stufe und bietet einen lokalen Export ohne genaue Adresse. Unterkünfte, Quellorte, Abstände, Interessenbelege und verbleibende Angaben stehen in den Details und der PDF. [Diagnose, Abdeckung, Tests und ehrliche Abnahmegrenzen](docs/SUCHVERBESSERUNG.md).
+
 ## Benutzung
 
 1. Reisezeitraum mit explizitem Jahr, Kalendertage, Erwachsene, Zimmer und Gruppenbudget eingeben. Kein Ziel nötig. Leere Länder-/Regionsfelder bedeuten die gesamte unterstützte Auswahl.
@@ -54,11 +62,11 @@ Links zu Anbietern öffnen sich nur auf Klick im Browser. Für die Recherche und
 
 ## Geografische Abdeckung und Abfragegrenzen
 
-65 quellenbasierte Orte in 29 Ländern: Deutschland, Tschechien, Österreich, Slowenien, Kroatien, Ungarn, Polen, Slowakei, Niederlande, Belgien, Frankreich, Spanien, Portugal, Italien, Schweiz, Dänemark, Schweden, Norwegen, Finnland, Estland, Lettland, Litauen, Vereinigtes Königreich, Irland, Griechenland, Rumänien, Bulgarien, Bosnien und Herzegowina, Montenegro.
+298 quellenbasierte Kandidaten in 29 Ländern: Deutschland, Tschechien, Österreich, Slowenien, Kroatien, Ungarn, Polen, Slowakei, Niederlande, Belgien, Frankreich, Spanien, Portugal, Italien, Schweiz, Dänemark, Schweden, Norwegen, Finnland, Estland, Lettland, Litauen, Vereinigtes Königreich, Irland, Griechenland, Rumänien, Bulgarien, Bosnien und Herzegowina, Montenegro.
 
-Das ist eine begrenzte Europaauswahl, keine vollständige Länder-/Regionsabdeckung. Alle Ortsseiten und Quellkoordinaten wurden live überprüft. Einzelne Reiseführer haben wenige oder keine maschinenlesbaren Unterkünfte. Untergeordnete Stadtteilartikel werden nicht rekursiv durchsucht. Die vollständige Liste steht in [destinations.json](src/vacation_planner/infrastructure/planning/data/destinations.json) und in der Oberfläche unter „Unterstützte Länder und Regionen“.
+Das ist eine begrenzte Europaauswahl, keine vollständige Länder-/Regionsabdeckung. Alle Ortsseiten und Quellkoordinaten wurden live überprüft. Einzelne Reiseführer haben wenige oder keine maschinenlesbaren Unterkünfte. Nachgewiesene direkte Unterseiten oder nächste erlaubte Katalogorte werden bei Datenlücken begrenzt einbezogen; kein rekursives Crawling. Die vollständige Liste steht in [destinations.json](src/vacation_planner/infrastructure/planning/data/destinations.json) und in der Oberfläche unter „Unterstützte Länder und Regionen“.
 
-Standard: sechs Ziele mit mindestens zwei Unterkunftsidentitäten, bei Lücken maximal drei weitere Ziele, drei Datumsstichproben, 24 HTTP-Aufrufe und fünf Minuten. Obergrenzen: 12 Hauptziele plus drei Reserven, 40 Aufrufe und zehn Minuten. Reihenfolge berücksichtigt Interessen und Luftliniennähe **nur zur Vorauswahl**, nie als Straßenroute; die ersten Kandidaten werden über Länder verteilt. Ein Worker, mindestens 1,1 s je Host, 22 s pro Abruf, keine Sperrumgehung/automatische Wiederholungen. Ortsdaten werden sieben Tage, Geocoding 30 Tage gecacht.
+Standard: sechs Filtertreffer, 24 HTTP-Aufrufe und fünf Minuten. Die ganze geografisch passende lokale Datenbasis wird vorbewertet; weitere Kandidaten werden adaptiv nachgezogen. Obergrenzen: zwölf gewünschte Treffer, 40 Aufrufe und zehn Minuten. Drei Datumsstichproben sind keine Terminoptimierung; der ausgewählte Termin hängt nicht von der Listenposition ab. Weiche Diversitätsabschläge berücksichtigen Land, Region, Typ und Nähe; Natur-/Badeinteressen bevorzugen passende kleinere Landschaftsziele. Entfernung dient nur als Vorauswahlhinweis, nie als behauptete Straßenroute. Ein Worker, mindestens 1,1 s je Host, 22 s pro Abruf, keine Sperrumgehung/automatischen Wiederholungen. Ortsdaten werden sieben Tage, Geocoding 30 Tage gecacht. Maximal zwei zusätzliche Orts-/Unterseiten pro Ziel, innerhalb der erlaubten Radien und Kataloggebiete. Die Gebietszuordnung ist kein exaktes Polygon-Geofencing.
 
 [Quellenprüfung mit Zugang, Lizenz, Limits und tatsächlichen Integrationstests](docs/DATENQUELLEN.md) · [Datenlizenzen](docs/DATENLIZENZEN.md) · [Katalogprüfprotokoll](docs/KATALOGPRUEFUNG.json).
 
@@ -89,15 +97,15 @@ Keine beliebigen kostenpflichtigen Dienste konfigurieren. Die öffentliche Nomin
 .venv/bin/python -m unittest discover -s tests -p 'test_*.py'
 ```
 
-72 Tests bestanden (32 unveränderte bestehende Tests plus 40 neue Tests), einschließlich Kosten/Gruppen/Fahrzeuge, Preisstatus, Budget ohne Extras, Tage/Nächte, Datumsstichproben, Gewichtung, Pflichtfilter, Parser/Deduplizierung, Quoten, Abbruch, Zeitzonen, SQLite-Neuöffnung und Desktop-Callbacks einschließlich PDF. Livezugriffe sind **nicht** Bestandteil der deterministischen Tests. GUI-Tests der neuen Oberfläche benötigen modernes Tk und eine Desktop-Sitzung.
+93 Tests bestanden (72 bisherige Tests plus 21 neue Regressionstests zur Suchverbesserung), einschließlich Kosten/Gruppen/Fahrzeuge, Preisstatus, Budget ohne Extras, Tage/Nächte, Datumsstichproben, Gewichtung, Pflichtfilter, Parser/Deduplizierung, Quoten, Abbruch, Zeitzonen, SQLite-Neuöffnung und Desktop-Callbacks einschließlich PDF. Livezugriffe sind **nicht** Bestandteil der deterministischen Tests. GUI-Tests der neuen Oberfläche benötigen modernes Tk und eine Desktop-Sitzung.
 
 Separater echter Quellen-/Suchtest:
 
 ```bash
-PYTHONPATH=. .venv/bin/python scripts/live_check.py
+PYTHONPATH=. .venv/bin/python scripts/live_search_improvement.py --budget 24
 ```
 
-Ergebnis unter `tmp/live-check/report.json`; keine periodische Überwachung. Die Beispielwerte stehen in [docs/beispielsuche.json](docs/beispielsuche.json): Berlin, Europa, fünf Erwachsene, drei Zimmer, 2.000 EUR, Wandern/Baden/Feiern, **Juli 2027**, sieben Kalendertage/sechs Nächte, Auto/Zug/Flug. Das Skript wählt bei späterer Ausführung den nächsten zukünftigen Juli. Die Standardoberfläche speichert diese Testwerte nicht als persönliche Vorgaben.
+Ergebnisse unter `tmp/search-improvement/live/<Zeitpunkt>/report.json`, öffentlicher Prüfbericht standardmäßig `docs/SUCHLAUF_2026-10-28.json`; keine periodische Überwachung. Dieser Befehl startet bewusst einen neuen Netzlauf, die Testsuite nicht. Die Beispielwerte stehen in [docs/beispielsuche.json](docs/beispielsuche.json): Berlin, Europa, fünf Erwachsene, drei Zimmer, 2.000 EUR, Wandern/Baden/Feiern, **Juli 2027**, sieben Kalendertage/sechs Nächte, Auto/Zug/Flug. Das Skript wählt bei späterer Ausführung den nächsten zukünftigen Juli. Die Standardoberfläche speichert diese Testwerte nicht als persönliche Vorgaben.
 
 Echte JSON-Suche ohne GUI:
 
@@ -105,7 +113,7 @@ Echte JSON-Suche ohne GUI:
 .venv/bin/python main.py --search-json docs/beispielsuche.json > ergebnisse.json
 ```
 
-Fortschritt auf stderr, Ergebnis auf stdout. [Abnahme und Einschränkungen](docs/ABNAHME.md) dokumentieren den tatsächlichen Lauf sowie die visuelle Prüfung.
+Fortschritt auf stderr, Ergebnis auf stdout. [Aktuelle Suchabnahme](docs/SUCHVERBESSERUNG.md) dokumentiert Diagnose, begrenzte echte Läufe und visuelle Prüfung. [Frühere Abnahme](docs/ABNAHME.md) hält den historischen Stand vor der Suchverbesserung fest.
 
 ## Architektur und früherer Democode
 
