@@ -65,9 +65,10 @@ class DesktopTests(unittest.TestCase):
         pdf=PdfReader(destination)
         text='\n'.join(page.extract_text() for page in pdf.pages)
         self.assertGreater(len(pdf.pages),1)
-        self.assertIn('Überraschungsreise',text)
+        self.assertIn('Reiseführer',text)
         self.assertIn('5 Erwachsene',text)
-        self.assertIn('unbestätigt',text)
+        self.assertIn('Unvollständige Reiseidee',text)
+        self.assertIn('Gesamtkosten noch offen',text)
         self.assertGreater(sum(len(p.get('/Annots',[])) for p in pdf.pages),10)
 
     def test_late_results_cannot_replace_new_search(self):

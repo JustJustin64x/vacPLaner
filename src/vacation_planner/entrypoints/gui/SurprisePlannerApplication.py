@@ -20,6 +20,26 @@ from ...infrastructure.planning.DestinationCatalog import DestinationCatalog
 from ...infrastructure.planning.OpenTravelProvider import OpenTravelProvider
 from ...infrastructure.planning.TripStore import TripStore
 from ...infrastructure.planning.TripPdfExporter import TripPdfExporter
+from ...infrastructure.planning.PdfTripPresenter import PdfTripPresenter
+from ...infrastructure.planning.TripEnrichmentService import TripEnrichmentService
+
+
+class ExportReadinessDialog:
+    """Four explicit choices; kept separate so completeness logic is testable."""
+    def __init__(self,parent,issues,multiple=False):
+        self.result=None
+        window=tk.Toplevel(parent);self.window=window;window.title('PDF-Export prüfen');window.transient(parent);window.grab_set();window.resizable(False,False)
+        ttk.Label(window,text='Einige Reiseangaben sind noch offen.',font=('Helvetica',14,'bold')).pack(anchor='w',padx=18,pady=(16,6))
+        ttk.Label(window,text='\n'.join('• '+x for x in issues),wraplength=520,justify='left').pack(anchor='w',padx=18,pady=6)
+        ttk.Label(window,text='Ein fehlendes Bild verhindert den Export nicht.',wraplength=520).pack(anchor='w',padx=18,pady=(0,10))
+        actions=ttk.Frame(window,padding=(14,8));actions.pack(fill='x')
+        choices=[('Fehlende Angaben recherchieren','research'),('Als unvollständige Reiseidee exportieren','export')]
+        if multiple: choices.append(('Betroffene Reisen entfernen','remove'))
+        choices.append(('Zurück zur Reiseplanung','back'))
+        for label,value in choices:ttk.Button(actions,text=label,command=lambda v=value:self.finish(v)).pack(fill='x',pady=3)
+        window.protocol('WM_DELETE_WINDOW',lambda:self.finish('back'));window.wait_window()
+    def finish(self,value):
+        self.result=value;self.window.grab_release();self.window.destroy()
 
 
 class SurprisePlannerApplication:
@@ -39,6 +59,9 @@ class SurprisePlannerApplication:
         self.workers=[]
         self.closed=False
         self.diagnostic=None
+        self.export_order=[]
+        self.enrichment_context=None
+        self.media_photo=None
 
     def create_window(self):
         if tk.TkVersion < 8.6:
@@ -161,6 +184,11 @@ class SurprisePlannerApplication:
         ttk.Button(buttons,text='Reise speichern',command=self.save_trip).pack(side='left')
         ttk.Button(buttons,text='Als neue Reise speichern',command=lambda:self.save_trip(True)).pack(side='left',padx=6)
         ttk.Button(buttons,text='PDF exportieren',command=self.export_pdf).pack(side='left')
+        ttk.Button(buttons,text='Angaben & Bilder recherchieren',command=self.enrich_active).pack(side='left',padx=6)
+        self.media_label=ttk.Label(results,text='')
+        self.media_label.pack(fill='x',pady=(2,6))
+        self.media_selector=ttk.Combobox(results,state='readonly')
+        self.media_selector.pack(fill='x',pady=(0,6));self.media_selector.bind('<<ComboboxSelected>>',lambda event:self._select_media_image())
         textframe=ttk.Frame(results);textframe.pack(fill='both',expand=True)
         self.details=tk.Text(textframe,wrap='word',height=12,width=45)
         self.theme.style_text_widget(self.details)
@@ -169,13 +197,18 @@ class SurprisePlannerApplication:
         self.details.configure(yscrollcommand=bar.set)
         bar.pack(side='right',fill='y');self.details.pack(fill='both',expand=True)
         self.details.tag_configure('heading',foreground='#7dd3fc',font=('Helvetica',13,'bold'),spacing1=14,spacing3=6)
-        self.saved_tree=ttk.Treeview(saved,columns=('name','time'),show='headings',selectmode='browse')
+        self.saved_tree=ttk.Treeview(saved,columns=('name','time'),show='headings',selectmode='extended')
         self.saved_tree.heading('name',text='Reisename');self.saved_tree.heading('time',text='Gespeichert (UTC)')
         self.saved_tree.pack(fill='both',expand=True)
         self.saved_tree.bind('<Double-1>',lambda e:self.open_saved())
         row=ttk.Frame(saved);row.pack(fill='x',pady=12)
         for label,command in [('Öffnen / ändern',self.open_saved),('Duplizieren',self.duplicate_saved),('Löschen',self.delete_saved)]:
             ttk.Button(row,text=label,command=command).pack(side='left',padx=4)
+        export_frame=ttk.LabelFrame(saved,text='Gemeinsamer PDF-Export',padding=8);export_frame.pack(fill='x',pady=(0,8))
+        self.export_list=tk.Listbox(export_frame,height=4,selectmode='browse');self.export_list.pack(side='left',fill='x',expand=True)
+        export_buttons=ttk.Frame(export_frame);export_buttons.pack(side='left',padx=(8,0))
+        for label,command in [('Auswahl hinzufügen',self.add_saved_to_export),('Nach oben',lambda:self.move_export(-1)),('Nach unten',lambda:self.move_export(1)),('Entfernen',self.remove_from_export),('Auswahl als PDF exportieren',self.export_saved_pdf)]:
+            ttk.Button(export_buttons,text=label,command=command).pack(fill='x',pady=2)
         statusframe=ttk.Frame(self.root,padding=(18,8));statusframe.pack(fill='x')
         self.status=tk.StringVar(value=f'Bereit. {len(self.catalog.destinations)} belegte Katalogziele; Interessen sind Wünsche, keine Pflichtfilter.')
         ttk.Label(statusframe,textvariable=self.status,wraplength=1250).pack(anchor='w')
@@ -273,6 +306,7 @@ class SurprisePlannerApplication:
 
     def cancel_search(self):
         if self.context:self.context.cancel.set()
+        if self.enrichment_context:self.enrichment_context.cancel.set();self.enrichment_context=None
         # Invalidate queued/late results immediately, even if another search starts.
         self.generation+=1;self.running=False
         self.search_button.configure(state='normal');self.cancel_button.configure(state='disabled')
@@ -300,6 +334,13 @@ class SurprisePlannerApplication:
             elif kind=='done':
                 self.running=False;self.search_button.configure(state='normal');self.cancel_button.configure(state='disabled')
                 self.status.set(self.diagnostic['summary'] if self.diagnostic else f'Suche beendet · {len(self.trips)} Reiseideen. Hinweise beachten.')
+            elif kind=='enrich_phase':self.status.set(value)
+            elif kind=='enrich_warning':
+                self.source_log.configure(state='normal');self.source_log.insert('end',value+'\n');self.source_log.see('end');self.source_log.configure(state='disabled')
+            elif kind=='enrich_result':
+                self.active=value;self.trips[value['id']]=value;self.show_details()
+                self.status.set('Nachrecherche abgeschlossen. Die Arbeitskopie wurde ergänzt; zum dauerhaften Bewahren ausdrücklich speichern.')
+            elif kind=='enrich_done':self.enrichment_context=None;self.cancel_button.configure(state='disabled')
         if self.context:
             seconds=int(time.monotonic()-self.context.started)
             if self.running:
@@ -341,6 +382,7 @@ class SurprisePlannerApplication:
         RankingService.recompute(self.active);self.update_row(self.active);self.show_details()
 
     def show_details(self):
+        self._show_active_image()
         self.details.configure(state='normal');self.details.delete('1.0','end')
         for tag in self.details.tag_names():
             if tag.startswith('link'):self.details.tag_delete(tag)
@@ -355,6 +397,40 @@ class SurprisePlannerApplication:
                 self.details.insert('end',label+' ↗\n',tag)
         self.details.configure(state='disabled');self.details.see('1.0')
 
+    def _show_active_image(self):
+        self.media_photo=None;self.media_label.configure(image='',text='');self._media_items=[]
+        if not self.active:self.media_selector.configure(values=[]);self.media_selector.set('');return
+        destination=self.active.get('destination') or {}
+        for label,item in [('Ziel · '+destination.get('name','Reiseziel'),destination)]:
+            if (item.get('image') or {}).get('cache_path'):self._media_items.append((label,item['image']))
+        for group,label in ((self.active.get('lodgings') or [],'Unterkunft'),(self.active.get('activities') or [],'Aktivität')):
+            for item in group:
+                if (item.get('image') or {}).get('cache_path'):self._media_items.append((label+' · '+item.get('name',''),item['image']))
+        self.media_selector.configure(values=[x[0] for x in self._media_items])
+        if not self._media_items:self.media_selector.set('Keine eindeutig zugeordneten Bilder im Cache');return
+        self.media_selector.current(0);self._select_media_image()
+
+    def _select_media_image(self):
+        if not getattr(self,'_media_items',None):return
+        index=max(0,self.media_selector.current());image=self._media_items[index][1]
+        try:
+            from PIL import Image,ImageTk
+            source=Image.open(image['cache_path']);source.thumbnail((720,180));self.media_photo=ImageTk.PhotoImage(source);self.media_label.configure(image=self.media_photo)
+        except (OSError,ValueError):self.media_label.configure(text='Bild konnte nicht angezeigt werden.')
+
+    def enrich_active(self):
+        if not self.active or self.running:return
+        if self.enrichment_context:self.enrichment_context.cancel.set()
+        context=SearchContext(seconds=90,budget=18);self.enrichment_context=context;original=self.active;generation=self.generation
+        self.status.set('Gezielte Nachrecherche läuft …');self.cancel_button.configure(state='normal')
+        def emit(kind,value):self.events.put((generation,'enrich_'+kind,value))
+        def work():
+            try:emit('result',TripEnrichmentService(self.store,self.provider.http).enrich(original,context,emit))
+            except InterruptedError:emit('warning','Nachrecherche abgebrochen; vorhandene Reise bleibt erhalten.')
+            except Exception as exc:emit('warning','Nachrecherche fehlgeschlagen: '+str(exc))
+            finally:emit('done',None)
+        worker=threading.Thread(target=work,name='trip-enrichment',daemon=False);self.workers.append(worker);worker.start()
+
     def save_trip(self,as_new=False):
         if not self.active:return
         name=simpledialog.askstring('Reise speichern','Name der Reise:',initialvalue=self.active.get('saved_name',self.active['destination']['name']+' '+self.active['start']),parent=self.root)
@@ -368,6 +444,27 @@ class SurprisePlannerApplication:
     def refresh_saved(self):
         self.saved_tree.delete(*self.saved_tree.get_children())
         for item in self.store.list():self.saved_tree.insert('','end',iid=item['id'],values=(item['name'],item['saved_at']))
+
+    def add_saved_to_export(self):
+        known={identifier for identifier,_ in self.export_order}
+        for identifier in self.saved_tree.selection():
+            if identifier not in known:self.export_order.append((identifier,self.saved_tree.item(identifier,'values')[0]));known.add(identifier)
+        self._refresh_export_list()
+
+    def _refresh_export_list(self):
+        self.export_list.delete(0,'end')
+        for _,name in self.export_order:self.export_list.insert('end',name)
+
+    def move_export(self,direction):
+        selection=self.export_list.curselection()
+        if not selection:return
+        old=selection[0];new=max(0,min(len(self.export_order)-1,old+direction))
+        if new==old:return
+        item=self.export_order.pop(old);self.export_order.insert(new,item);self._refresh_export_list();self.export_list.selection_set(new)
+
+    def remove_from_export(self):
+        selection=self.export_list.curselection()
+        if selection:self.export_order.pop(selection[0]);self._refresh_export_list()
 
     def open_saved(self):
         selected=self.saved_tree.selection()
@@ -395,10 +492,37 @@ class SurprisePlannerApplication:
 
     def export_pdf(self):
         if not self.active:return
-        path=filedialog.asksaveasfilename(parent=self.root,defaultextension='.pdf',filetypes=[('PDF','*.pdf')],initialfile='Reise-'+self.active['destination']['name']+'.pdf')
+        self._export_trips([self.active],'Reise-'+self.active['destination']['name']+'.pdf')
+
+    def export_saved_pdf(self):
+        if not self.export_order:
+            messagebox.showinfo('Reisen auswählen','Gespeicherte Reisen markieren und „Auswahl hinzufügen“ wählen.',parent=self.root);return
+        trips=[]
+        for identifier,_ in self.export_order:
+            try:trips.append(self.store.load(identifier))
+            except (KeyError,ValueError,sqlite3.Error):continue
+        self._export_trips(trips,'Reisevergleich.pdf')
+
+    def _export_trips(self,trips,initialfile):
+        if not trips:return
+        incomplete=[(trip,PdfTripPresenter.completeness(trip)) for trip in trips if not PdfTripPresenter.completeness(trip).complete]
+        if incomplete and self.root.winfo_viewable():
+            labels=[]
+            for trip,status in incomplete:labels.append(trip.get('destination',{}).get('name','Reise')+': '+'; '.join(status.issues))
+            action=ExportReadinessDialog(self.root,labels,len(trips)>1).result
+            if action=='back' or not action:return
+            if action=='remove':trips=[trip for trip in trips if PdfTripPresenter.completeness(trip).complete]
+            if action=='research':
+                if len(trips)==1:
+                    self.active=trips[0];self.enrich_active()
+                else:messagebox.showinfo('Nachrecherche','Mehrere Reisen bitte nacheinander öffnen und gezielt anreichern. Gespeicherte Stände werden nicht automatisch überschrieben.',parent=self.root)
+                return
+        if not trips:
+            messagebox.showinfo('Keine exportierbare Reise','Nach dem Entfernen unvollständiger Reisen ist die Auswahl leer.',parent=self.root);return
+        path=filedialog.asksaveasfilename(parent=self.root,defaultextension='.pdf',filetypes=[('PDF','*.pdf')],initialfile=initialfile)
         if path:
             try:
-                TripPdfExporter().export(path,TripPresenter.sections(self.active));self.status.set('PDF lokal gespeichert: '+path)
+                TripPdfExporter().export_trips(path,trips,'Unsere Reiseideen' if len(trips)>1 else 'Reiseführer · '+trips[0]['destination']['name']);self.status.set('PDF lokal gespeichert: '+path)
             except Exception as exc:messagebox.showerror('PDF-Export fehlgeschlagen',str(exc),parent=self.root)
 
     def export_diagnostic(self):
@@ -432,6 +556,7 @@ class SurprisePlannerApplication:
     def close(self):
         self.closed=True
         if self.context:self.context.cancel.set()
+        if self.enrichment_context:self.enrichment_context.cancel.set()
         self.generation+=1
         self.root.destroy()
 

@@ -46,7 +46,8 @@ Bei null Treffern erklärt die **Suchdiagnose** die Ursachen, zählt jede Stufe 
 3. **Reiseziele entdecken** starten. Während der Recherche bleiben Fenster und Filter bedienbar. Phasen, bearbeitete Ziele, echte Abfragen, Laufzeit und Quellenprobleme werden angezeigt. Abbrechen bewahrt bereits angezeigte Ergebnisse.
 4. Ziel auswählen; Unterkunft und Hin-/Rückreisemittel wechseln. Reisebasis, Bewertung und Hinweise aktualisieren sich. Beide Autofahrten bleiben gekoppelt.
 5. **Reise speichern**, später im Reiter **Gespeicherte Reisen** öffnen, ändern, duplizieren oder löschen. Neue Filter werden bei einer neuen Suche verwendet; sie schreiben eine bestehende konkrete Reise nicht stillschweigend um.
-6. **PDF exportieren** öffnet den lokalen Speichern-Dialog. Enthalten sind gewählte Optionen, Alternativen, Gruppenbezug, Kostenlücken, Aktivitäten, Quellenlinks und Abrufzeiten.
+6. **PDF exportieren** öffnet den lokalen Speichern-Dialog. Der Export ist ein eigener, redaktionell aufbereiteter Reiseführer mit Übersicht, Kosten, Anreise, Karte, bis zu drei Unterkünften, bis zu acht Aktivitäten und Quellen.
+7. Im Reiter **Gespeicherte Reisen** lassen sich mehrere Reisen einer Exportliste hinzufügen, sortieren und gemeinsam mit Inhaltsverzeichnis und Vergleich exportieren. Unvollständige Angaben werden vorab geprüft. **Angaben & Bilder recherchieren** ergänzt die geöffnete Arbeitskopie gezielt und abbrechbar; gespeichert wird erst auf ausdrückliche Aktion. Details: [Reiseführer-PDF und Anreicherung](docs/PDF_EXPORT.md).
 
 Links zu Anbietern öffnen sich nur auf Klick im Browser. Für die Recherche und Verwaltung ist kein separat zu bedienender Browser nötig. „Mehrere Ziele“ ist sichtbar, aber deaktiviert.
 
@@ -97,7 +98,7 @@ Keine beliebigen kostenpflichtigen Dienste konfigurieren. Die öffentliche Nomin
 .venv/bin/python -m unittest discover -s tests -p 'test_*.py'
 ```
 
-93 Tests bestanden (72 bisherige Tests plus 21 neue Regressionstests zur Suchverbesserung), einschließlich Kosten/Gruppen/Fahrzeuge, Preisstatus, Budget ohne Extras, Tage/Nächte, Datumsstichproben, Gewichtung, Pflichtfilter, Parser/Deduplizierung, Quoten, Abbruch, Zeitzonen, SQLite-Neuöffnung und Desktop-Callbacks einschließlich PDF. Livezugriffe sind **nicht** Bestandteil der deterministischen Tests. GUI-Tests der neuen Oberfläche benötigen modernes Tk und eine Desktop-Sitzung.
+99 Tests prüfen Suche, Kosten, Gruppen/Fahrzeuge, Preisstatus, Tage/Nächte, Parser/Deduplizierung, Abbruch, SQLite, Desktop-Callbacks sowie Einzel-/Mehrfach-PDF, Reihenfolge, alte Snapshots, Kosten pro Person, Kartenpunkte, Offlinebilder und unveränderte Originaldaten. Livezugriffe sind **nicht** Bestandteil der deterministischen Tests. GUI-Tests benötigen modernes Tk und eine Desktop-Sitzung.
 
 Separater echter Quellen-/Suchtest:
 
