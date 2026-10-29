@@ -1,0 +1,560 @@
+{
+  "success": true,
+  "data": {
+    "apartments": [
+      {
+        "amount": 244,
+        "currency": "€",
+        "name": "Innstrasse 40 2M Cozy Shelter Lodge 22",
+        "id": 577974,
+        "persons": 2,
+        "numberOfNights": 2,
+        "bookUrl": "/perfect-lodgings?apartmentId=577974&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+        "amenities": [
+          {
+            "name": "Handtücher, Bettwäsche"
+          },
+          {
+            "name": "Toilettenpapier, Seife"
+          },
+          {
+            "name": "TV"
+          },
+          {
+            "name": "Heizung"
+          },
+          {
+            "name": "Internet"
+          },
+          {
+            "name": "WLAN"
+          },
+          {
+            "name": "Föhn"
+          },
+          {
+            "name": "Bügeleisen"
+          },
+          {
+            "name": "Nichtraucherunterkunft"
+          },
+          {
+            "name": "Kabelfernsehen"
+          },
+          {
+            "name": "Küche"
+          },
+          {
+            "name": "Trockner"
+          },
+          {
+            "name": "Kinderhochstuhl"
+          },
+          {
+            "name": "Grundausstattung zum Kochen"
+          },
+          {
+            "name": "Esstisch"
+          },
+          {
+            "name": "Smart TV"
+          },
+          {
+            "name": "Shampoo"
+          }
+        ]
+      },
+      {
+        "amount": 254,
+        "currency": "€",
+        "name": "Innstrasse 40 1M Design Apartment Lodge 12",
+        "id": 577977,
+        "persons": 2,
+        "numberOfNights": 2,
+        "bookUrl": "/perfect-lodgings?apartmentId=577977&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+        "amenities": [
+          {
+            "name": "Handtücher, Bettwäsche"
+          },
+          {
+            "name": "Toilettenpapier, Seife"
+          },
+          {
+            "name": "TV"
+          },
+          {
+            "name": "Heizung"
+          },
+          {
+            "name": "Küche"
+          },
+          {
+            "name": "Internet"
+          },
+          {
+            "name": "WLAN"
+          },
+          {
+            "name": "Föhn"
+          },
+          {
+            "name": "Shampoo"
+          },
+          {
+            "name": "Kleiderbügel"
+          },
+          {
+            "name": "Bügeleisen"
+          },
+          {
+            "name": "Nichtraucherunterkunft"
+          },
+          {
+            "name": "Kabelfernsehen"
+          },
+          {
+            "name": "Kinderhochstuhl"
+          },
+          {
+            "name": "Grundausstattung zum Kochen"
+          },
+          {
+            "name": "Esstisch"
+          },
+          {
+            "name": "Smart TV"
+          }
+        ]
+      },
+      {
+        "amount": 340,
+        "currency": "€",
+        "name": "Innstrasse 40 2R Exclusive Riverside Suite Lodge 21",
+        "id": 577980,
+        "persons": 6,
+        "numberOfNights": 2,
+        "bookUrl": "/perfect-lodgings?apartmentId=577980&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+        "amenities": [
+          {
+            "name": "Handtücher, Bettwäsche"
+          },
+          {
+            "name": "Toilettenpapier, Seife"
+          },
+          {
+            "name": "TV"
+          },
+          {
+            "name": "Heizung"
+          },
+          {
+            "name": "Internet"
+          },
+          {
+            "name": "WLAN"
+          },
+          {
+            "name": "Föhn"
+          },
+          {
+            "name": "Bügeleisen"
+          },
+          {
+            "name": "Nichtraucherunterkunft"
+          },
+          {
+            "name": "Kabelfernsehen"
+          },
+          {
+            "name": "Küche"
+          },
+          {
+            "name": "Trockner"
+          },
+          {
+            "name": "Shampoo"
+          },
+          {
+            "name": "Grundausstattung zum Kochen"
+          },
+          {
+            "name": "Esstisch"
+          },
+          {
+            "name": "Smart TV"
+          }
+        ]
+      },
+      {
+        "amount": 234,
+        "currency": "€",
+        "name": "Innstrasse 40 4L Loft Lodge 43",
+        "id": 577983,
+        "persons": 2,
+        "numberOfNights": 2,
+        "bookUrl": "/perfect-lodgings?apartmentId=577983&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+        "amenities": [
+          {
+            "name": "Handtücher, Bettwäsche"
+          },
+          {
+            "name": "Toilettenpapier, Seife"
+          },
+          {
+            "name": "TV"
+          },
+          {
+            "name": "Klimaanlage"
+          },
+          {
+            "name": "Heizung"
+          },
+          {
+            "name": "Internet"
+          },
+          {
+            "name": "WLAN"
+          },
+          {
+            "name": "Föhn"
+          },
+          {
+            "name": "Bügeleisen"
+          },
+          {
+            "name": "Nichtraucherunterkunft"
+          },
+          {
+            "name": "Kabelfernsehen"
+          },
+          {
+            "name": "Küche"
+          },
+          {
+            "name": "Trockner"
+          },
+          {
+            "name": "Shampoo"
+          },
+          {
+            "name": "Kinderhochstuhl"
+          },
+          {
+            "name": "Grundausstattung zum Kochen"
+          },
+          {
+            "name": "Esstisch"
+          },
+          {
+            "name": "Smart TV"
+          }
+        ]
+      },
+      {
+        "amount": 276,
+        "currency": "€",
+        "name": "Innstraße 40 4M Mountain View Lodge 42",
+        "id": 577986,
+        "persons": 4,
+        "numberOfNights": 2,
+        "bookUrl": "/perfect-lodgings?apartmentId=577986&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+        "amenities": [
+          {
+            "name": "Handtücher, Bettwäsche"
+          },
+          {
+            "name": "Toilettenpapier, Seife"
+          },
+          {
+            "name": "TV"
+          },
+          {
+            "name": "Heizung"
+          },
+          {
+            "name": "Internet"
+          },
+          {
+            "name": "WLAN"
+          },
+          {
+            "name": "Föhn"
+          },
+          {
+            "name": "Bügeleisen"
+          },
+          {
+            "name": "Nichtraucherunterkunft"
+          },
+          {
+            "name": "Kabelfernsehen"
+          },
+          {
+            "name": "Küche"
+          },
+          {
+            "name": "Trockner"
+          },
+          {
+            "name": "Shampoo"
+          },
+          {
+            "name": "Kinderhochstuhl"
+          },
+          {
+            "name": "Grundausstattung zum Kochen"
+          },
+          {
+            "name": "Esstisch"
+          },
+          {
+            "name": "Smart TV"
+          }
+        ]
+      },
+      {
+        "amount": 352,
+        "currency": "€",
+        "name": "Innstrasse 40 1R Panorama Suite Lodge 13",
+        "id": 577989,
+        "persons": 6,
+        "numberOfNights": 2,
+        "bookUrl": "/perfect-lodgings?apartmentId=577989&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+        "amenities": [
+          {
+            "name": "Handtücher, Bettwäsche"
+          },
+          {
+            "name": "Toilettenpapier, Seife"
+          },
+          {
+            "name": "TV"
+          },
+          {
+            "name": "Heizung"
+          },
+          {
+            "name": "Internet"
+          },
+          {
+            "name": "WLAN"
+          },
+          {
+            "name": "Föhn"
+          },
+          {
+            "name": "Bügeleisen"
+          },
+          {
+            "name": "Nichtraucherunterkunft"
+          },
+          {
+            "name": "Kabelfernsehen"
+          },
+          {
+            "name": "Küche"
+          },
+          {
+            "name": "Trockner"
+          },
+          {
+            "name": "Shampoo"
+          },
+          {
+            "name": "Kinderhochstuhl"
+          },
+          {
+            "name": "Grundausstattung zum Kochen"
+          },
+          {
+            "name": "Esstisch"
+          },
+          {
+            "name": "Smart TV"
+          }
+        ]
+      }
+    ],
+    "availabilityResponse": {
+      "availableApartments": [
+        577974,
+        577977,
+        577980,
+        577983,
+        577986,
+        577989
+      ],
+      "prices": {
+        "577980": {
+          "price": 340,
+          "currency": "€",
+          "priceElements": [
+            {
+              "type": "basePrice",
+              "name": "Base price",
+              "amount": 225,
+              "currencyCode": "EUR",
+              "sortOrder": 1
+            },
+            {
+              "type": "cleaningFee",
+              "name": "Cleaning fee",
+              "amount": 115,
+              "currencyCode": "EUR",
+              "sortOrder": 5
+            }
+          ]
+        },
+        "577977": {
+          "price": 254,
+          "currency": "€",
+          "priceElements": [
+            {
+              "type": "basePrice",
+              "name": "Base price",
+              "amount": 184,
+              "currencyCode": "EUR",
+              "sortOrder": 1
+            },
+            {
+              "type": "cleaningFee",
+              "name": "Cleaning fee",
+              "amount": 70,
+              "currencyCode": "EUR",
+              "sortOrder": 5
+            }
+          ]
+        },
+        "577986": {
+          "price": 276,
+          "currency": "€",
+          "priceElements": [
+            {
+              "type": "basePrice",
+              "name": "Base price",
+              "amount": 181,
+              "currencyCode": "EUR",
+              "sortOrder": 1
+            },
+            {
+              "type": "cleaningFee",
+              "name": "Cleaning fee",
+              "amount": 95,
+              "currencyCode": "EUR",
+              "sortOrder": 5
+            }
+          ]
+        },
+        "577974": {
+          "price": 244,
+          "currency": "€",
+          "priceElements": [
+            {
+              "type": "basePrice",
+              "name": "Base price",
+              "amount": 174,
+              "currencyCode": "EUR",
+              "sortOrder": 1
+            },
+            {
+              "type": "cleaningFee",
+              "name": "Cleaning fee",
+              "amount": 70,
+              "currencyCode": "EUR",
+              "sortOrder": 5
+            }
+          ]
+        },
+        "577989": {
+          "price": 352,
+          "currency": "€",
+          "priceElements": [
+            {
+              "type": "basePrice",
+              "name": "Base price",
+              "amount": 237,
+              "currencyCode": "EUR",
+              "sortOrder": 1
+            },
+            {
+              "type": "cleaningFee",
+              "name": "Cleaning fee",
+              "amount": 115,
+              "currencyCode": "EUR",
+              "sortOrder": 5
+            }
+          ]
+        },
+        "577983": {
+          "price": 234,
+          "currency": "€",
+          "priceElements": [
+            {
+              "type": "basePrice",
+              "name": "Base price",
+              "amount": 164,
+              "currencyCode": "EUR",
+              "sortOrder": 1
+            },
+            {
+              "type": "cleaningFee",
+              "name": "Cleaning fee",
+              "amount": 70,
+              "currencyCode": "EUR",
+              "sortOrder": 5
+            }
+          ]
+        }
+      },
+      "errorMessages": {
+        "3527056": {
+          "errorCode": 401,
+          "message": "The duration of the booking is too short.",
+          "minimumLengthOfStay": 4
+        },
+        "1029130": {
+          "errorCode": 400,
+          "message": "The number of guests exceeds the limit of the apartment.",
+          "numberOfGuest": 1
+        },
+        "908089": {
+          "errorCode": 400,
+          "message": "The number of guests exceeds the limit of the apartment.",
+          "numberOfGuest": 1
+        },
+        "1418735": {
+          "errorCode": 400,
+          "message": "The number of guests exceeds the limit of the apartment.",
+          "numberOfGuest": 1
+        },
+        "1068430": {
+          "errorCode": 400,
+          "message": "The number of guests exceeds the limit of the apartment.",
+          "numberOfGuest": 1
+        },
+        "1597132": {
+          "errorCode": 400,
+          "message": "The number of guests exceeds the limit of the apartment.",
+          "numberOfGuest": 1
+        },
+        "1695949": {
+          "errorCode": 401,
+          "message": "The duration of the booking is too short.",
+          "minimumLengthOfStay": 5
+        },
+        "3527061": {
+          "errorCode": 401,
+          "message": "The duration of the booking is too short.",
+          "minimumLengthOfStay": 3
+        },
+        "1068463": {
+          "errorCode": 400,
+          "message": "The number of guests exceeds the limit of the apartment.",
+          "numberOfGuest": 1
+        }
+      },
+      "warnMessages": {}
+    },
+    "errorMessage": ""
+  }
+}

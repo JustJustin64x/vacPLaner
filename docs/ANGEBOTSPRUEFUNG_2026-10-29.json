@@ -1,0 +1,1359 @@
+{
+  "checked_on": "2026-10-29",
+  "purpose": "Begrenzte reale Nur-Lese-Angebotsprüfung; keine Buchungen",
+  "successful_categories": [
+    "rail",
+    "lodging"
+  ],
+  "incomplete_categories": [
+    "flight",
+    "general_lodging_multiroom"
+  ],
+  "cases": [
+    {
+      "name": "rail-near",
+      "static_calls": 1,
+      "price_calls": 5,
+      "persistence_ok": true,
+      "pdf_model_cost": {
+        "title": "Bekannte Kosten",
+        "group": "33,60 €",
+        "per_person": "16,80 €",
+        "known": [
+          {
+            "label": "Zug für gesamte Gruppe hin und zurück",
+            "value": "33,60 €"
+          }
+        ],
+        "missing": [
+          "Zubringer und Unterkunftstransfers nicht enthalten",
+          "Unterkunft für Gruppe und Aufenthalt inkl. Pflichtgebühren"
+        ],
+        "optional": "Verpflegung und Aktivitäten sind optionale Ausgaben vor Ort."
+      },
+      "checked_at": "2026-10-29T08:49:02+00:00",
+      "parameters": {
+        "origin": "Prag",
+        "earliest": "2026-11-12",
+        "latest": "2026-11-14",
+        "min_days": 3,
+        "max_days": 3,
+        "adults": 2,
+        "rooms": 1,
+        "modes": [
+          "Zug",
+          "Flug"
+        ],
+        "accommodation_types": [
+          "Hotel",
+          "Ferienwohnung"
+        ]
+      },
+      "results": [
+        {
+          "provider": "Smoobu · direkte Unterkunft",
+          "category": "lodging",
+          "status": "unsupported",
+          "parameters": {
+            "origin": "Prag",
+            "destination": "Brünn",
+            "start": "2026-11-12",
+            "end": "2026-11-14",
+            "adults": 2,
+            "rooms": 1,
+            "occupancy": [
+              2
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:49:03+00:00",
+          "message": "Für diesen Ort ist noch keine geprüfte direkte Buchungsstrecke integriert.",
+          "sources": [],
+          "offers": []
+        },
+        {
+          "provider": "RegioJet",
+          "category": "rail",
+          "status": "found",
+          "parameters": {
+            "origin": "Prag",
+            "destination": "Brünn",
+            "start": "2026-11-12",
+            "end": "2026-11-14",
+            "adults": 2,
+            "rooms": 1,
+            "occupancy": [
+              2
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:49:10+00:00",
+          "message": "Zwei datierte Gruppentarife; getrennte Hin- und Rückfahrkarten.",
+          "sources": [
+            "https://brn-ybus-pubapi.sa.cz/restapi/routes/search/simple?fromLocationId=10202003&fromLocationType=CITY&toLocationId=10202002&toLocationType=CITY&departureDate=2026-11-12&tariffs=REGULAR&tariffs=REGULAR",
+            "https://brn-ybus-pubapi.sa.cz/restapi/routes/8730781292/simple?fromStationId=372825000&toStationId=3088864001&tariffs=REGULAR&tariffs=REGULAR",
+            "https://brn-ybus-pubapi.sa.cz/restapi/routes/search/simple?fromLocationId=10202002&fromLocationType=CITY&toLocationId=10202003&toLocationType=CITY&departureDate=2026-11-14&tariffs=REGULAR&tariffs=REGULAR",
+            "https://brn-ybus-pubapi.sa.cz/restapi/routes/8730781351/simple?fromStationId=3088864001&toStationId=372825000&tariffs=REGULAR&tariffs=REGULAR"
+          ],
+          "offers": [
+            {
+              "provider": "RegioJet",
+              "identifier": "rj:8730781292:8730781351:2",
+              "source": "https://regiojet.com/?fromLocationId=10202003&fromLocationType=CITY&toLocationId=10202002&toLocationType=CITY&departureDate=2026-11-12&returnDepartureDate=2026-11-14&tariffs=REGULAR&tariffs=REGULAR",
+              "retrieved_at": "2026-10-29T08:49:10+00:00",
+              "parameters": {
+                "origin": "Prag",
+                "destination": "Brünn",
+                "start": "2026-11-12",
+                "end": "2026-11-14",
+                "adults": 2,
+                "rooms": 1,
+                "occupancy": [
+                  2
+                ],
+                "accommodation_types": [
+                  "Hotel",
+                  "Ferienwohnung"
+                ],
+                "currency": "EUR",
+                "travel_class": "2",
+                "discount_cards": []
+              },
+              "original_amount": "33.60",
+              "original_currency": "EUR",
+              "price_basis": "group_roundtrip",
+              "eur_amount": "33.60",
+              "price_status": "aktuell abgerufen",
+              "availability": "available_at_retrieval",
+              "valid_until": "2026-10-29T08:59:10+00:00",
+              "included": [
+                "Hin- und Rückfahrt für alle angefragten Erwachsenen",
+                "Zweite Klasse, keine Rabattkarten",
+                "Sitzplatzreservierung laut Verbindungsabschnitten"
+              ],
+              "additional_fees": [],
+              "unresolved": [
+                "Zubringer und Unterkunftstransfers nicht enthalten"
+              ],
+              "details": {
+                "legs": [
+                  {
+                    "id": "8730781292",
+                    "departure": "2026-11-12T06:01:00.000+01:00",
+                    "arrival": "2026-11-12T08:40:00.000+01:00",
+                    "from": "Prague MS",
+                    "to": "Brno MS",
+                    "from_station_id": 372825000,
+                    "to_station_id": 3088864001,
+                    "price": "16.80",
+                    "seat_class": "TRAIN_LOW_COST",
+                    "conditions": {
+                      "descriptions": {
+                        "cancel": "more than 15 minutes before departure: 0 %, less than 15 minutes: not possible",
+                        "cancelShort": "> 15 minutes: 0 %, < 15 minutes: not possible",
+                        "rebook": "more than 15 minutes before departure: by cancellation for 0 EUR, less than 15 minutes: not possible",
+                        "rebookShort": null,
+                        "expiration": "26 minutes (10/29/26, 10:15 AM GMT+1)"
+                      },
+                      "code": null,
+                      "refundToOriginalSourcePossible": false,
+                      "cancelCharge": null,
+                      "cancelCharges": []
+                    },
+                    "transfers": 0,
+                    "duration_hours": 2.65,
+                    "sections": [
+                      {
+                        "departureTime": "2026-11-12T06:01:00.000+01:00",
+                        "arrivalTime": "2026-11-12T08:40:00.000+01:00",
+                        "departureCityName": "Prague",
+                        "arrivalCityName": "Brno",
+                        "departureStationName": "MS",
+                        "arrivalStationName": "MS",
+                        "fixedSeatReservation": true,
+                        "line": {
+                          "lineGroupCode": "VLAK_BRNO",
+                          "lineNumber": 260,
+                          "id": 8382416051,
+                          "code": "RJ 1031",
+                          "from": "Prague",
+                          "to": "Budapest"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "8730781351",
+                    "departure": "2026-11-14T05:03:00.000+01:00",
+                    "arrival": "2026-11-14T07:59:00.000+01:00",
+                    "from": "Brno MS",
+                    "to": "Prague MS",
+                    "from_station_id": 3088864001,
+                    "to_station_id": 372825000,
+                    "price": "16.80",
+                    "seat_class": "TRAIN_LOW_COST",
+                    "conditions": {
+                      "descriptions": {
+                        "cancel": "more than 15 minutes before departure: 0 %, less than 15 minutes: not possible",
+                        "cancelShort": "> 15 minutes: 0 %, < 15 minutes: not possible",
+                        "rebook": "more than 15 minutes before departure: by cancellation for 0 EUR, less than 15 minutes: not possible",
+                        "rebookShort": null,
+                        "expiration": "29 minutes (10/29/26, 10:18 AM GMT+1)"
+                      },
+                      "code": null,
+                      "refundToOriginalSourcePossible": false,
+                      "cancelCharge": null,
+                      "cancelCharges": []
+                    },
+                    "transfers": 0,
+                    "duration_hours": 2.933333333333333,
+                    "sections": [
+                      {
+                        "departureTime": "2026-11-14T05:03:00.000+01:00",
+                        "arrivalTime": "2026-11-14T07:59:00.000+01:00",
+                        "departureCityName": "Brno",
+                        "arrivalCityName": "Prague",
+                        "departureStationName": "MS",
+                        "arrivalStationName": "MS",
+                        "fixedSeatReservation": true,
+                        "line": {
+                          "lineGroupCode": "VLAK_BRNO",
+                          "lineNumber": 260,
+                          "id": 8382416043,
+                          "code": "RJ 1040",
+                          "from": "Brno",
+                          "to": "Prague"
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "travel_class": "2",
+                "tariffs": [
+                  "REGULAR",
+                  "REGULAR"
+                ],
+                "independent_tickets": true
+              },
+              "evidence": {
+                "sources": [
+                  "https://brn-ybus-pubapi.sa.cz/restapi/routes/search/simple?fromLocationId=10202003&fromLocationType=CITY&toLocationId=10202002&toLocationType=CITY&departureDate=2026-11-12&tariffs=REGULAR&tariffs=REGULAR",
+                  "https://brn-ybus-pubapi.sa.cz/restapi/routes/8730781292/simple?fromStationId=372825000&toStationId=3088864001&tariffs=REGULAR&tariffs=REGULAR",
+                  "https://brn-ybus-pubapi.sa.cz/restapi/routes/search/simple?fromLocationId=10202002&fromLocationType=CITY&toLocationId=10202003&toLocationType=CITY&departureDate=2026-11-14&tariffs=REGULAR&tariffs=REGULAR",
+                  "https://brn-ybus-pubapi.sa.cz/restapi/routes/8730781351/simple?fromStationId=3088864001&toStationId=372825000&tariffs=REGULAR&tariffs=REGULAR"
+                ],
+                "price_field": "priceClasses.price",
+                "passenger_echo": "priceClasses.tariffs",
+                "capacity_field": "priceClasses.freeSeatsCount",
+                "currency_request": "X-Currency: EUR",
+                "normalization": "Summe zweier direkt abgefragter Gruppentarife; keine Personenmultiplikation"
+              }
+            }
+          ]
+        },
+        {
+          "provider": "Flugquellen · Zugangsdiagnose",
+          "category": "flight",
+          "status": "access_missing",
+          "parameters": {
+            "origin": "Prag",
+            "destination": "Brünn",
+            "start": "2026-11-12",
+            "end": "2026-11-14",
+            "adults": 2,
+            "rooms": 1,
+            "occupancy": [
+              2
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:49:10+00:00",
+          "message": "Flugpreisabruf weiterhin offen: Norwegian und Transavia verweigerten den Zugriff (HTTP 403); easyJet untersagt automatisierte Extraktion, Ryanair sperrt Such-/API-Pfade in robots.txt. Amadeus-Produktion berechnet Überschreitungen automatisch; Aviasales Search verlangt 50.000 aktive Nutzer/Monat. Kein belegter Null-Euro-Gruppenpreiszugang integriert.",
+          "sources": [
+            "https://www.norwegian.com/en/",
+            "https://www.transavia.com/home/en-eu",
+            "https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/acceptable-use-policy",
+            "https://www.ryanair.com/robots.txt",
+            "https://support.travelpayouts.com/hc/en-us/articles/210995808-How-to-get-access-to-the-Aviasales-Search-API",
+            "https://admin.developers.amadeus.com/self-service/apis-docs/guides/developer-guides/faq/"
+          ],
+          "offers": []
+        }
+      ]
+    },
+    {
+      "name": "lodging-near",
+      "static_calls": 1,
+      "price_calls": 2,
+      "persistence_ok": true,
+      "pdf_model_cost": {
+        "title": "Bekannte Kosten",
+        "group": "234,00 €",
+        "per_person": "117,00 €",
+        "known": [
+          {
+            "label": "Unterkunft für Gruppe und Aufenthalt",
+            "value": "234,00 €"
+          }
+        ],
+        "missing": [
+          "Zug für gesamte Gruppe hin und zurück",
+          "Zubringer und Unterkunftstransfers hin und zurück"
+        ],
+        "optional": "Verpflegung und Aktivitäten sind optionale Ausgaben vor Ort."
+      },
+      "checked_at": "2026-10-29T08:49:02+00:00",
+      "parameters": {
+        "origin": "Berlin",
+        "earliest": "2026-11-23",
+        "latest": "2026-11-25",
+        "min_days": 3,
+        "max_days": 3,
+        "adults": 2,
+        "rooms": 1,
+        "modes": [
+          "Zug",
+          "Flug"
+        ],
+        "accommodation_types": [
+          "Hotel",
+          "Ferienwohnung"
+        ]
+      },
+      "results": [
+        {
+          "provider": "Smoobu · direkte Unterkunft",
+          "category": "lodging",
+          "status": "found",
+          "parameters": {
+            "origin": "Berlin",
+            "destination": "Innsbruck",
+            "start": "2026-11-23",
+            "end": "2026-11-25",
+            "adults": 2,
+            "rooms": 1,
+            "occupancy": [
+              2
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:49:12+00:00",
+          "message": "4 passend zugeordnete Ferienwohnungen mit datiertem Aufenthaltspreis.",
+          "sources": [
+            "https://www.apartments-innsbruck.com/en/buchen/",
+            "https://booking.smoobu.com/perfect-lodgings/checkAvailability?theme=booking-tool&arrivalDate=23.11.26&departureDate=25.11.26&userId=71379&guests=2&adults=2&children=0"
+          ],
+          "offers": [
+            {
+              "provider": "Apartments Innsbruck / Perfect Lodgings",
+              "identifier": "smoobu:577983:2026-11-23:2026-11-25:2",
+              "source": "https://booking.smoobu.com/perfect-lodgings?apartmentId=577983&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+              "retrieved_at": "2026-10-29T08:49:12+00:00",
+              "parameters": {
+                "origin": "Berlin",
+                "destination": "Innsbruck",
+                "start": "2026-11-23",
+                "end": "2026-11-25",
+                "adults": 2,
+                "rooms": 1,
+                "occupancy": [
+                  2
+                ],
+                "accommodation_types": [
+                  "Hotel",
+                  "Ferienwohnung"
+                ],
+                "currency": "EUR",
+                "travel_class": "2",
+                "discount_cards": []
+              },
+              "original_amount": "234.00",
+              "original_currency": "EUR",
+              "price_basis": "group_stay",
+              "eur_amount": "234.00",
+              "price_status": "aktuell abgerufen",
+              "availability": "available_at_retrieval",
+              "valid_until": "2026-10-29T08:59:12+00:00",
+              "included": [
+                "Base price: 164.00 EUR",
+                "Cleaning fee: 70.00 EUR"
+              ],
+              "additional_fees": [],
+              "unresolved": [],
+              "details": {
+                "property": {
+                  "id": "smoobu:577983",
+                  "name": "Innstrasse 40 4L Loft Lodge 43",
+                  "address": "Innstraße 40, Innsbruck, Österreich",
+                  "type": "Ferienwohnung",
+                  "source": "https://www.apartments-innsbruck.com/en/buchen/",
+                  "url": "https://booking.smoobu.com/perfect-lodgings?apartmentId=577983&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+                  "capacity": 2,
+                  "amenities": {
+                    "Küche": true
+                  }
+                },
+                "units": 1,
+                "nights": 2,
+                "capacity": 2,
+                "board": "Nicht als enthalten ausgewiesen",
+                "cancellation": "In der Angebotsantwort nicht ausgewiesen; vor Buchung prüfen",
+                "payment": "In der Angebotsantwort nicht ausgewiesen; vor Buchung prüfen"
+              },
+              "evidence": {
+                "sources": [
+                  "https://www.apartments-innsbruck.com/en/buchen/",
+                  "https://booking.smoobu.com/perfect-lodgings/checkAvailability?theme=booking-tool&arrivalDate=23.11.26&departureDate=25.11.26&userId=71379&guests=2&adults=2&children=0"
+                ],
+                "price_field": "availabilityResponse.prices.price",
+                "components": [
+                  {
+                    "type": "basePrice",
+                    "name": "Base price",
+                    "amount": 164,
+                    "currencyCode": "EUR",
+                    "sortOrder": 1
+                  },
+                  {
+                    "type": "cleaningFee",
+                    "name": "Cleaning fee",
+                    "amount": 70,
+                    "currencyCode": "EUR",
+                    "sortOrder": 5
+                  }
+                ],
+                "parameter_echo": {
+                  "apartmentId": "577983",
+                  "arrivalDate": "23/11/2026",
+                  "departureDate": "25/11/2026",
+                  "adults": "2",
+                  "children": "0"
+                },
+                "availability_field": "availabilityResponse.availableApartments",
+                "normalization": "Direkter Gesamtbetrag für eine Ferienwohnung, alle angefragten Erwachsenen und gesamten Aufenthalt; inklusive ausgewiesener Pflichtbestandteile"
+              }
+            },
+            {
+              "provider": "Apartments Innsbruck / Perfect Lodgings",
+              "identifier": "smoobu:577974:2026-11-23:2026-11-25:2",
+              "source": "https://booking.smoobu.com/perfect-lodgings?apartmentId=577974&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+              "retrieved_at": "2026-10-29T08:49:12+00:00",
+              "parameters": {
+                "origin": "Berlin",
+                "destination": "Innsbruck",
+                "start": "2026-11-23",
+                "end": "2026-11-25",
+                "adults": 2,
+                "rooms": 1,
+                "occupancy": [
+                  2
+                ],
+                "accommodation_types": [
+                  "Hotel",
+                  "Ferienwohnung"
+                ],
+                "currency": "EUR",
+                "travel_class": "2",
+                "discount_cards": []
+              },
+              "original_amount": "244.00",
+              "original_currency": "EUR",
+              "price_basis": "group_stay",
+              "eur_amount": "244.00",
+              "price_status": "aktuell abgerufen",
+              "availability": "available_at_retrieval",
+              "valid_until": "2026-10-29T08:59:12+00:00",
+              "included": [
+                "Base price: 174.00 EUR",
+                "Cleaning fee: 70.00 EUR"
+              ],
+              "additional_fees": [],
+              "unresolved": [],
+              "details": {
+                "property": {
+                  "id": "smoobu:577974",
+                  "name": "Innstrasse 40 2M Cozy Shelter Lodge 22",
+                  "address": "Innstraße 40, Innsbruck, Österreich",
+                  "type": "Ferienwohnung",
+                  "source": "https://www.apartments-innsbruck.com/en/buchen/",
+                  "url": "https://booking.smoobu.com/perfect-lodgings?apartmentId=577974&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+                  "capacity": 2,
+                  "amenities": {
+                    "Küche": true
+                  }
+                },
+                "units": 1,
+                "nights": 2,
+                "capacity": 2,
+                "board": "Nicht als enthalten ausgewiesen",
+                "cancellation": "In der Angebotsantwort nicht ausgewiesen; vor Buchung prüfen",
+                "payment": "In der Angebotsantwort nicht ausgewiesen; vor Buchung prüfen"
+              },
+              "evidence": {
+                "sources": [
+                  "https://www.apartments-innsbruck.com/en/buchen/",
+                  "https://booking.smoobu.com/perfect-lodgings/checkAvailability?theme=booking-tool&arrivalDate=23.11.26&departureDate=25.11.26&userId=71379&guests=2&adults=2&children=0"
+                ],
+                "price_field": "availabilityResponse.prices.price",
+                "components": [
+                  {
+                    "type": "basePrice",
+                    "name": "Base price",
+                    "amount": 174,
+                    "currencyCode": "EUR",
+                    "sortOrder": 1
+                  },
+                  {
+                    "type": "cleaningFee",
+                    "name": "Cleaning fee",
+                    "amount": 70,
+                    "currencyCode": "EUR",
+                    "sortOrder": 5
+                  }
+                ],
+                "parameter_echo": {
+                  "apartmentId": "577974",
+                  "arrivalDate": "23/11/2026",
+                  "departureDate": "25/11/2026",
+                  "adults": "2",
+                  "children": "0"
+                },
+                "availability_field": "availabilityResponse.availableApartments",
+                "normalization": "Direkter Gesamtbetrag für eine Ferienwohnung, alle angefragten Erwachsenen und gesamten Aufenthalt; inklusive ausgewiesener Pflichtbestandteile"
+              }
+            },
+            {
+              "provider": "Apartments Innsbruck / Perfect Lodgings",
+              "identifier": "smoobu:577977:2026-11-23:2026-11-25:2",
+              "source": "https://booking.smoobu.com/perfect-lodgings?apartmentId=577977&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+              "retrieved_at": "2026-10-29T08:49:12+00:00",
+              "parameters": {
+                "origin": "Berlin",
+                "destination": "Innsbruck",
+                "start": "2026-11-23",
+                "end": "2026-11-25",
+                "adults": 2,
+                "rooms": 1,
+                "occupancy": [
+                  2
+                ],
+                "accommodation_types": [
+                  "Hotel",
+                  "Ferienwohnung"
+                ],
+                "currency": "EUR",
+                "travel_class": "2",
+                "discount_cards": []
+              },
+              "original_amount": "254.00",
+              "original_currency": "EUR",
+              "price_basis": "group_stay",
+              "eur_amount": "254.00",
+              "price_status": "aktuell abgerufen",
+              "availability": "available_at_retrieval",
+              "valid_until": "2026-10-29T08:59:12+00:00",
+              "included": [
+                "Base price: 184.00 EUR",
+                "Cleaning fee: 70.00 EUR"
+              ],
+              "additional_fees": [],
+              "unresolved": [],
+              "details": {
+                "property": {
+                  "id": "smoobu:577977",
+                  "name": "Innstrasse 40 1M Design Apartment Lodge 12",
+                  "address": "Innstraße 40, Innsbruck, Österreich",
+                  "type": "Ferienwohnung",
+                  "source": "https://www.apartments-innsbruck.com/en/buchen/",
+                  "url": "https://booking.smoobu.com/perfect-lodgings?apartmentId=577977&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+                  "capacity": 2,
+                  "amenities": {
+                    "Küche": true
+                  }
+                },
+                "units": 1,
+                "nights": 2,
+                "capacity": 2,
+                "board": "Nicht als enthalten ausgewiesen",
+                "cancellation": "In der Angebotsantwort nicht ausgewiesen; vor Buchung prüfen",
+                "payment": "In der Angebotsantwort nicht ausgewiesen; vor Buchung prüfen"
+              },
+              "evidence": {
+                "sources": [
+                  "https://www.apartments-innsbruck.com/en/buchen/",
+                  "https://booking.smoobu.com/perfect-lodgings/checkAvailability?theme=booking-tool&arrivalDate=23.11.26&departureDate=25.11.26&userId=71379&guests=2&adults=2&children=0"
+                ],
+                "price_field": "availabilityResponse.prices.price",
+                "components": [
+                  {
+                    "type": "basePrice",
+                    "name": "Base price",
+                    "amount": 184,
+                    "currencyCode": "EUR",
+                    "sortOrder": 1
+                  },
+                  {
+                    "type": "cleaningFee",
+                    "name": "Cleaning fee",
+                    "amount": 70,
+                    "currencyCode": "EUR",
+                    "sortOrder": 5
+                  }
+                ],
+                "parameter_echo": {
+                  "apartmentId": "577977",
+                  "arrivalDate": "23/11/2026",
+                  "departureDate": "25/11/2026",
+                  "adults": "2",
+                  "children": "0"
+                },
+                "availability_field": "availabilityResponse.availableApartments",
+                "normalization": "Direkter Gesamtbetrag für eine Ferienwohnung, alle angefragten Erwachsenen und gesamten Aufenthalt; inklusive ausgewiesener Pflichtbestandteile"
+              }
+            },
+            {
+              "provider": "Apartments Innsbruck / Perfect Lodgings",
+              "identifier": "smoobu:577986:2026-11-23:2026-11-25:2",
+              "source": "https://booking.smoobu.com/perfect-lodgings?apartmentId=577986&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+              "retrieved_at": "2026-10-29T08:49:12+00:00",
+              "parameters": {
+                "origin": "Berlin",
+                "destination": "Innsbruck",
+                "start": "2026-11-23",
+                "end": "2026-11-25",
+                "adults": 2,
+                "rooms": 1,
+                "occupancy": [
+                  2
+                ],
+                "accommodation_types": [
+                  "Hotel",
+                  "Ferienwohnung"
+                ],
+                "currency": "EUR",
+                "travel_class": "2",
+                "discount_cards": []
+              },
+              "original_amount": "276.00",
+              "original_currency": "EUR",
+              "price_basis": "group_stay",
+              "eur_amount": "276.00",
+              "price_status": "aktuell abgerufen",
+              "availability": "available_at_retrieval",
+              "valid_until": "2026-10-29T08:59:12+00:00",
+              "included": [
+                "Base price: 181.00 EUR",
+                "Cleaning fee: 95.00 EUR"
+              ],
+              "additional_fees": [],
+              "unresolved": [],
+              "details": {
+                "property": {
+                  "id": "smoobu:577986",
+                  "name": "Innstraße 40 4M Mountain View Lodge 42",
+                  "address": "Innstraße 40, Innsbruck, Österreich",
+                  "type": "Ferienwohnung",
+                  "source": "https://www.apartments-innsbruck.com/en/buchen/",
+                  "url": "https://booking.smoobu.com/perfect-lodgings?apartmentId=577986&arrivalDate=23/11/2026&departureDate=25/11/2026&adults=2&children=0&loadForCurrentDate=true",
+                  "capacity": 4,
+                  "amenities": {
+                    "Küche": true
+                  }
+                },
+                "units": 1,
+                "nights": 2,
+                "capacity": 4,
+                "board": "Nicht als enthalten ausgewiesen",
+                "cancellation": "In der Angebotsantwort nicht ausgewiesen; vor Buchung prüfen",
+                "payment": "In der Angebotsantwort nicht ausgewiesen; vor Buchung prüfen"
+              },
+              "evidence": {
+                "sources": [
+                  "https://www.apartments-innsbruck.com/en/buchen/",
+                  "https://booking.smoobu.com/perfect-lodgings/checkAvailability?theme=booking-tool&arrivalDate=23.11.26&departureDate=25.11.26&userId=71379&guests=2&adults=2&children=0"
+                ],
+                "price_field": "availabilityResponse.prices.price",
+                "components": [
+                  {
+                    "type": "basePrice",
+                    "name": "Base price",
+                    "amount": 181,
+                    "currencyCode": "EUR",
+                    "sortOrder": 1
+                  },
+                  {
+                    "type": "cleaningFee",
+                    "name": "Cleaning fee",
+                    "amount": 95,
+                    "currencyCode": "EUR",
+                    "sortOrder": 5
+                  }
+                ],
+                "parameter_echo": {
+                  "apartmentId": "577986",
+                  "arrivalDate": "23/11/2026",
+                  "departureDate": "25/11/2026",
+                  "adults": "2",
+                  "children": "0"
+                },
+                "availability_field": "availabilityResponse.availableApartments",
+                "normalization": "Direkter Gesamtbetrag für eine Ferienwohnung, alle angefragten Erwachsenen und gesamten Aufenthalt; inklusive ausgewiesener Pflichtbestandteile"
+              }
+            }
+          ]
+        },
+        {
+          "provider": "RegioJet",
+          "category": "rail",
+          "status": "unsupported",
+          "parameters": {
+            "origin": "Berlin",
+            "destination": "Innsbruck",
+            "start": "2026-11-23",
+            "end": "2026-11-25",
+            "adults": 2,
+            "rooms": 1,
+            "occupancy": [
+              2
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:49:13+00:00",
+          "message": "RegioJet bietet für mindestens einen Ort keinen eindeutig zugeordneten Bahnhof. Keine Aussage über andere Bahnunternehmen.",
+          "sources": [],
+          "offers": []
+        },
+        {
+          "provider": "Flugquellen · Zugangsdiagnose",
+          "category": "flight",
+          "status": "access_missing",
+          "parameters": {
+            "origin": "Berlin",
+            "destination": "Innsbruck",
+            "start": "2026-11-23",
+            "end": "2026-11-25",
+            "adults": 2,
+            "rooms": 1,
+            "occupancy": [
+              2
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:49:13+00:00",
+          "message": "Flugpreisabruf weiterhin offen: Norwegian und Transavia verweigerten den Zugriff (HTTP 403); easyJet untersagt automatisierte Extraktion, Ryanair sperrt Such-/API-Pfade in robots.txt. Amadeus-Produktion berechnet Überschreitungen automatisch; Aviasales Search verlangt 50.000 aktive Nutzer/Monat. Kein belegter Null-Euro-Gruppenpreiszugang integriert.",
+          "sources": [
+            "https://www.norwegian.com/en/",
+            "https://www.transavia.com/home/en-eu",
+            "https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/acceptable-use-policy",
+            "https://www.ryanair.com/robots.txt",
+            "https://support.travelpayouts.com/hc/en-us/articles/210995808-How-to-get-access-to-the-Aviasales-Search-API",
+            "https://admin.developers.amadeus.com/self-service/apis-docs/guides/developer-guides/faq/"
+          ],
+          "offers": []
+        }
+      ]
+    },
+    {
+      "name": "requested-july-group",
+      "static_calls": 1,
+      "price_calls": 1,
+      "persistence_ok": true,
+      "pdf_model_cost": {
+        "title": "Gesamtkosten noch offen",
+        "group": "Noch kein belastbarer Gruppenbetrag",
+        "per_person": "offen",
+        "known": [],
+        "missing": [
+          "Zug für gesamte Gruppe hin und zurück",
+          "Zubringer und Unterkunftstransfers hin und zurück",
+          "Unterkunft für Gruppe und Aufenthalt inkl. Pflichtgebühren"
+        ],
+        "optional": "Verpflegung und Aktivitäten sind optionale Ausgaben vor Ort."
+      },
+      "checked_at": "2026-10-29T08:49:02+00:00",
+      "parameters": {
+        "origin": "Berlin",
+        "earliest": "2027-07-01",
+        "latest": "2027-07-07",
+        "min_days": 7,
+        "max_days": 7,
+        "adults": 5,
+        "rooms": 3,
+        "modes": [
+          "Zug",
+          "Flug"
+        ],
+        "accommodation_types": [
+          "Hotel",
+          "Ferienwohnung"
+        ]
+      },
+      "results": [
+        {
+          "provider": "Smoobu · direkte Unterkunft",
+          "category": "lodging",
+          "status": "unsupported",
+          "parameters": {
+            "origin": "Berlin",
+            "destination": "Innsbruck",
+            "start": "2027-07-01",
+            "end": "2027-07-07",
+            "adults": 5,
+            "rooms": 3,
+            "occupancy": [
+              2,
+              2,
+              1
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:49:13+00:00",
+          "message": "Die geprüfte Buchungsstrecke bestätigt jeweils eine Ferienwohnung. Ein Preis für mehrere Zimmer wird nicht daraus hochgerechnet.",
+          "sources": [],
+          "offers": []
+        },
+        {
+          "provider": "RegioJet",
+          "category": "rail",
+          "status": "unsupported",
+          "parameters": {
+            "origin": "Berlin",
+            "destination": "Innsbruck",
+            "start": "2027-07-01",
+            "end": "2027-07-07",
+            "adults": 5,
+            "rooms": 3,
+            "occupancy": [
+              2,
+              2,
+              1
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:49:14+00:00",
+          "message": "RegioJet bietet für mindestens einen Ort keinen eindeutig zugeordneten Bahnhof. Keine Aussage über andere Bahnunternehmen.",
+          "sources": [],
+          "offers": []
+        },
+        {
+          "provider": "Flugquellen · Zugangsdiagnose",
+          "category": "flight",
+          "status": "access_missing",
+          "parameters": {
+            "origin": "Berlin",
+            "destination": "Innsbruck",
+            "start": "2027-07-01",
+            "end": "2027-07-07",
+            "adults": 5,
+            "rooms": 3,
+            "occupancy": [
+              2,
+              2,
+              1
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:49:14+00:00",
+          "message": "Flugpreisabruf weiterhin offen: Norwegian und Transavia verweigerten den Zugriff (HTTP 403); easyJet untersagt automatisierte Extraktion, Ryanair sperrt Such-/API-Pfade in robots.txt. Amadeus-Produktion berechnet Überschreitungen automatisch; Aviasales Search verlangt 50.000 aktive Nutzer/Monat. Kein belegter Null-Euro-Gruppenpreiszugang integriert.",
+          "sources": [
+            "https://www.norwegian.com/en/",
+            "https://www.transavia.com/home/en-eu",
+            "https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/acceptable-use-policy",
+            "https://www.ryanair.com/robots.txt",
+            "https://support.travelpayouts.com/hc/en-us/articles/210995808-How-to-get-access-to-the-Aviasales-Search-API",
+            "https://admin.developers.amadeus.com/self-service/apis-docs/guides/developer-guides/faq/"
+          ],
+          "offers": []
+        }
+      ]
+    },
+    {
+      "name": "rail-group-five",
+      "static_calls": 1,
+      "price_calls": 5,
+      "persistence_ok": true,
+      "pdf_model_cost": {
+        "title": "Bekannte Kosten",
+        "group": "84,00 €",
+        "per_person": "16,80 €",
+        "known": [
+          {
+            "label": "Zug für gesamte Gruppe hin und zurück",
+            "value": "84,00 €"
+          }
+        ],
+        "missing": [
+          "Zubringer und Unterkunftstransfers nicht enthalten",
+          "Unterkunft für Gruppe und Aufenthalt inkl. Pflichtgebühren"
+        ],
+        "optional": "Verpflegung und Aktivitäten sind optionale Ausgaben vor Ort."
+      },
+      "checked_at": "2026-10-29T08:53:40+00:00",
+      "parameters": {
+        "origin": "Prag",
+        "earliest": "2026-11-12",
+        "latest": "2026-11-14",
+        "min_days": 3,
+        "max_days": 3,
+        "adults": 5,
+        "rooms": 3,
+        "modes": [
+          "Zug",
+          "Flug"
+        ],
+        "accommodation_types": [
+          "Hotel",
+          "Ferienwohnung"
+        ]
+      },
+      "results": [
+        {
+          "provider": "Smoobu · direkte Unterkunft",
+          "category": "lodging",
+          "status": "unsupported",
+          "parameters": {
+            "origin": "Prag",
+            "destination": "Brünn",
+            "start": "2026-11-12",
+            "end": "2026-11-14",
+            "adults": 5,
+            "rooms": 3,
+            "occupancy": [
+              2,
+              2,
+              1
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:53:40+00:00",
+          "message": "Für diesen Ort ist noch keine geprüfte direkte Buchungsstrecke integriert.",
+          "sources": [],
+          "offers": []
+        },
+        {
+          "provider": "RegioJet",
+          "category": "rail",
+          "status": "found",
+          "parameters": {
+            "origin": "Prag",
+            "destination": "Brünn",
+            "start": "2026-11-12",
+            "end": "2026-11-14",
+            "adults": 5,
+            "rooms": 3,
+            "occupancy": [
+              2,
+              2,
+              1
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:53:46+00:00",
+          "message": "Zwei datierte Gruppentarife; getrennte Hin- und Rückfahrkarten.",
+          "sources": [
+            "https://brn-ybus-pubapi.sa.cz/restapi/routes/search/simple?fromLocationId=10202003&fromLocationType=CITY&toLocationId=10202002&toLocationType=CITY&departureDate=2026-11-12&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR",
+            "https://brn-ybus-pubapi.sa.cz/restapi/routes/8730781292/simple?fromStationId=372825000&toStationId=3088864001&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR",
+            "https://brn-ybus-pubapi.sa.cz/restapi/routes/search/simple?fromLocationId=10202002&fromLocationType=CITY&toLocationId=10202003&toLocationType=CITY&departureDate=2026-11-14&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR",
+            "https://brn-ybus-pubapi.sa.cz/restapi/routes/8730781351/simple?fromStationId=3088864001&toStationId=372825000&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR"
+          ],
+          "offers": [
+            {
+              "provider": "RegioJet",
+              "identifier": "rj:8730781292:8730781351:5",
+              "source": "https://regiojet.com/?fromLocationId=10202003&fromLocationType=CITY&toLocationId=10202002&toLocationType=CITY&departureDate=2026-11-12&returnDepartureDate=2026-11-14&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR",
+              "retrieved_at": "2026-10-29T08:53:46+00:00",
+              "parameters": {
+                "origin": "Prag",
+                "destination": "Brünn",
+                "start": "2026-11-12",
+                "end": "2026-11-14",
+                "adults": 5,
+                "rooms": 3,
+                "occupancy": [
+                  2,
+                  2,
+                  1
+                ],
+                "accommodation_types": [
+                  "Hotel",
+                  "Ferienwohnung"
+                ],
+                "currency": "EUR",
+                "travel_class": "2",
+                "discount_cards": []
+              },
+              "original_amount": "84.00",
+              "original_currency": "EUR",
+              "price_basis": "group_roundtrip",
+              "eur_amount": "84.00",
+              "price_status": "aktuell abgerufen",
+              "availability": "available_at_retrieval",
+              "valid_until": "2026-10-29T09:03:46+00:00",
+              "included": [
+                "Hin- und Rückfahrt für alle angefragten Erwachsenen",
+                "Zweite Klasse, keine Rabattkarten",
+                "Sitzplatzreservierung laut Verbindungsabschnitten"
+              ],
+              "additional_fees": [],
+              "unresolved": [
+                "Zubringer und Unterkunftstransfers nicht enthalten"
+              ],
+              "details": {
+                "legs": [
+                  {
+                    "id": "8730781292",
+                    "departure": "2026-11-12T06:01:00.000+01:00",
+                    "arrival": "2026-11-12T08:40:00.000+01:00",
+                    "from": "Prague MS",
+                    "to": "Brno MS",
+                    "from_station_id": 372825000,
+                    "to_station_id": 3088864001,
+                    "price": "42.00",
+                    "seat_class": "TRAIN_LOW_COST",
+                    "conditions": {
+                      "descriptions": {
+                        "cancel": "more than 15 minutes before departure: 0 %, less than 15 minutes: not possible",
+                        "cancelShort": "> 15 minutes: 0 %, < 15 minutes: not possible",
+                        "rebook": "more than 15 minutes before departure: by cancellation for 0 EUR, less than 15 minutes: not possible",
+                        "rebookShort": null,
+                        "expiration": "26 minutes (10/29/26, 10:20 AM GMT+1)"
+                      },
+                      "code": null,
+                      "refundToOriginalSourcePossible": false,
+                      "cancelCharge": null,
+                      "cancelCharges": []
+                    },
+                    "transfers": 0,
+                    "duration_hours": 2.65,
+                    "sections": [
+                      {
+                        "departureTime": "2026-11-12T06:01:00.000+01:00",
+                        "arrivalTime": "2026-11-12T08:40:00.000+01:00",
+                        "departureCityName": "Prague",
+                        "arrivalCityName": "Brno",
+                        "departureStationName": "MS",
+                        "arrivalStationName": "MS",
+                        "fixedSeatReservation": true,
+                        "line": {
+                          "lineGroupCode": "VLAK_BRNO",
+                          "lineNumber": 260,
+                          "id": 8382416051,
+                          "code": "RJ 1031",
+                          "from": "Prague",
+                          "to": "Budapest"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "8730781351",
+                    "departure": "2026-11-14T05:03:00.000+01:00",
+                    "arrival": "2026-11-14T07:59:00.000+01:00",
+                    "from": "Brno MS",
+                    "to": "Prague MS",
+                    "from_station_id": 3088864001,
+                    "to_station_id": 372825000,
+                    "price": "42.00",
+                    "seat_class": "TRAIN_LOW_COST",
+                    "conditions": {
+                      "descriptions": {
+                        "cancel": "more than 15 minutes before departure: 0 %, less than 15 minutes: not possible",
+                        "cancelShort": "> 15 minutes: 0 %, < 15 minutes: not possible",
+                        "rebook": "more than 15 minutes before departure: by cancellation for 0 EUR, less than 15 minutes: not possible",
+                        "rebookShort": null,
+                        "expiration": "29 minutes (10/29/26, 10:22 AM GMT+1)"
+                      },
+                      "code": null,
+                      "refundToOriginalSourcePossible": false,
+                      "cancelCharge": null,
+                      "cancelCharges": []
+                    },
+                    "transfers": 0,
+                    "duration_hours": 2.933333333333333,
+                    "sections": [
+                      {
+                        "departureTime": "2026-11-14T05:03:00.000+01:00",
+                        "arrivalTime": "2026-11-14T07:59:00.000+01:00",
+                        "departureCityName": "Brno",
+                        "arrivalCityName": "Prague",
+                        "departureStationName": "MS",
+                        "arrivalStationName": "MS",
+                        "fixedSeatReservation": true,
+                        "line": {
+                          "lineGroupCode": "VLAK_BRNO",
+                          "lineNumber": 260,
+                          "id": 8382416043,
+                          "code": "RJ 1040",
+                          "from": "Brno",
+                          "to": "Prague"
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "travel_class": "2",
+                "tariffs": [
+                  "REGULAR",
+                  "REGULAR",
+                  "REGULAR",
+                  "REGULAR",
+                  "REGULAR"
+                ],
+                "independent_tickets": true
+              },
+              "evidence": {
+                "sources": [
+                  "https://brn-ybus-pubapi.sa.cz/restapi/routes/search/simple?fromLocationId=10202003&fromLocationType=CITY&toLocationId=10202002&toLocationType=CITY&departureDate=2026-11-12&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR",
+                  "https://brn-ybus-pubapi.sa.cz/restapi/routes/8730781292/simple?fromStationId=372825000&toStationId=3088864001&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR",
+                  "https://brn-ybus-pubapi.sa.cz/restapi/routes/search/simple?fromLocationId=10202002&fromLocationType=CITY&toLocationId=10202003&toLocationType=CITY&departureDate=2026-11-14&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR",
+                  "https://brn-ybus-pubapi.sa.cz/restapi/routes/8730781351/simple?fromStationId=3088864001&toStationId=372825000&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR"
+                ],
+                "price_field": "priceClasses.price",
+                "passenger_echo": "priceClasses.tariffs",
+                "capacity_field": "priceClasses.freeSeatsCount",
+                "currency_request": "X-Currency: EUR",
+                "normalization": "Summe zweier direkt abgefragter Gruppentarife; keine Personenmultiplikation"
+              }
+            }
+          ]
+        },
+        {
+          "provider": "Flugquellen · Zugangsdiagnose",
+          "category": "flight",
+          "status": "access_missing",
+          "parameters": {
+            "origin": "Prag",
+            "destination": "Brünn",
+            "start": "2026-11-12",
+            "end": "2026-11-14",
+            "adults": 5,
+            "rooms": 3,
+            "occupancy": [
+              2,
+              2,
+              1
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:53:46+00:00",
+          "message": "Flugpreisabruf weiterhin offen: Norwegian und Transavia verweigerten den Zugriff (HTTP 403); easyJet untersagt automatisierte Extraktion, Ryanair sperrt Such-/API-Pfade in robots.txt. Amadeus-Produktion berechnet Überschreitungen automatisch; Aviasales Search verlangt 50.000 aktive Nutzer/Monat. Kein belegter Null-Euro-Gruppenpreiszugang integriert.",
+          "sources": [
+            "https://www.norwegian.com/en/",
+            "https://www.transavia.com/home/en-eu",
+            "https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/acceptable-use-policy",
+            "https://www.ryanair.com/robots.txt",
+            "https://support.travelpayouts.com/hc/en-us/articles/210995808-How-to-get-access-to-the-Aviasales-Search-API",
+            "https://admin.developers.amadeus.com/self-service/apis-docs/guides/developer-guides/faq/"
+          ],
+          "offers": []
+        }
+      ]
+    },
+    {
+      "name": "rail-july-horizon",
+      "static_calls": 1,
+      "price_calls": 2,
+      "persistence_ok": true,
+      "pdf_model_cost": {
+        "title": "Gesamtkosten noch offen",
+        "group": "Noch kein belastbarer Gruppenbetrag",
+        "per_person": "offen",
+        "known": [],
+        "missing": [
+          "Zug für gesamte Gruppe hin und zurück",
+          "Zubringer und Unterkunftstransfers hin und zurück",
+          "Unterkunft für Gruppe und Aufenthalt inkl. Pflichtgebühren"
+        ],
+        "optional": "Verpflegung und Aktivitäten sind optionale Ausgaben vor Ort."
+      },
+      "checked_at": "2026-10-29T08:53:40+00:00",
+      "parameters": {
+        "origin": "Prag",
+        "earliest": "2027-07-01",
+        "latest": "2027-07-07",
+        "min_days": 7,
+        "max_days": 7,
+        "adults": 5,
+        "rooms": 3,
+        "modes": [
+          "Zug",
+          "Flug"
+        ],
+        "accommodation_types": [
+          "Hotel",
+          "Ferienwohnung"
+        ]
+      },
+      "results": [
+        {
+          "provider": "Smoobu · direkte Unterkunft",
+          "category": "lodging",
+          "status": "unsupported",
+          "parameters": {
+            "origin": "Prag",
+            "destination": "Brünn",
+            "start": "2027-07-01",
+            "end": "2027-07-07",
+            "adults": 5,
+            "rooms": 3,
+            "occupancy": [
+              2,
+              2,
+              1
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:53:46+00:00",
+          "message": "Für diesen Ort ist noch keine geprüfte direkte Buchungsstrecke integriert.",
+          "sources": [],
+          "offers": []
+        },
+        {
+          "provider": "RegioJet",
+          "category": "rail",
+          "status": "no_offers",
+          "parameters": {
+            "origin": "Prag",
+            "destination": "Brünn",
+            "start": "2027-07-01",
+            "end": "2027-07-07",
+            "adults": 5,
+            "rooms": 3,
+            "occupancy": [
+              2,
+              2,
+              1
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:53:49+00:00",
+          "message": "Keine buchbare reine Zugverbindung für 2027-07-01 zurückgegeben; Buchungshorizont nicht nachgewiesen.",
+          "sources": [
+            "https://brn-ybus-pubapi.sa.cz/restapi/routes/search/simple?fromLocationId=10202003&fromLocationType=CITY&toLocationId=10202002&toLocationType=CITY&departureDate=2027-07-01&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR&tariffs=REGULAR"
+          ],
+          "offers": []
+        },
+        {
+          "provider": "Flugquellen · Zugangsdiagnose",
+          "category": "flight",
+          "status": "access_missing",
+          "parameters": {
+            "origin": "Prag",
+            "destination": "Brünn",
+            "start": "2027-07-01",
+            "end": "2027-07-07",
+            "adults": 5,
+            "rooms": 3,
+            "occupancy": [
+              2,
+              2,
+              1
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": []
+          },
+          "checked_at": "2026-10-29T08:53:49+00:00",
+          "message": "Flugpreisabruf weiterhin offen: Norwegian und Transavia verweigerten den Zugriff (HTTP 403); easyJet untersagt automatisierte Extraktion, Ryanair sperrt Such-/API-Pfade in robots.txt. Amadeus-Produktion berechnet Überschreitungen automatisch; Aviasales Search verlangt 50.000 aktive Nutzer/Monat. Kein belegter Null-Euro-Gruppenpreiszugang integriert.",
+          "sources": [
+            "https://www.norwegian.com/en/",
+            "https://www.transavia.com/home/en-eu",
+            "https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/acceptable-use-policy",
+            "https://www.ryanair.com/robots.txt",
+            "https://support.travelpayouts.com/hc/en-us/articles/210995808-How-to-get-access-to-the-Aviasales-Search-API",
+            "https://admin.developers.amadeus.com/self-service/apis-docs/guides/developer-guides/faq/"
+          ],
+          "offers": []
+        }
+      ]
+    }
+  ]
+}

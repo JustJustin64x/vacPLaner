@@ -1,0 +1,245 @@
+{
+  "id": "8730781292",
+  "mainSectionId": 8730781292,
+  "departureStationId": 372825000,
+  "departureStationName": "MS",
+  "departureCityId": 10202003,
+  "departureCityName": "Prague",
+  "departureTime": "2026-11-12T06:01:00.000+01:00",
+  "predictedDepartureTime": null,
+  "arrivalStationId": 3088864001,
+  "arrivalStationName": "MS",
+  "arrivalCityId": 10202002,
+  "arrivalCityName": "Brno",
+  "arrivalTime": "2026-11-12T08:40:00.000+01:00",
+  "predictedArrivalTime": null,
+  "freeSeatsCount": 335,
+  "priceFrom": 16.8,
+  "priceTo": 29.4,
+  "creditPriceFrom": 16.4,
+  "creditPriceTo": 29.0,
+  "vehicleTypes": [
+    "TRAIN"
+  ],
+  "priceClasses": [
+    {
+      "seatClassKey": "TRAIN_LOW_COST",
+      "conditions": {
+        "descriptions": {
+          "cancel": "more than 15 minutes before departure: 0 %, less than 15 minutes: not possible",
+          "cancelShort": "> 15 minutes: 0 %, < 15 minutes: not possible",
+          "rebook": "more than 15 minutes before departure: by cancellation for 0 EUR, less than 15 minutes: not possible",
+          "rebookShort": null,
+          "expiration": "26 minutes (10/29/26, 10:01 AM GMT+1)"
+        },
+        "code": null,
+        "refundToOriginalSourcePossible": false,
+        "cancelCharge": null,
+        "cancelCharges": []
+      },
+      "services": [
+        "typy_vozidel_zastuvka_ne",
+        "typy_vozidel_chlazene_napoje",
+        "typy_vozidel_online_catering",
+        "typy_vozidel_wifi_ano",
+        "typy_vozidel_klimatizace"
+      ],
+      "freeSeatsCount": 123,
+      "price": 16.8,
+      "creditPrice": 16.4,
+      "priceSource": "8911857058<372825000-3088864001-8904141212>",
+      "customerNotifications": [],
+      "actionPrice": null,
+      "tariffs": [
+        "REGULAR",
+        "REGULAR"
+      ],
+      "tariffNotifications": null,
+      "bookable": true
+    },
+    {
+      "seatClassKey": "C0",
+      "conditions": {
+        "descriptions": {
+          "cancel": "more than 15 minutes before departure: 0 %, less than 15 minutes: not possible",
+          "cancelShort": "> 15 minutes: 0 %, < 15 minutes: not possible",
+          "rebook": "more than 15 minutes before departure: by cancellation for 0 EUR, less than 15 minutes: not possible",
+          "rebookShort": null,
+          "expiration": "26 minutes (10/29/26, 10:01 AM GMT+1)"
+        },
+        "code": null,
+        "refundToOriginalSourcePossible": false,
+        "cancelCharge": null,
+        "cancelCharges": []
+      },
+      "services": [
+        "typy_vozidel_teple_napoje_zdarma",
+        "typy_vozidel_stevardka",
+        "typy_vozidel_zasuvka",
+        "typy_vozidel_dotykova_obrazovka",
+        "typy_vozidel_kocarky",
+        "typy_vozidel_detske_kupe",
+        "typy_vozidel_online_catering",
+        "typy_vozidel_obcerstveni",
+        "typy_vozidel_chlazene_napoje",
+        "typy_vozidel_klimatizace",
+        "typy_vozidel_denni_tisk",
+        "typy_vozidel_zabavni_portal_ano",
+        "typy_vozidel_wifi_ano"
+      ],
+      "freeSeatsCount": 140,
+      "price": 20.2,
+      "creditPrice": 19.7,
+      "priceSource": "8911857058<372825000-3088864001-8904141212>",
+      "customerNotifications": [],
+      "actionPrice": null,
+      "tariffs": [
+        "REGULAR",
+        "REGULAR"
+      ],
+      "tariffNotifications": null,
+      "bookable": true
+    },
+    {
+      "seatClassKey": "C1",
+      "conditions": {
+        "descriptions": {
+          "cancel": "more than 15 minutes before departure: 0 %, less than 15 minutes: not possible",
+          "cancelShort": "> 15 minutes: 0 %, < 15 minutes: not possible",
+          "rebook": "more than 15 minutes before departure: by cancellation for 0 EUR, less than 15 minutes: not possible",
+          "rebookShort": null,
+          "expiration": "26 minutes (10/29/26, 10:01 AM GMT+1)"
+        },
+        "code": null,
+        "refundToOriginalSourcePossible": false,
+        "cancelCharge": null,
+        "cancelCharges": []
+      },
+      "services": [
+        "typy_vozidel_stevardka",
+        "typy_vozidel_obcerstveni",
+        "typy_vozidel_teple_napoje_zdarma",
+        "typy_vozidel_klimatizace",
+        "typy_vozidel_chlazene_napoje",
+        "typy_vozidel_prednostni_servis",
+        "typy_vozidel_wifi_ano",
+        "typy_vozidel_zasuvka"
+      ],
+      "freeSeatsCount": 67,
+      "price": 25.2,
+      "creditPrice": 24.8,
+      "priceSource": "8911857058<372825000-3088864001-8904141212>",
+      "customerNotifications": [],
+      "actionPrice": null,
+      "tariffs": [
+        "REGULAR",
+        "REGULAR"
+      ],
+      "tariffNotifications": null,
+      "bookable": true
+    },
+    {
+      "seatClassKey": "C2",
+      "conditions": {
+        "descriptions": {
+          "cancel": "more than 15 minutes before departure: 0 %, less than 15 minutes: not possible",
+          "cancelShort": "> 15 minutes: 0 %, < 15 minutes: not possible",
+          "rebook": "more than 15 minutes before departure: by cancellation for 0 EUR, less than 15 minutes: not possible",
+          "rebookShort": null,
+          "expiration": "26 minutes (10/29/26, 10:01 AM GMT+1)"
+        },
+        "code": null,
+        "refundToOriginalSourcePossible": false,
+        "cancelCharge": null,
+        "cancelCharges": []
+      },
+      "services": [
+        "typy_vozidel_stevardka",
+        "typy_vozidel_wifi_ano",
+        "typy_vozidel_prednostni_servis",
+        "typy_vozidel_tiche_kupe",
+        "typy_vozidel_obcerstveni",
+        "typy_vozidel_klimatizace",
+        "typy_vozidel_chlazene_napoje",
+        "typy_vozidel_teple_napoje_zdarma",
+        "typy_vozidel_zasuvka",
+        "typy_vozidel_dzus"
+      ],
+      "freeSeatsCount": 5,
+      "price": 29.4,
+      "creditPrice": 29.0,
+      "priceSource": "8911857058<372825000-3088864001-8904141212>",
+      "customerNotifications": [],
+      "actionPrice": null,
+      "tariffs": [
+        "REGULAR",
+        "REGULAR"
+      ],
+      "tariffNotifications": null,
+      "bookable": true
+    }
+  ],
+  "surcharge": null,
+  "sections": [
+    {
+      "id": 8730781292,
+      "vehicleStandardKey": "YELLOW",
+      "support": false,
+      "supportCode": "",
+      "vehicleType": "TRAIN",
+      "fixedSeatReservation": true,
+      "line": {
+        "lineGroupCode": "VLAK_BRNO",
+        "lineNumber": 260,
+        "id": 8382416051,
+        "code": "RJ 1031",
+        "from": "Prague",
+        "to": "Budapest"
+      },
+      "departureStationId": 372825000,
+      "departureStationName": "MS",
+      "departureCityId": 10202003,
+      "departureCityName": "Prague",
+      "departureTime": "2026-11-12T06:01:00.000+01:00",
+      "predictedDepartureTime": null,
+      "departurePlatform": null,
+      "arrivalStationId": 3088864001,
+      "arrivalStationName": "MS",
+      "arrivalCityId": 10202002,
+      "arrivalCityName": "Brno",
+      "arrivalTime": "2026-11-12T08:40:00.000+01:00",
+      "predictedArrivalTime": null,
+      "arrivalPlatform": null,
+      "carrierId": 5044895002,
+      "freeSeatsCount": 335,
+      "notices": [],
+      "services": [
+        "typy_vozidel_stevardka",
+        "typy_vozidel_wifi_ano",
+        "typy_vozidel_klimatizace",
+        "typy_vozidel_denni_tisk",
+        "typy_vozidel_teple_napoje_zdarma",
+        "typy_vozidel_obcerstveni",
+        "typy_vozidel_tiche_kupe",
+        "typy_vozidel_zabavni_portal_ano",
+        "typy_vozidel_sluchatka",
+        "typy_vozidel_zasuvka",
+        "typy_vozidel_detske_kupe",
+        "typy_vozidel_imobilni_rampa"
+      ],
+      "delay": null,
+      "travelTime": "02:39 h",
+      "estimatedArrivalTime": "2026-11-12T08:40:00.000+01:00"
+    }
+  ],
+  "notices": false,
+  "transfersInfo": null,
+  "nationalTrip": true,
+  "bookable": true,
+  "delay": null,
+  "travelTime": "02:39 h",
+  "carbonOffset": {
+    "amount": 0.3,
+    "currency": "EUR"
+  }
+}

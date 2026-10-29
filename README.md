@@ -2,7 +2,7 @@
 
 Native deutsche Desktop-Anwendung für **ein europäisches Reiseziel**, ohne Zielvorgabe und ohne laufende API-/Hosting-/KI-Kosten. Sie findet reale Ziele, liest reale Unterkunfts-/Aktivitätseinträge, berechnet Straßenrouten, vergleicht transparente Teilsummen und speichert Reisen lokal mit PDF-Export.
 
-**Stand 28.10.2026 (Suchverbesserung und begrenzte Liveprüfung vom 28.10.):** Der durchgängige Rechercheablauf funktioniert. Ein vollständiger Live-Preisvergleich für Hotels, Bahn und Flüge ist **nicht umgesetzt**: Die geprüften Null-Euro-Zugänge liefern dafür keinen geeigneten nachgewiesenen Zugang. Eine Geodaten-/Reiseführeridentität ist kein verfügbares Angebot. Die Anwendung zeigt diese Lücken ausdrücklich, bestätigt bei unvollständigen Preisen kein Budget und erfindet keine Angebote.
+**Stand 29.10.2026:** Echte datierte Preise funktionieren für die integrierte Innsbrucker Ferienwohnungsquelle und RegioJet. Offizielle Aktivitätstarife werden getrennt recherchiert. Der PDF-Vergleich enthält grundsätzlich Auto, Zug und Flug und getrennte Kostenszenarien. Flugpreise, allgemeine Hotel-/Mehrzimmerpreise und ein vollständiger europaweiter Preisvergleich bleiben offen. Die Anwendung kennzeichnet diese Grenzen und bestätigt bei unvollständigen Pflichtkosten kein Budget. [Aktueller Prüfbericht](docs/PREISVERGLEICH.md).
 
 ## Start auf diesem Mac
 
@@ -48,6 +48,7 @@ Bei null Treffern erklärt die **Suchdiagnose** die Ursachen, zählt jede Stufe 
 5. **Reise speichern**, später im Reiter **Gespeicherte Reisen** öffnen, ändern, duplizieren oder löschen. Neue Filter werden bei einer neuen Suche verwendet; sie schreiben eine bestehende konkrete Reise nicht stillschweigend um.
 6. **PDF exportieren** öffnet den lokalen Speichern-Dialog. Der Export ist ein eigener, redaktionell aufbereiteter Reiseführer mit Übersicht, Kosten, Anreise, Karte, bis zu drei Unterkünften, bis zu acht Aktivitäten und Quellen.
 7. Im Reiter **Gespeicherte Reisen** lassen sich mehrere Reisen einer Exportliste hinzufügen, sortieren und gemeinsam mit Inhaltsverzeichnis und Vergleich exportieren. Unvollständige Angaben werden vorab geprüft. **Angaben & Bilder recherchieren** ergänzt die geöffnete Arbeitskopie gezielt und abbrechbar; gespeichert wird erst auf ausdrückliche Aktion. Details: [Reiseführer-PDF und Anreicherung](docs/PDF_EXPORT.md).
+8. **Angebote aktuell prüfen** aktualisiert gezielt Unterkunft, Bahn, Flug, Aktivitäten oder alle Preise. Unter **Details** ist die Preisrecherche für die besten Ziele einstellbar (Standard drei, 0–12). **Weitere Terminproben prüfen** hält unterschiedliche Daten getrennt. **Im Browser unterstützen** öffnet eine Quelle ausschließlich auf Klick; manuelle Preise werden nicht automatisch importiert. **Quelle überspringen** lässt andere Kategorien weiterlaufen. Vor dem PDF-Export startet **Preise recherchieren / aktualisieren** echte Anbieterabfragen für die gesamte Exportauswahl. [Anbieter, Livebelege und Grenzen](docs/PREISVERGLEICH.md).
 
 Links zu Anbietern öffnen sich nur auf Klick im Browser. Für die Recherche und Verwaltung ist kein separat zu bedienender Browser nötig. „Mehrere Ziele“ ist sichtbar, aber deaktiviert.
 
@@ -98,7 +99,7 @@ Keine beliebigen kostenpflichtigen Dienste konfigurieren. Die öffentliche Nomin
 .venv/bin/python -m unittest discover -s tests -p 'test_*.py'
 ```
 
-99 Tests prüfen Suche, Kosten, Gruppen/Fahrzeuge, Preisstatus, Tage/Nächte, Parser/Deduplizierung, Abbruch, SQLite, Desktop-Callbacks sowie Einzel-/Mehrfach-PDF, Reihenfolge, alte Snapshots, Kosten pro Person, Kartenpunkte, Offlinebilder und unveränderte Originaldaten. Livezugriffe sind **nicht** Bestandteil der deterministischen Tests. GUI-Tests benötigen modernes Tk und eine Desktop-Sitzung.
+Die Tests prüfen Suche, Kosten, Gruppen/Fahrzeuge, Preisstatus, Tage/Nächte, Parser/Deduplizierung, Abbruch, SQLite, Desktop-Callbacks, Einzel-/Mehrfach-PDF und echte Angebotsantworten als bereinigte Parser-Fixtures. Weitere Prüfungen decken getrennte Szenarien, alle Verkehrsmittel, offizielle Aktivitätstarife, Kostenlosigkeit, Veralterung, Rangfolge der Preisziele und die echte Preisaktion vor dem Export ab. Livezugriffe sind **nicht** Bestandteil der deterministischen Tests. GUI-Tests benötigen modernes Tk und eine Desktop-Sitzung.
 
 Separater echter Quellen-/Suchtest:
 
@@ -132,4 +133,4 @@ Die früheren Adapter erzeugen simulierte Flug-/Bahn-/Hotelangebote. Sie bleiben
 
 ## Verbleibende Grenzen
 
-Keine bestätigten Hotel-/Flug-/Bahnpreise oder Verfügbarkeiten, keine europäischen datierten Bahnverbindungen, keine bestätigte Zimmerbelegung, keine zuverlässigen datierten Veranstaltungen. Ausstattung bleibt bei der derzeitigen Quelle überwiegend unbekannt; harte Ausstattungsfilter können deshalb keine Ergebnisse liefern. Guide-Einträge können veraltet sein. Ein vollständig buchbares Gesamtpaket und ein belegter Preis-Sieger sind damit **nicht** abgenommen. Keine Kinder, Rundreise, Buchung/Zahlung, Wetterprognose oder Währungsumrechnung ohne belegte Fremdwährungsangebote.
+Die Preisabdeckung ist quellspezifisch: RegioJet, eine direkte Innsbrucker Ferienwohnungsquelle und wenige offizielle Eintrittsquellen. Keine funktionierende Flugpreissuche, keine allgemeinen Hotel-/Mehrzimmerpreise, keine zuverlässige datierte Veranstaltungsabdeckung. Harte Ausstattungsfilter können Ergebnisse verhindern. Tür-zu-Tür-Zeiten, Maut, Parken und Transfers bleiben teilweise offen; Verbrauch und Spritpreis sind Annahmen. Ein vollständig buchbares Gesamtpaket und ein belegter Preis-Sieger sind damit **nicht** abgenommen. Keine Kinder, Buchung/Zahlung, Wetterprognose oder Währungsumrechnung ohne belegte Fremdwährungsangebote.

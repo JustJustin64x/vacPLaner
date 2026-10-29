@@ -129,19 +129,32 @@ class TripPdfExporter:
         story += self._snapshot(m)+[self._heading('Übersichtskarte',1,key+'-karte'),MapFlowable(m['map_points'],165*mm),Spacer(1,4)]
         for point in m['map_points']:
             if point['url']: story.append(self._link('Auf Karte öffnen: '+point['name'],point['url']))
+        story.append(PageBreak())
         story.append(self._heading('Anreise vergleichen',1,key+'-anreise'))
+        story.append(self._paragraph('Für alle Optionen: '+escape(m['period'])+'. Hin- und Rückreise für '+str(m['adults'])+' Erwachsene. Nicht geprüfte Möglichkeiten bleiben offen.','TravelCard'))
+        story.append(self._transport_comparison(m))
+        story.append(self._heading('Unterkunft plus Anreise: getrennte Szenarien',2,key+'-szenarien'))
+        story.append(self._scenario_comparison(m))
+        story.append(self._paragraph('Die Szenarien sind Alternativen und werden nicht addiert. Aktivitäten und Verpflegung bleiben außerhalb des Hauptbudgets. Unvollständige Teilsummen begründen keinen Preissieger.','TravelSmall'))
         if not m['transports']: story.append(self._paragraph('Für diese Reise sind noch keine Anreiseoptionen gespeichert.'))
         for t in m['transports']:
             known=', '.join(x['label']+': '+x['value'] for x in t['known_costs']) or 'Keine Anreisekosten beziffert'; open_text=', '.join(t['open_costs']) or 'keine weiteren offenen Kosten erfasst'
-            story.append(self._card(t['mode'],f"Reisezeit: {t['time']}<br/>{escape(known)}<br/><font color='{RED}'>Offen: {escape(open_text)}</font>"))
+            price_stamp=('Preisstand: '+t.get('retrieved_at','offen')+' · '+t['status']) if t.get('connections') else t['status']
+            story.append(self._card(t['mode'],f"Reisezeit je Richtung: {t['time']}<br/>{escape(known)}<br/>{escape(price_stamp)}<br/><font color='{RED}'>Offen: {escape(open_text)}</font>"))
+            if t['car_details']:story.append(self._paragraph(escape(t['car_details']),'TravelCard'))
+            for direction,leg in zip(('Hinweg','Rückweg'),t['route_legs']):story.append(self._paragraph(direction+': '+escape(leg['distance']+' · '+leg['time']+' reine Fahrzeit'),'TravelCard'))
+            for note in t['notes']:story.append(self._paragraph(escape(note),'TravelSmall'))
+            for connection in t.get('connections',[]):
+                story.append(self._paragraph(escape(connection['from']+' → '+connection['to'])+'<br/>'+escape(connection['departure']+' bis '+connection['arrival'])+'<br/>'+escape(connection['time']+' · '+str(connection['transfers'])+' Umstiege · Preisstand '+t['retrieved_at']),'TravelCard'))
             for link in t['links']: story.append(self._link(link.get('label','Verbindung öffnen'),link['url']))
-        story.append(self._heading('Unterkünfte',1,key+'-unterkunft'))
-        if not m['lodgings']: story.append(self._notice('Unterkunft offen','Es wurde keine eindeutig zugeordnete Unterkunft gespeichert.'))
+        lodging_heading=self._heading('Unterkünfte',1,key+'-unterkunft')
+        if not m['lodgings']: story += [lodging_heading,self._notice('Unterkunft offen','Es wurde keine eindeutig zugeordnete Unterkunft gespeichert.')]
         for idx,l in enumerate(m['lodgings']):
             title=('Vorgeschlagene Unterkunft · ' if idx==0 else 'Alternative · ')+l['name']; lines=[l['type'],l['address'],l['distance'],l['occupancy'],'Preis für Gruppe und Aufenthalt: '+l['price']]
+            if l.get('included'):lines += ['Enthalten: '+'; '.join(l['included']),'Preisstand: '+l.get('retrieved_at','offen')+' · '+l['price_status']]
             if l['amenities']: lines.append('Belegte Ausstattung: '+', '.join(l['amenities']))
             if l['open']: lines.append('Offen: '+'; '.join(l['open']))
-            block=[self._heading(title,2,key+'-hotel-'+str(idx)),self._paragraph('<br/>'.join(escape(x) for x in lines if x),'TravelCard')]
+            block=([lodging_heading] if idx==0 else [])+[self._heading(title,2,key+'-hotel-'+str(idx)),self._paragraph('<br/>'.join(escape(x) for x in lines if x),'TravelCard')]
             image=self._safe_image(l['image']['cache_path'],72*mm,42*mm) if l['image'] else None
             if image:block.append(image)
             if l['url']:block.append(self._link('Mehr zur Unterkunft',l['url']))
@@ -154,8 +167,34 @@ class TripPdfExporter:
             if a['url']:story.append(self._link('Mehr erfahren',a['url']))
             if a['map_url']:story.append(self._link('Auf Karte öffnen',a['map_url']))
         story.append(self._heading('Offene Planungspunkte & Quellen',1,key+'-quellen'));story.append(self._paragraph(('Datenstand: '+m['researched_at']+'. ')+('Wesentliche offene Angaben: '+'; '.join(m['issues']) if m['issues'] else 'Keine wesentlichen Lücken erkannt.')))
+        if m.get('offer_statuses'):
+            from ...core.planning.TravelOffers import STATUS_LABELS
+            for status in m['offer_statuses']:
+                story.append(self._paragraph(escape(status['category']+' · '+status['provider']+': '+STATUS_LABELS[status['status']]+'. '+status['message']),'TravelSmall'))
         for source in m['sources']:story.append(self._link(source.get('label','Quelle')+((' · '+source['credit']) if source.get('credit') else ''),source['url']))
         story.append(self._paragraph('Kartenlinks und Koordinaten: © OpenStreetMap-Mitwirkende (ODbL). Die Übersicht ist schematisch und zeigt keine Straßenroute. Preise und Verfügbarkeit können sich ändern.','TravelSmall'));story.append(PageBreak());return story
+
+    def _comparison_table(self,headers,rows,widths):
+        from reportlab.platypus import Table,TableStyle
+        from reportlab.lib import colors
+        from reportlab.lib.units import mm
+        cells=[[self._paragraph('<b>'+escape(h)+'</b>','TravelCard') for h in headers]]
+        cells += [[self._paragraph(escape(str(c)).replace('\n','<br/>'),'TravelCard') for c in row] for row in rows]
+        table=Table(cells,colWidths=[w*mm for w in widths],repeatRows=1,hAlign='LEFT')
+        table.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.HexColor('#DCE6E8')),('GRID',(0,0),(-1,-1),.4,colors.HexColor('#BFD0D3')),('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(-1,-1),6),('RIGHTPADDING',(0,0),(-1,-1),6),('TOPPADDING',(0,0),(-1,-1),7),('BOTTOMPADDING',(0,0),(-1,-1),7)]))
+        return table
+
+    def _transport_comparison(self,m):
+        rows=[]
+        for c in m['comparisons']:
+            rows.append([c['mode'],c['time']+' je Richtung\n'+c['time_note'],
+                         'Gruppe: '+c['group']+'\nPro Person: '+c['person'],
+                         c['status']+'\nStand: '+c['stamp']+'\nEnthalten: '+('; '.join(c['included']) or 'Leistungsumfang offen')+'\nOffen: '+('; '.join(c['missing']) or 'keine weiteren Kosten erfasst')])
+        return self._comparison_table(['Anreise','Zeit bis zum Ziel','Hin- und Rückreise','Leistungen und Preisstatus'],rows,[23,43,43,56])
+
+    def _scenario_comparison(self,m):
+        return self._comparison_table(['Unterkunft plus','Gruppe / pro Person','Budget und fehlende Kosten'],
+            [[c['mode'],c['scenario_group']+'\n'+c['scenario_person']+' pro Person',c['budget']+'\nOffen: '+('; '.join(c['scenario_missing']) or 'keine weiteren Pflichtkosten erfasst')] for c in m['comparisons']],[28,57,80])
 
     def _snapshot(self,m):
         from reportlab.platypus import Table,TableStyle
@@ -170,7 +209,7 @@ class TripPdfExporter:
     def _paragraph(self,text,style='TravelBody'):
         from reportlab.platypus import Paragraph
         return Paragraph(str(text),self.styles[style])
-    def _link(self,label,url):return self._paragraph('<link href='+quoteattr(url)+' color="'+BLUE+'">'+escape(label)+' ↗</link>','TravelLink')
+    def _link(self,label,url):return self._paragraph('<link href='+quoteattr(url)+' color="'+BLUE+'">'+escape(label)+'</link>','TravelLink')
     def _card(self,title,body):return self._box('<b>'+escape(title)+'</b><br/>'+body,'#F7FAFA','#C7D4D7')
     def _notice(self,title,text):return self._box('<b>'+escape(title)+'</b><br/>'+escape(text),'#FCEDEA','#D99A91')
     def _box(self,text,background,border):

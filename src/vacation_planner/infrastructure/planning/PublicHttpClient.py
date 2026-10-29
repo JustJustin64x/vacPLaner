@@ -16,7 +16,7 @@ class PublicHttpClient:
     _last = {}
     USER_AGENT = 'VacationPlanner/1.0 (private local desktop; https://github.com/JustJustin64x/vacPLaner)'
 
-    def get(self, url, context):
+    def get(self, url, context, headers=None):
         host = urlsplit(url).hostname
         if urlsplit(url).scheme != 'https' or not host:
             raise ValueError('Nur HTTPS-Datenquellen sind erlaubt.')
@@ -28,10 +28,15 @@ class PublicHttpClient:
             context.wait(max(0,1.1-(time.monotonic()-self._last.get(host,0))))
             context.consume()
             timeout = max(.1,min(22,context.deadline-time.monotonic()))
+            extra=[]
+            for key,value in (headers or {}).items():
+                if key not in ('Accept','X-Currency','X-Lang') or '\n' in str(value) or '\r' in str(value):
+                    raise ValueError('Nicht erlaubter öffentlicher Anfrageheader')
+                extra += ['--header',key+': '+str(value)]
             process = subprocess.Popen(['curl','--silent','--show-error','--location','--max-redirs','3',
                 '--proto','=https','--proto-redir','=https','--max-time',str(timeout),'--connect-timeout','8',
                 '--max-filesize','8000000','--compressed','--user-agent',self.USER_AGENT,
-                '--write-out','\n%{http_code}',url],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+                '--write-out','\n%{http_code}']+extra+[url],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             try:
                 while True:
                     context.check()
@@ -56,6 +61,6 @@ class PublicHttpClient:
         finally:
             self._lock.release()
 
-    def json(self, url, context):
-        body,stamp = self.get(url,context)
+    def json(self, url, context, headers=None):
+        body,stamp = self.get(url,context,headers=headers) if headers else self.get(url,context)
         return json.loads(body),stamp

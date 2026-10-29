@@ -25,6 +25,11 @@ def price_text(item):
 class TripPresenter:
     @staticmethod
     def sections(trip):
+        if trip.get('offer_searches'):
+            import copy
+            from ...core.planning.TravelOffers import expire_offers
+            from ...core.planning.RankingService import RankingService
+            trip=RankingService.recompute(expire_offers(copy.deepcopy(trip)))
         request=trip['request']
         selected=trip['transports'][trip['selected_transport']]
         summary=trip['cost_summary']
@@ -40,7 +45,7 @@ class TripPresenter:
             'Region: '+trip['destination'].get('regional_name',trip['destination'].get('region',''))+' | Zieltyp: '+trip['destination'].get('type','nicht erfasst')+' | Basisort: '+trip['destination'].get('base_name',trip['destination']['name']),
             'Datensicherheit Interessen: '+(f"{trip['evidence_confidence']:.0%}" if 'evidence_confidence' in trip else 'nicht separat erfasst'),
             'Terminoptionen (Stichproben): '+', '.join(a+' bis '+b for a,b in trip.get('date_options',[(trip['start'],trip['end'])])),
-            trip['research_status'],trip['explanation'],trip['recommendation'],
+            ('Aktuelle Angebotsprüfung vorhanden; Preisstand und Abdeckung stehen bei den einzelnen Kategorien.' if any(v.get('status')=='found' for v in trip.get('offer_searches',{}).values()) else trip['research_status']),trip['explanation'],trip['recommendation'],
             'Normalisierte Gewichte: '+', '.join(f'{k} {v:.0%}' for k,v in trip['normalized_weights'].items()),
             'Unterkunftswünsche: '+(', '.join(request['desired']) or 'keine')+' | Pflichtmerkmale: '+(', '.join(request['required']) or 'keine'),
             'Ausgewählt: '+selected['mode']+' / '+(lodging['name'] if lodging else 'Unterkunft fehlt')],
@@ -78,7 +83,29 @@ class TripPresenter:
             sections.append((a['name'],[a['description'],f"Lage: {location}; {a['price_status']}; {a['duration']}",
                                        'Quellort: '+a.get('source_place',trip['destination']['name'])+' | '+(f"{a['distance_km']:.1f} km Luftlinie; Erreichbarkeit offen" if a.get('distance_km') is not None else 'Abstand unbekannt'),
                                        'Quelle abgerufen: '+local_stamp(a['retrieved_at'])],[(a['link_kind'],a['url']),('Quelleneintrag',a['source'])]))
-        sections.append(('Datenlücken und Quellen',trip['notes'],[
+        if trip.get('offer_searches'):
+            from ...core.planning.TravelOffers import STATUS_LABELS
+            for category,result in trip['offer_searches'].items():
+                label={'lodging':'Unterkunft','rail':'Bahn','flight':'Flug'}.get(category,category)
+                paragraphs=[STATUS_LABELS.get(result['status'],result['status'])+' · '+result['provider'],
+                            result.get('message',''),'Geprüft: '+local_stamp(result.get('checked_at',''))]
+                links=[]
+                for offer in result.get('offers',[]):
+                    paragraphs.append(f"{offer['provider']}: {offer['original_amount']} {offer['original_currency']} · {offer['parameters']['adults']} Erwachsene · {offer['parameters']['start']} bis {offer['parameters']['end']} · {offer['price_status']}")
+                    paragraphs += offer.get('included',[])+offer.get('unresolved',[])
+                    for leg in offer.get('details',{}).get('legs',[]):
+                        paragraphs.append(f"{leg['from']} → {leg['to']} · {leg['departure']} bis {leg['arrival']} · {leg['transfers']} Umstiege · {leg.get('seat_class','Economy')}")
+                    detail=offer.get('details',{})
+                    paragraphs += [detail[key] for key in ('board','cancellation','payment') if detail.get(key)]
+                    links.append(('Geprüftes Angebot',offer['source']))
+                sections.append(('Angebotsprüfung · '+label,paragraphs,links))
+        if trip.get('offer_date_samples'):
+            from ...core.planning.TravelOffers import STATUS_LABELS
+            sections.append(('Geprüfte Terminproben',[
+                sample['start']+' bis '+sample['end']+': '+'; '.join(result['provider']+' · '+STATUS_LABELS[result['status']]+(' · '+', '.join(o['original_amount']+' '+o['original_currency'] for o in result.get('offers',[])) if result.get('offers') else '') for result in sample['offer_searches'].values())
+                for sample in trip['offer_date_samples']],[]))
+        notes=[n for n in trip['notes'] if not (trip.get('offer_searches',{}).get('rail',{}).get('status')=='found' and 'Zug-/Flugfahrpläne' in n)]
+        sections.append(('Datenlücken und Quellen',notes,[
             ('Wikivoyage: Autoren und Versionsgeschichte',trip['destination']['source']+'?action=history'),
             ('Wikivoyage: Lizenz', 'https://de.wikivoyage.org/wiki/Wikivoyage:Lizenzbestimmungen'),
             ('© OpenStreetMap-Mitwirkende (ODbL)', 'https://www.openstreetmap.org/copyright'),

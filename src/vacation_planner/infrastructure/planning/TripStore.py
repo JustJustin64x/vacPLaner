@@ -59,7 +59,8 @@ class TripStore:
         payload = json.loads(row[0])
         if payload['schema_version'] != 1:
             raise ValueError('Unbekanntes Reiseformat')
-        return payload['trip']
+        from ...core.planning.TravelOffers import expire_offers
+        return expire_offers(payload['trip'])
 
     def delete(self, identifier):
         with self.connect() as db:

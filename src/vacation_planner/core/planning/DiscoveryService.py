@@ -66,6 +66,8 @@ class DiscoveryService:
                 scores[d['source']]-=penalty
         emit('phase',f"{len(chosen)} Ziele lokal bewertet; adaptive Recherche bis {request.shortlist} Filtertreffer oder Quellen-/Zeitlimit.")
         results=[]
+        price_context=None
+        price_targets=0
         for destination in chosen:
             if counts['matches']>=request.shortlist:
                 self.diagnostics.data['stop_reason']='Gewünschte Ergebnisanzahl erreicht.';break
@@ -89,6 +91,21 @@ class DiscoveryService:
             if trip['filter_status']=='offen' and not request.show_ideas:continue
             results.append(trip)
             emit('result',trip)
+        results.sort(key=lambda t:(t['filter_status']=='passend',t['score']),reverse=True)
+        for index,trip in enumerate(results[:request.price_targets]):
+            if callable(getattr(self.provider,'research_offers',None)):
+                from .SearchContext import SearchContext
+                import time
+                if price_context is None:
+                    price_context=SearchContext(cancel=context.cancel,seconds=max(.1,context.deadline-time.monotonic()),budget=32)
+                    context.price_context=price_context
+                if price_context.calls<price_context.budget and time.monotonic()<price_context.deadline:
+                    trip=self.provider.research_offers(trip,price_context,emit)
+                    results[index]=trip
+                    price_targets+=1
+                    self.diagnostics.data['price_research']={'targets':price_targets,'calls':price_context.calls,'budget':price_context.budget,
+                        'statuses':{k:v['status'] for k,v in trip.get('offer_searches',{}).items()}}
+                    emit('result',trip)
         return sorted(results,key=lambda t:(t['filter_status']=='passend',t['score']),reverse=True)
 
     def research(self,request,context,origin,destination,emit):

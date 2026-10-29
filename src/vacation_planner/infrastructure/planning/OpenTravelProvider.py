@@ -14,6 +14,18 @@ class OpenTravelProvider:
         self.parser = WikivoyageParser()
         self.routing_base = os.environ.get('VACATION_ROUTING_URL','https://routing.openstreetmap.de/routed-car').rstrip('/')
 
+    def research_offers(self,trip,context,emit=lambda *args:None,categories=None,samples=False):
+        from ...core.planning.OfferResearchService import OfferResearchService
+        from .RegioJetOfferProvider import RegioJetOfferProvider
+        from .SmoobuOfferProvider import SmoobuOfferProvider
+        from .FlightAccessDiagnostics import FlightAccessDiagnostics
+        from .OfficialActivityPrices import OfficialActivityPrices
+        providers=[SmoobuOfferProvider(self.http),OfficialActivityPrices(self.http)]
+        providers.append(RegioJetOfferProvider(self.http,self.store))
+        providers.append(FlightAccessDiagnostics())
+        service=OfferResearchService(providers)
+        return service.research_samples(trip,context,emit,categories) if samples else service.research(trip,context,emit,categories)
+
     def origin(self, name, address, context):
         known = self.catalog.resolve(name)
         if known and not address:

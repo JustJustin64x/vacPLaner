@@ -99,6 +99,49 @@ class DesktopTests(unittest.TestCase):
         self.root.update()
         self.assertEqual(self.app.trips,{})
 
+    def test_price_worker_updates_options_and_keeps_user_selection(self):
+        from tests.unit.test_travel_offers import OfferIntegrationTests
+        from src.vacation_planner.core.planning.OfferResearchService import OfferResearchService
+        trip,price_provider=OfferIntegrationTests().hotel_trip_and_provider()
+        class Provider(FixtureProvider):
+            def research_offers(self,original,context,emit,categories=None,samples=False):
+                return OfferResearchService([price_provider]).research(original,context,emit,categories)
+        self.app.provider=Provider();self.app.trips[trip['id']]=trip;self.app.active=trip
+        self.app.update_row(trip);self.app.research_prices();self.app.workers[-1].join(2);self.app.poll()
+        self.assertIsNone(self.app.price_context)
+        self.assertEqual(self.app.active['selected_lodging'],trip['selected_lodging'])
+        self.assertTrue(any(x.get('offer_id') for x in self.app.active['lodgings']))
+        self.assertIn('234.00 EUR',self.app.details.get('1.0','end'))
+
+    def test_export_research_runs_prices_for_every_selected_trip(self):
+        from unittest.mock import Mock
+        first=self.load_trip();second=json.loads(json.dumps(first));second['id']='second'
+        calls=[]
+        class Provider(FixtureProvider):
+            def research_offers(self,original,context,emit,categories=None,samples=False):
+                calls.append((original['id'],categories));return original
+        self.app.provider=Provider();self.app.enrich_active=Mock()
+        with patch.object(self.root,'winfo_viewable',return_value=True),patch('src.vacation_planner.entrypoints.gui.SurprisePlannerApplication.ExportReadinessDialog') as dialog:
+            dialog.return_value.result='research'
+            self.app._export_trips([first,second],'batch.pdf')
+        self.app.workers[-1].join(2)
+        with patch.object(self.app,'_export_trips') as resumed:
+            self.app.poll()
+            self.assertEqual(resumed.call_args.args[1],'batch.pdf')
+            self.assertEqual(len(resumed.call_args.args[0]),2)
+        self.assertEqual(calls,[(first['id'],None),('second',None)])
+        self.app.enrich_active.assert_not_called()
+
+    def test_manual_assistance_opens_only_on_click_and_skip_does_not_cancel(self):
+        self.load_trip()
+        with patch('webbrowser.open') as opened:
+            self.app.show_details();opened.assert_not_called()
+            self.app.price_category.set('Flug');self.app.support_source();opened.assert_called_once()
+        from src.vacation_planner.core.planning.SearchContext import SearchContext
+        self.app.price_context=SearchContext();self.app.skip_source()
+        self.assertIn('flight',self.app.price_context.skipped_categories)
+        self.assertFalse(self.app.price_context.cancel.is_set())
+
 
 
 @unittest.skipIf(tk.TkVersion < 8.6,'Modern Tk required')

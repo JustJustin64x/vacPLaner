@@ -33,7 +33,7 @@ class ExportReadinessDialog:
         ttk.Label(window,text='\n'.join('• '+x for x in issues),wraplength=520,justify='left').pack(anchor='w',padx=18,pady=6)
         ttk.Label(window,text='Ein fehlendes Bild verhindert den Export nicht.',wraplength=520).pack(anchor='w',padx=18,pady=(0,10))
         actions=ttk.Frame(window,padding=(14,8));actions.pack(fill='x')
-        choices=[('Fehlende Angaben recherchieren','research'),('Als unvollständige Reiseidee exportieren','export')]
+        choices=[('Preise recherchieren / aktualisieren','research'),('Mit gekennzeichneten Lücken exportieren','export')]
         if multiple: choices.append(('Betroffene Reisen entfernen','remove'))
         choices.append(('Zurück zur Reiseplanung','back'))
         for label,value in choices:ttk.Button(actions,text=label,command=lambda v=value:self.finish(v)).pack(fill='x',pady=3)
@@ -62,6 +62,7 @@ class SurprisePlannerApplication:
         self.export_order=[]
         self.enrichment_context=None
         self.media_photo=None
+        self.price_context=None
 
     def create_window(self):
         if tk.TkVersion < 8.6:
@@ -142,7 +143,7 @@ class SurprisePlannerApplication:
         self._entry(f,'activity_radius_km','Aktivitäten: Umkreis · km Luftlinie (max. 50)',default.activity_radius_km)
         self._entry(f,'show_ideas','Ideen mit unbelegten Pflichtangaben separat anzeigen','nein',values=('ja','nein'))
         self._note(f,'Begrenzte Suche')
-        for key,label in [('shortlist','Gewünschte Filtertreffer · 3 bis 12'),('request_budget','Maximale Quellenabfragen · 4 bis 40'),('timeout_seconds','Zeitlimit · 10 bis 600 Sekunden')]:
+        for key,label in [('shortlist','Gewünschte Filtertreffer · 3 bis 12'),('price_targets','Preisrecherche für beste Ziele · 0 bis 12'),('request_budget','Maximale Quellenabfragen · 4 bis 40'),('timeout_seconds','Zeitlimit · 10 bis 600 Sekunden')]:
             self._entry(f,key,label,getattr(default,key))
         self._note(f,'Öffentliche Quellen: Ortsnamen an OSM, Ziele an Wikivoyage, Koordinaten an FOSSGIS. Keine Adressenübertragung. Max. eine Anfrage/Sekunde; Cache, kein Massenabruf.')
         ttk.Button(f,text='Nominatim-Nutzungsregeln',command=lambda:webbrowser.open('https://operations.osmfoundation.org/policies/nominatim/')).pack(fill='x',pady=4)
@@ -185,6 +186,15 @@ class SurprisePlannerApplication:
         ttk.Button(buttons,text='Als neue Reise speichern',command=lambda:self.save_trip(True)).pack(side='left',padx=6)
         ttk.Button(buttons,text='PDF exportieren',command=self.export_pdf).pack(side='left')
         ttk.Button(buttons,text='Angaben & Bilder recherchieren',command=self.enrich_active).pack(side='left',padx=6)
+        prices=ttk.Frame(results);prices.pack(fill='x',pady=(0,4))
+        self.price_category=ttk.Combobox(prices,state='readonly',values=('Alle Preise','Unterkunft','Bahn','Flug','Aktivitäten'),width=16)
+        self.price_category.current(0);self.price_category.pack(side='left')
+        self.price_button=ttk.Button(prices,text='Angebote aktuell prüfen',command=self.research_prices)
+        self.price_button.pack(side='left',padx=6)
+        ttk.Button(prices,text='Weitere Terminproben prüfen',command=lambda:self.research_prices(samples=True)).pack(side='left')
+        assistance=ttk.Frame(results);assistance.pack(fill='x')
+        ttk.Button(assistance,text='Im Browser unterstützen',command=self.support_source).pack(side='left')
+        ttk.Button(assistance,text='Quelle überspringen',command=self.skip_source).pack(side='left',padx=6)
         self.media_label=ttk.Label(results,text='')
         self.media_label.pack(fill='x',pady=(2,6))
         self.media_selector=ttk.Combobox(results,state='readonly')
@@ -243,7 +253,7 @@ class SurprisePlannerApplication:
 
     def read_request(self):
         data={}
-        integers={'min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds'}
+        integers={'min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds','price_targets'}
         lists={'countries','regions','excluded'}
         decimals={'budget','consumption','petrol','max_hours','max_center_km','lodging_radius_km','activity_radius_km'}
         for key,var in self.vars.items():
@@ -275,6 +285,8 @@ class SurprisePlannerApplication:
         except (ValueError,InvalidOperation) as exc:
             messagebox.showerror('Eingaben prüfen',str(exc),parent=self.root);return
         if self.context:self.context.cancel.set()
+        if self.price_context:self.price_context.cancel.set();self.price_context=None
+        self.price_button.configure(state='normal')
         self.generation+=1;generation=self.generation
         context=SearchContext(seconds=request.timeout_seconds,budget=request.request_budget)
         self.context=context;self.running=True
@@ -307,6 +319,8 @@ class SurprisePlannerApplication:
     def cancel_search(self):
         if self.context:self.context.cancel.set()
         if self.enrichment_context:self.enrichment_context.cancel.set();self.enrichment_context=None
+        if self.price_context:self.price_context.cancel.set();self.price_context=None
+        self.price_button.configure(state='normal')
         # Invalidate queued/late results immediately, even if another search starts.
         self.generation+=1;self.running=False
         self.search_button.configure(state='normal');self.cancel_button.configure(state='disabled')
@@ -321,8 +335,13 @@ class SurprisePlannerApplication:
             if kind=='phase':self.status.set(value)
             elif kind=='warning':
                 self.source_log.configure(state='normal');self.source_log.insert('end',value+'\n');self.source_log.see('end');self.source_log.configure(state='disabled')
-            elif kind=='result':
+            elif kind in ('result','offer_partial'):
+                previous=self.trips.get(value['id'])
+                if previous:
+                    value['selected_lodging']=previous['selected_lodging'];value['selected_transport']=previous['selected_transport'];RankingService.recompute(value)
                 self.trips[value['id']]=value;self.update_row(value)
+                if self.active is not None and self.active['id']==value['id']:
+                    self.active=value;self.refresh_trip_choices();self.show_details()
                 if self.active is None:
                     tree=self.idea_tree if value.get('filter_status')=='offen' else self.tree
                     tree.selection_set(value['id']);self.select_trip(tree=tree)
@@ -341,11 +360,28 @@ class SurprisePlannerApplication:
                 self.active=value;self.trips[value['id']]=value;self.show_details()
                 self.status.set('Nachrecherche abgeschlossen. Die Arbeitskopie wurde ergänzt; zum dauerhaften Bewahren ausdrücklich speichern.')
             elif kind=='enrich_done':self.enrichment_context=None;self.cancel_button.configure(state='disabled')
+            elif kind=='price_phase':self.status.set(value)
+            elif kind=='price_warning':
+                self.source_log.configure(state='normal');self.source_log.insert('end',value+'\n');self.source_log.see('end');self.source_log.configure(state='disabled')
+            elif kind in ('price_result','price_offer_partial'):
+                previous=self.trips.get(value['id'])
+                if previous:
+                    value['selected_lodging']=previous['selected_lodging'];value['selected_transport']=previous['selected_transport'];RankingService.recompute(value)
+                self.trips[value['id']]=value;self.update_row(value)
+                if self.active is not None and self.active['id']==value['id']:
+                    self.active=value;self.refresh_trip_choices();self.show_details()
+                self.status.set('Preisprüfung abgeschlossen. Details zeigen Anbieterstatus und Preisstand. Zum Bewahren ausdrücklich speichern.')
+            elif kind=='price_done':
+                self.price_context=None;self.price_button.configure(state='normal');self.cancel_button.configure(state='disabled')
+            elif kind=='price_export_ready':
+                self._export_trips(value[0],value[1])
         if self.context:
             seconds=int(time.monotonic()-self.context.started)
             if self.running:
                 c=getattr(self.context,'diagnostics',{}).get('counts',{})
                 self.elapsed.set(f"{seconds//60:02d}:{seconds%60:02d} · {c.get('locally_scored',0)} lokal bewertet · {c.get('examined',0)} näher geprüft · {len(self.trips)} Ideen · {self.context.calls}/{self.context.budget} HTTP-Abfragen")
+                prices=getattr(self.context,'price_context',None)
+                if prices:self.elapsed.set(self.elapsed.get()+f' · Preise {prices.calls}/{prices.budget} Abfragen')
         self.root.after(150,self.poll)
 
     def update_row(self,trip):
@@ -368,12 +404,21 @@ class SurprisePlannerApplication:
         if not selection:return
         if self.active is not self.trips[selection[0]]:self.saved_id=None
         self.active=self.trips[selection[0]]
+        self.refresh_trip_choices();self.show_details()
+
+    def refresh_trip_choices(self):
         trip=self.active
         self.lodging_box.configure(values=[l['name'] for l in trip['lodgings']])
         if trip['lodgings']:self.lodging_box.current(trip['selected_lodging'])
         else:self.lodging_box.set('Keine Unterkunft gefunden')
-        self.transport_box.configure(values=[t['mode'] for t in trip['transports']]);self.transport_box.current(trip['selected_transport'])
-        self.show_details()
+        labels=[]
+        for option in trip['transports']:
+            offer=option.get('offer') or {};legs=offer.get('details',{}).get('legs',[])
+            label=option['mode']
+            if offer:label+=' · '+offer['provider']+(' · '+legs[0]['departure'][:16] if legs and legs[0].get('departure') else '')
+            if option.get('offer_refresh_status') in ('found','no_offers'):label+=' · nicht mehr bestätigt'
+            labels.append(label)
+        self.transport_box.configure(values=labels);self.transport_box.current(trip['selected_transport'])
 
     def swap(self,event=None):
         if not self.active:return
@@ -430,6 +475,52 @@ class SurprisePlannerApplication:
             except Exception as exc:emit('warning','Nachrecherche fehlgeschlagen: '+str(exc))
             finally:emit('done',None)
         worker=threading.Thread(target=work,name='trip-enrichment',daemon=False);self.workers.append(worker);worker.start()
+
+    def research_prices(self,samples=False,trips=None,export_filename=None):
+        if not self.active or self.running or self.price_context:return
+        if not callable(getattr(self.provider,'research_offers',None)):
+            messagebox.showinfo('Angebotsprüfung','Der gewählte Datenprovider unterstützt keine Angebotsprüfung.',parent=self.root);return
+        context=SearchContext(seconds=600,budget=40);self.price_context=context
+        originals=copy.deepcopy(trips or [self.active]);generation=self.generation
+        mapping={'Alle Preise':None,'Unterkunft':['lodging'],'Bahn':['rail'],'Flug':['flight'],'Aktivitäten':['activities']}
+        categories=None if trips else mapping.get(self.price_category.get());self.price_button.configure(state='disabled');self.cancel_button.configure(state='normal')
+        def emit(kind,value):self.events.put((generation,'price_'+kind,value))
+        def work():
+            checked=copy.deepcopy(originals)
+            try:
+                for index,original in enumerate(originals):
+                    context.check()
+                    updated=self.provider.research_offers(original,context,emit,categories,samples=samples)
+                    checked[index]=updated;emit('result',updated)
+            except Exception as exc:emit('warning','Preisprüfung fehlgeschlagen: '+str(exc))
+            finally:
+                emit('done',None)
+                if export_filename and checked and not context.cancel.is_set():emit('export_ready',(checked,export_filename))
+        worker=threading.Thread(target=work,name='offer-research',daemon=False);self.workers.append(worker);worker.start()
+
+    def support_source(self):
+        if not self.active:return
+        category={'Unterkunft':'lodging','Bahn':'rail','Flug':'flight','Aktivitäten':'activities'}.get(self.price_category.get(),'flight')
+        result=self.active.get('offer_searches',{}).get(category,{})
+        sources=result.get('sources') or []
+        url=next((s for s in sources if isinstance(s,str) and s.startswith('https://') and '/restapi/' not in s),None)
+        if not url:
+            url={'flight':'https://www.google.com/travel/flights','rail':'https://www.bahn.de/buchung/start','lodging':'https://www.apartments-innsbruck.com/en/buchen/' if self.active['destination']['name']=='Innsbruck' else None}.get(category)
+        if url:
+            import webbrowser
+            webbrowser.open(url)
+            self.status.set('Quelle auf ausdrückliche Aktion geöffnet. Manuelle Prüfung; Preise werden nicht automatisch übernommen. Unabhängige Abfragen laufen weiter.')
+        else:self.status.set('Keine geprüfte interaktive Quelle vorhanden. Preis bleibt offen; andere Quellen können weiterlaufen.')
+
+    def skip_source(self):
+        if not self.active:return
+        category={'Unterkunft':'lodging','Bahn':'rail','Flug':'flight','Aktivitäten':'activities'}.get(self.price_category.get(),'flight')
+        self.active.setdefault('skipped_offer_categories',[])
+        if category not in self.active['skipped_offer_categories']:self.active['skipped_offer_categories'].append(category)
+        if self.price_context:
+            if not hasattr(self.price_context,'skipped_categories'):self.price_context.skipped_categories=set()
+            self.price_context.skipped_categories.add(category)
+        self.status.set('Quelle übersprungen. Andere Kategorien laufen weiter; gezielte Aktualisierung kann diese Kategorie erneut prüfen.')
 
     def save_trip(self,as_new=False):
         if not self.active:return
@@ -513,9 +604,8 @@ class SurprisePlannerApplication:
             if action=='back' or not action:return
             if action=='remove':trips=[trip for trip in trips if PdfTripPresenter.completeness(trip).complete]
             if action=='research':
-                if len(trips)==1:
-                    self.active=trips[0];self.enrich_active()
-                else:messagebox.showinfo('Nachrecherche','Mehrere Reisen bitte nacheinander öffnen und gezielt anreichern. Gespeicherte Stände werden nicht automatisch überschrieben.',parent=self.root)
+                if not self.active:self.active=trips[0]
+                self.research_prices(trips=trips,export_filename=initialfile)
                 return
         if not trips:
             messagebox.showinfo('Keine exportierbare Reise','Nach dem Entfernen unvollständiger Reisen ist die Auswahl leer.',parent=self.root);return
@@ -557,6 +647,7 @@ class SurprisePlannerApplication:
         self.closed=True
         if self.context:self.context.cancel.set()
         if self.enrichment_context:self.enrichment_context.cancel.set()
+        if self.price_context:self.price_context.cancel.set()
         self.generation+=1
         self.root.destroy()
 

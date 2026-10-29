@@ -1,5 +1,7 @@
 # Reiseführer-PDF und gezielte Anreicherung
 
+Aktueller Preisvergleich vom 29.10.2026: [Diagnose, drei Verkehrsmittel, getrennte Budgetszenarien, offizielle Aktivitätstarife, Liveprüfung und verbleibende Grenzen](PREISVERGLEICH.md). Der Export ergänzt fehlende Verkehrsmittel als ungeprüfte Möglichkeiten; die Aktualisierungsaktion vor dem Export ruft Preisprovider statt Orts-/Bildrecherche auf.
+
 ## Aufbau
 
 Der PDF-Export besitzt eine eigene Darstellungsschicht (`PdfTripPresenter`). Gespeicherte Reisedaten werden nicht für das Layout verändert. Der Presenter übersetzt alte und neue Snapshots in ein kompaktes Modell für Reiseüberblick, Kosten, Anreise, maximal drei Unterkünfte, maximal acht Aktivitäten, Kartenpunkte und Quellen. `TripPdfExporter` setzt dieses Modell als durchsuchbares Hochformat-PDF mit Inhaltsverzeichnis, internen Zielen, Lesezeichen, wiederholten Tabellenköpfen und eingebetteter Schrift um.
@@ -25,7 +27,9 @@ Die PDF enthält eine klar als schematisch bezeichnete geografische Übersicht a
 
 ## Anreise und verbleibende Grenzen
 
-Für das Auto bleiben die vorhandene OSRM-Straßenroute, getrennte Streckenabschnitte und die dokumentierte Kraftstoffschätzung erhalten. Maut, Vignetten, Parken und Fähren bleiben offen, wenn sie nicht belegt sind. Zug und Flug werden nicht als bestätigte oder günstigste Verbindung dargestellt. Der Export zeigt ihren Datenumfang und offene Kosten ausdrücklich.
+Ergänzung 29.10.2026: Der PDF-Presenter übernimmt jetzt tatsächlich abgefragte Unterkunfts- und Bahnangebote einschließlich Gruppen-/Personenbetrag, enthaltenen Preisbestandteilen, Verbindungszeiten und individuellem Preisstand. Veraltete Angebote werden ohne Netzzugriff erkannt. Genaue Abdeckung und verbleibende Flug-/Mehrzimmergrenzen: [Angebotsrecherche](ANGEBOTSRECHERCHE.md).
+
+Für das Auto bleiben die vorhandene OSRM-Straßenroute, getrennte Streckenabschnitte und die dokumentierte Kraftstoffschätzung erhalten. Maut, Vignetten, Parken und Fähren bleiben offen, wenn sie nicht belegt sind. Ohne echte Angebote werden Zug und Flug nicht als bestätigte oder günstigste Verbindung dargestellt. Der Export zeigt ihren Datenumfang und offene Kosten ausdrücklich.
 
 Die DB Timetables API ist kostenlos registrierbar und liefert Bahnhofstafeln sowie Fahrtinformationen, aber keinen vollständigen Tür-zu-Tür-Verbindungs- und datierten Gruppenpreisvergleich. Sie wurde deshalb nicht als vermeintliche Buchungsauskunft integriert. Ebenso werden Portal-Suchergebnisse ohne belegten Zeitraum, Belegung, Gebührenumfang und Nutzungsrecht nicht als Unterkunftspreis übernommen.
 

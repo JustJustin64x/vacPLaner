@@ -49,6 +49,7 @@ class SearchRequest:
     shortlist: int = 6
     request_budget: int = 24
     timeout_seconds: int = 300
+    price_targets: int = 3
 
     target_type: str = 'gemischt'
     surroundings: bool = True
@@ -57,7 +58,7 @@ class SearchRequest:
     show_ideas: bool = False
 
     def validate(self):
-        for key in ('min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds'):
+        for key in ('min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds','price_targets'):
             if isinstance(getattr(self,key),bool) or not isinstance(getattr(self,key),int):
                 raise ValueError(key+': bitte eine ganze Zahl angeben.')
         if not isinstance(self.origin,str) or not isinstance(self.address,str):
@@ -125,6 +126,8 @@ class SearchRequest:
             raise ValueError('Unbekannte Gewichtung.')
         if not 3 <= self.shortlist <= 12 or not 4 <= self.request_budget <= 40 or not 10 <= self.timeout_seconds <= 600:
             raise ValueError('Vorauswahl 3–12, Abfragebudget 4–40, Zeitlimit 10–600 Sekunden.')
+        if not 0 <= self.price_targets <= 12:
+            raise ValueError('Preisrecherche: 0–12 Ziele.')
 
     def normalized_weights(self):
         values = {k: Decimal(str(self.weights.get(k, 0))) for k in ('Preis','Reisezeit','Komfort','Interessen')}

@@ -1,0 +1,13 @@
+{
+  "retrieved_at": "2026-10-29",
+  "rail": {
+    "source": "https://brn-ybus-pubapi.sa.cz/restapi/routes/8730781292/simple?fromStationId=372825000&toStationId=3088864001&tariffs=REGULAR&tariffs=REGULAR",
+    "currency_header": "EUR",
+    "passengers": 2,
+    "purpose": "Bereinigte öffentliche Tarifantwort; keine Buchung"
+  },
+  "lodging": {
+    "source": "https://booking.smoobu.com/perfect-lodgings/checkAvailability?theme=booking-tool&arrivalDate=23.11.26&departureDate=25.11.26&userId=71379&guests=2&adults=2&children=0",
+    "purpose": "Nur zugeordnete Wohnungen; keine Bilder, Cookies oder Gästedaten gespeichert"
+  }
+}

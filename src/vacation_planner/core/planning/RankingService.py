@@ -38,6 +38,7 @@ class RankingService:
         lodging = trip['lodgings'][trip['selected_lodging']] if trip['lodgings'] else None
         costs = list(selected['costs'])+[lodging['price'] if lodging else dict(
             label='Unterkunft für Gruppe und Aufenthalt', low=None, status='unbekannt')]
+        if lodging:costs.extend(lodging.get('mandatory_costs',[]))
         costs.append(dict(label='Verpflegung und Aktivitäten (optional)', low=None, status='unbekannt', optional=True))
         trip['costs'] = costs
         summary = CostService.summarize(costs, request['budget'])
