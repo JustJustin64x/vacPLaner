@@ -127,8 +127,10 @@ class TripPdfExporter:
         if image: story += [image,Spacer(1,5)]
         if not m['complete']: story.append(self._notice('Unvollständige Reiseidee',' · '.join(m['issues'])))
         story += self._snapshot(m)+[self._heading('Übersichtskarte',1,key+'-karte'),MapFlowable(m['map_points'],165*mm),Spacer(1,4)]
-        for point in m['map_points']:
+        for explanation in m.get('interest_explanations',[]):story.append(self._paragraph(escape(explanation),'TravelSmall'))
+        for point in m['map_points'][:8]:
             if point['url']: story.append(self._link('Auf Karte öffnen: '+point['name'],point['url']))
+        if len(m['map_points'])>8:story.append(self._paragraph('Weitere Kartenlinks stehen direkt bei den Unterkünften und Aktivitäten.','TravelSmall'))
         story.append(PageBreak())
         story.append(self._heading('Anreise vergleichen',1,key+'-anreise'))
         story.append(self._paragraph('Für alle Optionen: '+escape(m['period'])+'. Hin- und Rückreise für '+str(m['adults'])+' Erwachsene. Nicht geprüfte Möglichkeiten bleiben offen.','TravelCard'))

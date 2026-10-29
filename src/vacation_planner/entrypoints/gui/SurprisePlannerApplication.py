@@ -45,8 +45,12 @@ class ExportReadinessDialog:
 class SurprisePlannerApplication:
     def __init__(self, store=None, provider=None):
         self.store=store or TripStore()
-        self.catalog=DestinationCatalog()
-        self.provider=provider or OpenTravelProvider(self.store)
+        from ...infrastructure.planning.DestinationInventory import DestinationInventory
+        self.inventory=DestinationInventory(self.store.path.with_name('destinations.sqlite3'))
+        self.catalog=DestinationCatalog(self.inventory)
+        self.import_context=None
+        self.provider=provider or OpenTravelProvider(self.store,catalog=self.catalog)
+        if isinstance(self.provider,OpenTravelProvider):self.provider.catalog=self.catalog
         self.events=queue.Queue()
         self.generation=0
         self.context=None
@@ -115,10 +119,12 @@ class SurprisePlannerApplication:
         self._entry(f,'regions','Regionen · Komma; leer = alle','')
         self._entry(f,'excluded','Ausschlüsse: Orte, Länder, Codes oder Regionen','')
         ttk.Button(f,text='Gebiete suchen und auswählen',command=self.show_coverage).pack(fill='x',pady=6)
+        ttk.Button(f,text='Zieldaten einrichten / aktualisieren',command=self.setup_destinations).pack(fill='x',pady=4)
         self._entry(f,'target_type','Zieltypen','gemischt',values=('gemischt','Stadt','kleiner Ort','See/Küste','Berge/Natur'))
         self._note(f,'2 · Verkehrsmittel')
         self._checkboxes(f,'modes',('Auto','Zug','Flug'),default.modes)
         self._entry(f,'max_hours','Max. Stunden je Richtung (leer = offen)','')
+        self._entry(f,'max_distance_km','Geografischer Suchradius · km Luftlinie (optional)','')
         self._note(f,'Zeitlimit gilt für die obere Modellschätzung. Unbekannte Zeiten sind keine Filtertreffer; offene Ideen können unter Details separat aktiviert werden.')
         f=self.filter_tabs['Interessen']
         self._note(f,'Interessen · 0 = unwichtig, 5 = sehr wichtig')
@@ -142,8 +148,9 @@ class SurprisePlannerApplication:
         self._entry(f,'lodging_radius_km','Unterkünfte: Umkreis · km Luftlinie (max. 50)',default.lodging_radius_km)
         self._entry(f,'activity_radius_km','Aktivitäten: Umkreis · km Luftlinie (max. 50)',default.activity_radius_km)
         self._entry(f,'show_ideas','Ideen mit unbelegten Pflichtangaben separat anzeigen','nein',values=('ja','nein'))
+        self._entry(f,'regional_queries','Kleine regionale Zusatzabfragen · 0 bis 3',default.regional_queries)
         self._note(f,'Begrenzte Suche')
-        for key,label in [('shortlist','Gewünschte Filtertreffer · 3 bis 12'),('price_targets','Preisrecherche für beste Ziele · 0 bis 12'),('request_budget','Maximale Quellenabfragen · 4 bis 40'),('timeout_seconds','Zeitlimit · 10 bis 600 Sekunden')]:
+        for key,label in [('shortlist','Gewünschte Filtertreffer · 3 bis 12'),('candidate_pool','Vertiefte Kandidatenauswahl · 10 bis 100'),('price_targets','Preisrecherche für beste Ziele · 0 bis 12'),('request_budget','Maximale Quellenabfragen · 4 bis 40'),('timeout_seconds','Zeitlimit · 10 bis 600 Sekunden')]:
             self._entry(f,key,label,getattr(default,key))
         self._note(f,'Öffentliche Quellen: Ortsnamen an OSM, Ziele an Wikivoyage, Koordinaten an FOSSGIS. Keine Adressenübertragung. Max. eine Anfrage/Sekunde; Cache, kein Massenabruf.')
         ttk.Button(f,text='Nominatim-Nutzungsregeln',command=lambda:webbrowser.open('https://operations.osmfoundation.org/policies/nominatim/')).pack(fill='x',pady=4)
@@ -253,9 +260,9 @@ class SurprisePlannerApplication:
 
     def read_request(self):
         data={}
-        integers={'min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds','price_targets'}
+        integers={'min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds','price_targets','candidate_pool','regional_queries'}
         lists={'countries','regions','excluded'}
-        decimals={'budget','consumption','petrol','max_hours','max_center_km','lodging_radius_km','activity_radius_km'}
+        decimals={'budget','consumption','petrol','max_hours','max_center_km','lodging_radius_km','activity_radius_km','max_distance_km'}
         for key,var in self.vars.items():
             if ':' in key: continue
             value=var.get().strip()
@@ -309,6 +316,9 @@ class SurprisePlannerApplication:
             self.events.put((generation,kind,value))
         def work():
             try:
+                if self.catalog.inventory is self.inventory:
+                    emit('phase','Lokalen Zielbestand laden; keine Länderdownloads während der Suche.')
+                    self.catalog.refresh(context)
                 DiscoveryService(self.catalog,self.provider).search(request,context,emit)
             except (InterruptedError,ValueError,OSError) as exc:emit('warning',str(exc))
             except Exception:emit('warning','Unerwarteter Suchfehler. Details mit Such-ID stehen im Reiter Suchdiagnose.')
@@ -645,6 +655,7 @@ class SurprisePlannerApplication:
 
     def close(self):
         self.closed=True
+        if self.import_context:self.import_context.cancel.set()
         if self.context:self.context.cancel.set()
         if self.enrichment_context:self.enrichment_context.cancel.set()
         if self.price_context:self.price_context.cancel.set()
@@ -653,3 +664,9 @@ class SurprisePlannerApplication:
 
     def start_dashboard(self):
         self.create_window().mainloop()
+
+    def setup_destinations(self):
+        if self.running or self.price_context or self.import_context:
+            messagebox.showinfo('Recherche läuft','Laufende Recherche zuerst beenden oder abbrechen.',parent=self.root);return
+        from .DestinationSetupDialog import DestinationSetupDialog
+        DestinationSetupDialog(self)

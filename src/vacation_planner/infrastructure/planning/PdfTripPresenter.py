@@ -6,7 +6,7 @@ from decimal import Decimal
 from urllib.parse import quote
 
 
-INTEREST_ORDER = ('Kultur', 'Natur', 'Wandern', 'Baden', 'Berge', 'Restaurants', 'Feiern', 'Kostenlos')
+INTEREST_ORDER = ('Kultur', 'Natur', 'Ruhe', 'Wandern', 'Baden', 'Berge', 'Restaurants', 'Feiern', 'Barhopping', 'Kostenlos')
 
 
 def german_number(value, digits=1):
@@ -123,6 +123,7 @@ class PdfTripPresenter:
             'adults': request.get('adults'), 'rooms': request.get('rooms'),
             'origin': request.get('origin', 'offen'),
             'interests': topics,
+            'interest_explanations':[topic+': '+proof['explanation'] for topic,proof in trip.get('interest_evidence',{}).items()],
             'lodging': cls._lodging(selected_lodging, request) if selected_lodging else None,
             'lodgings': [cls._lodging(x, request) for x in ordered_lodgings[:3]],
             'transport': cls._transport(selected_transport, request) if selected_transport else None,
@@ -274,6 +275,10 @@ class PdfTripPresenter:
         destination = trip.get('destination') or {}
         for label, url in [('Reiseziel', destination.get('source', ''))]:
             if url: result.append({'label': label, 'url': url})
+        result += [dict(x) for x in destination.get('attributions',[]) if x.get('url')]
+        if destination.get('feature_profile'):
+            result += [{'label':'© OpenStreetMap-Mitwirkende · ODbL','url':'https://www.openstreetmap.org/copyright'},
+                       {'label':'Wikidata · CC0','url':'https://www.wikidata.org/wiki/Wikidata:Licensing'}]
         image = destination.get('image') or {}
         if image.get('source_page'):
             result.append({'label': 'Zielbild: ' + destination.get('name', ''), 'url': image['source_page'],
@@ -288,6 +293,9 @@ class PdfTripPresenter:
         for research in trip.get('offer_searches',{}).values():
             for offer in research.get('offers',[]):
                 result.append({'label':offer.get('details',{}).get('property',{}).get('name') or offer['provider']+' · Preisstand '+cls._stamp(offer.get('retrieved_at')),'url':offer['source']})
+        wiki_pages={item['url'].split('#',1)[0] for item in result if item.get('url','').startswith('https://de.wikivoyage.org/wiki/')}
+        for page in sorted(wiki_pages):result.append({'label':'Wikivoyage: Autoren und Versionsgeschichte','url':page+'?action=history'})
+        if wiki_pages:result.append({'label':'Wikivoyage: Lizenzhinweise','url':'https://de.wikivoyage.org/wiki/Wikivoyage:Lizenzbestimmungen'})
         return cls._dedupe_links(result)
 
     @staticmethod

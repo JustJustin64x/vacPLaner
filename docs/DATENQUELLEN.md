@@ -1,5 +1,7 @@
 # Datenquellen und Null-Euro-Prüfung
 
+**Breite Zielsuche, 29.10.2026:** GeoNames-Länderimporte, regionale OSM-PBF-Daten, begrenzte Overpass-Ergänzung und optionale Wikidata-Identitäten sind im normalen Suchpfad integriert. Tatsächliche Datenmengen, erfolgreiche und fehlgeschlagene Zugriffe, Quellen/Lizenzen und Einrichtung: [ZIELSUCHE.md](ZIELSUCHE.md).
+
 **Aktualisierung 29.10.2026:** Echte datierte Preisabrufe sind jetzt für RegioJet und eine geprüfte direkte Smoobu-Unterkunftsquelle integriert. Zugänge, Parametergrenzen, Livebelege und weiterhin offene Flug-/Mehrzimmerrecherche stehen verbindlich in [ANGEBOTSRECHERCHE.md](ANGEBOTSRECHERCHE.md). Die folgenden Abschnitte dokumentieren den früheren Quellenstand und gelten für Aussagen wie „kein Livepreisprovider“ nicht mehr als aktueller Gesamtstand.
 
 Prüfdatum: **27.10.2026**, lokale private Einzelplatznutzung. „Geprüft“ bedeutet Dokumentation/Regeln untersucht, „integriert“ bedeutet erreichbarer Produktionscode, „getestet“ bedeutet den unten beschriebenen echten Abruf. Ein erfolgreicher HTTP-Abruf ist **kein** Nachweis von Buchbarkeit. Es gibt keine kostenpflichtigen APIs, Abonnements, KI-Aufrufe oder automatischen Kontingent-Upgrades im Produktionspfad. Keine Schlüssel erforderlich.

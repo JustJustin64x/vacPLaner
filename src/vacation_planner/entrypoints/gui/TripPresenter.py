@@ -49,7 +49,7 @@ class TripPresenter:
             'Normalisierte Gewichte: '+', '.join(f'{k} {v:.0%}' for k,v in trip['normalized_weights'].items()),
             'Unterkunftswünsche: '+(', '.join(request['desired']) or 'keine')+' | Pflichtmerkmale: '+(', '.join(request['required']) or 'keine'),
             'Ausgewählt: '+selected['mode']+' / '+(lodging['name'] if lodging else 'Unterkunft fehlt')],
-            [('Zielquelle: Wikivoyage',trip['destination']['source'])]),
+            [('Zielquelle',trip['destination']['source'])]+[(a['label'],a['url']) for a in trip['destination'].get('attributions',[])]),
             ('Reisebasis für die gesamte Gruppe',[
                 f"{summary['status']}: {euros(summary['low'])} bis {euros(summary['high'])}" if summary['coverage'] else 'Keine bezifferbare Reisebasis verfügbar.',
                 budget_note]+[f"{c['label']}: {price_text(c)}" for c in trip['costs'] if not c.get('optional')]+[
@@ -106,7 +106,7 @@ class TripPresenter:
                 for sample in trip['offer_date_samples']],[]))
         notes=[n for n in trip['notes'] if not (trip.get('offer_searches',{}).get('rail',{}).get('status')=='found' and 'Zug-/Flugfahrpläne' in n)]
         sections.append(('Datenlücken und Quellen',notes,[
-            ('Wikivoyage: Autoren und Versionsgeschichte',trip['destination']['source']+'?action=history'),
+            ('Ortsquelle und Herkunft',trip['destination']['source']),
             ('Wikivoyage: Lizenz', 'https://de.wikivoyage.org/wiki/Wikivoyage:Lizenzbestimmungen'),
             ('© OpenStreetMap-Mitwirkende (ODbL)', 'https://www.openstreetmap.org/copyright'),
             ('Kartendaten korrigieren','https://www.openstreetmap.org/fixthemap'),

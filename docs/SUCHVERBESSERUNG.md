@@ -1,5 +1,7 @@
 # Suchverbesserung – Diagnose, Umsetzung und Prüfung vom 28.10.2026
 
+Dieser Bericht hält den historischen Stand vom 28.10. fest. Die danach implementierte breite lokale GeoNames-/OSM-Suche mit eigener Einrichtung ist in [ZIELSUCHE.md](ZIELSUCHE.md) dokumentiert.
+
 ## Verifizierte Ausgangslage
 
 Vor den Änderungen war nur `CODEX_PROMPT_SUCHE_VERBESSERN.md` untracked. Die später hinzugekommene `nextPrompt.md` bleibt unverändert. Kein Commit oder Push im Rahmen dieses Auftrags.

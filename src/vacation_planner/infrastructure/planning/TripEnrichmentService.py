@@ -44,7 +44,9 @@ class TripEnrichmentService:
 
     def _refresh_places(self,destination,context):
         if not destination.get('source'):return None
-        body,stamp=self.http.get(destination['source'],context)
+        source=destination.get('wikivoyage_source') or destination['source']
+        if not source.startswith('https://de.wikivoyage.org/wiki/'):return None
+        body,stamp=self.http.get(source,context)
         from .WikivoyageParser import WikivoyageParser
         return WikivoyageParser().parse(body,destination,stamp)
 

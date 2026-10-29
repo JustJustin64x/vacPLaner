@@ -38,38 +38,30 @@ class DiscoveryService:
         request.validate()
         counts=self.diagnostics.data['counts']
         counts['catalog']=len(self.catalog.destinations)
+        self.diagnostics.data['coverage']=self.catalog.coverage()
+        coverage=self.catalog.coverage_status(request)
+        if coverage:
+            self.diagnostics.data['not_imported_countries']=coverage['not_imported']
+            emit('phase',f"{coverage['imported_count']} Länder mit importiertem Grundbestand; {len(coverage['not_imported'])} weitere Länder noch nicht importiert. Außerhalb nur begrenzte Reiseführerziele.")
+            for warning in coverage['warnings']:emit('warning',warning)
         candidates=self.catalog.candidates(request)
         counts['geographic']=sum(self.catalog.allowed(d,request) for d in self.catalog.destinations)
         emit('phase','Startort auflösen')
         origin=self.provider.origin(request.origin,request.address,context)
-        candidates=[d for d in candidates if distance(origin,d)>5]
-        counts['locally_scored']=len(candidates)
-        def priority(d):
-            match=RankingService.interest_match(d,request)
-            proximity=max(0,1-distance(origin,d)/2000)
-            weights=request.normalized_weights()
-            iw,tw=float(weights['Interessen']),float(weights['Reisezeit'])
-            if not iw+tw:iw=tw=.5
-            nature_weight=sum(request.interests.get(k,0) for k in ('Wandern','Baden','Natur','Berge'))/max(1,sum(request.interests.values()))
-            landscape_fit=bool(set(d.get('landscapes',[])) & {'Berge/Natur','See/Küste'})
-            rural_preference=.22*nature_weight if landscape_fit and d.get('type')!='Großstadt' else 0
-            return (match*iw+proximity*tw)/(iw+tw)+rural_preference
-        # Greedy soft diversity: never force every country ahead of more suitable places.
-        pending=list(candidates);chosen=[]
-        scores={d['source']:priority(d) for d in candidates}
-        while pending:
-            context.check()
-            best=max(pending,key=lambda d:scores[d['source']]);pending.remove(best);chosen.append(best)
-            for d in pending:
-                penalty=(.07 if best['code']==d['code'] else 0)+(.035 if best.get('type')==d.get('type') else 0)
-                penalty+=(.25 if distance(best,d)<45 else 0)+(.06 if best.get('area_id',best['region'])==d.get('area_id',d['region']) else 0)
-                scores[d['source']]-=penalty
+        if callable(getattr(self.provider,'enrich_candidates',None)):
+            candidates=self.provider.enrich_candidates(candidates,request,origin,context,emit)
+            self.diagnostics.data['coverage']=self.catalog.coverage()
+            counts['catalog']=len(self.catalog.destinations)
+        from .CandidateSelection import select_candidates
+        chosen,selection=select_candidates(candidates,request,origin,context)
+        counts['locally_scored']=selection['geographic_considered'];counts.update(selection)
+        emit('phase',f"{counts['locally_scored']} Orte geografisch berücksichtigt; {selection['with_interest_evidence']} mit erfassten Interessenmerkmalen; {selection['features_unknown']} mit fehlenden regionalen Zusatzdaten.")
         emit('phase',f"{len(chosen)} Ziele lokal bewertet; adaptive Recherche bis {request.shortlist} Filtertreffer oder Quellen-/Zeitlimit.")
         results=[]
         price_context=None
         price_targets=0
         for destination in chosen:
-            if counts['matches']>=request.shortlist:
+            if sum(t['filter_status']=='passend' for t in results)>=request.shortlist:
                 self.diagnostics.data['stop_reason']='Gewünschte Ergebnisanzahl erreicht.';break
             context.check()
             counts['examined']+=1
@@ -89,7 +81,10 @@ class DiscoveryService:
                 if context.calls>before_calls:counts['online_examined']+=1
             if trip is None:continue
             if trip['filter_status']=='offen' and not request.show_ideas:continue
+            if any(distance(trip['destination'],old['destination'])<12 and trip['destination']['code']==old['destination']['code'] for old in results):
+                self.diagnostics.data.setdefault('grouped_alternatives',[]).append({'name':trip['destination']['name'],'reason':'Nahe Alternative derselben Urlaubsregion'});continue
             results.append(trip)
+            counts['returned_results']=len(results)
             emit('result',trip)
         results.sort(key=lambda t:(t['filter_status']=='passend',t['score']),reverse=True)
         for index,trip in enumerate(results[:request.price_targets]):
@@ -120,7 +115,7 @@ class DiscoveryService:
                 violations.append('Pflichtausstattung nachweislich verletzt');continue
             if request.max_center_km and item.get('distance_km') is not None and item['distance_km']>float(request.max_center_km):
                 violations.append('Zentrumsentfernung überschritten');continue
-            unknown=[]
+            unknown=list(item.get('open_geo_criteria',[]))
             if any(amenities.get(k) is not True for k in request.required):unknown.append('Pflichtausstattung unbelegt: '+', '.join(k for k in request.required if amenities.get(k) is not True))
             if request.max_center_km and item.get('distance_km') is None:unknown.append('Zentrumsentfernung unbekannt')
             item['open_criteria']=unknown
@@ -152,7 +147,11 @@ class DiscoveryService:
         if any(t.get('hours_high') is not None for t in transports):counts['with_known_transport']+=1
         active=any(request.interests.values())
         activities=[a for a in places['activities'] if not active or any(request.interests.get(t,0)>0 for t in a['topics'])]
-        activities.sort(key=lambda a:sum(request.interests.get(t,0) for t in a['topics']),reverse=True)
+        def activity_priority(a):
+            nature=max((request.interests.get(t,0) for t in a['topics'] if t in ('Natur','Ruhe','Berge')),default=0)
+            independent=sum(request.interests.get(t,0) for t in a['topics'] if t not in ('Natur','Ruhe','Berge'))
+            return (-(nature+independent),a.get('distance_km') if a.get('distance_km') is not None else float('inf'),a.get('id',''))
+        activities.sort(key=activity_priority)
         if activities:counts['with_activities']+=1
         lodgings.sort(key=lambda x:(-sum(x.get('amenities',{}).get(k) is True for k in request.desired),x.get('distance_km') if x.get('distance_km') is not None else 9999))
         lodgings=lodgings[:8]

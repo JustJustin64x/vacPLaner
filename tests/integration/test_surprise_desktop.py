@@ -142,6 +142,19 @@ class DesktopTests(unittest.TestCase):
         self.assertIn('flight',self.app.price_context.skipped_categories)
         self.assertFalse(self.app.price_context.cancel.is_set())
 
+    def test_setup_worker_updates_normal_catalog_without_modifying_saved_trip(self):
+        from src.vacation_planner.entrypoints.gui.DestinationSetupDialog import DestinationSetupDialog
+        from tests.unit.test_destination_inventory import place
+        trip=self.load_trip();identifier=self.app.store.save('Bestehend',trip);before=self.app.store.load(identifier)
+        dialog=DestinationSetupDialog(self.app)
+        dialog.run(lambda service,ctx,emit:service.inventory.replace_country('AT',[place(name='TEST Importort')],{'name':'Österreich'},ctx))
+        self.app.workers[-1].join(2);dialog.poll()
+        self.assertIsNotNone(self.app.catalog.resolve('TEST Importort'))
+        self.assertIsNone(self.app.import_context)
+        self.assertEqual(self.app.store.load(identifier),before)
+        self.assertEqual(self.app.active,trip)
+        dialog.close()
+
 
 
 @unittest.skipIf(tk.TkVersion < 8.6,'Modern Tk required')

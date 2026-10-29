@@ -99,7 +99,6 @@ def main() -> None:
         from src.vacation_planner.core.planning.SearchRequest import SearchRequest
         from src.vacation_planner.core.planning.SearchContext import SearchContext
         from src.vacation_planner.core.planning.DiscoveryService import DiscoveryService
-        from src.vacation_planner.infrastructure.planning.DestinationCatalog import DestinationCatalog
         from src.vacation_planner.infrastructure.planning.OpenTravelProvider import OpenTravelProvider
         from src.vacation_planner.infrastructure.planning.TripStore import TripStore
         with open(args.search_json) as stream:
@@ -107,12 +106,15 @@ def main() -> None:
         request.validate()
         results = []
         def emit(kind, value):
-            if kind == 'result':
-                results.append(value)
+            if kind in ('result','offer_partial'):
+                previous=next((i for i,t in enumerate(results) if t['id']==value['id']),None)
+                if previous is None:results.append(value)
+                else:results[previous]=value
             else:
                 print(value, file=sys.stderr)
         try:
-            DiscoveryService(DestinationCatalog(), OpenTravelProvider(TripStore())).search(
+            provider=OpenTravelProvider(TripStore())
+            results=DiscoveryService(provider.catalog,provider).search(
                 request, SearchContext(seconds=request.timeout_seconds, budget=request.request_budget), emit)
         except (InterruptedError, KeyboardInterrupt):
             print('Suche beendet; vorhandene Teilergebnisse folgen.', file=sys.stderr)

@@ -33,7 +33,9 @@ Das Skript benötigt Homebrew und installiert `python-tk@3.13` sowie die Python-
 
 ## Verbesserte Zielsuche
 
-298 quellenbasierte Ziele in 29 Ländern, davon 252 außerhalb der Kategorie Großstadt. Kleine Orte, Seen-/Küstengebiete und Bergregionen sind über konkrete Basisorte vertreten. Interessen sind Wünsche auf **0–5**; alle null erlaubt eine offene Suche. Der neue Gebiets-Auswahldialog unterstützt Regionssuche, Länderkennungen und Aliasse, etwa „Schwarzwald“, „Black Forest“, „Österreich“ und „AT“.
+Die normale Anwendung verwendet einen separat importierbaren lokalen Grundbestand. **Reise → Zieldaten einrichten / aktualisieren** lädt GeoNames-Länderdateien einschließlich kleiner Orte und ergänzt regionale OSM-Merkmale. Tatsächlich eingerichtet: 37.956 Aufenthaltsorte in Österreich, Slowenien und Kroatien plus separate Regionsobjekte; mit verbliebenen Reiseführerzielen 38.221 Aufenthaltsorte. Andere Länder und zusätzliche Freizeitregionen können eingerichtet werden. Ohne Import bleibt der kleine bisherige Katalog verfügbar. Keine großen Downloads beim Start oder während einer normalen Suche.
+
+Alle geografisch passenden Orte werden vor der Begrenzung des Recherchepools bewertet. Merkmale statt Einwohnerzahl oder Zufall steuern die Interessenpassung, ergänzt durch sinnvolle geografische Vielfalt. Interessen sind Wünsche auf **0–5**, einschließlich **Ruhe** und **Barhopping**; alle null erlaubt eine offene Suche. Regionen, Länderkennungen und Aliasse bleiben unterstützt. Unter **Details**: standardmäßig 35 vertiefte Kandidaten, vier Ergebnisse und höchstens zwei kleine regionale Zusatzabfragen. [Einrichtung, Quellen, echte Abdeckung und Prüfbericht](docs/ZIELSUCHE.md).
 
 Die Suche zieht bei Lücken weitere Kandidaten nach, bis die gewünschte Trefferzahl oder das vorhandene Zeit-/Abfragebudget erreicht ist. Unter **Details**: Umgebungssuche (Unterkünfte 15 km, Aktivitäten 30 km Luftlinie, abschaltbar) und optionale Anzeige **„Ideen mit unbelegten Pflichtangaben“**. Diese Ideen stehen getrennt von Filtertreffern; kein Filter wird automatisch gelockert.
 
@@ -82,6 +84,8 @@ Standarddatenbank:
 
 Versioniertes SQLite-Schema (`user_version=1`), versionierte JSON-Reise-Snapshots, getrennte Cache-Tabelle, kurze Verbindungen mit expliziter Freigabe. Gespeichert werden Suchkriterien, konkrete Daten, Auswahl, Alternativen, Kostenstatus und ursprüngliche Quellenzeitpunkte. Keine Cloud-Synchronisation. Keine Schlüssel in Datenbank, PDF, Logs oder Git.
 
+Der neue geografische Grundbestand liegt separat in `destinations.sqlite3` neben der Reisedatenbank. Abbrechbare Länderimporte und regionale Aktualisierungen verändern keine gespeicherten Reisen. Downloadcache: `destination-downloads/`. Für PBF-Regionalauszüge gehört jetzt das kostenlose Paket `osmium` zu den Projektabhängigkeiten.
+
 Optionale Umgebungsvariablen:
 
 | Variable | Zweck |
@@ -100,6 +104,8 @@ Keine beliebigen kostenpflichtigen Dienste konfigurieren. Die öffentliche Nomin
 ```
 
 Die Tests prüfen Suche, Kosten, Gruppen/Fahrzeuge, Preisstatus, Tage/Nächte, Parser/Deduplizierung, Abbruch, SQLite, Desktop-Callbacks, Einzel-/Mehrfach-PDF und echte Angebotsantworten als bereinigte Parser-Fixtures. Weitere Prüfungen decken getrennte Szenarien, alle Verkehrsmittel, offizielle Aktivitätstarife, Kostenlosigkeit, Veralterung, Rangfolge der Preisziele und die echte Preisaktion vor dem Export ab. Livezugriffe sind **nicht** Bestandteil der deterministischen Tests. GUI-Tests benötigen modernes Tk und eine Desktop-Sitzung.
+
+Die breite Zielsuche hat zusätzliche Tests für Merkmalsbewertung, geografische Vielfalt, RTree-Suche, wiederholte/abgebrochene Importe, Datenrevisionen, Quellenausfall und die Einrichtung in der normalen Oberfläche. Echter Vergleich mit gleicher Geografie und unterschiedlichen Interessen: `.venv/bin/python scripts/live_destination_discovery.py --live` nach Einrichtung der Zieldaten.
 
 Separater echter Quellen-/Suchtest:
 

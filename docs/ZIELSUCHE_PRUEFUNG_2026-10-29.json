@@ -1,0 +1,1726 @@
+{
+  "checked_at": "2026-10-29T19:13:31+00:00",
+  "normal_app_catalog_count": 38221,
+  "startup_seconds": 0.467,
+  "coverage": [
+    {
+      "name": "Österreich",
+      "source": "https://download.geonames.org/export/dump/AT.zip",
+      "sha256": "809e0175761434e6385f3df24ebd05d16f3b4c45007f3b6d0b34c1607f83712f",
+      "license": "CC BY 4.0",
+      "compressed_bytes": 1570456,
+      "key": "geonames:AT",
+      "country": "AT",
+      "count": 27054,
+      "kinds": {
+        "region": 7025,
+        "settlement": 20029
+      },
+      "updated_at": "2026-10-29T15:56:07+00:00",
+      "status": "imported"
+    },
+    {
+      "name": "Kroatien",
+      "source": "https://download.geonames.org/export/dump/HR.zip",
+      "sha256": "e5584c939fb6faa8dbcb63bad37fb1e5c411a036210414e3cf3aabfc44e3e15f",
+      "license": "CC BY 4.0",
+      "compressed_bytes": 800346,
+      "key": "geonames:HR",
+      "country": "HR",
+      "count": 13228,
+      "kinds": {
+        "settlement": 11360,
+        "region": 1868
+      },
+      "updated_at": "2026-10-29T15:56:08+00:00",
+      "status": "imported"
+    },
+    {
+      "name": "Slowenien",
+      "source": "https://download.geonames.org/export/dump/SI.zip",
+      "sha256": "a125228a361053568515e6fda6398ad95923d7aca59107532dd96b911df76bed",
+      "license": "CC BY 4.0",
+      "compressed_bytes": 417411,
+      "key": "geonames:SI",
+      "country": "SI",
+      "count": 6954,
+      "kinds": {
+        "region": 387,
+        "settlement": 6567
+      },
+      "updated_at": "2026-10-29T15:56:07+00:00",
+      "status": "imported"
+    },
+    {
+      "key": "osm:Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+      "name": "Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+      "bounds": [
+        43.4,
+        16.1,
+        43.65,
+        16.6
+      ],
+      "count": 2613,
+      "updated_at": "2026-10-29T16:14:38+00:00",
+      "revision": "4acfd837-9e2e-4e83-9927-97e17e9a751a",
+      "status": "imported",
+      "source": "https://download.geofabrik.de/europe/croatia-latest.osm.pbf",
+      "license": "ODbL",
+      "method": "regional_pbf",
+      "download_bytes": 201176250
+    },
+    {
+      "key": "osm:Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+      "name": "Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+      "bounds": [
+        46.22,
+        13.75,
+        46.48,
+        14.25
+      ],
+      "count": 2319,
+      "updated_at": "2026-10-29T16:14:19+00:00",
+      "revision": "87d58840-3ab5-477e-a97d-fc9fb516b691",
+      "status": "imported",
+      "source": "https://download.geofabrik.de/europe/slovenia-latest.osm.pbf",
+      "license": "ODbL",
+      "method": "regional_pbf",
+      "download_bytes": 314023795
+    },
+    {
+      "key": "osm:Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+      "name": "Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+      "bounds": [
+        47.12,
+        11.1,
+        47.4,
+        11.65
+      ],
+      "count": 4441,
+      "updated_at": "2026-10-29T16:13:45+00:00",
+      "revision": "87b4ac53-b7bd-4d70-b9da-a50a904ccc39",
+      "status": "imported",
+      "source": "https://download.openstreetmap.fr/extracts/europe/austria/tirol-latest.osm.pbf",
+      "license": "ODbL",
+      "method": "regional_pbf",
+      "download_bytes": 122192320
+    }
+  ],
+  "feature_codes": {
+    "PK": 3913,
+    "PPL": 34417,
+    "MT": 4143,
+    "MTS": 170,
+    "LK": 555,
+    "PRK": 51,
+    "RGN": 108,
+    "PPLL": 1013,
+    "PPLA3": 1707,
+    "LKS": 20,
+    "PPLA2": 575,
+    "PPLC": 3,
+    "PPLA": 239,
+    "PPLA4": 2,
+    "RESN": 30,
+    "BAY": 290
+  },
+  "unique_osm_features": 9373,
+  "wikidata_entities": 60,
+  "cases": [
+    {
+      "name": "Wandern und Ruhe",
+      "parameters": {
+        "origin": "Berlin",
+        "address": "",
+        "earliest": "2027-07-01",
+        "latest": "2027-07-31",
+        "min_days": 7,
+        "max_days": 7,
+        "adults": 5,
+        "rooms": 3,
+        "budget": "2000",
+        "countries": [],
+        "regions": [],
+        "excluded": [],
+        "interests": {
+          "Wandern": 5,
+          "Natur": 4,
+          "Ruhe": 5
+        },
+        "weights": {
+          "Preis": 1,
+          "Reisezeit": 1,
+          "Komfort": 1,
+          "Interessen": 1
+        },
+        "modes": [
+          "Auto",
+          "Zug",
+          "Flug"
+        ],
+        "max_hours": "",
+        "cars": 1,
+        "seats": 5,
+        "consumption": "7.0",
+        "petrol": "1.80",
+        "accommodation_types": [
+          "Hotel",
+          "Ferienwohnung"
+        ],
+        "required": [],
+        "desired": [],
+        "max_center_km": "",
+        "shortlist": 3,
+        "request_budget": 10,
+        "timeout_seconds": 100,
+        "price_targets": 0,
+        "candidate_pool": 35,
+        "max_distance_km": "",
+        "regional_queries": 0,
+        "target_type": "gemischt",
+        "surroundings": true,
+        "lodging_radius_km": "15",
+        "activity_radius_km": "30",
+        "show_ideas": true
+      },
+      "seconds": 18.987,
+      "http_calls": 3,
+      "error": null,
+      "diagnostics": {
+        "search_id": "973e055a-584e-4b3d-8414-073d6ff416e4",
+        "started_at": "2026-10-29T19:13:31.014700+00:00",
+        "criteria": {
+          "origin": "Berlin",
+          "earliest": "2027-07-01",
+          "latest": "2027-07-31",
+          "min_days": 7,
+          "max_days": 7,
+          "adults": 5,
+          "rooms": 3,
+          "budget": "2000",
+          "countries": [],
+          "regions": [],
+          "excluded": [],
+          "interests": {
+            "Wandern": 5,
+            "Natur": 4,
+            "Ruhe": 5
+          },
+          "weights": {
+            "Preis": 1,
+            "Reisezeit": 1,
+            "Komfort": 1,
+            "Interessen": 1
+          },
+          "modes": [
+            "Auto",
+            "Zug",
+            "Flug"
+          ],
+          "max_hours": "",
+          "cars": 1,
+          "seats": 5,
+          "consumption": "7.0",
+          "petrol": "1.80",
+          "accommodation_types": [
+            "Hotel",
+            "Ferienwohnung"
+          ],
+          "required": [],
+          "desired": [],
+          "max_center_km": "",
+          "shortlist": 3,
+          "request_budget": 10,
+          "timeout_seconds": 100,
+          "price_targets": 0,
+          "candidate_pool": 35,
+          "max_distance_km": "",
+          "regional_queries": 0,
+          "target_type": "gemischt",
+          "surroundings": true,
+          "lodging_radius_km": "15",
+          "activity_radius_km": "30",
+          "show_ideas": true
+        },
+        "counts": {
+          "catalog": 38221,
+          "geographic": 38221,
+          "locally_scored": 38220,
+          "examined": 3,
+          "online_examined": 3,
+          "with_lodgings": 3,
+          "with_activities": 3,
+          "with_known_transport": 2,
+          "matches": 3,
+          "ideas": 0,
+          "geographic_considered": 38220,
+          "with_interest_evidence": 505,
+          "features_unknown": 37715,
+          "deep_candidates": 35,
+          "returned_results": 3
+        },
+        "outcomes": [
+          {
+            "id": "geonames:2766140",
+            "name": "Scharnitz",
+            "status": "passend",
+            "reasons": []
+          },
+          {
+            "id": "geonames:8987894",
+            "name": "Log",
+            "status": "passend",
+            "reasons": []
+          },
+          {
+            "id": "geonames:3215697",
+            "name": "Novi Stafilić",
+            "status": "passend",
+            "reasons": []
+          }
+        ],
+        "errors": [],
+        "stop_reason": "Gewünschte Ergebnisanzahl erreicht.",
+        "coverage": [
+          {
+            "name": "Österreich",
+            "source": "https://download.geonames.org/export/dump/AT.zip",
+            "sha256": "809e0175761434e6385f3df24ebd05d16f3b4c45007f3b6d0b34c1607f83712f",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 1570456,
+            "key": "geonames:AT",
+            "country": "AT",
+            "count": 27054,
+            "kinds": {
+              "region": 7025,
+              "settlement": 20029
+            },
+            "updated_at": "2026-10-29T15:56:07+00:00",
+            "status": "imported"
+          },
+          {
+            "name": "Kroatien",
+            "source": "https://download.geonames.org/export/dump/HR.zip",
+            "sha256": "e5584c939fb6faa8dbcb63bad37fb1e5c411a036210414e3cf3aabfc44e3e15f",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 800346,
+            "key": "geonames:HR",
+            "country": "HR",
+            "count": 13228,
+            "kinds": {
+              "settlement": 11360,
+              "region": 1868
+            },
+            "updated_at": "2026-10-29T15:56:08+00:00",
+            "status": "imported"
+          },
+          {
+            "name": "Slowenien",
+            "source": "https://download.geonames.org/export/dump/SI.zip",
+            "sha256": "a125228a361053568515e6fda6398ad95923d7aca59107532dd96b911df76bed",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 417411,
+            "key": "geonames:SI",
+            "country": "SI",
+            "count": 6954,
+            "kinds": {
+              "region": 387,
+              "settlement": 6567
+            },
+            "updated_at": "2026-10-29T15:56:07+00:00",
+            "status": "imported"
+          },
+          {
+            "key": "osm:Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+            "name": "Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+            "bounds": [
+              43.4,
+              16.1,
+              43.65,
+              16.6
+            ],
+            "count": 2613,
+            "updated_at": "2026-10-29T16:14:38+00:00",
+            "revision": "4acfd837-9e2e-4e83-9927-97e17e9a751a",
+            "status": "imported",
+            "source": "https://download.geofabrik.de/europe/croatia-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 201176250
+          },
+          {
+            "key": "osm:Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+            "name": "Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+            "bounds": [
+              46.22,
+              13.75,
+              46.48,
+              14.25
+            ],
+            "count": 2319,
+            "updated_at": "2026-10-29T16:14:19+00:00",
+            "revision": "87d58840-3ab5-477e-a97d-fc9fb516b691",
+            "status": "imported",
+            "source": "https://download.geofabrik.de/europe/slovenia-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 314023795
+          },
+          {
+            "key": "osm:Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+            "name": "Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+            "bounds": [
+              47.12,
+              11.1,
+              47.4,
+              11.65
+            ],
+            "count": 4441,
+            "updated_at": "2026-10-29T16:13:45+00:00",
+            "revision": "87b4ac53-b7bd-4d70-b9da-a50a904ccc39",
+            "status": "imported",
+            "source": "https://download.openstreetmap.fr/extracts/europe/austria/tirol-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 122192320
+          }
+        ],
+        "not_imported_countries": [
+          "AL",
+          "AD",
+          "BE",
+          "BA",
+          "BG",
+          "CY",
+          "CZ",
+          "DK",
+          "EE",
+          "FI",
+          "FR",
+          "DE",
+          "GR",
+          "HU",
+          "IS",
+          "IE",
+          "IT",
+          "LV",
+          "LI",
+          "LT",
+          "LU",
+          "MT",
+          "MD",
+          "MC",
+          "ME",
+          "NL",
+          "MK",
+          "NO",
+          "PL",
+          "PT",
+          "RO",
+          "SM",
+          "RS",
+          "SK",
+          "ES",
+          "SE",
+          "CH",
+          "UA",
+          "GB",
+          "VA",
+          "XK",
+          "AX",
+          "FO"
+        ],
+        "http_calls": 3,
+        "finished_at": "2026-10-29T19:13:50.001527+00:00",
+        "primary_reasons": {
+          "passend": 3
+        },
+        "suggestions": [
+          "Fehlende regionale Interessenmerkmale können unter „Zieldaten einrichten“ ergänzt werden; unbekannt bedeutet nicht ungeeignet."
+        ],
+        "summary": "38220 Ziele lokal bewertet, 3 näher geprüft: 3 Filtertreffer, 0 Ideen mit offenen Angaben. Gewünschte Ergebnisanzahl erreicht. Hauptgründe (je Ziel genau einer): 3 × passend. 3 Reisevorschläge ausgegeben; 0 nahe Alternativen zusammengefasst. Fehlende regionale Interessenmerkmale können unter „Zieldaten einrichten“ ergänzt werden; unbekannt bedeutet nicht ungeeignet."
+      },
+      "persistence_ok": true,
+      "results": [
+        {
+          "name": "Scharnitz",
+          "id": "geonames:2766140",
+          "country": "AT",
+          "type": "Dorf/Ferienort",
+          "score": 35.7,
+          "interest_match": 0.875,
+          "explanation": "Wandern: 90 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Natur: 24 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Ruhe: 4 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Natur-/Grünraumhinweise, keine Lärmmessung oder Ruhezusage",
+          "filter_status": "passend",
+          "missing": [
+            "Maut und Vignetten für alle Fahrzeuge",
+            "Parken am Ziel und an der Unterkunft",
+            "Fähren/Autoverlad falls erforderlich",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/2766140/"
+        },
+        {
+          "name": "Log",
+          "id": "geonames:8987894",
+          "country": "SI",
+          "type": "Dorf/Ferienort",
+          "score": 32.8,
+          "interest_match": 0.875,
+          "explanation": "Wandern: 81 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Natur: 7 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Ruhe: 3 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Natur-/Grünraumhinweise, keine Lärmmessung oder Ruhezusage",
+          "filter_status": "passend",
+          "missing": [
+            "Maut und Vignetten für alle Fahrzeuge",
+            "Parken am Ziel und an der Unterkunft",
+            "Fähren/Autoverlad falls erforderlich",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/8987894/"
+        },
+        {
+          "name": "Novi Stafilić",
+          "id": "geonames:3215697",
+          "country": "HR",
+          "type": "Dorf/Ferienort",
+          "score": 15.3,
+          "interest_match": 0.875,
+          "explanation": "Wandern: 6 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Natur: 86 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Ruhe: 4 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Natur-/Grünraumhinweise, keine Lärmmessung oder Ruhezusage",
+          "filter_status": "passend",
+          "missing": [
+            "Zug für gesamte Gruppe hin und zurück",
+            "Zubringer und Unterkunftstransfers hin und zurück",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/3215697/"
+        }
+      ]
+    },
+    {
+      "name": "Kultur und Nachtleben",
+      "parameters": {
+        "origin": "Berlin",
+        "address": "",
+        "earliest": "2027-07-01",
+        "latest": "2027-07-31",
+        "min_days": 7,
+        "max_days": 7,
+        "adults": 5,
+        "rooms": 3,
+        "budget": "2000",
+        "countries": [],
+        "regions": [],
+        "excluded": [],
+        "interests": {
+          "Kultur": 5,
+          "Feiern": 5
+        },
+        "weights": {
+          "Preis": 1,
+          "Reisezeit": 1,
+          "Komfort": 1,
+          "Interessen": 1
+        },
+        "modes": [
+          "Auto",
+          "Zug",
+          "Flug"
+        ],
+        "max_hours": "",
+        "cars": 1,
+        "seats": 5,
+        "consumption": "7.0",
+        "petrol": "1.80",
+        "accommodation_types": [
+          "Hotel",
+          "Ferienwohnung"
+        ],
+        "required": [],
+        "desired": [],
+        "max_center_km": "",
+        "shortlist": 3,
+        "request_budget": 10,
+        "timeout_seconds": 100,
+        "price_targets": 0,
+        "candidate_pool": 35,
+        "max_distance_km": "",
+        "regional_queries": 0,
+        "target_type": "gemischt",
+        "surroundings": true,
+        "lodging_radius_km": "15",
+        "activity_radius_km": "30",
+        "show_ideas": true
+      },
+      "seconds": 22.656,
+      "http_calls": 3,
+      "error": null,
+      "diagnostics": {
+        "search_id": "542a79fc-46aa-40af-bdd3-e7bf6d08dd6f",
+        "started_at": "2026-10-29T19:13:50.014984+00:00",
+        "criteria": {
+          "origin": "Berlin",
+          "earliest": "2027-07-01",
+          "latest": "2027-07-31",
+          "min_days": 7,
+          "max_days": 7,
+          "adults": 5,
+          "rooms": 3,
+          "budget": "2000",
+          "countries": [],
+          "regions": [],
+          "excluded": [],
+          "interests": {
+            "Kultur": 5,
+            "Feiern": 5
+          },
+          "weights": {
+            "Preis": 1,
+            "Reisezeit": 1,
+            "Komfort": 1,
+            "Interessen": 1
+          },
+          "modes": [
+            "Auto",
+            "Zug",
+            "Flug"
+          ],
+          "max_hours": "",
+          "cars": 1,
+          "seats": 5,
+          "consumption": "7.0",
+          "petrol": "1.80",
+          "accommodation_types": [
+            "Hotel",
+            "Ferienwohnung"
+          ],
+          "required": [],
+          "desired": [],
+          "max_center_km": "",
+          "shortlist": 3,
+          "request_budget": 10,
+          "timeout_seconds": 100,
+          "price_targets": 0,
+          "candidate_pool": 35,
+          "max_distance_km": "",
+          "regional_queries": 0,
+          "target_type": "gemischt",
+          "surroundings": true,
+          "lodging_radius_km": "15",
+          "activity_radius_km": "30",
+          "show_ideas": true
+        },
+        "counts": {
+          "catalog": 38221,
+          "geographic": 38221,
+          "locally_scored": 38220,
+          "examined": 3,
+          "online_examined": 3,
+          "with_lodgings": 3,
+          "with_activities": 3,
+          "with_known_transport": 2,
+          "matches": 3,
+          "ideas": 0,
+          "geographic_considered": 38220,
+          "with_interest_evidence": 482,
+          "features_unknown": 37715,
+          "deep_candidates": 35,
+          "returned_results": 3
+        },
+        "outcomes": [
+          {
+            "id": "geonames:2766971",
+            "name": "Rum",
+            "status": "passend",
+            "reasons": []
+          },
+          {
+            "id": "geonames:3198210",
+            "name": "Kaštel Sućurac",
+            "status": "passend",
+            "reasons": []
+          },
+          {
+            "id": "geonames:2767605",
+            "name": "Reith bei Seefeld",
+            "status": "passend",
+            "reasons": []
+          }
+        ],
+        "errors": [],
+        "stop_reason": "Gewünschte Ergebnisanzahl erreicht.",
+        "coverage": [
+          {
+            "name": "Österreich",
+            "source": "https://download.geonames.org/export/dump/AT.zip",
+            "sha256": "809e0175761434e6385f3df24ebd05d16f3b4c45007f3b6d0b34c1607f83712f",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 1570456,
+            "key": "geonames:AT",
+            "country": "AT",
+            "count": 27054,
+            "kinds": {
+              "region": 7025,
+              "settlement": 20029
+            },
+            "updated_at": "2026-10-29T15:56:07+00:00",
+            "status": "imported"
+          },
+          {
+            "name": "Kroatien",
+            "source": "https://download.geonames.org/export/dump/HR.zip",
+            "sha256": "e5584c939fb6faa8dbcb63bad37fb1e5c411a036210414e3cf3aabfc44e3e15f",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 800346,
+            "key": "geonames:HR",
+            "country": "HR",
+            "count": 13228,
+            "kinds": {
+              "settlement": 11360,
+              "region": 1868
+            },
+            "updated_at": "2026-10-29T15:56:08+00:00",
+            "status": "imported"
+          },
+          {
+            "name": "Slowenien",
+            "source": "https://download.geonames.org/export/dump/SI.zip",
+            "sha256": "a125228a361053568515e6fda6398ad95923d7aca59107532dd96b911df76bed",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 417411,
+            "key": "geonames:SI",
+            "country": "SI",
+            "count": 6954,
+            "kinds": {
+              "region": 387,
+              "settlement": 6567
+            },
+            "updated_at": "2026-10-29T15:56:07+00:00",
+            "status": "imported"
+          },
+          {
+            "key": "osm:Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+            "name": "Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+            "bounds": [
+              43.4,
+              16.1,
+              43.65,
+              16.6
+            ],
+            "count": 2613,
+            "updated_at": "2026-10-29T16:14:38+00:00",
+            "revision": "4acfd837-9e2e-4e83-9927-97e17e9a751a",
+            "status": "imported",
+            "source": "https://download.geofabrik.de/europe/croatia-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 201176250
+          },
+          {
+            "key": "osm:Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+            "name": "Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+            "bounds": [
+              46.22,
+              13.75,
+              46.48,
+              14.25
+            ],
+            "count": 2319,
+            "updated_at": "2026-10-29T16:14:19+00:00",
+            "revision": "87d58840-3ab5-477e-a97d-fc9fb516b691",
+            "status": "imported",
+            "source": "https://download.geofabrik.de/europe/slovenia-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 314023795
+          },
+          {
+            "key": "osm:Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+            "name": "Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+            "bounds": [
+              47.12,
+              11.1,
+              47.4,
+              11.65
+            ],
+            "count": 4441,
+            "updated_at": "2026-10-29T16:13:45+00:00",
+            "revision": "87b4ac53-b7bd-4d70-b9da-a50a904ccc39",
+            "status": "imported",
+            "source": "https://download.openstreetmap.fr/extracts/europe/austria/tirol-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 122192320
+          }
+        ],
+        "not_imported_countries": [
+          "AL",
+          "AD",
+          "BE",
+          "BA",
+          "BG",
+          "CY",
+          "CZ",
+          "DK",
+          "EE",
+          "FI",
+          "FR",
+          "DE",
+          "GR",
+          "HU",
+          "IS",
+          "IE",
+          "IT",
+          "LV",
+          "LI",
+          "LT",
+          "LU",
+          "MT",
+          "MD",
+          "MC",
+          "ME",
+          "NL",
+          "MK",
+          "NO",
+          "PL",
+          "PT",
+          "RO",
+          "SM",
+          "RS",
+          "SK",
+          "ES",
+          "SE",
+          "CH",
+          "UA",
+          "GB",
+          "VA",
+          "XK",
+          "AX",
+          "FO"
+        ],
+        "http_calls": 3,
+        "finished_at": "2026-10-29T19:14:12.670910+00:00",
+        "primary_reasons": {
+          "passend": 3
+        },
+        "suggestions": [
+          "Fehlende regionale Interessenmerkmale können unter „Zieldaten einrichten“ ergänzt werden; unbekannt bedeutet nicht ungeeignet."
+        ],
+        "summary": "38220 Ziele lokal bewertet, 3 näher geprüft: 3 Filtertreffer, 0 Ideen mit offenen Angaben. Gewünschte Ergebnisanzahl erreicht. Hauptgründe (je Ziel genau einer): 3 × passend. 3 Reisevorschläge ausgegeben; 0 nahe Alternativen zusammengefasst. Fehlende regionale Interessenmerkmale können unter „Zieldaten einrichten“ ergänzt werden; unbekannt bedeutet nicht ungeeignet."
+      },
+      "persistence_ok": true,
+      "results": [
+        {
+          "name": "Reith bei Seefeld",
+          "id": "geonames:2767605",
+          "country": "AT",
+          "type": "Dorf/Ferienort",
+          "score": 37.7,
+          "interest_match": 1.0,
+          "explanation": "Kultur: 23 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Feiern: 3 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage",
+          "filter_status": "passend",
+          "missing": [
+            "Maut und Vignetten für alle Fahrzeuge",
+            "Parken am Ziel und an der Unterkunft",
+            "Fähren/Autoverlad falls erforderlich",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/2767605/"
+        },
+        {
+          "name": "Rum",
+          "id": "geonames:2766971",
+          "country": "AT",
+          "type": "Dorf/Ferienort",
+          "score": 37.6,
+          "interest_match": 1.0,
+          "explanation": "Kultur: 147 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Feiern: 13 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage",
+          "filter_status": "passend",
+          "missing": [
+            "Maut und Vignetten für alle Fahrzeuge",
+            "Parken am Ziel und an der Unterkunft",
+            "Fähren/Autoverlad falls erforderlich",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/2766971/"
+        },
+        {
+          "name": "Kaštel Sućurac",
+          "id": "geonames:3198210",
+          "country": "HR",
+          "type": "Dorf/Ferienort",
+          "score": 17.5,
+          "interest_match": 1.0,
+          "explanation": "Kultur: 101 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Feiern: 11 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage",
+          "filter_status": "passend",
+          "missing": [
+            "Zug für gesamte Gruppe hin und zurück",
+            "Zubringer und Unterkunftstransfers hin und zurück",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/3198210/"
+        }
+      ]
+    },
+    {
+      "name": "Baden und Wandern",
+      "parameters": {
+        "origin": "Berlin",
+        "address": "",
+        "earliest": "2027-07-01",
+        "latest": "2027-07-31",
+        "min_days": 7,
+        "max_days": 7,
+        "adults": 5,
+        "rooms": 3,
+        "budget": "2000",
+        "countries": [],
+        "regions": [],
+        "excluded": [],
+        "interests": {
+          "Baden": 5,
+          "Wandern": 5
+        },
+        "weights": {
+          "Preis": 1,
+          "Reisezeit": 1,
+          "Komfort": 1,
+          "Interessen": 1
+        },
+        "modes": [
+          "Auto",
+          "Zug",
+          "Flug"
+        ],
+        "max_hours": "",
+        "cars": 1,
+        "seats": 5,
+        "consumption": "7.0",
+        "petrol": "1.80",
+        "accommodation_types": [
+          "Hotel",
+          "Ferienwohnung"
+        ],
+        "required": [],
+        "desired": [],
+        "max_center_km": "",
+        "shortlist": 3,
+        "request_budget": 10,
+        "timeout_seconds": 100,
+        "price_targets": 0,
+        "candidate_pool": 35,
+        "max_distance_km": "",
+        "regional_queries": 0,
+        "target_type": "gemischt",
+        "surroundings": true,
+        "lodging_radius_km": "15",
+        "activity_radius_km": "30",
+        "show_ideas": true
+      },
+      "seconds": 18.059,
+      "http_calls": 3,
+      "error": null,
+      "diagnostics": {
+        "search_id": "621225b0-cc87-4add-a9b0-7c7d1f742983",
+        "started_at": "2026-10-29T19:14:12.681762+00:00",
+        "criteria": {
+          "origin": "Berlin",
+          "earliest": "2027-07-01",
+          "latest": "2027-07-31",
+          "min_days": 7,
+          "max_days": 7,
+          "adults": 5,
+          "rooms": 3,
+          "budget": "2000",
+          "countries": [],
+          "regions": [],
+          "excluded": [],
+          "interests": {
+            "Baden": 5,
+            "Wandern": 5
+          },
+          "weights": {
+            "Preis": 1,
+            "Reisezeit": 1,
+            "Komfort": 1,
+            "Interessen": 1
+          },
+          "modes": [
+            "Auto",
+            "Zug",
+            "Flug"
+          ],
+          "max_hours": "",
+          "cars": 1,
+          "seats": 5,
+          "consumption": "7.0",
+          "petrol": "1.80",
+          "accommodation_types": [
+            "Hotel",
+            "Ferienwohnung"
+          ],
+          "required": [],
+          "desired": [],
+          "max_center_km": "",
+          "shortlist": 3,
+          "request_budget": 10,
+          "timeout_seconds": 100,
+          "price_targets": 0,
+          "candidate_pool": 35,
+          "max_distance_km": "",
+          "regional_queries": 0,
+          "target_type": "gemischt",
+          "surroundings": true,
+          "lodging_radius_km": "15",
+          "activity_radius_km": "30",
+          "show_ideas": true
+        },
+        "counts": {
+          "catalog": 38221,
+          "geographic": 38221,
+          "locally_scored": 38220,
+          "examined": 3,
+          "online_examined": 3,
+          "with_lodgings": 3,
+          "with_activities": 3,
+          "with_known_transport": 2,
+          "matches": 3,
+          "ideas": 0,
+          "geographic_considered": 38220,
+          "with_interest_evidence": 505,
+          "features_unknown": 37715,
+          "deep_candidates": 35,
+          "returned_results": 3
+        },
+        "outcomes": [
+          {
+            "id": "geonames:12908882",
+            "name": "Eng",
+            "status": "passend",
+            "reasons": []
+          },
+          {
+            "id": "geonames:3201349",
+            "name": "Dovje",
+            "status": "passend",
+            "reasons": []
+          },
+          {
+            "id": "geonames:3188750",
+            "name": "Trolokve",
+            "status": "passend",
+            "reasons": []
+          }
+        ],
+        "errors": [],
+        "stop_reason": "Gewünschte Ergebnisanzahl erreicht.",
+        "coverage": [
+          {
+            "name": "Österreich",
+            "source": "https://download.geonames.org/export/dump/AT.zip",
+            "sha256": "809e0175761434e6385f3df24ebd05d16f3b4c45007f3b6d0b34c1607f83712f",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 1570456,
+            "key": "geonames:AT",
+            "country": "AT",
+            "count": 27054,
+            "kinds": {
+              "region": 7025,
+              "settlement": 20029
+            },
+            "updated_at": "2026-10-29T15:56:07+00:00",
+            "status": "imported"
+          },
+          {
+            "name": "Kroatien",
+            "source": "https://download.geonames.org/export/dump/HR.zip",
+            "sha256": "e5584c939fb6faa8dbcb63bad37fb1e5c411a036210414e3cf3aabfc44e3e15f",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 800346,
+            "key": "geonames:HR",
+            "country": "HR",
+            "count": 13228,
+            "kinds": {
+              "settlement": 11360,
+              "region": 1868
+            },
+            "updated_at": "2026-10-29T15:56:08+00:00",
+            "status": "imported"
+          },
+          {
+            "name": "Slowenien",
+            "source": "https://download.geonames.org/export/dump/SI.zip",
+            "sha256": "a125228a361053568515e6fda6398ad95923d7aca59107532dd96b911df76bed",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 417411,
+            "key": "geonames:SI",
+            "country": "SI",
+            "count": 6954,
+            "kinds": {
+              "region": 387,
+              "settlement": 6567
+            },
+            "updated_at": "2026-10-29T15:56:07+00:00",
+            "status": "imported"
+          },
+          {
+            "key": "osm:Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+            "name": "Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+            "bounds": [
+              43.4,
+              16.1,
+              43.65,
+              16.6
+            ],
+            "count": 2613,
+            "updated_at": "2026-10-29T16:14:38+00:00",
+            "revision": "4acfd837-9e2e-4e83-9927-97e17e9a751a",
+            "status": "imported",
+            "source": "https://download.geofabrik.de/europe/croatia-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 201176250
+          },
+          {
+            "key": "osm:Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+            "name": "Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+            "bounds": [
+              46.22,
+              13.75,
+              46.48,
+              14.25
+            ],
+            "count": 2319,
+            "updated_at": "2026-10-29T16:14:19+00:00",
+            "revision": "87d58840-3ab5-477e-a97d-fc9fb516b691",
+            "status": "imported",
+            "source": "https://download.geofabrik.de/europe/slovenia-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 314023795
+          },
+          {
+            "key": "osm:Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+            "name": "Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+            "bounds": [
+              47.12,
+              11.1,
+              47.4,
+              11.65
+            ],
+            "count": 4441,
+            "updated_at": "2026-10-29T16:13:45+00:00",
+            "revision": "87b4ac53-b7bd-4d70-b9da-a50a904ccc39",
+            "status": "imported",
+            "source": "https://download.openstreetmap.fr/extracts/europe/austria/tirol-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 122192320
+          }
+        ],
+        "not_imported_countries": [
+          "AL",
+          "AD",
+          "BE",
+          "BA",
+          "BG",
+          "CY",
+          "CZ",
+          "DK",
+          "EE",
+          "FI",
+          "FR",
+          "DE",
+          "GR",
+          "HU",
+          "IS",
+          "IE",
+          "IT",
+          "LV",
+          "LI",
+          "LT",
+          "LU",
+          "MT",
+          "MD",
+          "MC",
+          "ME",
+          "NL",
+          "MK",
+          "NO",
+          "PL",
+          "PT",
+          "RO",
+          "SM",
+          "RS",
+          "SK",
+          "ES",
+          "SE",
+          "CH",
+          "UA",
+          "GB",
+          "VA",
+          "XK",
+          "AX",
+          "FO"
+        ],
+        "http_calls": 3,
+        "finished_at": "2026-10-29T19:14:30.740974+00:00",
+        "primary_reasons": {
+          "passend": 3
+        },
+        "suggestions": [
+          "Fehlende regionale Interessenmerkmale können unter „Zieldaten einrichten“ ergänzt werden; unbekannt bedeutet nicht ungeeignet."
+        ],
+        "summary": "38220 Ziele lokal bewertet, 3 näher geprüft: 3 Filtertreffer, 0 Ideen mit offenen Angaben. Gewünschte Ergebnisanzahl erreicht. Hauptgründe (je Ziel genau einer): 3 × passend. 3 Reisevorschläge ausgegeben; 0 nahe Alternativen zusammengefasst. Fehlende regionale Interessenmerkmale können unter „Zieldaten einrichten“ ergänzt werden; unbekannt bedeutet nicht ungeeignet."
+      },
+      "persistence_ok": true,
+      "results": [
+        {
+          "name": "Eng",
+          "id": "geonames:12908882",
+          "country": "AT",
+          "type": "Dorf/Ferienort",
+          "score": 37.7,
+          "interest_match": 1.0,
+          "explanation": "Baden: 5 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Wandern: 34 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage",
+          "filter_status": "passend",
+          "missing": [
+            "Maut und Vignetten für alle Fahrzeuge",
+            "Parken am Ziel und an der Unterkunft",
+            "Fähren/Autoverlad falls erforderlich",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/12908882/"
+        },
+        {
+          "name": "Dovje",
+          "id": "geonames:3201349",
+          "country": "SI",
+          "type": "Dorf/Ferienort",
+          "score": 35.9,
+          "interest_match": 1.0,
+          "explanation": "Baden: 5 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Wandern: 102 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage",
+          "filter_status": "passend",
+          "missing": [
+            "Maut und Vignetten für alle Fahrzeuge",
+            "Parken am Ziel und an der Unterkunft",
+            "Fähren/Autoverlad falls erforderlich",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/3201349/"
+        },
+        {
+          "name": "Trolokve",
+          "id": "geonames:3188750",
+          "country": "HR",
+          "type": "Dorf/Ferienort",
+          "score": 17.5,
+          "interest_match": 1.0,
+          "explanation": "Baden: 34 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage; Wandern: 5 erfasste Merkmale im untersuchten Umkreis; keine aktuelle Öffnungs-/Saisonzusage",
+          "filter_status": "passend",
+          "missing": [
+            "Zug für gesamte Gruppe hin und zurück",
+            "Zubringer und Unterkunftstransfers hin und zurück",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/3188750/"
+        }
+      ]
+    },
+    {
+      "name": "Barhopping",
+      "parameters": {
+        "origin": "Berlin",
+        "address": "",
+        "earliest": "2027-07-01",
+        "latest": "2027-07-31",
+        "min_days": 7,
+        "max_days": 7,
+        "adults": 5,
+        "rooms": 3,
+        "budget": "2000",
+        "countries": [],
+        "regions": [],
+        "excluded": [],
+        "interests": {
+          "Barhopping": 5
+        },
+        "weights": {
+          "Preis": 1,
+          "Reisezeit": 1,
+          "Komfort": 1,
+          "Interessen": 1
+        },
+        "modes": [
+          "Auto",
+          "Zug",
+          "Flug"
+        ],
+        "max_hours": "",
+        "cars": 1,
+        "seats": 5,
+        "consumption": "7.0",
+        "petrol": "1.80",
+        "accommodation_types": [
+          "Hotel",
+          "Ferienwohnung"
+        ],
+        "required": [],
+        "desired": [],
+        "max_center_km": "",
+        "shortlist": 3,
+        "request_budget": 10,
+        "timeout_seconds": 100,
+        "price_targets": 0,
+        "candidate_pool": 35,
+        "max_distance_km": "",
+        "regional_queries": 0,
+        "target_type": "gemischt",
+        "surroundings": true,
+        "lodging_radius_km": "15",
+        "activity_radius_km": "30",
+        "show_ideas": true
+      },
+      "seconds": 20.942,
+      "http_calls": 3,
+      "error": null,
+      "diagnostics": {
+        "search_id": "5a199b8a-08a2-4ac4-9824-ab2643ad8ec0",
+        "started_at": "2026-10-29T19:14:30.749966+00:00",
+        "criteria": {
+          "origin": "Berlin",
+          "earliest": "2027-07-01",
+          "latest": "2027-07-31",
+          "min_days": 7,
+          "max_days": 7,
+          "adults": 5,
+          "rooms": 3,
+          "budget": "2000",
+          "countries": [],
+          "regions": [],
+          "excluded": [],
+          "interests": {
+            "Barhopping": 5
+          },
+          "weights": {
+            "Preis": 1,
+            "Reisezeit": 1,
+            "Komfort": 1,
+            "Interessen": 1
+          },
+          "modes": [
+            "Auto",
+            "Zug",
+            "Flug"
+          ],
+          "max_hours": "",
+          "cars": 1,
+          "seats": 5,
+          "consumption": "7.0",
+          "petrol": "1.80",
+          "accommodation_types": [
+            "Hotel",
+            "Ferienwohnung"
+          ],
+          "required": [],
+          "desired": [],
+          "max_center_km": "",
+          "shortlist": 3,
+          "request_budget": 10,
+          "timeout_seconds": 100,
+          "price_targets": 0,
+          "candidate_pool": 35,
+          "max_distance_km": "",
+          "regional_queries": 0,
+          "target_type": "gemischt",
+          "surroundings": true,
+          "lodging_radius_km": "15",
+          "activity_radius_km": "30",
+          "show_ideas": true
+        },
+        "counts": {
+          "catalog": 38221,
+          "geographic": 38221,
+          "locally_scored": 38220,
+          "examined": 3,
+          "online_examined": 3,
+          "with_lodgings": 3,
+          "with_activities": 3,
+          "with_known_transport": 2,
+          "matches": 3,
+          "ideas": 0,
+          "geographic_considered": 38220,
+          "with_interest_evidence": 232,
+          "features_unknown": 37715,
+          "deep_candidates": 35,
+          "returned_results": 3
+        },
+        "outcomes": [
+          {
+            "id": "geonames:2783058",
+            "name": "Absam",
+            "status": "passend",
+            "reasons": []
+          },
+          {
+            "id": "geonames:3198647",
+            "name": "Jesenice",
+            "status": "passend",
+            "reasons": []
+          },
+          {
+            "id": "geonames:3215697",
+            "name": "Novi Stafilić",
+            "status": "passend",
+            "reasons": []
+          }
+        ],
+        "errors": [],
+        "stop_reason": "Gewünschte Ergebnisanzahl erreicht.",
+        "coverage": [
+          {
+            "name": "Österreich",
+            "source": "https://download.geonames.org/export/dump/AT.zip",
+            "sha256": "809e0175761434e6385f3df24ebd05d16f3b4c45007f3b6d0b34c1607f83712f",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 1570456,
+            "key": "geonames:AT",
+            "country": "AT",
+            "count": 27054,
+            "kinds": {
+              "region": 7025,
+              "settlement": 20029
+            },
+            "updated_at": "2026-10-29T15:56:07+00:00",
+            "status": "imported"
+          },
+          {
+            "name": "Kroatien",
+            "source": "https://download.geonames.org/export/dump/HR.zip",
+            "sha256": "e5584c939fb6faa8dbcb63bad37fb1e5c411a036210414e3cf3aabfc44e3e15f",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 800346,
+            "key": "geonames:HR",
+            "country": "HR",
+            "count": 13228,
+            "kinds": {
+              "settlement": 11360,
+              "region": 1868
+            },
+            "updated_at": "2026-10-29T15:56:08+00:00",
+            "status": "imported"
+          },
+          {
+            "name": "Slowenien",
+            "source": "https://download.geonames.org/export/dump/SI.zip",
+            "sha256": "a125228a361053568515e6fda6398ad95923d7aca59107532dd96b911df76bed",
+            "license": "CC BY 4.0",
+            "compressed_bytes": 417411,
+            "key": "geonames:SI",
+            "country": "SI",
+            "count": 6954,
+            "kinds": {
+              "region": 387,
+              "settlement": 6567
+            },
+            "updated_at": "2026-10-29T15:56:07+00:00",
+            "status": "imported"
+          },
+          {
+            "key": "osm:Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+            "name": "Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+            "bounds": [
+              43.4,
+              16.1,
+              43.65,
+              16.6
+            ],
+            "count": 2613,
+            "updated_at": "2026-10-29T16:14:38+00:00",
+            "revision": "4acfd837-9e2e-4e83-9927-97e17e9a751a",
+            "status": "imported",
+            "source": "https://download.geofabrik.de/europe/croatia-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 201176250
+          },
+          {
+            "key": "osm:Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+            "name": "Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+            "bounds": [
+              46.22,
+              13.75,
+              46.48,
+              14.25
+            ],
+            "count": 2319,
+            "updated_at": "2026-10-29T16:14:19+00:00",
+            "revision": "87d58840-3ab5-477e-a97d-fc9fb516b691",
+            "status": "imported",
+            "source": "https://download.geofabrik.de/europe/slovenia-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 314023795
+          },
+          {
+            "key": "osm:Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+            "name": "Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+            "bounds": [
+              47.12,
+              11.1,
+              47.4,
+              11.65
+            ],
+            "count": 4441,
+            "updated_at": "2026-10-29T16:13:45+00:00",
+            "revision": "87b4ac53-b7bd-4d70-b9da-a50a904ccc39",
+            "status": "imported",
+            "source": "https://download.openstreetmap.fr/extracts/europe/austria/tirol-latest.osm.pbf",
+            "license": "ODbL",
+            "method": "regional_pbf",
+            "download_bytes": 122192320
+          }
+        ],
+        "not_imported_countries": [
+          "AL",
+          "AD",
+          "BE",
+          "BA",
+          "BG",
+          "CY",
+          "CZ",
+          "DK",
+          "EE",
+          "FI",
+          "FR",
+          "DE",
+          "GR",
+          "HU",
+          "IS",
+          "IE",
+          "IT",
+          "LV",
+          "LI",
+          "LT",
+          "LU",
+          "MT",
+          "MD",
+          "MC",
+          "ME",
+          "NL",
+          "MK",
+          "NO",
+          "PL",
+          "PT",
+          "RO",
+          "SM",
+          "RS",
+          "SK",
+          "ES",
+          "SE",
+          "CH",
+          "UA",
+          "GB",
+          "VA",
+          "XK",
+          "AX",
+          "FO"
+        ],
+        "http_calls": 3,
+        "finished_at": "2026-10-29T19:14:51.691784+00:00",
+        "primary_reasons": {
+          "passend": 3
+        },
+        "suggestions": [
+          "Fehlende regionale Interessenmerkmale können unter „Zieldaten einrichten“ ergänzt werden; unbekannt bedeutet nicht ungeeignet."
+        ],
+        "summary": "38220 Ziele lokal bewertet, 3 näher geprüft: 3 Filtertreffer, 0 Ideen mit offenen Angaben. Gewünschte Ergebnisanzahl erreicht. Hauptgründe (je Ziel genau einer): 3 × passend. 3 Reisevorschläge ausgegeben; 0 nahe Alternativen zusammengefasst. Fehlende regionale Interessenmerkmale können unter „Zieldaten einrichten“ ergänzt werden; unbekannt bedeutet nicht ungeeignet."
+      },
+      "persistence_ok": true,
+      "results": [
+        {
+          "name": "Absam",
+          "id": "geonames:2783058",
+          "country": "AT",
+          "type": "Dorf/Ferienort",
+          "score": 37.7,
+          "interest_match": 1.0,
+          "explanation": "Barhopping: 6 erfasste Merkmale im untersuchten Umkreis; mehrere Bars/Kneipen innerhalb 2 km Luftlinie; Fußwege und Öffnung ungeprüft",
+          "filter_status": "passend",
+          "missing": [
+            "Maut und Vignetten für alle Fahrzeuge",
+            "Parken am Ziel und an der Unterkunft",
+            "Fähren/Autoverlad falls erforderlich",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/2783058/"
+        },
+        {
+          "name": "Jesenice",
+          "id": "geonames:3198647",
+          "country": "SI",
+          "type": "Klein-/Mittelstadt",
+          "score": 35.8,
+          "interest_match": 1.0,
+          "explanation": "Barhopping: 5 erfasste Merkmale im untersuchten Umkreis; mehrere Bars/Kneipen innerhalb 2 km Luftlinie; Fußwege und Öffnung ungeprüft",
+          "filter_status": "passend",
+          "missing": [
+            "Maut und Vignetten für alle Fahrzeuge",
+            "Parken am Ziel und an der Unterkunft",
+            "Fähren/Autoverlad falls erforderlich",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/3198647/"
+        },
+        {
+          "name": "Novi Stafilić",
+          "id": "geonames:3215697",
+          "country": "HR",
+          "type": "Dorf/Ferienort",
+          "score": 17.5,
+          "interest_match": 1.0,
+          "explanation": "Barhopping: 6 erfasste Merkmale im untersuchten Umkreis; mehrere Bars/Kneipen innerhalb 2 km Luftlinie; Fußwege und Öffnung ungeprüft",
+          "filter_status": "passend",
+          "missing": [
+            "Zug für gesamte Gruppe hin und zurück",
+            "Zubringer und Unterkunftstransfers hin und zurück",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "source": "https://www.geonames.org/3215697/"
+        }
+      ]
+    }
+  ],
+  "existing_saved_trips_unchanged": true,
+  "geonames_import": [
+    {
+      "name": "Österreich",
+      "source": "https://download.geonames.org/export/dump/AT.zip",
+      "sha256": "809e0175761434e6385f3df24ebd05d16f3b4c45007f3b6d0b34c1607f83712f",
+      "license": "CC BY 4.0",
+      "compressed_bytes": 1570456,
+      "key": "geonames:AT",
+      "country": "AT",
+      "count": 27054,
+      "kinds": {
+        "region": 7025,
+        "settlement": 20029
+      },
+      "updated_at": "2026-10-29T15:56:07+00:00",
+      "status": "imported"
+    },
+    {
+      "name": "Slowenien",
+      "source": "https://download.geonames.org/export/dump/SI.zip",
+      "sha256": "a125228a361053568515e6fda6398ad95923d7aca59107532dd96b911df76bed",
+      "license": "CC BY 4.0",
+      "compressed_bytes": 417411,
+      "key": "geonames:SI",
+      "country": "SI",
+      "count": 6954,
+      "kinds": {
+        "region": 387,
+        "settlement": 6567
+      },
+      "updated_at": "2026-10-29T15:56:07+00:00",
+      "status": "imported"
+    },
+    {
+      "name": "Kroatien",
+      "source": "https://download.geonames.org/export/dump/HR.zip",
+      "sha256": "e5584c939fb6faa8dbcb63bad37fb1e5c411a036210414e3cf3aabfc44e3e15f",
+      "license": "CC BY 4.0",
+      "compressed_bytes": 800346,
+      "key": "geonames:HR",
+      "country": "HR",
+      "count": 13228,
+      "kinds": {
+        "settlement": 11360,
+        "region": 1868
+      },
+      "updated_at": "2026-10-29T15:56:08+00:00",
+      "status": "imported"
+    }
+  ],
+  "regional_import": [
+    {
+      "key": "osm:Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+      "name": "Tirol: Inntal und Innsbruck:47.1200,11.1000,47.4000,11.6500",
+      "bounds": [
+        47.12,
+        11.1,
+        47.4,
+        11.65
+      ],
+      "count": 4441,
+      "updated_at": "2026-10-29T16:13:45+00:00",
+      "revision": "87b4ac53-b7bd-4d70-b9da-a50a904ccc39",
+      "status": "imported",
+      "source": "https://download.openstreetmap.fr/extracts/europe/austria/tirol-latest.osm.pbf",
+      "license": "ODbL",
+      "method": "regional_pbf",
+      "download_bytes": 122192320,
+      "seconds": 11.93
+    },
+    {
+      "key": "osm:Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+      "name": "Slowenien: Bled und Bohinj:46.2200,13.7500,46.4800,14.2500",
+      "bounds": [
+        46.22,
+        13.75,
+        46.48,
+        14.25
+      ],
+      "count": 2319,
+      "updated_at": "2026-10-29T16:14:19+00:00",
+      "revision": "87d58840-3ab5-477e-a97d-fc9fb516b691",
+      "status": "imported",
+      "source": "https://download.geofabrik.de/europe/slovenia-latest.osm.pbf",
+      "license": "ODbL",
+      "method": "regional_pbf",
+      "download_bytes": 314023795,
+      "seconds": 33.0
+    },
+    {
+      "key": "osm:Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+      "name": "Kroatien: Split und Trogir:43.4000,16.1000,43.6500,16.6000",
+      "bounds": [
+        43.4,
+        16.1,
+        43.65,
+        16.6
+      ],
+      "count": 2613,
+      "updated_at": "2026-10-29T16:14:38+00:00",
+      "revision": "4acfd837-9e2e-4e83-9927-97e17e9a751a",
+      "status": "imported",
+      "source": "https://download.geofabrik.de/europe/croatia-latest.osm.pbf",
+      "license": "ODbL",
+      "method": "regional_pbf",
+      "download_bytes": 201176250,
+      "seconds": 19.04
+    }
+  ],
+  "source_failures": {
+    "overpass-api.de": "Drei begrenzte GET-Abfragen liefen ins Zeitlimit; Statusabruf HTTP 406.",
+    "overpass.private.coffee": "Kleine GET- und POST-Probe ohne Daten innerhalb des Zeitlimits. Kein erfolgreicher Live-Overpass-Abruf behauptet."
+  },
+  "pbf_provenance": [
+    {
+      "file": "tirol-latest.osm.pbf",
+      "bytes": 122192320,
+      "sha256": "d6ebcef175ce4139e0e3372f35582d02d1dc3a53fb6c72fb79d58b8a9eb1e8ae",
+      "data_timestamp": "2026-10-29T01:02:19Z"
+    },
+    {
+      "file": "croatia-latest.osm.pbf",
+      "bytes": 201176250,
+      "sha256": "11aefbd428a32d6bfc9df3d5b673eb30d65d99ff6760a04b19814a960426486a",
+      "data_timestamp": "2026-10-28T21:21:02Z"
+    },
+    {
+      "file": "slovenia-latest.osm.pbf",
+      "bytes": 314023795,
+      "sha256": "c871c7bfa62ed1c79db0e90ba1ef3d2971d03568cf78729d7cc08fd4615fbfb6",
+      "data_timestamp": "2026-10-28T21:21:02Z"
+    }
+  ],
+  "comparison_control": "Alle vier Fälle nutzen den gesamten gleichen lokalen Bestand ohne Länder-/Regionsfilter; Zeitraum, Reisende, Gewichte und Budgets sind gleich, nur die Interessen ändern sich."
+}

@@ -269,3 +269,26 @@ Dieses Dokument dient als lückenloser, auditierbarer Entwicklungs- und Architek
 - Begrenzte echte Suchkampagne: 16 HTTP-Aufrufe, sechs Filtertreffer/eine Idee, darunter Hřensko mit Umgebungseinträgen und Wanderweg; nach stärkerer Landschaftspräferenz acht weitere Aufrufe, korrektes Budgetende mit einem Filtertreffer/zwei offenen Ideen. Insgesamt 24 Suchabfragen, keine erneute flächendeckende Liveprüfung; Nachprüfung bestätigt keine sechs ländlichen Volltreffer.
 - Finalen Parser mit aufgezeichneten echten Quellen ohne weitere Netzaufrufe wiederholt; Hřensko aus SQLite exportiert, acht PDF-Seiten/38 Links gerendert und visuell kontrolliert. Sichtbares Desktoplayout geprüft; native automatisierte Reiterklicks lieferten keine bestätigte Zustandsänderung, daher keine vollständige manuelle Klick-Abnahme behauptet.
 - README, Quellen-/Lizenzdokumentation, Rohprüfberichte und `docs/SUCHVERBESSERUNG.md` aktualisiert. Livepreise, Belegung, Zug-/Flugfahrpläne, genaue Gebietsgrenzen und Umgebungswege bleiben offen; keine zusätzlichen Kosten oder Schlüssel.
+
+
+---
+
+## Schritt 12: Breite lokale Reisezielsuche, GeoNames-/OSM-Inventar und räumliche Kandidatenauswahl (29.10.2026)
+
+- **Ausgangslage und Ziel:**
+  - Erweiterung des bisherigen Zieldatenbestands über den initialen Reiseführerkatalog hinaus auf vollständige GeoNames-Länderdaten und regionale OpenStreetMap-/PBF-Freizeitmerkmale.
+  - Gewährleistung, dass auch kleinere Orte, ländliche Regionen und vielfältige Reiseziele ohne Vorab-Bias fair in den Suchprozess einfließen.
+- **Implementierte Komponenten und Klassen:**
+  1. `CandidateSelection.py` (`core/planning/`): Räumliche Kandidatenbegrenzung und Vielfaltsauswahl basierend auf geographischen Repräsentanten, Mindestabständen (12 km) und Sättigungsgrenzen.
+  2. `DestinationFeatures.py` (`core/planning/`): Kapselung regionaler Freizeit- und Naturmerkmale (Wanderwege, Gewässer/Baden, Kultur/Museen, Gastronomie/Nachtleben, Grünraum).
+  3. `DestinationInventory.py` (`infrastructure/planning/`): SQLite- und RTree-gestütztes Geodaten-Inventar (`destinations.sqlite3`) für hocheffiziente räumliche Indizierung und Entfernungsfilterung.
+  4. `DestinationImportService.py` (`infrastructure/planning/`): Transaktionssicherer Importdienst für GeoNames-Länderdaten und regionale OSM-Extrakte mit Rollback-Unterstützung und Validierung.
+  5. `OsmRegionalExtract.py` (`infrastructure/planning/`): Parser für regionale OSM-PBF-Dateien zur Filterung relevanter Freizeit- und Infrastruktur-Relationen.
+  6. `DestinationSetupDialog.py` (`entrypoints/gui/`): Benutzeroberfläche zur Konfiguration und Aktualisierung der regionalen Zieldatenbestände direkt aus der Desktop-App.
+  7. `live_destination_discovery.py` (`scripts/`): Prüfskript zur kontrollierten Verifikation der Zieldaten-Integration.
+- **Aktualisierte Schnittstellen & Services:**
+  - `DiscoveryService.py`, `PlaceResearch.py`, `RankingService.py`, `SearchRequest.py`, `SearchDiagnostics.py`, `DestinationCatalog.py`, `OpenTravelProvider.py`, `PdfTripPresenter.py`, `TripEnrichmentService.py`, `TripPdfExporter.py`, `SurprisePlannerApplication.py`.
+- **Qualitätssicherung & Tests:**
+  - Neuer Unit-Test `tests/unit/test_destination_inventory.py` und erweiterter Integrationstest `tests/integration/test_surprise_desktop.py`.
+  - Alle 152 Tests der Testsuite bestanden (`Ran 152 tests in 3.766s, OK`).
+  - Dokumentation in `docs/ZIELSUCHE.md` und Prüfprotokoll `docs/ZIELSUCHE_PRUEFUNG_2026-10-29.json` ergänzt.

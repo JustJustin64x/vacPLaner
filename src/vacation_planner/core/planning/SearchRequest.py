@@ -6,8 +6,11 @@ from decimal import Decimal, InvalidOperation
 from zoneinfo import ZoneInfo
 from datetime import datetime
 
-INTERESTS = ('Wandern', 'Baden', 'Natur', 'Berge', 'Kultur', 'Städte', 'Feiern', 'Restaurants', 'Veranstaltungen', 'Kostenlos')
+INTERESTS = ('Wandern', 'Baden', 'Natur', 'Ruhe', 'Berge', 'Kultur', 'Städte', 'Feiern', 'Barhopping', 'Restaurants', 'Veranstaltungen', 'Kostenlos')
 AMENITIES = ('Küche', 'Frühstück', 'Pool', 'Parkplatz', 'Haustiere', 'Kostenlose Stornierung')
+INTEREST_SYNONYMS={'nachtleben':'Feiern','nightlife':'Feiern','feiern und nachtleben':'Feiern',
+                  'bars':'Barhopping','kneipen':'Barhopping','pubs':'Barhopping','bar hopping':'Barhopping',
+                  'natur und ruhe':'Ruhe','ruhe und natur':'Ruhe','kultur und sehenswürdigkeiten':'Kultur','strände':'Baden'}
 
 
 def today():
@@ -46,10 +49,13 @@ class SearchRequest:
     required: list = field(default_factory=list)
     desired: list = field(default_factory=list)
     max_center_km: str = ''
-    shortlist: int = 6
+    shortlist: int = 4
     request_budget: int = 24
     timeout_seconds: int = 300
     price_targets: int = 3
+    candidate_pool: int = 35
+    max_distance_km: str = ''
+    regional_queries: int = 2
 
     target_type: str = 'gemischt'
     surroundings: bool = True
@@ -58,7 +64,7 @@ class SearchRequest:
     show_ideas: bool = False
 
     def validate(self):
-        for key in ('min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds','price_targets'):
+        for key in ('min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds','price_targets','candidate_pool','regional_queries'):
             if isinstance(getattr(self,key),bool) or not isinstance(getattr(self,key),int):
                 raise ValueError(key+': bitte eine ganze Zahl angeben.')
         if not isinstance(self.origin,str) or not isinstance(self.address,str):
@@ -72,13 +78,21 @@ class SearchRequest:
         for group in (self.interests,self.weights):
             if not isinstance(group,dict):raise ValueError('Gewichte müssen als benannte Zahlen vorliegen.')
             for key,value in group.items():
+                if not isinstance(key,str):raise ValueError('Gewichte und Interessen benötigen Namen.')
                 try:number=Decimal(str(value).replace(',','.'))
                 except InvalidOperation:raise ValueError('Gewicht für '+key+' ist keine Zahl.') from None
                 if not number.is_finite():raise ValueError('Gewichte müssen endliche Zahlen sein.')
                 group[key]=int(number) if number==number.to_integral_value() else float(number)
-        for key in ('budget','consumption','petrol','max_hours','max_center_km','lodging_radius_km','activity_radius_km'):
+        canonical={}
+        for key,value in self.interests.items():
+            if not isinstance(key,str):raise ValueError('Interessen benötigen Namen.')
+            normalized=' '.join(key.casefold().split())
+            name=INTEREST_SYNONYMS.get(normalized,next((x for x in INTERESTS if x.casefold()==normalized),key))
+            canonical[name]=max(canonical[name],value) if name in canonical else value
+        self.interests=canonical
+        for key in ('budget','consumption','petrol','max_hours','max_center_km','lodging_radius_km','activity_radius_km','max_distance_km'):
             value=str(getattr(self,key)).strip().replace(',','.')
-            if not value and key not in ('max_hours','max_center_km'):
+            if not value and key not in ('max_hours','max_center_km','max_distance_km'):
                 raise ValueError(key+': bitte eine positive Zahl eingeben.')
             try:
                 if value:Decimal(value)
@@ -116,7 +130,7 @@ class SearchRequest:
             number = Decimal(value)
             if not number.is_finite() or number <= 0:
                 raise ValueError(name+' muss eine positive Zahl sein.')
-        for value in (self.max_hours, self.max_center_km):
+        for value in (self.max_hours, self.max_center_km,self.max_distance_km):
             if value and (not Decimal(value).is_finite() or Decimal(value) <= 0):
                 raise ValueError('Reisezeit und Entfernung müssen positiv sein oder leer bleiben.')
         for group,limit in ((self.interests,5),(self.weights,100)):
@@ -128,6 +142,8 @@ class SearchRequest:
             raise ValueError('Vorauswahl 3–12, Abfragebudget 4–40, Zeitlimit 10–600 Sekunden.')
         if not 0 <= self.price_targets <= 12:
             raise ValueError('Preisrecherche: 0–12 Ziele.')
+        if not 10<=self.candidate_pool<=100:raise ValueError('Vertiefte Kandidatenauswahl: 10–100 Ziele.')
+        if not 0<=self.regional_queries<=3:raise ValueError('Regionale Zusatzabfragen: 0–3.')
 
     def normalized_weights(self):
         values = {k: Decimal(str(self.weights.get(k, 0))) for k in ('Preis','Reisezeit','Komfort','Interessen')}

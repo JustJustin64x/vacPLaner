@@ -9,16 +9,19 @@ def distance(a,b):
 
 
 def deduplicate(items):
-    result=[]
+    result=[];seen_ids=set();by_name={}
     for item in items:
+        identity=item.get('id')
+        if identity and identity in seen_ids:continue
         duplicate=False
-        for old in result:
-            same_id=item.get('id') and item.get('id')==old.get('id')
+        name=item['name'].casefold()
+        for old in by_name.get(name,[]):
             located=all(x.get(k) is not None for x in (item,old) for k in ('latitude','longitude'))
-            same_place=located and item['name'].casefold()==old['name'].casefold() and distance(item,old)<.1
-            if same_id or same_place:
+            if located and distance(item,old)<.1:
                 duplicate=True;break
-        if not duplicate:result.append(item)
+        if not duplicate:
+            result.append(item);by_name.setdefault(name,[]).append(item)
+            if identity:seen_ids.add(identity)
     return result
 
 
@@ -49,13 +52,21 @@ class PlaceResearch:
             for kind,radius in [('lodgings',float(request.lodging_radius_km)),('activities',float(request.activity_radius_km))]:
                 for raw in data.get(kind,[]):
                     item=copy.deepcopy(raw)
+                    if item.get('geo_source')=='OSM' and (request.countries or request.regions or request.excluded):
+                        item['open_geo_criteria']=[]
+                        if not item.get('country_code'):item['open_geo_criteria'].append('Länderzuordnung der Unterkunft nicht bestätigt')
+                        elif not self.catalog.country_allowed(item['country_code'],request):continue
+                        if request.regions and self.catalog.area(item.get('administrative_region','')) not in {self.catalog.area(v) for v in request.regions}:
+                            item['open_geo_criteria'].append('Verwaltungs-/Regionszuordnung der Unterkunft nicht bestätigt')
+                        if item['open_geo_criteria'] and kind=='activities':continue
                     located=all(item.get(k) is not None for k in ('latitude','longitude'))
                     separation=distance(base,item) if located else None
                     # Outside pages require coordinates. Unknown local locations remain explicit.
                     if (index or request.countries or request.regions or request.excluded) and not located:continue
                     if located and separation>(radius if request.surroundings else min(2,radius)):continue
                     if located:
-                        nearest=min(self.catalog.destinations,key=lambda d:distance(item,d))
+                        nearest=self.catalog.nearest(item)
+                        if item.get('country_code') and item['country_code']!=nearest['code'] and (request.countries or request.regions or request.excluded):continue
                         if not self.catalog.allowed(nearest,request):continue
                     item.update(distance_km=separation,source_place=page.get('base_name',page['name']),source_page_name=page['name'],
                                 location_name=item.get('address') or page['name'],
