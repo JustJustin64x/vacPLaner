@@ -1,0 +1,9 @@
+{
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "endpoint": "http://127.0.0.1:11435",
+  "timeout_seconds": 90,
+  "context_tokens": 4096,
+  "max_output_tokens": 768,
+  "parallel_requests": 1,
+  "keep_alive": "5m"
+}

@@ -215,7 +215,7 @@ class EvidenceSelectionTests(unittest.TestCase):
     def test_barhopping_needs_multiple_nearby_bars_and_coverage_is_explicit(self):
         base=place();bars=[self.f(i,{'amenity':'pub'}) for i in range(4)]+[self.f(10,{'amenity':'pub'},47.2)]
         p=feature_profile(bars,base,[{'name':'TEST'}]);self.assertEqual(p['counts']['Barhopping'],4)
-        self.assertEqual(p['strengths']['Barhopping'],1)
+        self.assertEqual(p['strengths']['Barhopping'],.65)
         self.assertEqual(feature_profile([],base,[])['coverage'],'unknown')
         self.assertEqual(feature_profile([],base,[{'name':'TEST'}])['coverage'],'regional')
 

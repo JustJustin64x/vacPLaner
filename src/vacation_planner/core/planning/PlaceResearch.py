@@ -15,6 +15,10 @@ def deduplicate(items):
         if identity and identity in seen_ids:continue
         duplicate=False
         name=item['name'].casefold()
+        if name in ('erfasstes freizeitmerkmal','unbenannt','unnamed'):
+            result.append(item)
+            if identity:seen_ids.add(identity)
+            continue
         for old in by_name.get(name,[]):
             located=all(x.get(k) is not None for x in (item,old) for k in ('latitude','longitude'))
             if located and distance(item,old)<.1:
@@ -60,7 +64,8 @@ class PlaceResearch:
                             item['open_geo_criteria'].append('Verwaltungs-/Regionszuordnung der Unterkunft nicht bestätigt')
                         if item['open_geo_criteria'] and kind=='activities':continue
                     located=all(item.get(k) is not None for k in ('latitude','longitude'))
-                    separation=distance(base,item) if located else None
+                    from .DestinationFeatures import spatial_distance
+                    separation=(spatial_distance(base,item) if kind=='activities' else distance(base,item)) if located else None
                     # Outside pages require coordinates. Unknown local locations remain explicit.
                     if (index or request.countries or request.regions or request.excluded) and not located:continue
                     if located and separation>(radius if request.surroundings else min(2,radius)):continue

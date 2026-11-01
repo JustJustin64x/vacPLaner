@@ -5,7 +5,8 @@ from .CostService import CostService
 class RankingService:
     @staticmethod
     def interest_match(destination, request, activities=None):
-        from .DestinationFeatures import evidence_score
+        from .DestinationFeatures import evidence_score,supplement_activities
+        destination=supplement_activities(destination,activities)
         observed=evidence_score(destination,request)
         if observed is not None:return observed
         total = sum(request.interests.values())
@@ -21,17 +22,29 @@ class RankingService:
 
     @staticmethod
     def interest_evidence(destination,activities,request):
+        from .DestinationFeatures import supplement_activities
+        destination=supplement_activities(destination,activities)
         result={}
         for topic,weight in request.interests.items():
             if not weight:continue
-            profile=destination.get('feature_profile')
+            from .DestinationFeatures import request_profile
+            profile=request_profile(destination,request)
             if profile is not None:
                 proof=profile['evidence'].get(topic,[]);n=profile['counts'].get(topic,0)
-                result[topic]=dict(editorial=False,local=n,vicinity=0,confidence=min(1,len(proof)/4),
+                result[topic]=dict(editorial=False,local=n,vicinity=0,confidence=min(.7,len(proof)/4) if all(p.get('geometry_complete') is not False for p in proof) else min(.3,len(proof)/4),
                     explanation=(f'{n} erfasste Merkmale im untersuchten Umkreis; '+('mehrere Bars/Kneipen innerhalb 2 km Luftlinie; Fußwege und Öffnung ungeprüft' if topic=='Barhopping' and n>=3 else 'einzelner Eintrag belegt keine ausgeprägte Eignung' if n==1 else 'keine aktuelle Öffnungs-/Saisonzusage')) if n else 'Merkmale unbekannt; '+('regionale Daten vorhanden, Kartierung kann unvollständig sein' if profile['coverage']=='regional' else 'Zusatzdaten für diese Region fehlen'),
                     sources=[p['source'] for p in proof],evidence=proof,coverage=profile['coverage'])
                 if topic=='Ruhe' and n:result[topic]['explanation']+='; Natur-/Grünraumhinweise, keine Lärmmessung oder Ruhezusage'
                 if topic=='Städte' and n:result[topic]['explanation']='Geografischer Ortstyp: '+destination.get('type','Stadt')+'; keine pauschale Aussage über touristische Qualität'
+                states={'not_investigated':'nicht untersucht','observed_no_matches':'untersucht, keine passenden kartierten Objekte im Radius','partial':'nur teilweise untersucht','evidence_present':'passende Karteneinträge vorhanden','source_unreachable':'Quelle nicht erreichbar'}
+                state=profile.get('category_status',{}).get(topic)
+                result[topic]['status']=state or 'not_investigated'
+                if state:result[topic]['explanation']+=' · '+states.get(state,state)
+                if topic=='Ruhe':result[topic]['explanation']='Ruhe unbekannt: Grünflächen und Schutzgebiete belegen keine geringe Lärmbelastung.'
+                if topic=='Barhopping' and n>=2:result[topic]['explanation']+='; kompakte Gruppe innerhalb 800 m Luftlinie, tatsächliche Fußwege und gemeinsame Öffnung ungeprüft; Bewertung begrenzt'
+                if any(p.get('evidence_kind')=='guide_entry' for p in proof):result[topic]['explanation']+='; konkrete Reiseführereinträge ergänzen die Kartendaten konservativ (höchstens 40 %)'
+                if profile.get('source_errors'):result[topic]['explanation']+='; letzte regionale Quellenabfrage fehlgeschlagen, vorhandene Belege bleiben erhalten'
+                if proof:result[topic]['explanation']+='; Entfernungen sind Luftlinien zu Kartenpunkten bzw. Geometriestichproben, keine bestätigten Zugänge'
                 continue
             hits=[a for a in activities if topic in a['topics']]
             local=[a for a in hits if not a.get('vicinity')]
@@ -42,6 +55,10 @@ class RankingService:
             result[topic]=dict(editorial=editorial,local=len(local),vicinity=len(hits)-len(local),
                                confidence=1 if local else .7 if hits else .2 if editorial else 0,
                                explanation=explanation,sources=list(dict.fromkeys(a['source'] for a in hits)))
+        if request.interests.get('Kultur') and (request.interests.get('Feiern') or request.interests.get('Barhopping')) and destination.get('feature_profile'):
+            from .DestinationFeatures import evening_cluster
+            if not evening_cluster(request_profile(destination,request)):
+                result['Kultur']['explanation']+='; kein gemeinsames Kultur-/Ausgehviertel innerhalb 1,5 km zwischen den Belegen nachgewiesen, kombinierte Bewertung begrenzt'
         return result
 
     @staticmethod

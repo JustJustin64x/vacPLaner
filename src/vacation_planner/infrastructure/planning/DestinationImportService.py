@@ -19,6 +19,8 @@ COUNTRIES={'AL':'Albanien','AD':'Andorra','AT':'Österreich','BE':'Belgien','BA'
  'MT':'Malta','MD':'Moldau','MC':'Monaco','ME':'Montenegro','NL':'Niederlande','MK':'Nordmazedonien','NO':'Norwegen','PL':'Polen',
  'PT':'Portugal','RO':'Rumänien','SM':'San Marino','RS':'Serbien','SK':'Slowakei','SI':'Slowenien','ES':'Spanien','SE':'Schweden',
  'CH':'Schweiz','UA':'Ukraine','GB':'Vereinigtes Königreich','VA':'Vatikanstadt','XK':'Kosovo','AX':'Åland','FO':'Färöer'}
+from .EuropeScope import EXTRA_COUNTRIES, contains, VERSION as SCOPE_VERSION
+COUNTRIES.update(EXTRA_COUNTRIES)
 REGIONS={
  'Tirol: Inntal und Innsbruck':(47.12,11.10,47.40,11.65),
  'Slowenien: Bled und Bohinj':(46.22,13.75,46.48,14.25),
@@ -29,6 +31,26 @@ EXTRACTS={
  'Slowenien: Bled und Bohinj':('https://download.geofabrik.de/europe/slovenia-latest.osm.pbf','Slowenien, etwa 299 MB'),
  'Kroatien: Split und Trogir':('https://download.geofabrik.de/europe/croatia-latest.osm.pbf','Kroatien, etwa 191 MB'),
 }
+REGIONS.update({
+ 'Tirol gesamt':(46.65,10.05,47.8,12.99),
+ 'Slowenien gesamt':(45.4,13.3,46.9,16.7),
+ 'Kroatien gesamt':(42.2,13.4,46.6,19.5),
+ 'Atlantik: Bretagne':(47.2,-5.3,49.0,-.9),
+ 'Ostsee: Mecklenburg-Vorpommern':(53.0,10.5,54.8,14.5),
+ 'Binnenland: Niederschlesien':(50.0,14.7,51.9,17.9),
+ 'Nordosteuropa: Estland':(57.4,21.7,59.9,28.3),
+})
+EXTRACTS.update({
+ 'Tirol gesamt':EXTRACTS['Tirol: Inntal und Innsbruck'],
+ 'Slowenien gesamt':EXTRACTS['Slowenien: Bled und Bohinj'],
+ 'Kroatien gesamt':EXTRACTS['Kroatien: Split und Trogir'],
+ 'Atlantik: Bretagne':('https://download.geofabrik.de/europe/france/bretagne-latest.osm.pbf','Bretagne, Größenprüfung vor Download'),
+ 'Ostsee: Mecklenburg-Vorpommern':('https://download.geofabrik.de/europe/germany/mecklenburg-vorpommern-latest.osm.pbf','Mecklenburg-Vorpommern, Größenprüfung vor Download'),
+ 'Binnenland: Niederschlesien':('https://download.geofabrik.de/europe/poland/dolnoslaskie-latest.osm.pbf','Niederschlesien, Größenprüfung vor Download'),
+ 'Nordosteuropa: Estland':('https://download.geofabrik.de/europe/estonia-latest.osm.pbf','Estland, Größenprüfung vor Download'),
+})
+CATEGORIES=['Wandern','Baden','Natur','Ruhe','Kultur','Feiern','Barhopping','Restaurants','Berge','Unterkünfte']
+
 SETTLEMENTS={'PPL','PPLA','PPLA2','PPLA3','PPLA4','PPLA5','PPLC','PPLL'}
 REGION_CODES={'LK','LKS','BAY','BAYS','MTS','MT','PK','PRK','RESN','RGN'}
 
@@ -66,6 +88,7 @@ class DestinationImportService:
                     if len(fields)!=19:raise ValueError('Ungültiges GeoNames-Zeilenformat; Import zurückgerollt.')
                     gid,name,ascii_name,alternate,lat,lon,feature_class,feature_code,country,cc2,a1,a2,a3,a4,population,elevation,dem,zone,modified=fields
                     if country!=code:continue
+                    if not contains(code,float(lat),float(lon)):continue
                     kind='settlement' if feature_class=='P' and feature_code in SETTLEMENTS else 'region' if feature_code in REGION_CODES and feature_class in ('H','T','L') else None
                     if not kind:continue
                     lat,lon=float(lat),float(lon)
@@ -78,9 +101,9 @@ class DestinationImportService:
                         feature_class=feature_class,feature_code=feature_code,population=int(population or 0),elevation=elevation,timezone=zone,
                         source='https://www.geonames.org/'+gid+'/',source_updated=modified,source_checked_at=stamp,license='CC BY 4.0',
                         coordinate_source='https://www.geonames.org/'+gid+'/',coordinate_note='GeoNames-Ortskoordinate; keine Unterkunftszufahrt',
-                        area_id=code+':'+a1+':'+a2,interests=[],landscapes=[],attributions=[{'label':'GeoNames · CC BY 4.0','url':'https://www.geonames.org/about.html'}])
+                        scope_version=SCOPE_VERSION,alternate_countries=cc2.split(',') if cc2 else [],area_id=code+':'+a1+':'+a2,interests=[],landscapes=[],attributions=[{'label':'GeoNames · CC BY 4.0','url':'https://www.geonames.org/about.html'}])
 
-    def import_countries(self,codes,context,emit=lambda *a:None):
+    def import_countries(self,codes,context,emit=lambda *a:None,refresh=False):
         codes=list(dict.fromkeys(codes))
         if not codes or any(c not in COUNTRIES for c in codes):raise ValueError('Bitte unterstützte europäische Ländercodes wählen.')
         folder=self.inventory.path.parent/'destination-downloads';folder.mkdir(exist_ok=True)
@@ -94,16 +117,34 @@ class DestinationImportService:
             parts=line.split('\t')
             if len(parts)>=2:names[parts[0]]=parts[1]
         result=[]
+        completed={r.get('country'):r for r in self.inventory.coverage() if r['key'].startswith('geonames:')}
         for code in codes:
             context.check();url='https://download.geonames.org/export/dump/'+code+'.zip'
-            with tempfile.TemporaryDirectory(dir=folder) as temp:
-                path=Path(temp)/(code+'.zip');emit('phase','Länderbestand herunterladen: '+COUNTRIES[code])
-                self.download(url,path,context,emit)
+            old=completed.get(code)
+            if not refresh and old and old.get('scope_version')==SCOPE_VERSION:
+                emit('phase',COUNTRIES[code]+': abgeschlossen; für Aktualisierung erneut auswählen.');result.append(old);continue
+            path=folder/(code+'.zip')
+            emit('phase','Länderbestand '+str(len(result)+1)+'/'+str(len(codes))+': '+COUNTRIES[code])
+            try:
+                if refresh or not path.exists():
+                    staged=folder/(code+'.zip.part')
+                    self.download(url,staged,context,emit)
+                    with zipfile.ZipFile(staged) as z:z.getinfo(code+'.txt')
+                    staged.replace(path)
                 digest=hashlib.sha256(path.read_bytes()).hexdigest()
-                emit('phase','Orte und Urlaubsregionen importieren: '+COUNTRIES[code]+' · bisheriger Stand bleibt bis Abschluss nutzbar')
+                begin=time.monotonic()
                 meta=self.inventory.replace_country(code,self.parse_country(path,code,names,context),
-                    {'name':COUNTRIES[code],'source':url,'sha256':digest,'license':'CC BY 4.0','compressed_bytes':path.stat().st_size},context)
+                    {'name':COUNTRIES[code],'source':url,'sha256':digest,'license':'CC BY 4.0','compressed_bytes':path.stat().st_size,
+                     'scope_version':SCOPE_VERSION},context)
+                meta['import_seconds']=round(time.monotonic()-begin,3)
+                with self.inventory.connect() as db:db.execute('UPDATE datasets SET payload=? WHERE key=?',(json.dumps(meta,ensure_ascii=False),meta['key']))
                 result.append(meta);emit('phase',f"{COUNTRIES[code]}: {meta['kinds'].get('settlement',0)} Aufenthaltsorte und {meta['kinds'].get('region',0)} Regionen importiert.")
+            except InterruptedError as exc:
+                self.inventory.record_attempt('geonames:'+code,None,url,'cancelled',str(exc))
+                raise
+            except (OSError,ValueError,zipfile.BadZipFile) as exc:
+                self.inventory.record_attempt('geonames:'+code,None,url,'failed',str(exc))
+                emit('phase',COUNTRIES[code]+': '+str(exc));continue
         return result
 
     def update_region(self,name,bounds,context,emit=lambda *a:None,force=False):
@@ -122,9 +163,16 @@ class DestinationImportService:
             f'rel["type"="route"]["route"="hiking"]({box});',f'node["place"~"^(town|village|hamlet)$"]({box});'])+');out center tags;'
         url='https://overpass.private.coffee/api/interpreter?'+urlencode({'data':query})
         emit('phase',name+': gebündelte regionale OSM-Abfrage; keine Einzelabfragen je Ort')
-        data,stamp=self.http.json(url,context)
-        if not isinstance(data.get('elements'),list) or data.get('remark'):raise ValueError('Overpass lieferte unvollständige Daten; bisheriger Stand bleibt erhalten.')
-        return self.inventory.replace_features(key,list(bounds),data['elements'],context,'https://overpass.private.coffee/')
+        try:
+            data,stamp=self.http.json(url,context)
+            if not isinstance(data.get('elements'),list) or data.get('remark'):raise ValueError('Overpass lieferte unvollständige Daten; bisheriger Stand bleibt erhalten.')
+            meta=self.inventory.replace_features(key,list(bounds),data['elements'],context,'https://overpass.private.coffee/')
+            self.inventory.record_attempt('osm:'+key,list(bounds),url,'success','',CATEGORIES)
+            return meta
+        except (OSError,ValueError,InterruptedError) as exc:
+            self.inventory.record_attempt('osm:'+key,list(bounds),'https://overpass.private.coffee/','cancelled' if isinstance(exc,InterruptedError) else 'failed',str(exc),CATEGORIES)
+            raise
+
 
     def enrich_wikidata(self,ids,context,emit=lambda *a:None):
         ids=list(dict.fromkeys(x for x in ids if re.fullmatch(r'Q[1-9]\d*',x)))[:20]
@@ -138,7 +186,17 @@ class DestinationImportService:
 
     def import_extract(self,name,context,emit=lambda *a:None):
         if name not in EXTRACTS:raise ValueError('Für diese Region ist kein geprüfter Download hinterlegt. Eine lokale PBF-Datei kann separat importiert werden.')
-        url,description=EXTRACTS[name];folder=self.inventory.path.parent/'destination-downloads';folder.mkdir(exist_ok=True)
+        url,description=EXTRACTS[name]
+        # One HEAD per explicitly selected extract; never start a hidden download.
+        import urllib.request
+        try:
+            context.consume()
+            response=urllib.request.urlopen(urllib.request.Request(url,method='HEAD',headers={'User-Agent':PublicHttpClient.USER_AGENT}),timeout=10)
+            with response:size=int(response.headers.get('Content-Length') or 0)
+            emit('phase',description+(' · Downloadumfang '+f'{size/1048576:.1f} MiB' if size else ' · Quelle nennt keine Downloadgröße'))
+            if size>350000000:raise ValueError('Auszug über 350 MB; bitte einen kleineren lokalen Regionalauszug verwenden.')
+        except OSError:emit('phase','Downloadgröße nicht erreichbar; Download bleibt auf 350 MB begrenzt.')
+        folder=self.inventory.path.parent/'destination-downloads';folder.mkdir(exist_ok=True)
         target=folder/url.rsplit('/',1)[-1]
         # Explicit manual action only; reuse a recent completed download.
         if not target.exists() or time.time()-target.stat().st_mtime>7*86400:
@@ -151,11 +209,32 @@ class DestinationImportService:
         return self.import_pbf(target,name,REGIONS[name],context,emit,url)
 
     def import_pbf(self,path,name,bounds,context,emit=lambda *a:None,source='Lokaler OSM-Regionalauszug'):
+        if len(bounds)!=4:raise ValueError('Vier Koordinaten für den regionalen Ausschnitt angeben.')
+        south,west,north,east=map(float,bounds)
+        if not (-90<=south<north<=90 and -180<=west<east<=180) or north-south>12 or east-west>12:raise ValueError('Bitte einen regionalen Ausschnitt von höchstens 12 Grad je Seite wählen.')
+        if Path(path).stat().st_size>2_000_000_000:raise ValueError('Bitte einen kleineren Regionalauszug unter 2 GB verwenden; keine Europa-Rohdatei importieren.')
+        key='osm:'+name+':'+','.join(f'{x:.4f}' for x in bounds)
+        try:return self._import_pbf(path,name,bounds,context,emit,source)
+        except (OSError,ValueError,InterruptedError,RuntimeError) as exc:
+            self.inventory.record_attempt(key,list(bounds),source,'cancelled' if isinstance(exc,InterruptedError) else 'failed',str(exc),CATEGORIES)
+            raise
+
+    def _import_pbf(self,path,name,bounds,context,emit=lambda *a:None,source='Lokaler OSM-Regionalauszug'):
         from .OsmRegionalExtract import extract_features
         elements=extract_features(path,bounds,context,emit)
         key=name+':'+','.join(f'{x:.4f}' for x in bounds)
         meta=self.inventory.replace_features(key,list(bounds),elements,context,source)
-        meta.update(method='regional_pbf',download_bytes=Path(path).stat().st_size)
+        meta.update(method='regional_pbf',download_bytes=Path(path).stat().st_size,categories=CATEGORIES,
+                    status='partial',coverage_note='OSM-Kartierung und Auszugsgrenzen; keine Vollerhebung realer Angebote',
+                    geometry_incomplete=sum(not e.get('geometry',{}).get('complete',False) for e in elements))
+        if source.startswith('https://download.'):
+            poly_url=source.replace('-latest.osm.pbf','.poly')
+            try:
+                body,_=self.http.get(poly_url,context)
+                meta['source_polygons']=parse_poly(body);meta['polygon_source']=poly_url
+            except (OSError,ValueError):
+                meta['coverage_note']+='; genaue Auszugsgrenze nicht verfügbar, rechteckige Abdeckung nur teilweise'
+        self.inventory.record_attempt('osm:'+key,list(bounds),source,'success','',CATEGORIES)
         import osmium
         reader=osmium.io.Reader(str(path))
         try:meta['source_data_timestamp']=reader.header().get('osmosis_replication_timestamp') or reader.header().get('timestamp') or 'nicht angegeben'
@@ -166,7 +245,18 @@ class DestinationImportService:
         meta['sha256']=digest.hexdigest()
         with self.inventory.connect() as db:db.execute('UPDATE datasets SET payload=? WHERE key=?',(json.dumps(meta,ensure_ascii=False),meta['key']))
         emit('phase',f"{name}: {meta['count']} regionale Merkmale aus PBF importiert.")
-        qids=[e.get('tags',{}).get('wikidata','') for e in sorted(elements,key=lambda e:not e.get('tags',{}).get('place'))]
-        try:self.enrich_wikidata(qids,context,emit)
-        except (OSError,ValueError) as exc:emit('phase','OSM-Daten nutzbar; Wikidata-Ergänzung fehlt: '+str(exc))
         return meta
+
+
+def parse_poly(text):
+    rings=[];points=[];hole=False
+    for line in text.splitlines()[1:]:
+        value=line.strip()
+        if value=='END':
+            if points:rings.append(dict(hole=hole,points=points));points=[]
+        elif len(value.split())==2:
+            try:lon,lat=map(float,value.split());points.append([lon,lat])
+            except ValueError:pass
+        elif value:hole=value.startswith('!')
+    if not rings:raise ValueError('Auszugsgrenze ungültig')
+    return rings

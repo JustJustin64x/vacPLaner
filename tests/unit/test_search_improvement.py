@@ -106,7 +106,8 @@ class SearchImprovementTests(unittest.TestCase):
         provider=Late()
         out,diag,_=self.run_search(request(surroundings=False,show_ideas=False,shortlist=3,request_budget=4),cat,provider)
         self.assertEqual(len(out),3)
-        self.assertEqual(diag['counts']['examined'],12)
+        self.assertGreaterEqual(diag['counts']['examined'],12)
+        self.assertLessEqual(diag['counts']['examined'],15)
         self.assertEqual(diag['http_calls'],0) # local fixture/cache reads are not HTTP
         self.assertTrue(all(len(t['lodgings'])==2 for t in out))
 

@@ -17,6 +17,10 @@ class OpenTravelProvider:
         self.parser = WikivoyageParser()
         self.routing_base = os.environ.get('VACATION_ROUTING_URL','https://routing.openstreetmap.de/routed-car').rstrip('/')
 
+    def candidate_discovery(self,catalog):
+        from .CandidateDiscoveryService import CandidateDiscoveryService
+        return CandidateDiscoveryService(catalog,self.store)
+
     def research_offers(self,trip,context,emit=lambda *args:None,categories=None,samples=False):
         from ...core.planning.OfferResearchService import OfferResearchService
         from .RegioJetOfferProvider import RegioJetOfferProvider
@@ -87,6 +91,7 @@ class OpenTravelProvider:
             try:service.update_region('Umgebung '+seed['name'],bounds,context,emit)
             except (OSError,ValueError) as exc:
                 self.store.cache_set('regional-source-backoff-v1',{'message':str(exc)},timestamp())
+                self.inventory.annotate_attempts(candidates)
                 emit('warning','Regionale Zusatzquelle nicht verfügbar: '+str(exc)+' · Suche läuft mit lokalen Daten weiter.');break
             chosen.append(seed)
         if chosen:
@@ -95,7 +100,7 @@ class OpenTravelProvider:
 
     def places(self, destination, context):
         if destination.get('geonames_id') or destination.get('inventory_place'):
-            local=self._inventory_places(destination)
+            local=self._inventory_places(destination,context)
             source=destination.get('wikivoyage_source')
             if not source:return local
             destination=dict(destination,source=source)
@@ -130,10 +135,15 @@ class OpenTravelProvider:
             data['cache_note']+=' · '+local['cache_note']
         return data
 
-    def _inventory_places(self,destination):
+    def _inventory_places(self,destination,context=None):
         from ...core.planning.DestinationFeatures import feature_topics
         result=dict(lodgings=[],activities=[],warnings=[],cache_note='Lokale OSM-Merkmale; keine aktuelle Öffnungs- oder Verfügbarkeitsprüfung')
-        for f in self.inventory.nearby(destination['latitude'],destination['longitude'],50,'features'):
+        request=getattr(context,'request',None)
+        radius=max(float(request.lodging_radius_km),float(request.activity_radius_km)) if request else 50
+        if request and not request.surroundings:radius=min(2,radius)
+        from ...core.planning.DestinationFeatures import spatial_distance
+        for f in self.inventory.nearby(destination['latitude'],destination['longitude'],radius,'features'):
+            if context:context.check()
             tags=f['tags']
             if tags.get('access') in ('no','private'):continue
             lodging_type={'hotel':'Hotel','guest_house':'Hotel','apartment':'Ferienwohnung','chalet':'Ferienwohnung','camp_site':'Camping'}.get(tags.get('tourism'))
@@ -145,18 +155,72 @@ class OpenTravelProvider:
                 wikidata_id=tags.get('wikidata',''),attributions=[{'label':'© OpenStreetMap-Mitwirkende · ODbL','url':'https://www.openstreetmap.org/copyright'}])
             country=tags.get('addr:country') or tags.get('is_in:country_code')
             country=country.strip().upper() if isinstance(country,str) and len(country.strip())==2 else None
-            item.update(geo_source='OSM',country_code=country,administrative_region=tags.get('addr:state') or '')
+            item.update(geometry=f.get('geometry'),geo_source='OSM',country_code=country,administrative_region=tags.get('addr:state') or '')
             if lodging_type and (tags.get('name') or tags.get('name:de')):
                 result['lodgings'].append(dict(item,type=lodging_type,amenities={},price={'label':'Unterkunft für Gruppe und Aufenthalt','low':None,'status':'unbekannt'},
                     booking_status='Kartierte Unterkunftsidentität; Belegung und Verfügbarkeit unbestätigt',rooms=None))
             topics=feature_topics(tags)
+            if tags.get('route')=='hiking' and f.get('geometry') and not f['geometry'].get('complete'):
+                item['data_status']='Wanderrelation mit fehlenden Mitgliedern; Verlauf unvollständig'
             if (tags.get('boundary')=='protected_area' or tags.get('leisure')=='nature_reserve') and tags.get('access') not in ('yes','permissive','designated'):
                 # A habitat/protection zone is context, not evidence of a visitor activity.
                 topics=[topic for topic in topics if topic not in ('Natur','Ruhe')]
+            if request:
+                if spatial_distance(destination,f)>float(request.activity_radius_km):topics=[]
+                if any(request.interests.values()):topics=[t for t in topics if request.interests.get(t,0)]
             if topics:
                 result['activities'].append(dict(item,type='OSM-Freizeitmerkmal',topics=topics,description='Kartiertes Angebot; aktuelle Öffnung, Saison und Zugang vor Ort prüfen.',
                     price_status='Preis nicht ermittelt; nicht als kostenlos bestätigt',duration='Dauer unbekannt'))
         return result
+
+    def verify_activity_access(self,trip,context,emit=lambda *args:None):
+        """One cached, bundled foot-route check for two actual node POIs.
+
+        Ways/relations need a known entrance or trailhead and are left unknown.
+        The routed graph's snapped endpoint is never a confirmed venue entrance.
+        """
+        import hashlib
+        pool=[a for a in trip['activities'] if a.get('id','').startswith('osm:node:') and a.get('distance_km') is not None and a['distance_km']<=5]
+        points=[]
+        for topic,weight in sorted(trip.get('request',{}).get('interests',{}).items(),key=lambda row:-row[1]):
+            if not weight:continue
+            point=next((a for a in pool if topic in a.get('topics',[]) and a not in points),None)
+            if point:points.append(point)
+            if len(points)==2:break
+        for point in pool:
+            if len(points)>=2:break
+            if point not in points:points.append(point)
+        if not points:
+            trip.setdefault('notes',[]).append('Vertiefte Zugangsprüfung: kein geeigneter kartierter Punkt mit belastbarer Lage; Wander-/Flächenzugänge und Wege bleiben offen.')
+            return trip
+        base=trip['destination'];coords=[(base['longitude'],base['latitude'])]
+        for point in points:coords.extend([(point['longitude'],point['latitude']),(base['longitude'],base['latitude'])])
+        coordinate_string=';'.join(f'{lon:.6f},{lat:.6f}' for lon,lat in coords)
+        key='activity-foot-v1:'+hashlib.sha256(coordinate_string.encode()).hexdigest()
+        cached=self.store.cache_get(key,30*86400)
+        try:
+            if cached:data,stamp=cached
+            else:
+                if self.store.cache_get('activity-foot-backoff',6*3600):return trip
+                emit('phase',base['name']+': modellierte Fußwege zu höchstens zwei kartierten Angeboten prüfen')
+                url='https://routing.openstreetmap.de/routed-foot/route/v1/foot/'+coordinate_string+'?overview=false&steps=false'
+                data,stamp=self.http.json(url,context)
+                if data.get('code')!='Ok' or not data.get('routes') or len(data['routes'][0].get('legs',[]))!=len(coords)-1:raise ValueError('Keine vollständige Fußwegroute zur gewählten Kartenlage')
+                self.store.cache_set(key,data,stamp)
+            legs=data['routes'][0]['legs'];waypoints=data.get('waypoints',[])
+            for index,point in enumerate(points):
+                leg=legs[index*2];waypoint=waypoints[index*2+1] if len(waypoints)>index*2+1 else {}
+                snap=waypoint.get('distance')
+                point['access_research']=dict(status='modelled' if snap is not None and snap<=100 else 'endpoint_uncertain',
+                    mode='Fußwegmodell',kilometers=round(leg['distance']/1000,2),minutes=round(leg['duration']/60,1),
+                    endpoint_offset_meters=snap,source='https://routing.openstreetmap.de/about.html',retrieved_at=stamp,
+                    note='Modellierter Weg ab Ortszentrum zum angeschlossenen Kartenpunkt; tatsächlicher Eingang, Öffnung, Barrierefreiheit und letzte Meter bleiben ungeprüft.')
+            trip.setdefault('notes',[]).append('Für einzelne kartierte Punktangebote liegen modellierte Fußwege vor. Repräsentative Punkte von Flächen/Wanderrelationen wurden nicht als bestätigte Zugänge verwendet.')
+        except InterruptedError:raise
+        except (OSError,ValueError,KeyError) as exc:
+            self.store.cache_set('activity-foot-backoff',{'error':str(exc)},timestamp())
+            trip.setdefault('notes',[]).append('Fußwegprüfung nicht verfügbar: '+str(exc)+' · Luftlinie bleibt ausdrücklich ungeprüfte Erreichbarkeit.')
+        return trip
 
     def route(self, origin, destination, context):
         a = f"{origin['longitude']},{origin['latitude']}"

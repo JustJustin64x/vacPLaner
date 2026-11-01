@@ -33,9 +33,9 @@ Das Skript benötigt Homebrew und installiert `python-tk@3.13` sowie die Python-
 
 ## Verbesserte Zielsuche
 
-Die normale Anwendung verwendet einen separat importierbaren lokalen Grundbestand. **Reise → Zieldaten einrichten / aktualisieren** lädt GeoNames-Länderdateien einschließlich kleiner Orte und ergänzt regionale OSM-Merkmale. Tatsächlich eingerichtet: 37.956 Aufenthaltsorte in Österreich, Slowenien und Kroatien plus separate Regionsobjekte; mit verbliebenen Reiseführerzielen 38.221 Aufenthaltsorte. Andere Länder und zusätzliche Freizeitregionen können eingerichtet werden. Ohne Import bleibt der kleine bisherige Katalog verfügbar. Keine großen Downloads beim Start oder während einer normalen Suche.
+**Zielsuche – Stand 30.10.2026:** Der europäische GeoNames-Bestand ist auf diesem Rechner eingerichtet: 55 explizit definierte Länder/Gebiete, 852.761 Aufenthaltsorte ohne allgemeine Einwohner-Mindestgrenze und 202.509 separate Regionsobjekte. Die normale Suche nutzt einen räumlichen Index mit 34.532 Vertretern. 487.248 eindeutige OSM-Merkmale liegen für größere Gebiete in Tirol, Slowenien, Kroatien, Bretagne, Mecklenburg-Vorpommern, Niederschlesien und Estland vor. **Freizeitdaten bleiben europaweit unvollständig.** Unter **Reise → Zieldaten einrichten / aktualisieren** lassen sich Länder nach Namen auswählen, Daten fortsetzen/aktualisieren, eigene Suchgebiete ergänzen und vorhandene Dateien verwenden. Keine großen Startdownloads. [Abgrenzung, tatsächliche Abdeckung, Vergleichssuchen und Messwerte](docs/EUROPASUCHE_2026-10-30.md).
 
-Alle geografisch passenden Orte werden vor der Begrenzung des Recherchepools bewertet. Merkmale statt Einwohnerzahl oder Zufall steuern die Interessenpassung, ergänzt durch sinnvolle geografische Vielfalt. Interessen sind Wünsche auf **0–5**, einschließlich **Ruhe** und **Barhopping**; alle null erlaubt eine offene Suche. Regionen, Länderkennungen und Aliasse bleiben unterstützt. Unter **Details**: standardmäßig 35 vertiefte Kandidaten, vier Ergebnisse und höchstens zwei kleine regionale Zusatzabfragen. [Einrichtung, Quellen, echte Abdeckung und Prüfbericht](docs/ZIELSUCHE.md).
+Alle geografisch passenden Orte werden vor der Begrenzung des Recherchepools bewertet. Merkmale statt Einwohnerzahl oder Zufall steuern die Interessenpassung, ergänzt durch sinnvolle geografische Vielfalt. Interessen sind Wünsche auf **0–5**, einschließlich **Ruhe** und **Barhopping**; alle null erlaubt eine offene Suche. Regionen, Länderkennungen und Aliasse bleiben unterstützt. Unter **Details**: standardmäßig 35 vertiefte Kandidaten, vier Ergebnisse und höchstens zwei kleine regionale Zusatzabfragen. [Einrichtung, Quellen, echte Abdeckung und Prüfbericht](docs/EUROPASUCHE_2026-10-30.md).
 
 Die Suche zieht bei Lücken weitere Kandidaten nach, bis die gewünschte Trefferzahl oder das vorhandene Zeit-/Abfragebudget erreicht ist. Unter **Details**: Umgebungssuche (Unterkünfte 15 km, Aktivitäten 30 km Luftlinie, abschaltbar) und optionale Anzeige **„Ideen mit unbelegten Pflichtangaben“**. Diese Ideen stehen getrennt von Filtertreffern; kein Filter wird automatisch gelockert.
 
@@ -140,3 +140,38 @@ Die früheren Adapter erzeugen simulierte Flug-/Bahn-/Hotelangebote. Sie bleiben
 ## Verbleibende Grenzen
 
 Die Preisabdeckung ist quellspezifisch: RegioJet, eine direkte Innsbrucker Ferienwohnungsquelle und wenige offizielle Eintrittsquellen. Keine funktionierende Flugpreissuche, keine allgemeinen Hotel-/Mehrzimmerpreise, keine zuverlässige datierte Veranstaltungsabdeckung. Harte Ausstattungsfilter können Ergebnisse verhindern. Tür-zu-Tür-Zeiten, Maut, Parken und Transfers bleiben teilweise offen; Verbrauch und Spritpreis sind Annahmen. Ein vollständig buchbares Gesamtpaket und ein belegter Preis-Sieger sind damit **nicht** abgenommen. Keine Kinder, Buchung/Zahlung, Wetterprognose oder Währungsumrechnung ohne belegte Fremdwährungsangebote.
+
+## Optionale lokale KI – Einrichtung, Schritt 1
+
+Ollama 0.40.13 und `qwen3:4b-instruct-2507-q4_K_M` sind auf diesem Mac separat eingerichtet. Der Dienst verwendet ausschließlich `127.0.0.1:11435` mit deaktivierten Cloud-Funktionen. Die Reiseanwendung nutzt die KI noch nicht; Suche, Filter, Preise und PDF funktionieren weiterhin unabhängig davon.
+
+```bash
+.venv/bin/python scripts/local_ai.py status
+.venv/bin/python scripts/local_ai.py start
+.venv/bin/python scripts/local_ai.py check
+.venv/bin/python scripts/local_ai.py stop
+```
+
+Auf einem neuen Apple-Silicon-Mac: zuerst `scripts/local_ai.py plan`, anschließend bewusst `scripts/local_ai.py setup --download` über die Projektumgebung ausführen. Vorhandene Komponenten werden wiederverwendet. Laufzeit, Modell und Konfiguration liegen außerhalb des Repositorys unter `~/Library/Application Support/Urlaubsplaner/local-ai/`; die zentrale Beispielkonfiguration liegt in [config/local_ai.example.json](config/local_ai.example.json).
+
+**Prüfergebnis:** 192 automatisierte Tests bestanden. Die abschließenden echten Modellprüfungen bestanden fachlich in 14 von 16 Fällen; der reproduzierbare Fehler bei aus einem See-Wunsch abgeleiteten Interessen bleibt ausdrücklich offen. Für Schritt 2 sind kontrollierte, beleggebundene Erklärungen im geprüften Umfang möglich; automatische Freitext-Filterübernahme ist noch nicht freigegeben. [Einrichtung, tatsächliche Messwerte, Fehlversuche, Lizenzen und Grenzen](docs/LOKALE_KI_SCHRITT1_2026-10-30.md).
+
+## Lokale Reiseerklärungen – Schritt 2
+
+Nach einer normalen Suche ein Ergebnis auswählen und **Passung erklären** anklicken. Im eigenen Erklärungsbereich ordnet die lokale KI vorhandene Interessenbelege; beleggebundene Formulierungen, Datenlücken und anklickbare Quellen bleiben unter Programmkontrolle. Die Generierung ist abbrechbar, gleiche Erklärungen werden innerhalb der Sitzung wiederverwendet. Der Dienst wird beim App-Start nicht automatisch gestartet.
+
+Ohne erreichbaren KI-Dienst oder bei ungültigen Antworten bleibt die Suche nutzbar und eine Belegübersicht verfügbar. Es gibt keine freie KI-Preisbewertung, zusätzliche Recherche oder automatische Filteränderung. **215 Tests bestanden**, ergänzt durch echte lokale Modell-, GUI-, Abbruch- und Offline-Prüfungen. [Bedienung, Messwerte und Grenzen der Abnahme](docs/LOKALE_KI_SCHRITT2_2026-10-30.md).
+
+## Reisewünsche beschreiben – Schritt 3
+
+Links **Wünsche** öffnen, Text eingeben und **Wünsche auswerten** wählen. Rechts in der **Wunschvorschau** bisherige Werte, Vorschläge und Originaltextstellen prüfen, Zeilen auswählen und ausdrücklich übernehmen. Anfangs ist nichts ausgewählt; die Suche startet anschließend nur auf Knopfdruck. Eingabe- oder Formularänderungen verwerfen alte Vorschauen.
+
+Die lokale KI erkennt Feld und Textstelle; unabhängige Regeln bestimmen Werte, Einheiten und Operationen. Unterstützt werden bewusst begrenzte Formulierungen. Fehlendes Jahr, unklarer Budgetumfang, Kinder, ungewichtete Interessen und nicht darstellbare Filter bleiben zur manuellen Klärung sichtbar. Freitext wird nicht automatisch gespeichert oder in Suchdiagnosen aufgenommen.
+
+**248 Tests bestanden.** Echte Modellprüfungen zeigen weiterhin Auslassungen; diese werden nicht durch erfundene Werte ersetzt. [Bedienung, unterstützte Felder und tatsächliche Grenzen](docs/LOKALE_KI_SCHRITT3_2026-10-31.md).
+
+## Gezielte Quellenrecherche – Schritt 4
+
+Bei einem ausgewählten Ergebnis **Quellen & Bilder recherchieren** wählen. Vorhandene Wikivoyage-Artikel und verknüpfte Wikidata-Identitäten werden begrenzt geprüft; neue Quellenhinweise mit Originalnachweisen erscheinen in den Reisedetails. Die Ansicht springt nach Abschluss zu diesen Hinweisen. Erst die normale Speicheraktion bewahrt die Arbeitskopie dauerhaft.
+
+Keine allgemeine Websuche, Preisinterpretation oder neue Rankingwirkung. Ohne KI bleiben deterministische Quellenhinweise und die normale Suche nutzbar. Neue Bildabrufe können an Robots-verbotenen bisherigen API-Pfaden scheitern; vorhandene Bilder bleiben erhalten. **277 Tests bestanden**, ergänzt durch echte Abrufe für Bled, Innsbruck und Tallinn sowie lokale Modell-, GUI-, Abbruch- und Offline-Prüfungen. Zwei synthetische Modellantworten mit falschen Beleg-IDs wurden verworfen. [Bedienung, Messwerte, Quellenabdeckung und Grenzen](docs/LOKALE_KI_SCHRITT4_2026-10-31.md).

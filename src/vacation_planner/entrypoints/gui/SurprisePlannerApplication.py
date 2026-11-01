@@ -1,5 +1,7 @@
 from __future__ import annotations
 import copy
+import hashlib
+import gc
 import json
 from pathlib import Path
 import queue
@@ -65,6 +67,7 @@ class SurprisePlannerApplication:
         self.diagnostic=None
         self.export_order=[]
         self.enrichment_context=None
+        self.enrichment_serial=0
         self.media_photo=None
         self.price_context=None
 
@@ -148,6 +151,8 @@ class SurprisePlannerApplication:
         self._entry(f,'lodging_radius_km','Unterkünfte: Umkreis · km Luftlinie (max. 50)',default.lodging_radius_km)
         self._entry(f,'activity_radius_km','Aktivitäten: Umkreis · km Luftlinie (max. 50)',default.activity_radius_km)
         self._entry(f,'show_ideas','Ideen mit unbelegten Pflichtangaben separat anzeigen','nein',values=('ja','nein'))
+        self._entry(f,'ai_discovery','Zusätzliche Zielideen mit lokaler KI prüfen','nein',values=('ja','nein'))
+        self._note(f,'Optional: Nach der normalen Auswahl wenige zusätzliche Orte prüfen. Pflichtkriterien gelten weiter; kein automatischer KI-Start.')
         self._entry(f,'regional_queries','Kleine regionale Zusatzabfragen · 0 bis 3',default.regional_queries)
         self._note(f,'Begrenzte Suche')
         for key,label in [('shortlist','Gewünschte Filtertreffer · 3 bis 12'),('candidate_pool','Vertiefte Kandidatenauswahl · 10 bis 100'),('price_targets','Preisrecherche für beste Ziele · 0 bis 12'),('request_budget','Maximale Quellenabfragen · 4 bis 40'),('timeout_seconds','Zeitlimit · 10 bis 600 Sekunden')]:
@@ -192,7 +197,10 @@ class SurprisePlannerApplication:
         ttk.Button(buttons,text='Reise speichern',command=self.save_trip).pack(side='left')
         ttk.Button(buttons,text='Als neue Reise speichern',command=lambda:self.save_trip(True)).pack(side='left',padx=6)
         ttk.Button(buttons,text='PDF exportieren',command=self.export_pdf).pack(side='left')
-        ttk.Button(buttons,text='Angaben & Bilder recherchieren',command=self.enrich_active).pack(side='left',padx=6)
+        ttk.Button(buttons,text='Quellen & Bilder recherchieren',command=self.enrich_active).pack(side='left',padx=6)
+        explanation_actions=ttk.Frame(results);explanation_actions.pack(fill='x',pady=(0,4))
+        from .ExplanationPanel import ExplanationPanel
+        self.explanation_panel=ExplanationPanel(self,explanation_actions)
         prices=ttk.Frame(results);prices.pack(fill='x',pady=(0,4))
         self.price_category=ttk.Combobox(prices,state='readonly',values=('Alle Preise','Unterkunft','Bahn','Flug','Aktivitäten'),width=16)
         self.price_category.current(0);self.price_category.pack(side='left')
@@ -227,7 +235,7 @@ class SurprisePlannerApplication:
         for label,command in [('Auswahl hinzufügen',self.add_saved_to_export),('Nach oben',lambda:self.move_export(-1)),('Nach unten',lambda:self.move_export(1)),('Entfernen',self.remove_from_export),('Auswahl als PDF exportieren',self.export_saved_pdf)]:
             ttk.Button(export_buttons,text=label,command=command).pack(fill='x',pady=2)
         statusframe=ttk.Frame(self.root,padding=(18,8));statusframe.pack(fill='x')
-        self.status=tk.StringVar(value=f'Bereit. {len(self.catalog.destinations)} belegte Katalogziele; Interessen sind Wünsche, keine Pflichtfilter.')
+        self.status=tk.StringVar(value=f'Bereit. {len(self.catalog.destinations)} räumliche Ortsvertreter im Suchindex; Interessen sind Wünsche, keine Pflichtfilter.')
         ttk.Label(statusframe,textvariable=self.status,wraplength=1250).pack(anchor='w')
         self.elapsed=tk.StringVar(value='')
         ttk.Label(statusframe,textvariable=self.elapsed,style='SubHeader.TLabel').pack(anchor='w')
@@ -238,6 +246,8 @@ class SurprisePlannerApplication:
         self.diagnostic_text=tk.Text(diagnostic_frame,wrap='word',state='disabled')
         self.diagnostic_text.pack(fill='both',expand=True)
         ttk.Button(diagnostic_frame,text='Diagnose ohne genaue Adresse exportieren',command=self.export_diagnostic).pack(anchor='w')
+        from .WishPanel import WishPanel
+        self.wish_panel=WishPanel(self,notebook)
         self.refresh_saved()
         self.root.protocol('WM_DELETE_WINDOW',self.close)
         self.root.after(150,self.poll)
@@ -266,7 +276,7 @@ class SurprisePlannerApplication:
         for key,var in self.vars.items():
             if ':' in key: continue
             value=var.get().strip()
-            if key in ('surroundings','show_ideas'):
+            if key in ('surroundings','show_ideas','ai_discovery'):
                 data[key]=value=='ja';continue
             data[key]=int(value) if key in integers else [v.strip() for v in value.split(',') if v.strip()] if key in lists else value.replace(',','.') if key in decimals else value
         data['interests']={k:float(self.vars['interest:'+k].get().replace(',','.')) for k in INTERESTS}
@@ -291,6 +301,9 @@ class SurprisePlannerApplication:
         try:request=self.read_request()
         except (ValueError,InvalidOperation) as exc:
             messagebox.showerror('Eingaben prüfen',str(exc),parent=self.root);return
+        self.cancel_enrichment()
+        self.wish_panel.invalidate('Neue Suche gestartet. Wunschvorschau verworfen.')
+        self.explanation_panel.sync(None)
         if self.context:self.context.cancel.set()
         if self.price_context:self.price_context.cancel.set();self.price_context=None
         self.price_button.configure(state='normal')
@@ -327,6 +340,7 @@ class SurprisePlannerApplication:
         self.workers=[t for t in self.workers if t.is_alive()]+[worker];worker.start()
 
     def cancel_search(self):
+        self.explanation_panel.abort(silent=True)
         if self.context:self.context.cancel.set()
         if self.enrichment_context:self.enrichment_context.cancel.set();self.enrichment_context=None
         if self.price_context:self.price_context.cancel.set();self.price_context=None
@@ -338,10 +352,17 @@ class SurprisePlannerApplication:
 
     def poll(self):
         if self.closed:return
+        self.explanation_panel.poll()
+        self.wish_panel.poll()
         for _ in range(100):
             try:generation,kind,value=self.events.get_nowait()
             except queue.Empty:break
             if generation!=self.generation:continue
+            if kind.startswith('enrich_'):
+                token,target,base,value=value
+                if token!=self.enrichment_serial or not self.enrichment_context or self.enrichment_context.cancel.is_set() or not self.active or self.active['id']!=target:continue
+                if kind=='enrich_result' and self.trip_revision(self.active)!=base:
+                    self.cancel_enrichment();self.status.set('Reise zwischenzeitlich geändert. Nachrecherche-Ergebnis verworfen; bitte erneut starten.');continue
             if kind=='phase':self.status.set(value)
             elif kind=='warning':
                 self.source_log.configure(state='normal');self.source_log.insert('end',value+'\n');self.source_log.see('end');self.source_log.configure(state='disabled')
@@ -367,8 +388,8 @@ class SurprisePlannerApplication:
             elif kind=='enrich_warning':
                 self.source_log.configure(state='normal');self.source_log.insert('end',value+'\n');self.source_log.see('end');self.source_log.configure(state='disabled')
             elif kind=='enrich_result':
-                self.active=value;self.trips[value['id']]=value;self.show_details()
-                self.status.set('Nachrecherche abgeschlossen. Die Arbeitskopie wurde ergänzt; zum dauerhaften Bewahren ausdrücklich speichern.')
+                self.active=value;self.trips[value['id']]=value;self.show_details(source_notes=True)
+                self.status.set('Nachrecherche abgeschlossen. Neue Quellenhinweise stehen am Ende der Reisedetails. Zum Bewahren ausdrücklich speichern.')
             elif kind=='enrich_done':self.enrichment_context=None;self.cancel_button.configure(state='disabled')
             elif kind=='price_phase':self.status.set(value)
             elif kind=='price_warning':
@@ -412,7 +433,7 @@ class SurprisePlannerApplication:
         tree=tree or self.tree
         selection=tree.selection()
         if not selection:return
-        if self.active is not self.trips[selection[0]]:self.saved_id=None
+        if self.active is not self.trips[selection[0]]:self.cancel_enrichment();self.saved_id=None
         self.active=self.trips[selection[0]]
         self.refresh_trip_choices();self.show_details()
 
@@ -432,17 +453,20 @@ class SurprisePlannerApplication:
 
     def swap(self,event=None):
         if not self.active:return
+        self.cancel_enrichment()
         if self.active['lodgings']:self.active['selected_lodging']=max(0,self.lodging_box.current())
         self.active['selected_transport']=max(0,self.transport_box.current())
         RankingService.recompute(self.active);self.update_row(self.active);self.show_details()
 
-    def show_details(self):
+    def show_details(self,source_notes=False):
+        self.explanation_panel.sync(self.active)
         self._show_active_image()
         self.details.configure(state='normal');self.details.delete('1.0','end')
         for tag in self.details.tag_names():
             if tag.startswith('link'):self.details.tag_delete(tag)
-        index=0
+        index=0;source_index=None
         for heading,paragraphs,links in TripPresenter.sections(self.active):
+            if heading=='Neue Quellenhinweise · Grenzen und Rechercheverlauf':source_index=self.details.index('end-1c')
             self.details.insert('end',heading+'\n','heading')
             for paragraph in paragraphs:self.details.insert('end',paragraph+'\n\n')
             for label,url in links:
@@ -450,7 +474,7 @@ class SurprisePlannerApplication:
                 self.details.tag_configure(tag,foreground='#7dd3fc',underline=True)
                 self.details.tag_bind(tag,'<Button-1>',lambda e,u=url:webbrowser.open(u))
                 self.details.insert('end',label+' ↗\n',tag)
-        self.details.configure(state='disabled');self.details.see('1.0')
+        self.details.configure(state='disabled');self.details.see(source_index if source_notes and source_index else '1.0')
 
     def _show_active_image(self):
         self.media_photo=None;self.media_label.configure(image='',text='');self._media_items=[]
@@ -473,21 +497,33 @@ class SurprisePlannerApplication:
             source=Image.open(image['cache_path']);source.thumbnail((720,180));self.media_photo=ImageTk.PhotoImage(source);self.media_label.configure(image=self.media_photo)
         except (OSError,ValueError):self.media_label.configure(text='Bild konnte nicht angezeigt werden.')
 
-    def enrich_active(self):
-        if not self.active or self.running:return
+    @staticmethod
+    def trip_revision(trip):
+        return hashlib.sha256(json.dumps(trip,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+
+    def cancel_enrichment(self):
         if self.enrichment_context:self.enrichment_context.cancel.set()
-        context=SearchContext(seconds=90,budget=18);self.enrichment_context=context;original=self.active;generation=self.generation
-        self.status.set('Gezielte Nachrecherche läuft …');self.cancel_button.configure(state='normal')
-        def emit(kind,value):self.events.put((generation,'enrich_'+kind,value))
+        self.enrichment_context=None;self.enrichment_serial+=1
+        if hasattr(self,'cancel_button') and not self.running and not self.price_context:self.cancel_button.configure(state='disabled')
+
+    def enrich_active(self):
+        if not self.active or self.running or self.price_context:return
+        self.cancel_enrichment()
+        context=SearchContext(seconds=120,budget=18);self.enrichment_context=context
+        original=copy.deepcopy(self.active);generation=self.generation;token=self.enrichment_serial
+        target=original['id'];base=self.trip_revision(original)
+        self.status.set('Gezielte Quellen-Nachrecherche läuft …');self.cancel_button.configure(state='normal')
+        def emit(kind,value):self.events.put((generation,'enrich_'+kind,(token,target,base,value)))
         def work():
-            try:emit('result',TripEnrichmentService(self.store,self.provider.http).enrich(original,context,emit))
+            try:emit('result',TripEnrichmentService(self.store,getattr(self.provider,'http',None)).enrich(original,context,emit,research=True))
             except InterruptedError:emit('warning','Nachrecherche abgebrochen; vorhandene Reise bleibt erhalten.')
-            except Exception as exc:emit('warning','Nachrecherche fehlgeschlagen: '+str(exc))
+            except Exception:emit('warning','Nachrecherche fehlgeschlagen; vorhandene Reise bleibt erhalten.')
             finally:emit('done',None)
+        gc.collect()
         worker=threading.Thread(target=work,name='trip-enrichment',daemon=False);self.workers.append(worker);worker.start()
 
     def research_prices(self,samples=False,trips=None,export_filename=None):
-        if not self.active or self.running or self.price_context:return
+        if not self.active or self.running or self.price_context or self.enrichment_context:return
         if not callable(getattr(self.provider,'research_offers',None)):
             messagebox.showinfo('Angebotsprüfung','Der gewählte Datenprovider unterstützt keine Angebotsprüfung.',parent=self.root);return
         context=SearchContext(seconds=600,budget=40);self.price_context=context
@@ -655,12 +691,16 @@ class SurprisePlannerApplication:
 
     def close(self):
         self.closed=True
+        if hasattr(self,"wish_panel"):self.wish_panel.close()
+        if hasattr(self,"explanation_panel"):self.explanation_panel.abort(silent=True)
         if self.import_context:self.import_context.cancel.set()
         if self.context:self.context.cancel.set()
         if self.enrichment_context:self.enrichment_context.cancel.set()
         if self.price_context:self.price_context.cancel.set()
         self.generation+=1
         self.root.destroy()
+        # Break panel/application cycles while Tk objects still die on UI thread.
+        if hasattr(self,"explanation_panel"):self.explanation_panel.app=None
 
     def start_dashboard(self):
         self.create_window().mainloop()

@@ -1,4 +1,6 @@
 import json
+import hashlib
+import zlib
 import unicodedata
 import difflib
 from pathlib import Path
@@ -23,7 +25,10 @@ class DestinationCatalog:
                   'germany':'Deutschland','bohemian switzerland':'Böhmische Schweiz',
                   'mecklenburg lake district':'Mecklenburgische Seenplatte','dolomites':'Dolomiten',
                   'boehmische schweiz':'Böhmische Schweiz','tyrol':'Tirol','carinthia':'Kärnten','styria':'Steiermark',
-                  'upper austria':'Oberösterreich','lower austria':'Niederösterreich','vienna':'Wien'}
+                  'upper austria':'Oberösterreich','lower austria':'Niederösterreich','vienna':'Wien','bretagne':'Brittany','niederschlesien':'Lower Silesia',
+                  'russland':'Russland (europäischer Teil)','russia':'Russland (europäischer Teil)',
+                  'tuerkei':'Türkei (europäischer Teil)','turkey':'Türkei (europäischer Teil)',
+                  'kasachstan':'Kasachstan (westlich des Ural)'}
 
     def __init__(self,inventory=None,context=None):
         self.inventory=inventory
@@ -37,7 +42,15 @@ class DestinationCatalog:
         for d in imported:
             for name in [d['name'],*d.get('aliases',[])]:
                 by_name.setdefault((d['code'],normalize(name)),[]).append(d)
+        datasets=self.inventory.coverage()
+        cache_key='guide-profiles:'+hashlib.sha256(json.dumps([self.inventory.FEATURE_VERSION,datasets,legacy],sort_keys=True).encode()).hexdigest()
+        with self.inventory.connect() as db:cached=db.execute('SELECT payload FROM derived_catalog WHERE key=?',(cache_key,)).fetchone()
+        guide_cache=json.loads(zlib.decompress(cached[0])) if cached else {};dirty=False
+        coverage=[r for r in datasets if r['key'].startswith('osm:')]
         for old in legacy:
+            if context:context.check()
+            from .EuropeScope import contains
+            if not contains(old['code'],old['latitude'],old['longitude']):continue
             options=by_name.get((old['code'],normalize(old['name'])),[])
             same=next((d for d in options if distance(old,d)<.8),None)
             if same:
@@ -45,8 +58,18 @@ class DestinationCatalog:
                 same['aliases']=list(dict.fromkeys(same.get('aliases',[])+[old['name']]+old.get('aliases',[])))
                 same['name']=old['name'];same['regions']=list(dict.fromkeys(same['regions']+old.get('regions',[])))
                 same['legacy_id']=old['id']
-            else:imported.append(old)
-        self.destinations=imported
+            else:
+                if old['id'] in guide_cache:old=guide_cache[old['id']]
+                else:
+                    old=dict(old,inventory_place=True,wikivoyage_source=old['source'])
+                    with self.inventory.connect() as db:self.inventory.profile_place(old,coverage,db)
+                    guide_cache[old['id']]=old;dirty=True
+                imported.append(old)
+        if dirty:
+            with self.inventory.connect() as db:
+                db.execute('INSERT OR REPLACE INTO derived_catalog VALUES(?,?)',(cache_key,zlib.compress(json.dumps(guide_cache,ensure_ascii=False).encode(),3)))
+                db.execute('DELETE FROM derived_catalog WHERE key NOT IN (SELECT key FROM derived_catalog ORDER BY rowid DESC LIMIT 4) AND key NOT IN (SELECT catalog_key FROM index_versions)')
+        self.destinations=self.inventory.annotate_attempts(imported)
 
     def resolve(self,name):
         pieces=name.split(',',1);wanted=normalize(pieces[0]);country=normalize(pieces[1]) if len(pieces)>1 else ''
@@ -54,6 +77,8 @@ class DestinationCatalog:
                  {normalize(d['name']),*(normalize(a) for a in d.get('aliases',[]))}]
         exact=[d for d in matches if normalize(d['name'])==wanted]
         matches=exact or matches
+        if not matches and self.inventory:
+            matches=self.inventory.find_name(pieces[0],pieces[1].strip() if len(pieces)>1 else '')
         return matches[0] if len(matches)==1 else None
 
     def area(self,value):
@@ -96,7 +121,8 @@ class DestinationCatalog:
     def candidates(self,request):
         self.validate_areas(request)
         origin=self.resolve(request.origin)
-        return [d for d in self.destinations if self.allowed(d,request) and
+        pool=self.destinations
+        return [d for d in pool if self.allowed(d,request) and
                 (origin is None or d.get('id',d['name'])!=origin.get('id',origin['name'])) and
                 normalize(d['name'])!=normalize(request.origin) and
                 (request.target_type=='gemischt' or request.target_type in d.get('landscapes',[]) or
@@ -115,8 +141,9 @@ class DestinationCatalog:
 
     def nearest(self,item):
         if self.inventory:
-            pool=[d for d in self.inventory.nearby(item['latitude'],item['longitude'],20) if d.get('kind')=='settlement']
-            if pool:return min(pool,key=lambda d:distance(item,d))
+            for radius in (1,5,20):
+                pool=[d for d in self.inventory.nearby(item['latitude'],item['longitude'],radius) if d.get('kind')=='settlement']
+                if pool:return min(pool,key=lambda d:distance(item,d))
         return min(self.destinations,key=lambda d:distance(item,d))
 
     def coverage(self):

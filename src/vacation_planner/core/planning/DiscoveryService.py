@@ -7,6 +7,7 @@ from .RankingService import RankingService
 from .TravelProvider import TravelProvider
 from .SearchDiagnostics import SearchDiagnostics
 from .PlaceResearch import PlaceResearch, distance
+from .CandidateSelection import same_holiday_region
 
 
 class DiscoveryService:
@@ -36,15 +37,19 @@ class DiscoveryService:
     def _search(self,request,context,emit):
         context.check()
         request.validate()
+        context.request=request
         counts=self.diagnostics.data['counts']
         counts['catalog']=len(self.catalog.destinations)
+        if getattr(self.catalog,'inventory',None):counts['imported_settlements']=self.catalog.inventory.counts().get('settlement',0)
         self.diagnostics.data['coverage']=self.catalog.coverage()
         coverage=self.catalog.coverage_status(request)
         if coverage:
             self.diagnostics.data['not_imported_countries']=coverage['not_imported']
-            emit('phase',f"{coverage['imported_count']} Länder mit importiertem Grundbestand; {len(coverage['not_imported'])} weitere Länder noch nicht importiert. Außerhalb nur begrenzte Reiseführerziele.")
+            emit('phase',f"{coverage['imported_count']} Länder mit importiertem Grundbestand; {len(coverage['not_imported'])} weitere Länder noch nicht importiert. Freizeitdaten sind räumlich teilweise erschlossen.")
             for warning in coverage['warnings']:emit('warning',warning)
         candidates=self.catalog.candidates(request)
+        if any(request.interests.values()) and any(d.get('feature_profile',{}).get('coverage')=='unknown' for d in candidates):
+            emit('warning','Freizeitdaten decken den Suchraum nur teilweise ab. Die Auswahl vergleicht belegte Angebote und ist keine europaweit beste Auswahl. Fehlende Regionen unter „Zieldaten einrichten“ gezielt ergänzen.')
         counts['geographic']=sum(self.catalog.allowed(d,request) for d in self.catalog.destinations)
         emit('phase','Startort auflösen')
         origin=self.provider.origin(request.origin,request.address,context)
@@ -55,7 +60,7 @@ class DiscoveryService:
         from .CandidateSelection import select_candidates
         chosen,selection=select_candidates(candidates,request,origin,context)
         counts['locally_scored']=selection['geographic_considered'];counts.update(selection)
-        emit('phase',f"{counts['locally_scored']} Orte geografisch berücksichtigt; {selection['with_interest_evidence']} mit erfassten Interessenmerkmalen; {selection['features_unknown']} mit fehlenden regionalen Zusatzdaten.")
+        emit('phase',f"{counts['locally_scored']} räumliche Ortsvertreter aus dem lokalen Bestand berücksichtigt; {selection['with_interest_evidence']} mit erfassten Interessenmerkmalen; {selection['features_unknown']} mit fehlenden regionalen Zusatzdaten.")
         emit('phase',f"{len(chosen)} Ziele lokal bewertet; adaptive Recherche bis {request.shortlist} Filtertreffer oder Quellen-/Zeitlimit.")
         results=[]
         price_context=None
@@ -81,12 +86,19 @@ class DiscoveryService:
                 if context.calls>before_calls:counts['online_examined']+=1
             if trip is None:continue
             if trip['filter_status']=='offen' and not request.show_ideas:continue
-            if any(distance(trip['destination'],old['destination'])<12 and trip['destination']['code']==old['destination']['code'] for old in results):
+            if any(same_holiday_region(trip['destination'],old['destination']) for old in results):
                 self.diagnostics.data.setdefault('grouped_alternatives',[]).append({'name':trip['destination']['name'],'reason':'Nahe Alternative derselben Urlaubsregion'});continue
             results.append(trip)
             counts['returned_results']=len(results)
             emit('result',trip)
+        if request.ai_discovery:
+            self._additional_candidates(request,context,origin,candidates,chosen,results,emit)
         results.sort(key=lambda t:(t['filter_status']=='passend',t['score']),reverse=True)
+        if callable(getattr(self.provider,'verify_activity_access',None)):
+            for trip in results[:2]:
+                if context.calls>=context.budget:break
+                self.provider.verify_activity_access(trip,context,emit)
+                emit('result',trip)
         for index,trip in enumerate(results[:request.price_targets]):
             if callable(getattr(self.provider,'research_offers',None)):
                 from .SearchContext import SearchContext
@@ -102,6 +114,48 @@ class DiscoveryService:
                         'statuses':{k:v['status'] for k,v in trip.get('offer_searches',{}).items()}}
                     emit('result',trip)
         return sorted(results,key=lambda t:(t['filter_status']=='passend',t['score']),reverse=True)
+
+    def _additional_candidates(self,request,context,origin,candidates,chosen,results,emit):
+        factory=getattr(self.provider,'candidate_discovery',None)
+        if not callable(factory):
+            self.diagnostics.data['ai_discovery']=dict(enabled=True,status='provider_not_supported',model_calls=0)
+            return
+        try:
+            service=factory(self.catalog)
+            destinations=service.suggest(candidates,chosen,results,request,origin,context,emit,self.diagnostics.data)
+            report=self.diagnostics.data['ai_discovery']
+            for destination in destinations:
+                context.check()
+                if context.calls>=context.budget:
+                    report['budget_skipped']+=1;break
+                destination,source=service.prepare(destination,request,context,emit,report)
+                context.check();report['deep_researched']+=1;self.diagnostics.data['counts']['examined']+=1
+                emit('phase','Zusätzliche Ortsidee regulär prüfen: '+destination['name'])
+                try:trip=self.research(request,context,origin,destination,emit)
+                except InterruptedError:raise
+                except (OSError,ValueError,KeyError):
+                    report['decisions'].append(dict(name=destination['name'],status='research_failed',reason='Reguläre Quellen-/Reiseprüfung fehlgeschlagen'));continue
+                if trip is None:continue
+                trip['discovery_origin']=destination['discovery_origin']
+                if source:
+                    from .SourceEvidence import merge_research
+                    trip=merge_research(trip,source['evidence'],source['attempt'])
+                    from .ResearchAssessment import assess_research
+                    assess_research(trip,request)
+                if trip['filter_status']=='offen' and not request.show_ideas:
+                    report['decisions'].append(dict(name=destination['name'],status='hidden_open_idea',reason='Offene Kriterien; Ideenanzeige ist aus'));continue
+                if any(same_holiday_region(trip['destination'],old['destination']) for old in results):
+                    report['decisions'].append(dict(name=destination['name'],status='grouped',reason='Nahe Alternative derselben Urlaubsregion'));continue
+                results.append(trip);report['returned_matches' if trip['filter_status']=='passend' else 'returned_ideas']+=1
+                self.diagnostics.data['counts']['returned_results']=len(results)
+                emit('result',trip)
+        except InterruptedError:
+            if context.cancel.is_set():raise
+            self.diagnostics.data.setdefault('ai_discovery',{})['status']='rest_budget_or_time_exhausted'
+            emit('warning','Teilbudget für zusätzliche Zielideen erreicht; vorhandene Ergebnisse bleiben nutzbar.')
+        except (OSError,ValueError,TypeError,KeyError):
+            self.diagnostics.data.setdefault('ai_discovery',{})['status']='extension_failed'
+            emit('warning','Zusätzliche Zielideen konnten nicht vollständig geprüft werden; normale Ergebnisse bleiben erhalten.')
 
     def research(self,request,context,origin,destination,emit):
         counts=self.diagnostics.data['counts']

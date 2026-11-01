@@ -23,8 +23,23 @@ class TripEnrichmentService:
         self.store,self.http=store,http
         self.cache_dir=Path(store.path).parent/'image-cache';self.cache_dir.mkdir(parents=True,exist_ok=True)
 
-    def enrich(self,trip,context,emit=lambda *args:None):
-        result=copy.deepcopy(trip);destination=result.get('destination') or {}
+    def enrich(self,trip,context,emit=lambda *args:None,research=False):
+        if research:
+            from .ResearchHttp import ResearchHttp
+            from .SourceResearchService import SourceResearchService
+            self.http=ResearchHttp(self.store)
+            result=SourceResearchService(self.store,self.http).enrich(trip,context,emit)
+        else:result=copy.deepcopy(trip)
+        try:return self._enrich_existing(result,context,emit)
+        except InterruptedError:
+            if not research or context.cancel.is_set():raise
+            message='Zeit-/Abfragebudget für weitere Orts-/Bildangaben erreicht; bereits geprüfte Quellenhinweise bleiben erhalten.'
+            emit('warning',message)
+            result.setdefault('enrichment_warnings',[]).append(message)
+            result['enriched_at']=timestamp();return result
+
+    def _enrich_existing(self,result,context,emit):
+        destination=result.get('destination') or {}
         emit('phase','Ortsangaben aktualisieren')
         try:
             places=self.http and self._refresh_places(destination,context)
@@ -48,7 +63,7 @@ class TripEnrichmentService:
         if not source.startswith('https://de.wikivoyage.org/wiki/'):return None
         body,stamp=self.http.get(source,context)
         from .WikivoyageParser import WikivoyageParser
-        return WikivoyageParser().parse(body,destination,stamp)
+        return WikivoyageParser().parse(body,dict(destination,source=source),stamp)
 
     @staticmethod
     def _merge_places(trip,places):
@@ -92,8 +107,11 @@ class TripEnrichmentService:
     @staticmethod
     def _plain(value):return re.sub(r'\s+',' ',html.unescape(re.sub('<[^>]+>',' ',value or ''))).strip()
 
-    @staticmethod
-    def _download(url,path,context):
+    def _download(self,url,path,context):
+        from .ResearchHttp import ResearchHttp
+        if isinstance(self.http,ResearchHttp):
+            record=self.http.fetch(url,context,('image/jpeg','image/png','image/webp'),maximum=8_000_000)
+            path.write_bytes(record['body']);return
         temp=path.with_suffix(path.suffix+'.part');process=subprocess.Popen(['curl','--silent','--show-error','--location','--max-redirs','3','--proto','=https','--proto-redir','=https','--max-time','20','--connect-timeout','8','--max-filesize','8000000','--output',str(temp),url])
         try:
             while process.poll() is None:context.check();time.sleep(.1)

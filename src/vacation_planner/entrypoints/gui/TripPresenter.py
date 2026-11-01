@@ -55,6 +55,14 @@ class TripPresenter:
                 budget_note]+[f"{c['label']}: {price_text(c)}" for c in trip['costs'] if not c.get('optional')]+[
                 'Fehlende Positionen: '+(', '.join(summary['missing']) or 'keine'),
                 'Optionale Ausgaben vor Ort: Verpflegung und Aktivitäten separat; unbekannt und außerhalb des Budgetvergleichs.'],[])]
+        profile=trip['destination'].get('feature_profile')
+        if profile:
+            labels={'not_investigated':'nicht untersucht','observed_no_matches':'untersucht, keine passenden Objekte gefunden','partial':'teilweise untersucht','evidence_present':'passende Karteneinträge vorhanden','source_unreachable':'Quelle nicht erreichbar'}
+            paragraphs=[profile.get('limitations',''), 'Untersuchte Regionen: '+(', '.join(profile.get('regions',[])) or 'keine regionalen Freizeitdaten')]
+            for topic,proof in trip.get('interest_evidence',{}).items():
+                paragraphs.append(topic+': '+labels.get(proof.get('status'),proof.get('status','Datenstand unbekannt'))+' · '+proof['explanation'])
+                for e in proof.get('evidence',[]):paragraphs.append(e['name']+f" · {e.get('distance_km',0):.2f} km · "+e.get('distance_kind','Luftlinie')+' · '+e.get('access_status','Zugang ungeprüft'))
+            sections.append(('Abdeckung und Interessenbelege',paragraphs,[(p['name'],p['source']) for proof in trip.get('interest_evidence',{}).values() for p in proof.get('evidence',[])]))
         for c in trip['costs']:
             if c.get('low') is not None:
                 sections.append((c['label'],[c.get('scope',''),c.get('method',''),
@@ -83,6 +91,11 @@ class TripPresenter:
             sections.append((a['name'],[a['description'],f"Lage: {location}; {a['price_status']}; {a['duration']}",
                                        'Quellort: '+a.get('source_place',trip['destination']['name'])+' | '+(f"{a['distance_km']:.1f} km Luftlinie; Erreichbarkeit offen" if a.get('distance_km') is not None else 'Abstand unbekannt'),
                                        'Quelle abgerufen: '+local_stamp(a['retrieved_at'])],[(a['link_kind'],a['url']),('Quelleneintrag',a['source'])]))
+        routed=[a for a in trip['activities'] if a.get('access_research')]
+        if routed:
+            sections.append(('Vertiefte Erreichbarkeitsprüfung',[
+                a['name']+f" · {a['access_research']['kilometers']:.2f} km / {a['access_research']['minutes']:.0f} Minuten im Fußwegmodell · "+a['access_research']['note'] for a in routed],
+                [('Fußwegmodell / OSM',routed[0]['access_research']['source'])]))
         if trip.get('offer_searches'):
             from ...core.planning.TravelOffers import STATUS_LABELS
             for category,result in trip['offer_searches'].items():
@@ -113,4 +126,16 @@ class TripPresenter:
             ('Routing: OSRM / FOSSGIS','https://routing.openstreetmap.de/about.html'),
             ('CHECK24 – allgemeiner Anbieterlink','https://hotel.check24.de/'),
             ('Trivago – allgemeiner Anbieterlink','https://www.trivago.de/')] ))
+        from ...core.planning.SourceEvidence import sections as source_sections
+        sections.extend(source_sections(trip))
+        if trip.get('discovery_origin'):
+            origin=trip['discovery_origin']
+            sections.append(('Herkunft der zusätzlichen Ortsidee',[origin['explanation'],origin['identity_method'],
+                'Gleiche reguläre Filter- und Reiseprüfung wie bei der normalen Vorauswahl; kein Verlässlichkeitsbonus durch Modellbekanntheit.'],[('Geografische Bestandsquelle',origin['identity_source'])]))
+        if trip.get('research_assessment'):
+            a=trip['research_assessment']
+            sections.append(('Begrenzter Beitrag zusätzlicher Quellenbelege',[
+                a['rule'],f"Interessenpassung vorher {a['before']:.1%}, nachher {a['after']:.1%}; Änderung {a['delta']:.1%}.",
+                f"{len(a['accepted'])} neue Objektidentitäten berücksichtigt; {len(a['rejected'])} Nachweise ohne weiteren Beitrag.",
+                'Preise, Reisezeit, Komfort und Pflichtkriterien werden dadurch nicht bestätigt.'],[(p['name'],p['source']) for p in a['accepted']]))
         return sections

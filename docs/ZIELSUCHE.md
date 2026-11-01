@@ -1,5 +1,7 @@
 # Breite lokale Reisezielsuche – Stand 29.10.2026
 
+**Historischer Stand:** Der [Prüfbericht vom 30.10.2026](EUROPASUCHE_2026-10-30.md) enthält den tatsächlich erweiterten europäischen Orts- und Freizeitbestand. Die folgenden Zahlen dokumentieren den Ausgangsstand.
+
 ## Einrichtung und normaler Betrieb
 
 `main.py` startet die bestehende Oberfläche. Unter **Reise → Zieldaten einrichten / aktualisieren**:
