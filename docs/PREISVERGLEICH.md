@@ -1,5 +1,7 @@
 # Preisrecherche und Verkehrsmittelvergleich, 29.10.2026
 
+**Aktualisierung 02.11.2026:** Die folgenden Ergebnisse sind historische Messwerte. Der [Schritt-6-Bericht](LOKALE_KI_SCHRITT6_2026-11-02.md) dokumentiert den aktuellen sicheren Zugriff: RegioJet erneut erfolgreich; Smoobu derzeit wegen nicht auswertbarer Robots-Antwort gesperrt.
+
 ## Diagnose und gezielte Korrekturen
 
 Der vorhandene Angebotsweg lieferte bereits echte Smoobu-Aufenthaltspreise und RegioJet-Gruppentarife. Die Preisnormalisierung verlor diese Beträge nicht. Die übrigen Ortsdaten waren Reiseführer-Einträge mit Suchlinks. Es gab keinen Aktivitätstarif-Adapter. Unbekannte Preise wurden bereits als offene Kosten geführt.

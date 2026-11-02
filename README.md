@@ -2,7 +2,7 @@
 
 Native deutsche Desktop-Anwendung für **ein europäisches Reiseziel**, ohne Zielvorgabe und ohne laufende API-/Hosting-/KI-Kosten. Sie findet reale Ziele, liest reale Unterkunfts-/Aktivitätseinträge, berechnet Straßenrouten, vergleicht transparente Teilsummen und speichert Reisen lokal mit PDF-Export.
 
-**Stand 29.10.2026:** Echte datierte Preise funktionieren für die integrierte Innsbrucker Ferienwohnungsquelle und RegioJet. Offizielle Aktivitätstarife werden getrennt recherchiert. Der PDF-Vergleich enthält grundsätzlich Auto, Zug und Flug und getrennte Kostenszenarien. Flugpreise, allgemeine Hotel-/Mehrzimmerpreise und ein vollständiger europaweiter Preisvergleich bleiben offen. Die Anwendung kennzeichnet diese Grenzen und bestätigt bei unvollständigen Pflichtkosten kein Budget. [Aktueller Prüfbericht](docs/PREISVERGLEICH.md).
+**Preisstand 02.11.2026:** RegioJet lieferte erneut echte datierte Gruppentarife. Die bestehende Innsbrucker Smoobu-Anbindung bleibt als Parser erhalten, ihr aktueller Netzabruf wird jedoch von der strengeren Robots-Prüfung gesperrt (HTML statt Regeln). Frühere Unterkunftspreise sind historische Belege. Offizielle Aktivitätstarife werden getrennt recherchiert. Der PDF-Vergleich enthält grundsätzlich Auto, Zug und Flug und getrennte Kostenszenarien. Flugpreise, allgemeine Hotel-/Mehrzimmerpreise und ein vollständiger europaweiter Preisvergleich bleiben offen. Die Anwendung kennzeichnet diese Grenzen und bestätigt bei unvollständigen Pflichtkosten kein Budget. [Aktueller Prüfbericht](docs/PREISVERGLEICH.md).
 
 ## Start auf diesem Mac
 
@@ -143,7 +143,7 @@ Die Preisabdeckung ist quellspezifisch: RegioJet, eine direkte Innsbrucker Ferie
 
 ## Optionale lokale KI – Einrichtung, Schritt 1
 
-Ollama 0.40.13 und `qwen3:4b-instruct-2507-q4_K_M` sind auf diesem Mac separat eingerichtet. Der Dienst verwendet ausschließlich `127.0.0.1:11435` mit deaktivierten Cloud-Funktionen. Die Reiseanwendung nutzt die KI noch nicht; Suche, Filter, Preise und PDF funktionieren weiterhin unabhängig davon.
+Ollama 0.40.13 und `qwen3:4b-instruct-2507-q4_K_M` sind auf diesem Mac separat eingerichtet. Der Dienst verwendet ausschließlich `127.0.0.1:11435` mit deaktivierten Cloud-Funktionen. Im damaligen Schritt 1 nutzte die Reiseanwendung die KI noch nicht. Die nachfolgenden Schritte integrieren ausdrücklich aktivierbare Aufgaben; die normale Suche bleibt unabhängig nutzbar.
 
 ```bash
 .venv/bin/python scripts/local_ai.py status
@@ -192,3 +192,23 @@ Reproduzieren (öffentliche synthetische Suchkriterien, temporärer Reisespeiche
 ```bash
 .venv/bin/python scripts/verify_candidate_discovery.py --live
 ```
+
+
+## Lokale Prüfung vorhandener Preisbelege – Schritt 6
+
+Unter **Details → Vorhandene Preisbelege mit lokaler KI prüfen** ausdrücklich **ja** wählen. Die Option gilt für die Preisphase einer neuen Suche sowie die vorhandene Aktion **Angebote aktuell prüfen**. Standard **nein**. Vorhandene Anbieter, Ollama-Konfiguration und `LocalModelClient` werden weiterverwendet; kein zusätzlicher Modellclient, Dienst oder Download.
+
+Zeitraum, Gruppe, Preisbasis, Gebühren, Verfügbarkeit und Widersprüche prüft der Programmcode. Die KI kann höchstens zwölf bereits vorliegende Fundstellen aus vier Angeboten auswählen. Sie erzeugt weder Preise noch Summen oder Abrufziele. Unverstandene Tarifbedingungen bleiben gekennzeichnete Quellenhinweise. Pflichtkosten mit unbekanntem Betrag sperren weiterhin Gesamtpreis-/Budgetbestätigung. Zusätzliche Gebühren werden dedupliziert; enthaltene Reinigung wird nicht nochmals addiert.
+
+Die Preisprovider verwenden nun die sichere Abrufschicht aus Schritt 4, mit enger Allowlist für ihre bestehenden Pfade. Bei ungeklärten Robots-Regeln gibt es keinen unsicheren Fallback. Die optionale Analyse teilt sich höchstens einen Modellversuch (15 s) und eine begrenzte Wiederprüfung bei technischem Quellenfehler (vier HTTP/15 s) je Preisaktion. Automatische Preisphase weiterhin maximal 32 Abfragen im Suchrestbudget, manuelle/Exportprüfung maximal 40/600 s. Nicht unterstützte Datenlücken werden nicht durch weitere Webseiten ersetzt.
+
+Qualitätszustand, Kostenbasis, offene Angaben und Originalnachweise stehen in den bestehenden Reisedetails und knapp im PDF. Neue Metadaten bleiben bis zum ausdrücklichen Speichern in der Arbeitskopie. Alte Reisen bleiben lesbar; historische Preise können keine frischen Preise derselben ID entwerten. Fehlendes Ablaufdatum verlängert einen gespeicherten Preis nicht unbegrenzt.
+
+[Voruntersuchung und Vertrag](docs/ANGEBOTSANALYSE_VERTRAG.md) · [Prüfbericht mit tatsächlichen Grenzen und Vergleichsmessungen](docs/LOKALE_KI_SCHRITT6_2026-11-02.md).
+
+```bash
+.venv/bin/python -m unittest discover -s tests -p 'test_*.py'
+.venv/bin/python scripts/verify_offer_analysis.py --live
+```
+
+Der Live-Verifier verwendet öffentliche synthetische Reiseanfragen und temporäre Reisespeicher. Er stoppt für die Offlineprüfung kurz ausschließlich den eigenen KI-Dienst und stellt ihn wieder her. Die Kampagne trennt echte Anbieterantworten von aufgezeichneten/synthetischen Modellfällen. **Kein neuer verifizierter Geldbestandteil und kein allgemeiner Preisqualitätsgewinn durch KI nachgewiesen.** Vollständige Hotel-/Mehrzimmer- und Flugpreise bleiben offen.

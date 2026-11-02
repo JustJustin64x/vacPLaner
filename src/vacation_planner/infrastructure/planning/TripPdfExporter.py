@@ -169,6 +169,9 @@ class TripPdfExporter:
             if a['url']:story.append(self._link('Mehr erfahren',a['url']))
             if a['map_url']:story.append(self._link('Auf Karte öffnen',a['map_url']))
         story.append(self._heading('Offene Planungspunkte & Quellen',1,key+'-quellen'));story.append(self._paragraph(('Datenstand: '+m['researched_at']+'. ')+('Wesentliche offene Angaben: '+'; '.join(m['issues']) if m['issues'] else 'Keine wesentlichen Lücken erkannt.')))
+        if m.get('offer_quality'):
+            story.append(self._heading('Preisbelege und offene Angebotsbedingungen',2,key+'-preisbelege'))
+            for line in m['offer_quality']:story.append(self._paragraph(line))
         if m.get('offer_statuses'):
             from ...core.planning.TravelOffers import STATUS_LABELS
             for status in m['offer_statuses']:

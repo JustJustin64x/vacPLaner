@@ -58,4 +58,7 @@ class OfficialActivityPrices:
             details={'activity_name':name,'unit_price':unit,'unit':'Erwachsene pro Eintritt','kind':'free_access' if amount(unit)==0 else 'published_tariff',
                      'date_confirmed':False,'period_note':note,'topics':topics,'currency_note':'Kostenloser Zugang ohne Währungsumrechnung' if amount(unit)==0 else 'Tarif in EUR'},
             evidence={'selector':{'innsbruck':'li > strong: Standardeintritt','bled':'table:first Odrasli','london':'General admission free.','berlin':'Der Eintritt ist kostenfrei.'}[adapter], 'normalization':'Veröffentlichter regulärer Erwachseneneintritt × Gruppengröße; keine Verfügbarkeitszusage'})
+        from ...core.planning.OfferEvidence import observation
+        offer.evidence['observations']=[observation(offer.identifier,url,stamp,'/published-standard-admission','condition',evidence)]
+        offer.evidence['sources']=[url]
         return OfferResult(self.name,self.category,'found',query.to_dict(),[offer],'Offizieller Eintrittstarif gelesen; keine datierte Verfügbarkeit geprüft.',sources=[url])

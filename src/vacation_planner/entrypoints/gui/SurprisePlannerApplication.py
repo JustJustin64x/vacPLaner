@@ -151,6 +151,7 @@ class SurprisePlannerApplication:
         self._entry(f,'lodging_radius_km','Unterkünfte: Umkreis · km Luftlinie (max. 50)',default.lodging_radius_km)
         self._entry(f,'activity_radius_km','Aktivitäten: Umkreis · km Luftlinie (max. 50)',default.activity_radius_km)
         self._entry(f,'show_ideas','Ideen mit unbelegten Pflichtangaben separat anzeigen','nein',values=('ja','nein'))
+        self._entry(f,'ai_offer_analysis','Vorhandene Preisbelege mit lokaler KI prüfen','nein',values=('ja','nein'))
         self._entry(f,'ai_discovery','Zusätzliche Zielideen mit lokaler KI prüfen','nein',values=('ja','nein'))
         self._note(f,'Optional: Nach der normalen Auswahl wenige zusätzliche Orte prüfen. Pflichtkriterien gelten weiter; kein automatischer KI-Start.')
         self._entry(f,'regional_queries','Kleine regionale Zusatzabfragen · 0 bis 3',default.regional_queries)
@@ -285,7 +286,7 @@ class SurprisePlannerApplication:
         for key,var in self.vars.items():
             if ':' in key: continue
             value=var.get().strip()
-            if key in ('surroundings','show_ideas','ai_discovery'):
+            if key in ('surroundings','show_ideas','ai_discovery','ai_offer_analysis'):
                 data[key]=value=='ja';continue
             data[key]=int(value) if key in integers else [v.strip() for v in value.split(',') if v.strip()] if key in lists else value.replace(',','.') if key in decimals else value
         data['interests']={k:float(self.vars['interest:'+k].get().replace(',','.')) for k in INTERESTS}
@@ -538,6 +539,7 @@ class SurprisePlannerApplication:
             messagebox.showinfo('Angebotsprüfung','Der gewählte Datenprovider unterstützt keine Angebotsprüfung.',parent=self.root);return
         context=SearchContext(seconds=600,budget=40);self.price_context=context
         originals=copy.deepcopy(trips or [self.active]);generation=self.generation
+        for original in originals:original['request']['ai_offer_analysis']=self.vars['ai_offer_analysis'].get()=='ja'
         mapping={'Alle Preise':None,'Unterkunft':['lodging'],'Bahn':['rail'],'Flug':['flight'],'Aktivitäten':['activities']}
         categories=None if trips else mapping.get(self.price_category.get());self.price_button.configure(state='disabled');self.cancel_button.configure(state='normal')
         def emit(kind,value):self.events.put((generation,'price_'+kind,value))
@@ -616,7 +618,7 @@ class SurprisePlannerApplication:
     def open_saved(self):
         selected=self.saved_tree.selection()
         if not selected:return
-        if self.running:self.cancel_search()
+        if self.running or self.price_context:self.cancel_search()
         trip=self.store.load(selected[0]);RankingService.recompute(trip)
         self.trips[trip['id']]=trip;self.update_row(trip)
         tree=self.idea_tree if trip.get('filter_status')=='offen' else self.tree

@@ -133,28 +133,37 @@ class OfferProvider(Protocol):
 def expire_offers(trip,now=None):
     """No network and no mutation of original prices; expired prices lose budget eligibility."""
     current=now or datetime.now(timezone.utc)
-    stale_ids=set()
+    def expired(offer):
+        if not offer:return False
+        try:
+            retrieved=datetime.fromisoformat(offer['retrieved_at'])
+            if retrieved.tzinfo is None or retrieved>current:return True
+            limits=[]
+            if offer.get('valid_until'):limits.append(datetime.fromisoformat(offer['valid_until']))
+            if offer.get('category')!='activities':limits.append(retrieved+timedelta(minutes=10))
+            return not limits or min(limits)<=current
+        except (KeyError,TypeError,ValueError):return True
+    def mark(offer):
+        offer['price_status']='veraltet'
+        if offer.get('quality'):
+            from .OfferQuality import LABELS
+            offer['quality'].update(status='outdated',label=LABELS['outdated'],price_eligible=False)
     for result in trip.get('offer_searches',{}).values():
         for offer in result.get('offers',[])+result.get('previous_offers',[]):
-            expiry=offer.get('valid_until')
-            if expiry and datetime.fromisoformat(expiry) <= current:
-                offer['price_status']='veraltet';stale_ids.add(offer['identifier'])
+            if expired(offer):mark(offer)
         if result.get('offers') and all(x.get('price_status')=='veraltet' for x in result['offers']):result['status']='stale'
     for item in trip.get('lodgings',[]):
-        expiry=(item.get('offer') or {}).get('valid_until')
-        if item.get('offer_id') in stale_ids or (expiry and datetime.fromisoformat(expiry)<=current):
-            item['price']['status']='veraltet';item['booking_status']='Gespeichertes Angebot veraltet; erneut prüfen'
+        if expired(item.get('offer')):
+            mark(item['offer']);item['price']['status']='veraltet';item['booking_status']='Gespeichertes Angebot veraltet; erneut prüfen'
     for item in trip.get('transports',[]):
-        expiry=(item.get('offer') or {}).get('valid_until')
-        if item.get('offer_id') in stale_ids or (expiry and datetime.fromisoformat(expiry)<=current):
-            item['status']='Gespeichertes Angebot veraltet; erneut prüfen'
+        if expired(item.get('offer')):
+            mark(item['offer']);item['status']='Gespeichertes Angebot veraltet; erneut prüfen'
             for cost in item.get('costs',[]):
                 if cost.get('low') is not None:cost['status']='veraltet'
     for item in trip.get('activities',[]):
         offer=item.get('activity_price') or {}
-        expiry=offer.get('valid_until')
-        if expiry and datetime.fromisoformat(expiry)<=current:
-            offer['price_status']='veraltet'
+        if expired(offer):
+            mark(offer)
             if not item.get('price_status','').startswith('Gespeicherter Tarif veraltet'):
                 item['price_status']='Gespeicherter Tarif veraltet; neu prüfen · '+item.get('price_status','')
     return trip

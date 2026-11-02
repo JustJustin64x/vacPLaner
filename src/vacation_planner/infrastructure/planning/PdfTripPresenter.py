@@ -137,10 +137,20 @@ class PdfTripPresenter:
             'hero_image': cls._image(destination.get('image')),
             'map_points': [x for x in points if x],
             'sources': cls._sources(trip, ordered_lodgings[:3], activities),
+            'offer_quality':cls._offer_quality(trip),
             'offer_statuses': [{'category':{'lodging':'Unterkunft','rail':'Bahn','flight':'Flug','activities':'Aktivitäten'}.get(k,k),
                                'status':v['status'],'message':v.get('message',''),'provider':v['provider']}
                               for k,v in trip.get('offer_searches',{}).items()],
         }
+
+    @staticmethod
+    def _offer_quality(trip):
+        from ...core.planning.OfferPresentation import quality_lines,analysis_lines
+        lines=[]
+        for result in trip.get('offer_searches',{}).values():
+            for offer in result.get('offers',[])[:4]:
+                lines.append(offer['provider']+' · '+offer['identifier']);lines += [line for line in quality_lines(offer) if not line.startswith('Originalnachweis ')]
+        return lines+analysis_lines(trip.get('offer_analysis'))
 
     @staticmethod
     def _stamp(value):

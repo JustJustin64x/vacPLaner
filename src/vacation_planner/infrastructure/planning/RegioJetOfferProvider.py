@@ -33,11 +33,13 @@ class RegioJetOfferProvider:
     @staticmethod
     def city(locations,name):
         wanted=normalized(name.split(',')[0])
+        matches=[]
         for country in locations:
             for city in country.get('cities',[]):
                 names=[city['name']]+city.get('aliases',[])
-                if any(wanted==normalized(n) for n in names) and 'TRAIN_STATION' in city.get('stationsTypes',[]):return city
-        return None
+                if any(wanted==normalized(n) for n in names) and 'TRAIN_STATION' in city.get('stationsTypes',[]):matches.append(city)
+        identities={c['id']:c for c in matches}
+        return next(iter(identities.values())) if len(identities)==1 else None
 
     def search(self,query,trip,context):
         params=query.to_dict();sources=[]
@@ -82,10 +84,27 @@ class RegioJetOfferProvider:
             legs=[d[0] for d in pair];total=sum((amount(x['price']) for x in legs),amount('0'))
             stamp=pair[-1][1];valid_until=(min(datetime.fromisoformat(x[1]) for x in pair)+timedelta(minutes=10)).isoformat(timespec='seconds')
             offer=TravelOffer(self.name,self.category,'rj:'+':'.join(str(x['id']) for x in legs)+':'+str(query.adults),url,stamp,params,str(total),'EUR','group_roundtrip',str(total),valid_until=valid_until,
-                          included=['Hin- und Rückfahrt für alle angefragten Erwachsenen','Zweite Klasse, keine Rabattkarten','Sitzplatzreservierung laut Verbindungsabschnitten'],
+                          included=['Hin- und Rückfahrt für alle angefragten Erwachsenen','Zweite Klasse, keine Rabattkarten','Feste Sitzplatzzuordnung laut beiden Verbindungsabschnitten; Gebühreneinbezug nicht separat bestätigt' if all(x.get('seat_reservation_specified') for x in legs) else 'Reservierungsumfang nicht in beiden Verbindungsabschnitten belegt'],
                           unresolved=['Zubringer und Unterkunftstransfers nicht enthalten'],
                           details={'legs':legs,'travel_class':'2','tariffs':['REGULAR']*query.adults,'independent_tickets':True,'comparison_role':'günstig unter geprüften Verbindungen' if index==0 else 'schnell unter geprüften Verbindungen'},
                           evidence={'sources':sources,'price_field':'priceClasses.price','passenger_echo':'priceClasses.tariffs','capacity_field':'priceClasses.freeSeatsCount','currency_request':'X-Currency: EUR','normalization':'Summe zweier direkt abgefragter Gruppentarife; keine Personenmultiplikation'})
+            from ...core.planning.OfferEvidence import observation
+            observations=[]
+            offer.evidence['sources']=list(dict.fromkeys(sources+[x[2] for x in pair]))
+            for direction,(leg,leg_stamp,source_url) in enumerate(pair):
+                # Both observations keep their actual retrieval time; the offer
+                # records each direction separately for source provenance.
+                for field,pointer,value,unit in [('price','/priceClasses/'+str(leg['fare_index'])+'/price',leg['raw_price'],'EUR'),
+                        ('condition','/priceClasses/'+str(leg['fare_index'])+'/conditions/descriptions/cancel',leg.get('conditions',{}).get('descriptions',{}).get('cancel'),''),
+                        ('condition','/priceClasses/'+str(leg['fare_index'])+'/conditions/descriptions/rebook',leg.get('conditions',{}).get('descriptions',{}).get('rebook'),'')]:
+                    if value is not None:
+                        row=observation(offer.identifier,source_url,leg_stamp,pointer,field,value,unit)
+                        if row:observations.append(row)
+            offer.evidence['observations']=observations[:12]
+            offer.evidence['source_times']={x[2]:x[1] for x in pair}
+            if any(x.get('surcharge_unknown') for x in legs):
+                offer.details['surcharge_unknown']=True
+                offer.unresolved.append('Pflichtzuschlag in der Anbieterantwort nicht eindeutig im Tarif enthalten oder beziffert')
             offers.append(offer)
         return OfferResult(self.name,self.category,'found',params,offers,'Datierte Gruppentarife; getrennte Hin- und Rückfahrkarten. Begrenzte günstige/schnelle Auswahl; kein Marktminimum.',sources=sources)
 
@@ -104,7 +123,9 @@ class RegioJetOfferProvider:
                 'from':detail.get('departureCityName','')+' '+detail.get('departureStationName',''),
                 'to':detail.get('arrivalCityName','')+' '+detail.get('arrivalStationName',''),
                 'from_station_id':detail['departureStationId'],'to_station_id':detail['arrivalStationId'],
-                'price':str(amount(fare['price'])),'seat_class':fare['seatClassKey'],
+                'raw_price':fare['price'],'price':str(amount(fare['price'])),'seat_class':fare['seatClassKey'],
+                'seat_reservation_specified':all(s.get('fixedSeatReservation') is True for s in sections),
+                'fare_index':detail['priceClasses'].index(fare),'surcharge_unknown':detail.get('surcharge') not in (None,0,False),
                 'conditions':fare.get('conditions',{}),'transfers':len(sections)-1,
                 'duration_hours':(datetime.fromisoformat(detail['arrivalTime'])-datetime.fromisoformat(detail['departureTime'])).total_seconds()/3600,
                 'sections':[{k:s.get(k) for k in ('departureTime','arrivalTime','departureCityName','arrivalCityName','departureStationName','arrivalStationName','fixedSeatReservation','line')} for s in sections]}

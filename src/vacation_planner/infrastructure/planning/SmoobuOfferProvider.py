@@ -70,7 +70,7 @@ class SmoobuOfferProvider:
             price_property={'id':'smoobu:'+str(identity),'name':item['name'],'address':source['address'],'type':'Ferienwohnung',
                             'source':source['source'],'url':book_url,'capacity':item['persons'],
                             'amenities':{'Küche':True} if any(a.get('name')=='Küche' for a in item.get('amenities',[])) else {}}
-            offers.append(TravelOffer(source['owner'], 'lodging', 'smoobu:'+str(identity)+':'+query.start+':'+query.end+':'+str(query.adults),
+            offer=TravelOffer(source['owner'], 'lodging', 'smoobu:'+str(identity)+':'+query.start+':'+query.end+':'+str(query.adults),
                                       book_url,stamp,query.to_dict(),str(total),'EUR','group_stay',str(total),
                                       valid_until=(datetime.fromisoformat(stamp)+timedelta(minutes=10)).isoformat(timespec='seconds'),
                                       included=included,details={'property':price_property,'units':1,'nights':nights,'capacity':item['persons'],
@@ -78,5 +78,15 @@ class SmoobuOfferProvider:
                                       'payment':'In der Angebotsantwort nicht ausgewiesen; vor Buchung prüfen'},
                                       evidence={'sources':[source['source'],url],'price_field':'availabilityResponse.prices.price',
                                       'components':elements,'parameter_echo':wanted,'availability_field':'availabilityResponse.availableApartments',
-                                      'normalization':'Direkter Gesamtbetrag für eine Ferienwohnung, alle angefragten Erwachsenen und gesamten Aufenthalt; inklusive ausgewiesener Pflichtbestandteile'}))
+                                      'normalization':'Direkter Gesamtbetrag für eine Ferienwohnung, alle angefragten Erwachsenen und gesamten Aufenthalt; inklusive ausgewiesener Pflichtbestandteile'})
+            from ...core.planning.OfferEvidence import observation
+            index=apartments.index(item);prefix='/data/apartments/'+str(index)
+            observations=[observation(offer.identifier,url,stamp,prefix+'/amount','price',item['amount'],'EUR'),
+                observation(offer.identifier,url,stamp,prefix+'/persons','occupancy',item['persons'],'capacity'),
+                observation(offer.identifier,url,stamp,prefix+'/numberOfNights','basis',item['numberOfNights'],'nights')]
+            observations += [observation(offer.identifier,url,stamp,'/data/availabilityResponse/prices/'+str(identity)+'/priceElements/'+str(i),'fee',e) for i,e in enumerate(elements)]
+            observations += [observation(offer.identifier,url,stamp,prefix+'/amenities/'+str(i)+'/name','amenity',a['name']) for i,a in enumerate(item.get('amenities',[])) if a.get('name') in ('Küche','Frühstück','WLAN','Pool','Parkplatz','Haustiere')]
+            offer.evidence['observations']=[o for o in observations if o][:12]
+            offer.unresolved.append('Vollständigkeit weiterer verpflichtender Gebühren nicht ausdrücklich belegt')
+            offers.append(offer)
         return sorted(offers,key=lambda x:amount(x.eur_amount))

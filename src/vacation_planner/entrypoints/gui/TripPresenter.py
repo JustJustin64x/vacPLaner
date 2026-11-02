@@ -106,12 +106,17 @@ class TripPresenter:
                 for offer in result.get('offers',[]):
                     paragraphs.append(f"{offer['provider']}: {offer['original_amount']} {offer['original_currency']} · {offer['parameters']['adults']} Erwachsene · {offer['parameters']['start']} bis {offer['parameters']['end']} · {offer['price_status']}")
                     paragraphs += offer.get('included',[])+offer.get('unresolved',[])
+                    from ...core.planning.OfferPresentation import quality_lines
+                    paragraphs += quality_lines(offer)
                     for leg in offer.get('details',{}).get('legs',[]):
                         paragraphs.append(f"{leg['from']} → {leg['to']} · {leg['departure']} bis {leg['arrival']} · {leg['transfers']} Umstiege · {leg.get('seat_class','Economy')}")
                     detail=offer.get('details',{})
                     paragraphs += [detail[key] for key in ('board','cancellation','payment') if detail.get(key)]
                     links.append(('Geprüftes Angebot',offer['source']))
                 sections.append(('Angebotsprüfung · '+label,paragraphs,links))
+        if trip.get('offer_analysis'):
+            from ...core.planning.OfferPresentation import analysis_lines
+            sections.append(('Lokale Prüfung der Preisbelege',analysis_lines(trip['offer_analysis']),[]))
         if trip.get('offer_date_samples'):
             from ...core.planning.TravelOffers import STATUS_LABELS
             sections.append(('Geprüfte Terminproben',[

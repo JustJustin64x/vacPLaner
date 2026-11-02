@@ -63,6 +63,7 @@ class SearchRequest:
     activity_radius_km: str = '30'
     show_ideas: bool = False
     ai_discovery: bool = False
+    ai_offer_analysis: bool = False
 
     def validate(self):
         for key in ('min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds','price_targets','candidate_pool','regional_queries'):
@@ -74,7 +75,7 @@ class SearchRequest:
             value=getattr(self,key)
             if not isinstance(value,list) or any(not isinstance(v,str) or not v.strip() for v in value):
                 raise ValueError(key+': bitte eine Liste nichtleerer Namen angeben.')
-        if not isinstance(self.surroundings,bool) or not isinstance(self.show_ideas,bool) or not isinstance(self.ai_discovery,bool):
+        if not isinstance(self.surroundings,bool) or not isinstance(self.show_ideas,bool) or not isinstance(self.ai_discovery,bool) or not isinstance(self.ai_offer_analysis,bool):
             raise ValueError('Umgebungssuche und Ideenanzeige müssen ja/nein sein.')
         for group in (self.interests,self.weights):
             if not isinstance(group,dict):raise ValueError('Gewichte müssen als benannte Zahlen vorliegen.')

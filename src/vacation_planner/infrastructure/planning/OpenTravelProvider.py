@@ -27,10 +27,15 @@ class OpenTravelProvider:
         from .SmoobuOfferProvider import SmoobuOfferProvider
         from .FlightAccessDiagnostics import FlightAccessDiagnostics
         from .OfficialActivityPrices import OfficialActivityPrices
-        providers=[SmoobuOfferProvider(self.http),OfficialActivityPrices(self.http)]
-        providers.append(RegioJetOfferProvider(self.http,self.store))
+        from .ResearchHttp import ResearchHttp
+        # Reuse the existing secure transport, including robots/DNS/redirect gates.
+        http=ResearchHttp(self.store) if isinstance(self.http,PublicHttpClient) else self.http
+        providers=[SmoobuOfferProvider(http),OfficialActivityPrices(http)]
+        providers.append(RegioJetOfferProvider(http,self.store))
         providers.append(FlightAccessDiagnostics())
-        service=OfferResearchService(providers)
+        from ..local_ai.OfferAnalysisService import OfferAnalysisService
+        if not hasattr(self,'offer_analysis'):self.offer_analysis=OfferAnalysisService()
+        service=OfferResearchService(providers,self.offer_analysis)
         return service.research_samples(trip,context,emit,categories) if samples else service.research(trip,context,emit,categories)
 
     def origin(self, name, address, context):

@@ -81,8 +81,11 @@ class ResearchHttp:
                    host=='www.wikidata.org' and (p.path=='/robots.txt' or re.fullmatch(r'/wiki/Special:EntityData/Q[1-9]\d*\.json',decoded) or p.path=='/w/api.php') or
                    host=='commons.wikimedia.org' and p.path in ('/robots.txt','/w/api.php') or
                    host=='upload.wikimedia.org' and (p.path=='/robots.txt' or p.path.startswith('/wikipedia/commons/')))
+        from .OfferSourcePolicy import allowed
+        price_source=allowed(p)
+        permitted=permitted or price_source
         if not permitted:raise ValueError('Quelle außerhalb der freigegebenen Hosts/Pfade.')
-        if p.query and p.path!='/w/api.php':raise ValueError('Keine beliebigen Abfrageparameter für Quellenartikel erlaubt.')
+        if p.query and p.path!='/w/api.php' and not price_source:raise ValueError('Keine beliebigen Abfrageparameter für Quellenartikel erlaubt.')
         if p.path=='/w/api.php':
             from urllib.parse import parse_qs
             q=parse_qs(p.query)
@@ -118,7 +121,7 @@ class ResearchHttp:
                 raise ValueError('Nicht öffentliche DNS-Adresse gesperrt.')
         return values
 
-    def _wire(self,url,ip,context,maximum):
+    def _wire(self,url,ip,context,maximum,request_headers=None):
         """Exactly one pinned request, no implicit redirects/proxies/config."""
         host=urlsplit(url).hostname;bound='['+ip+']' if ':' in ip else ip
         with tempfile.TemporaryDirectory(prefix='vac-source-') as directory:
@@ -127,6 +130,7 @@ class ResearchHttp:
                 '--resolve',host+':443:'+bound,'--connect-timeout','4','--max-time',str(max(.05,min(18,context.deadline-time.monotonic()))),
                 '--max-filesize',str(maximum),'--user-agent',PublicHttpClient.USER_AGENT,'--header','Accept-Encoding: identity',
                 '--dump-header',str(header),'--output',str(body),'--write-out','%{json}',url]
+            for key,value in (request_headers or {}).items():command[-1:-1]=['--header',key+': '+value]
             process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             try:
                 while True:
@@ -145,9 +149,10 @@ class ResearchHttp:
                         k,v=line.split(':',1);headers[k.lower().strip()]=v.strip()
                 return dict(status=int(meta['http_code']),headers=headers,body=raw)
             finally:
-                if process.poll() is None:process.kill();process.communicate()
+                if process.poll() is None:process.kill()
+                process.communicate()  # drain/close pipes even after an early completed exit
 
-    def _one(self,url,context,maximum,delay=1.1):
+    def _one(self,url,context,maximum,delay=1.1,request_headers=None):
         url=self.validate_url(url);host=urlsplit(url).hostname
         if host in context.disabled:raise OSError('Quelle nach Sperrantwort deaktiviert: '+host)
         while not self._lock.acquire(timeout=.05):context.check()
@@ -155,7 +160,7 @@ class ResearchHttp:
             context.wait(max(0,delay-(time.monotonic()-self._last.get(host,0))))
             context.consume();ips=self.public_addresses(host,context)
             # No retry loop: one verified address per request; IPv4 preferred.
-            ip=next((x for x in ips if ':' not in x),ips[0]);response=self._wire(url,ip,context,maximum)
+            ip=next((x for x in ips if ':' not in x),ips[0]);response=self._wire(url,ip,context,maximum,request_headers) if request_headers else self._wire(url,ip,context,maximum)
             if len(response['body'])>maximum:raise ValueError('Quellenantwort überschreitet das Größenlimit.')
             if response['status'] in (401,403,406,429):context.disabled.add(host)
             self.audit.append(dict(url=url,status=response['status'],bytes=len(response['body']),retrieved_at=timestamp()))
@@ -186,33 +191,41 @@ class ResearchHttp:
         if rules.delay>60:raise ValueError('Crawl-delay überschreitet das interaktive Recherchebudget.')
         self.robot_memory[origin]=rules;return rules
 
-    def fetch(self,url,context,types=('text/html','application/json'),maximum=None):
+    @staticmethod
+    def public_headers(headers):
+        allowed={'Accept':{'application/json','application/1.2.0+json'},'X-Currency':{'EUR'},'X-Lang':{'en'}}
+        if any(k not in allowed or v not in allowed[k] for k,v in (headers or {}).items()):raise ValueError('Nicht erlaubte öffentliche Preisheader.')
+        return dict(headers or {})
+
+    def fetch(self,url,context,types=('text/html','application/json'),maximum=None,headers=None):
+        request_headers=self.public_headers(headers)
         maximum=maximum or self.MAX_BYTES;original=self.validate_url(url);current=original
         for _ in range(4):
             current=self.validate_url(current);rules=self._robots(current,context)
             if not rules.allowed(current):raise ValueError('Robots-Regeln sperren diesen Quellenpfad.')
-            if current in self.memory:
-                cached=self.memory[current]
+            key=(current,tuple(sorted(request_headers.items()))) if request_headers else current
+            if key in self.memory:
+                cached=self.memory[key]
                 if cached['content_type'] not in types or len(cached['body'])>maximum:raise ValueError('Gecachte Quellenantwort passt nicht zu Inhaltstyp/Größenlimit.')
                 return dict(cached,cache_used=True,original_url=original)
-            response=self._one(current,context,maximum,max(1.1,rules.delay))
-            status=response['status'];headers=response['headers']
+            response=self._one(current,context,maximum,max(1.1,rules.delay),request_headers) if request_headers else self._one(current,context,maximum,max(1.1,rules.delay))
+            status=response['status'];response_headers=response['headers']
             if status in (301,302,303,307,308):
-                location=headers.get('location')
+                location=response_headers.get('location')
                 if not location:raise ValueError('Weiterleitung ohne Ziel.')
                 current=self.validate_url(urljoin(current,location));continue
             if status!=200:
                 if status in (401,403,406,429):context.disabled.add(urlsplit(current).hostname)
                 raise OSError('Quelle HTTP '+str(status)+'; keine Sperrumgehung.')
-            mime=headers.get('content-type','').split(';')[0].strip().lower()
-            if mime not in types or headers.get('content-encoding','identity').lower()!='identity':raise ValueError('Nicht unterstützter Inhaltstyp oder Inhaltskodierung.')
+            mime=response_headers.get('content-type','').split(';')[0].strip().lower()
+            if mime not in types or response_headers.get('content-encoding','identity').lower()!='identity':raise ValueError('Nicht unterstützter Inhaltstyp oder Inhaltskodierung.')
             record=dict(body=response['body'],retrieved_at=timestamp(),original_url=original,final_url=current,content_type=mime,cache_used=False)
-            self.memory[current]=record;return dict(record)
+            self.memory[key]=record;return dict(record)
         raise ValueError('Zu viele Quellenweiterleitungen.')
 
     def get(self,url,context,headers=None):
-        record=self.fetch(url,context)
+        record=self.fetch(url,context,headers=headers)
         return record['body'].decode('utf-8'),record['retrieved_at']
 
     def json(self,url,context,headers=None):
-        r=self.fetch(url,context,('application/json',));return json.loads(r['body']),r['retrieved_at']
+        r=self.fetch(url,context,('application/json','application/1.2.0+json'),headers=headers);return json.loads(r['body']),r['retrieved_at']

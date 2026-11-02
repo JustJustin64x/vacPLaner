@@ -1,5 +1,7 @@
 # Echte Angebotsrecherche – Stand 29.10.2026
 
+**Aktualisierung 02.11.2026:** Die folgenden Ergebnisse sind historische Messwerte. Der [Schritt-6-Bericht](LOKALE_KI_SCHRITT6_2026-11-02.md) dokumentiert den aktuellen sicheren Zugriff: RegioJet erneut erfolgreich; Smoobu derzeit wegen nicht auswertbarer Robots-Antwort gesperrt.
+
 ## Umgesetzt und nachgewiesen
 
 Zwei schlüssellose Nur-Lese-Zugänge liefern jetzt echte datierte Preise. Flugpreisrecherche und eine allgemeine Hotel-/Mehrzimmerabdeckung sind **nicht vollständig umgesetzt**.

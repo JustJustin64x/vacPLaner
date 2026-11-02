@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import time
 from datetime import datetime
 
 from .CostItem import CostItem
@@ -10,7 +11,7 @@ from .TravelOffers import OfferQuery, OfferResult, STATUS_LABELS, expire_offers
 
 class OfferResearchService:
     """Independent providers; commit each successful category to an isolated snapshot."""
-    def __init__(self,providers):self.providers=list(providers)
+    def __init__(self,providers,analysis=None):self.providers=list(providers);self.analysis=analysis
 
     def research_samples(self,trip,context,emit=lambda *args:None,categories=None):
         result=copy.deepcopy(trip);samples=[]
@@ -36,7 +37,7 @@ class OfferResearchService:
         return result
 
     def research(self,trip,context,emit=lambda *args:None,categories=None):
-        result=copy.deepcopy(trip);query=OfferQuery.from_trip(result)
+        result=copy.deepcopy(trip);result.pop('offer_analysis',None);query=OfferQuery.from_trip(result)
         searches=result.setdefault('offer_searches',{})
         for provider in self.providers:
             category=provider.category
@@ -56,12 +57,18 @@ class OfferResearchService:
                 self._remember_previous(response,previous);searches[category]=response
                 emit('warning',provider.name+': '+str(exc));break
             except (OSError,ValueError,KeyError,TypeError) as exc:
-                blocked=any(code in str(exc) for code in ('HTTP 401','HTTP 403','HTTP 406','HTTP 429'))
+                blocked=any(code in str(exc) for code in ('HTTP 401','HTTP 403','HTTP 406','HTTP 429','Robots','Sperrantwort'))
                 response=OfferResult(provider.name,category,'blocked' if blocked else 'error',query.to_dict(),message=str(exc)).to_dict()
+                response['retryable']=isinstance(exc,OSError) and not blocked
+            if result['request'].get('ai_offer_analysis') and response['status']=='error' and response.get('retryable') and context.deadline-time.monotonic()>1 and getattr(context,'offer_rechecks',0)<1:
+                response=self._recheck(provider,query,result,context,response,emit)
+            from .OfferQuality import assess,mark_conflicts
+            for offer in response['offers']:offer['quality']=assess(offer,query,result['request'])
+            mark_conflicts(response['offers'])
             self._remember_previous(response,previous)
             searches[category]=response
             for offer in response['offers']:
-                if offer.get('eur_amount') is None or offer.get('price_status')!='aktuell abgerufen':continue
+                if offer.get('eur_amount') is None or offer.get('price_status')!='aktuell abgerufen' or (category!='activities' and not offer['quality']['price_eligible']):continue
                 if category=='rail':self._apply_transport(result,offer,'Zug')
                 elif category=='flight':self._apply_transport(result,offer,'Flug')
                 elif category=='lodging':self._apply_lodging(result,offer)
@@ -73,7 +80,35 @@ class OfferResearchService:
             emit('offer_partial',copy.deepcopy(result))
             emit('phase',provider.name+': '+STATUS_LABELS[response['status']]+(' · '+response['message'] if response['message'] else ''))
         expire_offers(result);RankingService.recompute(result)
+        if self.analysis and result['request'].get('ai_offer_analysis'):
+            try:result=self.analysis.analyze(result,context,emit)
+            except InterruptedError:raise
+            except (OSError,ValueError,KeyError,TypeError):
+                result['offer_analysis']={'status':'unavailable_or_rejected','accepted':[],'model_calls':0}
+                emit('warning','Angebotsanalyse fehlgeschlagen; vorhandene deterministische Ergebnisse bleiben erhalten.')
         return result
+
+    @staticmethod
+    def _recheck(provider,query,trip,parent,original,emit):
+        from .SearchContext import SearchContext
+        parent.offer_rechecks=getattr(parent,'offer_rechecks',0)+1
+        child=SearchContext(parent.cancel,seconds=min(15,max(.01,parent.deadline-time.monotonic())),budget=min(4,max(0,parent.budget-parent.calls)))
+        child.disabled.update(parent.disabled)
+        if child.budget==0:return dict(original,recheck=dict(status='budget_limited',calls=0))
+        emit('phase','Begrenzte erneute Prüfung derselben unterstützten Angebotsquelle: '+provider.name)
+        response=original;status='failed'
+        try:
+            fresh=provider.search(query,trip,child).to_dict()
+            if fresh['parameters']!=query.to_dict() or any(o['parameters']!=query.to_dict() for o in fresh['offers']):raise ValueError('Abweichende Nachprüfungsparameter')
+            if fresh['status']=='found':response=fresh;status='found'
+            else:status=fresh['status']
+        except InterruptedError:
+            if parent.cancel.is_set():raise
+            status='budget_limited'
+        except (OSError,ValueError,KeyError,TypeError):pass
+        finally:parent.calls+=child.calls;parent.disabled.update(child.disabled)
+        response['recheck']=dict(status=status,calls=child.calls,seconds=time.monotonic()-child.started,previous_status=original['status'])
+        return response
 
     @staticmethod
     def _remember_previous(response,previous):
@@ -83,7 +118,7 @@ class OfferResearchService:
     @staticmethod
     def _invalidate_unavailable(trip,category,response):
         # A failed refresh never deletes history or changes the user's chosen index.
-        confirmed={o['identifier'] for o in response.get('offers',[])}
+        confirmed={o['identifier'] for o in response.get('offers',[]) if o.get('quality',{}).get('price_eligible',True)}
         collection=trip.get('lodgings',[]) if category=='lodging' else [x for x in trip.get('transports',[]) if x['mode']=={'rail':'Zug','flight':'Flug'}.get(category)]
         for item in collection:
             if not item.get('offer_id'):continue
@@ -123,7 +158,11 @@ class OfferResearchService:
                       costs=[cls._cost(offer,mode+' für gesamte Gruppe hin und zurück')],
                       hours_low=min(hours) if len(hours)==2 else None,hours_high=max(hours) if len(hours)==2 else None,
                       connections=legs,retrieved_at=offer['retrieved_at'],filter_status='belegt')
-        for label in offer.get('unresolved',[]):
+        from .OfferQuality import fee_costs
+        option['costs']+=fee_costs(offer)[0]
+        for gap in offer.get('quality',{}).get('gaps',[]):
+            if gap['field'] in ('fees','surcharge','directions','required'):option['costs'].append(CostItem(gap['message']).to_dict())
+        for label in dict.fromkeys(offer.get('unresolved',[])):
             option['costs'].append(CostItem(label).to_dict())
         limit=trip['request'].get('max_hours')
         if limit and option['hours_high'] is not None and option['hours_high']>float(limit):option['filter_status']='überschritten';option['notes'].append('Gewähltes Angebot überschreitet die gewünschte Reisezeit.')
@@ -150,5 +189,9 @@ class OfferResearchService:
                                    occupancy_status='Angefragte Zimmerbelegung im Angebot bestätigt',
                                    booking_status='Zum Abrufzeitpunkt angeboten; keine Reservierung',retrieved_at=offer['retrieved_at'])
         item['price']['scope']=f"{offer['parameters']['adults']} Erwachsene / {offer['parameters']['rooms']} Zimmer / {trip['nights']} Nächte"
-        item['mandatory_costs']=[CostItem(fee['label'],fee.get('eur_amount'),fee.get('eur_amount'),'aktuell abgerufen' if fee.get('eur_amount') is not None else 'unbekannt',offer['source'],offer['retrieved_at']).to_dict() for fee in offer.get('additional_fees',[])]
-        item['mandatory_costs'] += [CostItem(label).to_dict() for label in offer.get('unresolved',[])]
+        from .OfferQuality import fee_costs
+        item['mandatory_costs']=fee_costs(offer)[0]
+        for gap in offer.get('quality',{}).get('gaps',[]):
+            if gap['field'] in ('fees','occupancy','required'):item['mandatory_costs'].append(CostItem(gap['message']).to_dict())
+        known_labels={c['label'] for c in item['mandatory_costs']}
+        item['mandatory_costs'] += [CostItem(label).to_dict() for label in dict.fromkeys(offer.get('unresolved',[])) if label not in known_labels]

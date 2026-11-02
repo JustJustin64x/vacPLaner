@@ -36,7 +36,7 @@ Keine automatische Browserintegration: Für erlaubte öffentliche strukturierte 
 
 - Standard: sechs Ziele mit mindestens zwei Unterkunftsidentitäten, maximal drei Reserveziele, drei konkrete Datumsstichproben, 24 HTTP-Aufrufe und fünf Minuten. Konfigurierbar: 3–12 Hauptziele, maximal 40 Aufrufe, maximal zehn Minuten.
 - Ein Hintergrundworker, ein globales HTTP-Lock; keine parallele Belastung öffentlicher Dienste. Je Abruf höchstens 22 s, Verbindungsaufbau höchstens 8 s, maximal drei HTTPS-Weiterleitungen und 8 MB. Keine automatischen Wiederholungen; 401/403/406/429 deaktivieren den Host für die Suche.
-- Ortscache getrennt von bewusst gespeicherten Reisen. Routing wird bei einer Suche neu abgefragt. **Es gibt derzeit keinen angebundenen Livepreisprovider.** Ein zukünftiger muss Preise pro Suche neu holen und Reisedaten, Gruppen-/Zimmerbezug, Gebühren, Währung und Verfügbarkeit belegen; niemals den Ortscache als Preisquelle verwenden.
+- Ortscache getrennt von bewusst gespeicherten Reisen. Routing wird bei einer Suche neu abgefragt. **Historischer Stand vor dem 29.10.2026:** Damals gab es keinen Livepreisprovider. Die inzwischen integrierten und aktuell geprüften Anbieter sind unten sowie in ANGEBOTSRECHERCHE.md und im Schritt-6-Bericht abgegrenzt. Jeder Provider muss Preise pro Suche neu holen und Reisedaten, Gruppen-/Zimmerbezug, Gebühren, Währung und Verfügbarkeit belegen; niemals den Ortscache als Preisquelle verwenden.
 - Alles wird in EUR gerechnet. Benzinschätzungen basieren auf realen Straßenkilometern und sichtbaren Nutzereingaben. Fremdwährungspreise werden derzeit nicht importiert; deshalb kein stillschweigender Wechselkurs, kein ungetesteter FX-Adapter.
 - Hotel-/Bahn-/Flugpreise, Transferkosten, Maut, Vignetten, Parken und eventuelle Fährkosten sind fehlende Positionen. Ein Beitrag zur Teilsumme ist kein vollständiger Reisepreis und belegt niemals Budgetkonformität.
 - Reiseführerpreise ohne datums- und belegungsbezogenen Leistungsumfang werden nicht übernommen. Kostenlose Aktivitäten benötigen einen eindeutigen unbedingten Quellenhinweis; zeitliche Aktualität bleibt unbestätigt. Undatierte Veranstaltungen werden nicht als passend angeboten.
@@ -66,3 +66,14 @@ GISCO-Ländergrenzen wurden zusätzlich als mögliche Referenz recherchiert, nic
 ## Ergänzung 31.10.2026: Begrenzte Quellen-Nachrecherche
 
 Die explizite Aktion „Quellen & Bilder recherchieren“ prüft vorhandene deutsche Wikivoyage-Artikel mit verknüpften Wikidata-Identitäten/Länderobjekten. Neue begrenzte Quellennachweise bleiben separat ohne Rankingwirkung. Öffnungsangaben sind Quellenbehauptungen, keine Zusage für den Reisetag. Es gibt keine allgemeine Websuchschnittstelle oder zusätzlich erschlossene Betreiber-Webseiten. Der Nachrecherchepfad verwendet öffentliche DNS-/TLS-Bindung, Redirect-/Robots-Prüfung und feste Budgets; blockierte Bild-API-Pfade werden nicht umgangen. [Tatsächliche Abnahme und Grenzen](LOKALE_KI_SCHRITT4_2026-10-31.md).
+
+
+## Aktueller Abgleich mit dem Produktionscode – 02.11.2026, Schritt 6
+
+Die frühen Tabellen beschreiben historische Prüfungen. Maßgeblich sind jetzt `OpenTravelProvider.research_offers`, die bestehenden Smoobu-/RegioJet-/Eintrittsadapter und `ResearchHttp`. Wikidata ist seit Schritt 4 direkt für die begrenzte Quellenidentität integriert; frühere Aussagen „keine API-Anbindung“ gelten für den damaligen Stand. Es gibt weiterhin keine allgemeine Preis-/Websuchschnittstelle.
+
+RegioJet lieferte im erneuten sicheren Liveabruf datierte Hin-/Rückgruppenpreise. Die bekannten öffentlichen GET-Pfade für Orte, Suche und Tarifdetails werden unter öffentlicher DNS-/TLS-Bindung und Robots-Prüfung verwendet. Nur kontrollierte Parameter, EUR-/Sprach-/Versionsheader, keine Reservierungs-/Kontorouten. Ortsnamensauflösung verwirft mehrere unterschiedliche Anbieteridentitäten.
+
+Smoobu: Die historische Adapter-/Parserabdeckung bleibt genau eine der geprüften Innsbrucker Wohnungen für eine angefragte Einheit. Am 02.11.2026 lieferte `booking.smoobu.com/robots.txt` HTTP 200 mit HTML. Die sichere Schicht verweigert deshalb den Preisabruf. Kein Ausweichen auf den älteren Client oder andere Endpunkte. Die offiziellen Eintrittsquellen bleiben veröffentlichte Tarife ohne datierte Verfügbarkeit. Flug bleibt Zugangsdiagnose.
+
+Nur die schon integrierten Preisquellen und konkreten lesenden Pfade ergänzen die bestehende HTTPS-Allowlist. Regeln, echte Abrufprotokolle, Budgetgrenzen und Fehlversuche: [Schritt 6](LOKALE_KI_SCHRITT6_2026-11-02.md). Lizenzhinweise der jeweiligen Quellen bleiben erhalten; es werden nur notwendige Quellenfelder und Herkunft, keine vollständigen Webseitenarchive oder Buchungsdaten, in Reise-Snapshots übernommen.

@@ -89,5 +89,8 @@ class LocalModelClient:
             response['client_seconds']=time.monotonic()-start
             return response
         finally:
-            if process and process.poll() is None:process.kill();process.communicate()
-            self.lock.release()
+            try:
+                if process:
+                    if process.poll() is None:process.kill()
+                    process.communicate()  # also close pipes when curl already exited
+            finally:self.lock.release()
