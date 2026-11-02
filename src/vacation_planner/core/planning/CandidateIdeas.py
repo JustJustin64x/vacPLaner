@@ -18,6 +18,7 @@ def geographic_allowed(catalog,d,request,origin):
     if d.get('kind') not in (None,'settlement') or not catalog.allowed(d,request):return False
     if not all(type(d.get(k)) in (int,float) and math.isfinite(d[k]) for k in ('latitude','longitude')):return False
     if not -90<=d['latitude']<=90 or not -180<=d['longitude']<=180:return False
+    if not catalog.european_place(d):return False
     km=distance(origin,d)
     if km<=5 or (request.max_distance_km and km>float(request.max_distance_km)):return False
     kind=d.get('base_type',d.get('type'))

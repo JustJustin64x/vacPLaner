@@ -6,7 +6,6 @@ from urllib.parse import quote
 from ...core.planning.CandidateIdeas import IdeaReferences,reference_places,geographic_allowed,valid_name,MAX_DEEP
 from ...core.planning.CandidateSelection import same_holiday_region
 from ...core.planning.SearchContext import SearchContext
-from ...core.planning.SourceEvidence import merge_research
 from .DestinationCatalog import normalize
 from .DestinationImportService import COUNTRIES
 from .EuropeScope import contains
@@ -103,7 +102,8 @@ class CandidateDiscoveryService:
         except InterruptedError:
             if context.cancel.is_set():raise
             candidate=destination;attempt.update(status='limited',message='Teilbudget erreicht; lokale Ortsidentität bleibt erhalten.')
-        except (OSError,ValueError,TypeError,KeyError):
+        except (OSError,ValueError,TypeError,KeyError) as exc:
+            attempt['failure_type']=type(exc).__name__
             candidate=destination;attempt['message']='Keine sicher zugeordnete zusätzliche Quelle verfügbar; keine URL oder Eignung aus Modellwissen übernommen.'
         finally:
             context.calls+=child.calls;context.disabled.update(child.disabled);report['source_http_calls']+=child.calls

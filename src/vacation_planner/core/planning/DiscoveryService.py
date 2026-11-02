@@ -124,8 +124,15 @@ class DiscoveryService:
             service=factory(self.catalog)
             destinations=service.suggest(candidates,chosen,results,request,origin,context,emit,self.diagnostics.data)
             report=self.diagnostics.data['ai_discovery']
-            for destination in destinations:
+            from .CandidateIdeas import geographic_allowed,MAX_DEEP
+            seen={d['id'] for d in chosen}
+            for destination in destinations[:MAX_DEEP]:
                 context.check()
+                if destination['id'] in seen or not geographic_allowed(self.catalog,destination,request,origin):
+                    report['rejected']+=1
+                    report['decisions'].append(dict(name=destination['name'],status='rejected',reason='Erneute unabhängige Geografie-/Duplikatprüfung fehlgeschlagen'))
+                    continue
+                seen.add(destination['id'])
                 if context.calls>=context.budget:
                     report['budget_skipped']+=1;break
                 destination,source=service.prepare(destination,request,context,emit,report)
@@ -133,7 +140,9 @@ class DiscoveryService:
                 emit('phase','Zusätzliche Ortsidee regulär prüfen: '+destination['name'])
                 try:trip=self.research(request,context,origin,destination,emit)
                 except InterruptedError:raise
-                except (OSError,ValueError,KeyError):
+                except Exception as exc:
+                    self.diagnostics.error(destination['name'],exc,request.address)
+                    self.diagnostics.outcome(destination,'Fehler',['Reguläre Quellen-/Reiseprüfung fehlgeschlagen'])
                     report['decisions'].append(dict(name=destination['name'],status='research_failed',reason='Reguläre Quellen-/Reiseprüfung fehlgeschlagen'));continue
                 if trip is None:continue
                 trip['discovery_origin']=destination['discovery_origin']
@@ -153,7 +162,8 @@ class DiscoveryService:
             if context.cancel.is_set():raise
             self.diagnostics.data.setdefault('ai_discovery',{})['status']='rest_budget_or_time_exhausted'
             emit('warning','Teilbudget für zusätzliche Zielideen erreicht; vorhandene Ergebnisse bleiben nutzbar.')
-        except (OSError,ValueError,TypeError,KeyError):
+        except Exception as exc:
+            self.diagnostics.error('KI-Ergänzung',exc,request.address)
             self.diagnostics.data.setdefault('ai_discovery',{})['status']='extension_failed'
             emit('warning','Zusätzliche Zielideen konnten nicht vollständig geprüft werden; normale Ergebnisse bleiben erhalten.')
 

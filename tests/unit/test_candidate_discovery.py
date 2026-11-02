@@ -50,6 +50,19 @@ class CandidateTests(unittest.TestCase):
         self.assertEqual(result[0]['latitude'],47.0)
         result,report=self.run_ideas([dict(reference='',name='Gleich',country='AT',region='')]);self.assertFalse(result)
         result,report=self.run_ideas([dict(reference='',name='Gleich',country='AT',region='Salzburg')]);self.assertEqual(result[0]['id'],'geonames:3')
+    def test_guide_and_inventory_centres_merge_uniquely_without_first_match(self):
+        legacy=DestinationCatalog().resolve('Tallinn')
+        self.inventory.replace_country('EE',[dict(place(588409,name='Tallinn',lat=59.43696,lon=24.75353),code='EE',country='Estland')],{},SearchContext())
+        cat=DestinationCatalog(self.inventory)
+        rows=[d for d in cat.destinations if d['name']=='Tallinn' and d['code']=='EE']
+        self.assertEqual(len(rows),1);self.assertEqual(rows[0]['id'],'geonames:588409')
+        self.assertEqual(rows[0]['wikivoyage_source'],legacy['source'])
+        # Two nearby exact names are ambiguous; neither may receive the guide identity.
+        self.inventory.replace_country('EE',[dict(place(588409,name='Tallinn',lat=59.43696,lon=24.75353),code='EE',country='Estland'),
+            dict(place(2,name='Tallinn',lat=59.44,lon=24.76),code='EE',country='Estland')],{},SearchContext())
+        cat=DestinationCatalog(self.inventory)
+        mapped=[d for d in cat.destinations if d['name']=='Tallinn' and d.get('geonames_id') and d.get('wikivoyage_source')]
+        self.assertFalse(mapped)
     def test_alias_normalisation_and_no_like_limit(self):
         rows=self.inventory.exact_named_places('Weisssee','AT','',SearchContext());self.assertEqual(len(rows),1)
         rows=self.inventory.exact_named_places('Weiss','AT','',SearchContext());self.assertFalse(rows)

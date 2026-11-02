@@ -248,10 +248,19 @@ class SurprisePlannerApplication:
         ttk.Button(diagnostic_frame,text='Diagnose ohne genaue Adresse exportieren',command=self.export_diagnostic).pack(anchor='w')
         from .WishPanel import WishPanel
         self.wish_panel=WishPanel(self,notebook)
+        self.search_form_traces=[]
+        for variable in list(self.vars.values())+[v for choices in self.checks.values() for v in choices.values()]:
+            self.search_form_traces.append((variable,variable.trace_add('write',self.search_criteria_changed)))
         self.refresh_saved()
         self.root.protocol('WM_DELETE_WINDOW',self.close)
         self.root.after(150,self.poll)
         return self.root
+
+    def search_criteria_changed(self,*args):
+        # An optional search may never apply ideas for an obsolete form snapshot.
+        if self.running and self.context and getattr(getattr(self.context,'request',None),'ai_discovery',False):
+            self.cancel_search()
+            self.status.set('Suchkriterien geändert. Laufende KI-Ergänzung abgebrochen; bitte neue Suche starten.')
 
     def _entry(self,parent,key,label,value,values=None):
         ttk.Label(parent,text=label,wraplength=350).pack(anchor='w',pady=(7,2))
@@ -309,6 +318,7 @@ class SurprisePlannerApplication:
         self.price_button.configure(state='normal')
         self.generation+=1;generation=self.generation
         context=SearchContext(seconds=request.timeout_seconds,budget=request.request_budget)
+        context.request=request
         self.context=context;self.running=True
         self.trips={};self.active=None;self.saved_id=None;self.diagnostic=None
         self.tree.delete(*self.tree.get_children())
@@ -698,6 +708,7 @@ class SurprisePlannerApplication:
         if self.enrichment_context:self.enrichment_context.cancel.set()
         if self.price_context:self.price_context.cancel.set()
         self.generation+=1
+        for variable,trace in getattr(self,'search_form_traces',[]):variable.trace_remove('write',trace)
         self.root.destroy()
         # Break panel/application cycles while Tk objects still die on UI thread.
         if hasattr(self,"explanation_panel"):self.explanation_panel.app=None

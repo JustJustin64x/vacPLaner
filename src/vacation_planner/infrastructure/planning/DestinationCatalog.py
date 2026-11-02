@@ -40,8 +40,8 @@ class DestinationCatalog:
             self.destinations=legacy;return
         imported=self.inventory.candidates(context);by_name={}
         for d in imported:
-            for name in [d['name'],*d.get('aliases',[])]:
-                by_name.setdefault((d['code'],normalize(name)),[]).append(d)
+            for name in {normalize(n) for n in [d['name'],*d.get('aliases',[])]}:
+                by_name.setdefault((d['code'],name),[]).append(d)
         datasets=self.inventory.coverage()
         cache_key='guide-profiles:'+hashlib.sha256(json.dumps([self.inventory.FEATURE_VERSION,datasets,legacy],sort_keys=True).encode()).hexdigest()
         with self.inventory.connect() as db:cached=db.execute('SELECT payload FROM derived_catalog WHERE key=?',(cache_key,)).fetchone()
@@ -52,7 +52,11 @@ class DestinationCatalog:
             from .EuropeScope import contains
             if not contains(old['code'],old['latitude'],old['longitude']):continue
             options=by_name.get((old['code'],normalize(old['name'])),[])
-            same=next((d for d in options if distance(old,d)<.8),None)
+            # Guide coordinates may represent the old town rather than the
+            # settlement centre. Merge only one exact country/name identity
+            # within the existing source-identity coordinate tolerance.
+            nearby=[d for d in options if distance(old,d)<3]
+            same=nearby[0] if len(nearby)==1 else None
             if same:
                 same['legacy_source']=old['source'];same['wikivoyage_source']=old['source']
                 same['aliases']=list(dict.fromkeys(same.get('aliases',[])+[old['name']]+old.get('aliases',[])))
@@ -112,6 +116,11 @@ class DestinationCatalog:
         return ((not request.countries or bool({self.area(v) for v in request.countries}&{self.area(d['country']),self.area(d['code'])})) and
                 (not request.regions or bool({self.area(v) for v in request.regions}&labels)) and
                 not bool({self.area(v) for v in request.excluded}&labels))
+
+    def european_place(self,d):
+        from .EuropeScope import contains
+        from .DestinationImportService import COUNTRIES
+        return d['code'] in COUNTRIES and contains(d['code'],d['latitude'],d['longitude'])
 
     def country_allowed(self,code,request):
         from .DestinationImportService import COUNTRIES
