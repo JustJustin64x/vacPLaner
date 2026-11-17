@@ -31,6 +31,7 @@ class TripPresenter:
             from ...core.planning.RankingService import RankingService
             trip=RankingService.recompute(expire_offers(copy.deepcopy(trip)))
         request=trip['request']
+        group_label=f"{request['adults']} Erwachsene"+(f" und {len(request.get('children_ages',[]))} Kinder (Alter: "+', '.join(map(str,request['children_ages']))+')' if request.get('children_ages') else '')
         selected=trip['transports'][trip['selected_transport']]
         summary=trip['cost_summary']
         lodging=trip['lodgings'][trip['selected_lodging']] if trip['lodgings'] else None
@@ -39,7 +40,7 @@ class TripPresenter:
             f"Budgetabweichung {euros(delta)} (positiv = darüber); {'geschätzte Obergrenze' if summary['status']=='Schätzspanne' else 'Gesamtpreis'}.")
         sections=[('Reiseübersicht',[
             f"{trip['destination']['name']}, {trip['destination']['country']} | {trip['start']} bis {trip['end']}",
-            f"{trip['nights']+1} Kalendertage / {trip['nights']} Übernachtungen | {request['adults']} Erwachsene / {request['rooms']} Zimmer",
+            f"{trip['nights']+1} Kalendertage / {trip['nights']} Übernachtungen | {group_label} / {request['rooms']} Zimmer",
             f"Ab {request['origin']} | Anfrage: {request['earliest']} bis {request['latest']} | Gruppenbudget {euros(request['budget'])}",
             f"Recherche: {local_stamp(trip['researched_at'])}. Gespeicherte Angaben sind ein damaliger Stand, keine neue Preisabfrage.",
             'Region: '+trip['destination'].get('regional_name',trip['destination'].get('region',''))+' | Zieltyp: '+trip['destination'].get('type','nicht erfasst')+' | Basisort: '+trip['destination'].get('base_name',trip['destination']['name']),
@@ -80,7 +81,7 @@ class TripPresenter:
                               'Offene Pflichtangaben: '+('; '.join(l.get('open_criteria',[])) or 'keine zusätzlich erfasst'),
                               l['booking_status'],l['price']['scope'],
                               'Gruppen-/Aufenthaltspreis: '+price_text(l['price']),
-                              'Ausstattung: '+(amenities or 'unbekannt')+'. Storno- und Verpflegungsbedingungen unbekannt.',
+                              'Ausstattung: '+(amenities or 'unbekannt')+'. Bedingungen gelten nur im Umfang der konkreten Quellenbelege.',
                               l['data_status']+' | Abruf: '+local_stamp(l['retrieved_at']), l.get('source_updated','Letzte Quellenpflege unbekannt')],
                              [(l['link_kind'],l['url']),('Datierter Suchlink – kein geprüftes Angebot',l['search_url']),('Quelleneintrag',l['source'])]))
         sections.append(('Aktivitäten und optionale Ausgaben',[
@@ -114,6 +115,43 @@ class TripPresenter:
                     paragraphs += [detail[key] for key in ('board','cancellation','payment') if detail.get(key)]
                     links.append(('Geprüftes Angebot',offer['source']))
                 sections.append(('Angebotsprüfung · '+label,paragraphs,links))
+        if trip.get('lodging_research'):
+            from ...core.planning.LodgingResearch import LABELS,summarize
+            ledger=trip['lodging_research'];m=summarize(ledger)
+            lines=[f"{m['found']} eindeutige Unterkünfte gefunden · {m['official_websites']} Websites zugeordnet · {m['offer_checks']} Angebotsversuche",
+                   f"{m['selection_responses']} tatsächliche Auswahlantworten · {m['rejected_responses']} nicht angenommene Quellen-/Variantenantworten",
+                   f"{m['confirmed_properties']} vollständig bestätigte Häuser · {m['partial_properties']} teilweise geprüft · {m['source_quotes']} Quellenquoten (ggf. veraltet)",
+                   'Keine vollständige Markt-/Preisabdeckung. Nicht geprüft bedeutet nicht ausgebucht. Fortsetzen bearbeitet offene Häuser zuerst.']
+            lines += [LABELS.get(k,k)+': '+str(v) for k,v in m['states'].items()]
+            lines += ['Erkannt: '+k+' · '+str(v)+' Unterkünfte' for k,v in m['systems'].items()]
+            for coverage in ledger.get('coverage',[]):lines.append('Verzeichnisabdeckung: '+str(coverage))
+            sections.append(('Unterkunftsprüfliste – alle Funde',lines,[]))
+            for e in ledger['entries']:
+                l=e['lodging'];links=[]
+                for key,label in (('source','Verzeichniseintrag'),('url','Website-Hinweis')):
+                    if l.get(key):links.append((label,l[key]))
+                if e.get('booking_url'):links.append(('Beobachtete Buchungsquelle',e['booking_url']))
+                if e.get('identity_source'):links.append(('Zusätzlicher Identitätsbeleg',e['identity_source']))
+                detail=[LABELS.get(e['state'],e['state'])+': '+e['reason'],
+                        'System: '+(e.get('system') or 'noch nicht erkannt')+' / '+(e.get('variant') or 'offen'),
+                        f"{e['attempts']} Bearbeitungen · {e['network_calls']} HTTP-Abfragen · letzte Prüfung {local_stamp(e.get('last_attempt',''))}"]
+                for rejected in e.get('rejected_responses',[]):detail.append('Nicht angenommen: '+rejected['reason']+' · '+local_stamp(rejected['at']))
+                for o in e.get('offers',[]):
+                    detail.append('Quellenquote: '+o['original_amount']+' '+o['original_currency']+' für Gruppe/Aufenthalt · '+local_stamp(o['retrieved_at']))
+                    detail+=o.get('unresolved',[])
+                    for room in o.get('details',{}).get('selected_rooms',[]):
+                        detail.append(f"{room['quantity']} × {room['name']} · je {room['adults_per_unit']} Erwachsene · zusammen {room['total']} EUR")
+                        ages=room.get('children_ages_per_unit',[])
+                        if any(ages):detail.append('Kinderalter je Einheit: '+'; '.join(', '.join(map(str,a)) or 'keine Kinder' for a in ages))
+                        if room.get('tariff_name'):detail.append('Gewählter Quellentarif: '+room['tariff_name'])
+                        if room.get('source_terms'):detail.append('Veröffentlichte Tarifbedingungen: '+room['source_terms']+(' [gekürzt; keine vollständige Auswertung]' if room.get('terms_truncated') else ''))
+                    from ...core.planning.OfferPresentation import lodging_evidence_lines
+                    detail+=lodging_evidence_lines(o)
+                    for key,label in (('quote_url','Tatsächliche Auswahlquote'),):
+                        url=o.get('evidence',{}).get(key)
+                        if url:links.append((label,url))
+                    for fee in o.get('details',{}).get('included_surcharges',[]):detail.append('Im Quellenbetrag enthalten: '+fee['label']+' · '+fee['amount']+' '+o['original_currency'])
+                sections.append(('Prüfstand: '+l['name'],detail,links))
         if trip.get('offer_analysis'):
             from ...core.planning.OfferPresentation import analysis_lines
             sections.append(('Lokale Prüfung der Preisbelege',analysis_lines(trip['offer_analysis']),[]))

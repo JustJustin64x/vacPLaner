@@ -1,0 +1,1847 @@
+{
+  "date": "2026-11-12",
+  "scope": "Etappe C: echte öffentliche Suchläufe; keine Buchung, keine vollständige Preisabdeckung",
+  "campaigns": [
+    {
+      "name": "gundelfingen-five",
+      "destination": {
+        "id": "geonames:2913713",
+        "geonames_id": "2913713",
+        "name": "Gundelfingen",
+        "aliases": [
+          "Gundelfingen",
+          "Gundel'fingen",
+          "Gundelfingen im Breisgau",
+          "gong de er fen gen",
+          "Гунделфинген",
+          "Гундельфинген",
+          "Гундельфінген",
+          "Գունդելֆինգեն",
+          "贡德尔芬根"
+        ],
+        "latitude": 48.04246,
+        "longitude": 7.8657,
+        "code": "DE",
+        "country": "Deutschland",
+        "admin1": "01",
+        "admin2": "083",
+        "admin3": "08315",
+        "admin4": "08315047",
+        "region": "Baden-Wurttemberg",
+        "regions": [
+          "Baden-Wurttemberg",
+          "DE.01"
+        ],
+        "regional_name": "Baden-Wurttemberg",
+        "base_name": "Gundelfingen",
+        "kind": "settlement",
+        "type": "Klein-/Mittelstadt",
+        "feature_class": "P",
+        "feature_code": "PPLA4",
+        "population": 11563,
+        "elevation": "",
+        "timezone": "Europe/Berlin",
+        "source": "https://www.geonames.org/2913713/",
+        "source_updated": "2013-03-04",
+        "source_checked_at": "2026-10-29T21:21:31+00:00",
+        "license": "CC BY 4.0",
+        "coordinate_source": "https://www.geonames.org/2913713/",
+        "coordinate_note": "GeoNames-Ortskoordinate; keine Unterkunftszufahrt",
+        "scope_version": "europe-eea-v1",
+        "alternate_countries": [],
+        "area_id": "DE:01:083",
+        "interests": [],
+        "landscapes": [],
+        "attributions": [
+          {
+            "label": "GeoNames · CC BY 4.0",
+            "url": "https://www.geonames.org/about.html"
+          }
+        ],
+        "inventory_place": true
+      },
+      "request": {
+        "adults": 5,
+        "rooms": 3,
+        "children_ages": [],
+        "room_assignments": []
+      },
+      "start": "2026-11-13",
+      "end": "2026-11-17",
+      "coverage": [
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-12T11:53:35+00:00",
+          "radius_km": 3.0,
+          "returned": 9,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        }
+      ],
+      "runs": [
+        {
+          "at": "2026-11-12T11:54:03+00:00",
+          "calls": 18,
+          "seconds": 27.686,
+          "property_turn_limit": 64,
+          "metrics": {
+            "found": 7,
+            "states": {
+              "no_booking_source": 2,
+              "partial": 1,
+              "blocked": 1,
+              "identity_uncertain": 1,
+              "criteria_mismatch": 2
+            },
+            "official_websites": 3,
+            "systems": {
+              "Beds24 / responsive-selection-v1": 1
+            },
+            "offer_checks": 1,
+            "selection_responses": 1,
+            "rejected_responses": 0,
+            "confirmed_properties": 0,
+            "partial_properties": 1,
+            "confirmed_offers": 0,
+            "source_quotes": 1
+          }
+        }
+      ],
+      "metrics": {
+        "found": 7,
+        "states": {
+          "no_booking_source": 2,
+          "partial": 1,
+          "blocked": 1,
+          "identity_uncertain": 1,
+          "criteria_mismatch": 2
+        },
+        "official_websites": 3,
+        "systems": {
+          "Beds24 / responsive-selection-v1": 1
+        },
+        "offer_checks": 1,
+        "selection_responses": 1,
+        "rejected_responses": 0,
+        "confirmed_properties": 0,
+        "partial_properties": 1,
+        "confirmed_offers": 0,
+        "source_quotes": 1
+      },
+      "entries": [
+        {
+          "id": "osm:node:288434369",
+          "lodging": {
+            "id": "osm:node:288434369",
+            "name": "Hotel Classic",
+            "latitude": 48.0302889,
+            "longitude": 7.8635353,
+            "type": "Hotel",
+            "source": "https://www.openstreetmap.org/node/288434369",
+            "url": "https://www.hotel-classic-freiburg.de",
+            "identity_tags": {
+              "addr:housenumber": "27b",
+              "addr:street": "Gundelfinger Straße",
+              "air_conditioning": "yes",
+              "internet_access": "wlan",
+              "internet_access:fee": "no",
+              "name": "Hotel Classic",
+              "phone": "+49 761 5036930",
+              "tourism": "hotel",
+              "website": "https://www.hotel-classic-freiburg.de",
+              "wheelchair": "yes"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Gundelfinger Straße 27b",
+            "retrieved_at": "2026-11-12T11:53:35+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt",
+              "scope": "5 Erwachsene / 3 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 1.36,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Gundelfinger Straße 27b",
+            "vicinity": false,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+            "open_criteria": [],
+            "requested_occupancy": [
+              2,
+              2,
+              1
+            ],
+            "requested_room_parties": [
+              {
+                "adults": 2,
+                "children_ages": []
+              },
+              {
+                "adults": 2,
+                "children_ages": []
+              },
+              {
+                "adults": 1,
+                "children_ages": []
+              }
+            ],
+            "occupancy_status": "Anfrage: 5 Erwachsene / 3 Zimmer, Aufteilung [2, 2, 1]; Belegung und freie Zimmer unbestätigt",
+            "search_url": "https://www.booking.com/searchresults.de.html?ss=Hotel+Classic+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=5&no_rooms=3&group_children=0&selected_currency=EUR",
+            "source_aliases": [
+              "https://www.openstreetmap.org/node/288434369"
+            ]
+          },
+          "state": "no_booking_source",
+          "stage": "website",
+          "attempts": 1,
+          "reason": "Im begrenzten Websiteumfang keine unterstützte Buchungsquelle; kein Verfügbarkeitsnachweis",
+          "history": [
+            {
+              "state": "no_booking_source",
+              "reason": "Im begrenzten Websiteumfang keine unterstützte Buchungsquelle; kein Verfügbarkeitsnachweis",
+              "at": "2026-11-12T11:53:56+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": true,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 3,
+          "website": "https://www.hotel-classic-freiburg.de/",
+          "website_checked_at": "2026-11-12T11:53:54+00:00",
+          "last_attempt": "2026-11-12T11:53:56+00:00"
+        },
+        {
+          "id": "osm:node:1033886817",
+          "lodging": {
+            "id": "osm:node:1033886817",
+            "name": "H41-Inn Hostel",
+            "latitude": 48.0464051,
+            "longitude": 7.8637455,
+            "type": "Hotel",
+            "source": "https://www.openstreetmap.org/node/1033886817",
+            "url": "https://www.h41-inn.de/",
+            "identity_tags": {
+              "contact:email": "info@freiburg-inn.de",
+              "contact:fax": "+49 761 50364888",
+              "contact:phone": "+49 761 503646",
+              "contact:website": "https://www.h41-inn.de/",
+              "name": "H41-Inn Hostel",
+              "tourism": "guest_house",
+              "wheelchair": "no"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Anschrift unbekannt",
+            "retrieved_at": "2026-11-12T11:53:35+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt",
+              "scope": "5 Erwachsene / 3 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 0.46,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Anschrift unbekannt",
+            "vicinity": false,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+            "open_criteria": [],
+            "requested_occupancy": [
+              2,
+              2,
+              1
+            ],
+            "requested_room_parties": [
+              {
+                "adults": 2,
+                "children_ages": []
+              },
+              {
+                "adults": 2,
+                "children_ages": []
+              },
+              {
+                "adults": 1,
+                "children_ages": []
+              }
+            ],
+            "occupancy_status": "Anfrage: 5 Erwachsene / 3 Zimmer, Aufteilung [2, 2, 1]; Belegung und freie Zimmer unbestätigt",
+            "search_url": "https://www.booking.com/searchresults.de.html?ss=H41-Inn+Hostel+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=5&no_rooms=3&group_children=0&selected_currency=EUR",
+            "source_aliases": [
+              "https://www.openstreetmap.org/node/1033886817"
+            ]
+          },
+          "state": "partial",
+          "stage": "offer",
+          "attempts": 1,
+          "reason": "Gemeinsame Auswahlquote geprüft; keine Buchung. Weitere Pflichtangaben fehlen; siehe Belege",
+          "history": [
+            {
+              "state": "partial",
+              "reason": "Gemeinsame Auswahlquote geprüft; keine Buchung. Weitere Pflichtangaben fehlen; siehe Belege",
+              "at": "2026-11-12T11:53:52+00:00"
+            }
+          ],
+          "offers": [
+            {
+              "provider": "Beds24 · direkte Gastquelle",
+              "category": "lodging",
+              "identifier": "beds24:fa5211a95bf66ca9c872fec6",
+              "source": "https://beds24.com/booking.php?propid=66897&checkin=2026-11-13&numnight=4&numadult=5&numchild=0&lang=de&multiroom=1",
+              "retrieved_at": "2026-11-12T11:53:52+00:00",
+              "parameters": {
+                "origin": "Berlin",
+                "destination": "Gundelfingen",
+                "start": "2026-11-13",
+                "end": "2026-11-17",
+                "adults": 5,
+                "rooms": 3,
+                "occupancy": [
+                  2,
+                  2,
+                  1
+                ],
+                "accommodation_types": [
+                  "Hotel",
+                  "Ferienwohnung"
+                ],
+                "currency": "EUR",
+                "travel_class": "2",
+                "discount_cards": []
+              },
+              "original_amount": "1202.00",
+              "original_currency": "EUR",
+              "price_basis": "group_stay",
+              "eur_amount": "1202.00",
+              "price_status": "aktuell abgerufen",
+              "availability": "available_at_retrieval",
+              "valid_until": "2026-11-12T12:03:52+00:00",
+              "included": [],
+              "additional_fees": [],
+              "unresolved": [
+                "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt"
+              ],
+              "details": {
+                "property": {
+                  "id": "osm:node:1033886817",
+                  "name": "H41-Inn Hostel",
+                  "latitude": 48.0464051,
+                  "longitude": 7.8637455,
+                  "type": "Hotel",
+                  "source": "https://www.openstreetmap.org/node/1033886817",
+                  "url": "https://www.h41-inn.de/",
+                  "identity_tags": {
+                    "contact:email": "info@freiburg-inn.de",
+                    "contact:fax": "+49 761 50364888",
+                    "contact:phone": "+49 761 503646",
+                    "contact:website": "https://www.h41-inn.de/",
+                    "name": "H41-Inn Hostel",
+                    "tourism": "guest_house",
+                    "wheelchair": "no"
+                  },
+                  "geo_source": "OSM",
+                  "country_code": null,
+                  "administrative_region": "",
+                  "address": "Anschrift unbekannt",
+                  "retrieved_at": "2026-11-12T11:53:35+00:00",
+                  "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+                  "amenities": {},
+                  "rooms": null,
+                  "link_kind": "Kartierter Website-Hinweis",
+                  "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+                  "booking_status": "Noch keine Angebotsprüfung",
+                  "price": {
+                    "label": "Unterkunft für Gruppe und Aufenthalt",
+                    "low": null,
+                    "status": "unbekannt",
+                    "scope": "5 Erwachsene / 3 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+                  },
+                  "attributions": [
+                    {
+                      "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                      "url": "https://www.openstreetmap.org/copyright"
+                    }
+                  ],
+                  "distance_km": 0.46,
+                  "source_place": "Gundelfingen",
+                  "source_page_name": "Gundelfingen",
+                  "location_name": "Anschrift unbekannt",
+                  "vicinity": false,
+                  "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+                  "open_criteria": [],
+                  "requested_occupancy": [
+                    2,
+                    2,
+                    1
+                  ],
+                  "requested_room_parties": [
+                    {
+                      "adults": 2,
+                      "children_ages": []
+                    },
+                    {
+                      "adults": 2,
+                      "children_ages": []
+                    },
+                    {
+                      "adults": 1,
+                      "children_ages": []
+                    }
+                  ],
+                  "occupancy_status": "Anfrage: 5 Erwachsene / 3 Zimmer, Aufteilung [2, 2, 1]; Belegung und freie Zimmer unbestätigt",
+                  "search_url": "https://www.booking.com/searchresults.de.html?ss=H41-Inn+Hostel+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=5&no_rooms=3&group_children=0&selected_currency=EUR",
+                  "source_aliases": [
+                    "https://www.openstreetmap.org/node/1033886817"
+                  ]
+                },
+                "units": 3,
+                "capacity": 5,
+                "nights": 4,
+                "selected_rooms": [
+                  {
+                    "room_id": "155792",
+                    "offer_id": "1",
+                    "quantity": 1,
+                    "adults_per_unit": 1,
+                    "children_ages_per_unit": [
+                      []
+                    ],
+                    "name": "Einzelzimmer Economy (kleines Einzelzimmer)",
+                    "total": "343.00",
+                    "tariff_name": "",
+                    "source_terms": "",
+                    "terms_truncated": false
+                  },
+                  {
+                    "room_id": "155793",
+                    "offer_id": "1",
+                    "quantity": 1,
+                    "adults_per_unit": 2,
+                    "children_ages_per_unit": [
+                      []
+                    ],
+                    "name": "Doppelzimmer Economy (kleines Doppelzimmer)",
+                    "total": "411.00",
+                    "tariff_name": "",
+                    "source_terms": "",
+                    "terms_truncated": false
+                  },
+                  {
+                    "room_id": "185901",
+                    "offer_id": "1",
+                    "quantity": 1,
+                    "adults_per_unit": 2,
+                    "children_ages_per_unit": [
+                      []
+                    ],
+                    "name": "Privatzimmer Studio (ebenerdig)",
+                    "total": "448.00",
+                    "tariff_name": "",
+                    "source_terms": "",
+                    "terms_truncated": false
+                  }
+                ],
+                "included_surcharges": [],
+                "board": "Nicht unabhängig normalisiert",
+                "cancellation": "Nicht unabhängig normalisiert"
+              },
+              "evidence": {
+                "parameter_echo": {
+                  "start": "2026-11-13",
+                  "end": "2026-11-17",
+                  "rooms": [
+                    {
+                      "room_id": "155792",
+                      "offer_id": "1",
+                      "quantity": 1,
+                      "adults_per_unit": 1,
+                      "children_ages_per_unit": [
+                        []
+                      ],
+                      "name": "Einzelzimmer Economy (kleines Einzelzimmer)",
+                      "total": "343.00",
+                      "tariff_name": "",
+                      "source_terms": "",
+                      "terms_truncated": false
+                    },
+                    {
+                      "room_id": "155793",
+                      "offer_id": "1",
+                      "quantity": 1,
+                      "adults_per_unit": 2,
+                      "children_ages_per_unit": [
+                        []
+                      ],
+                      "name": "Doppelzimmer Economy (kleines Doppelzimmer)",
+                      "total": "411.00",
+                      "tariff_name": "",
+                      "source_terms": "",
+                      "terms_truncated": false
+                    },
+                    {
+                      "room_id": "185901",
+                      "offer_id": "1",
+                      "quantity": 1,
+                      "adults_per_unit": 2,
+                      "children_ages_per_unit": [
+                        []
+                      ],
+                      "name": "Privatzimmer Studio (ebenerdig)",
+                      "total": "448.00",
+                      "tariff_name": "",
+                      "source_terms": "",
+                      "terms_truncated": false
+                    }
+                  ],
+                  "property": {
+                    "propid": "66897"
+                  }
+                },
+                "fees_complete": false,
+                "normalization": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+                "original_total": "1.202,00",
+                "system_variant": "responsive-selection-v1",
+                "selected_room_evidence": [
+                  {
+                    "room_id": "155792",
+                    "offer_id": "1",
+                    "room_text": "Einzelzimmer Economy (kleines Einzelzimmer) Nicht verfügbar Ausstattung Telefon Kleiderbügel Shampoo Bettwäsche Handtücher Parken kostenlos Toilettenartikel Rauchmelder Heizung Fön Parkmöglichkeit Speisen und Getränke Frühstück möglich Internet Wifi Internet Haustiere Haustiere nicht erlaubt Eignung Keine Kinder Rauchen nicht erlaubt Nicht rollstuhlgeeignet Mindestalter Unterhaltung Kabel TV Service Reinigung inklusive Rezeption Business Schreibtisch Arbeitsplatz für Laptops geeignet",
+                    "tariff_text": "Previous Next Anzahl Anzahl 1 2 Erwachsene 1 Erwachsener Erwachsene 1 Erwachsener Anfragen Verfügbarkeit schließen Mo Di Mi Do Fr Sa So Mo Di Mi Do Fr Sa So Mo Di Mi Do Fr Sa So",
+                    "room_text_truncated": false,
+                    "tariff_text_truncated": false,
+                    "facts": {},
+                    "proof": {},
+                    "quote_terms": "",
+                    "quote_terms_truncated": false
+                  },
+                  {
+                    "room_id": "155793",
+                    "offer_id": "1",
+                    "room_text": "Doppelzimmer Economy (kleines Doppelzimmer) Nicht verfügbar Ausstattung Telefon Parken kostenlos Handtücher Bettwäsche Shampoo Toilettenartikel Kleiderbügel Rauchmelder Heizung Fön Parkmöglichkeit Speisen und Getränke Frühstück möglich Internet Wifi Internet Haustiere Haustiere nicht erlaubt Eignung Rauchen nicht erlaubt Nicht rollstuhlgeeignet Kleinkinder nicht erlaubt Business Schreibtisch Arbeitsplatz für Laptops geeignet Unterhaltung Kabel TV Service Rezeption Reinigung inklusive",
+                    "tariff_text": "Previous Next Anzahl Anzahl 1 2 3 4 Erwachsene 1 Erwachsener 2 Erwachsene Erwachsene 1 Erwachsener 2 Erwachsene Erwachsene 1 Erwachsener 2 Erwachsene Erwachsene 1 Erwachsener 2 Erwachsene Anfragen Verfügbarkeit schließen Mo Di Mi Do Fr Sa So Mo Di Mi Do Fr Sa So Mo Di Mi Do Fr Sa So",
+                    "room_text_truncated": false,
+                    "tariff_text_truncated": false,
+                    "facts": {},
+                    "proof": {},
+                    "quote_terms": "",
+                    "quote_terms_truncated": false
+                  },
+                  {
+                    "room_id": "185901",
+                    "offer_id": "1",
+                    "room_text": "Privatzimmer Studio (ebenerdig) Nicht verfügbar Ausstattung Türklingel Heizung Handtücher Fön Bettwäsche Shampoo Kleiderbügel Toilettenartikel Separater Eingang Parken kostenlos Business Schreibtisch Arbeitsplatz für Laptops geeignet Unterhaltung Kabel TV Speisen und Getränke Frühstück möglich Internet Internet Wifi Küche Geschirr Wasserkocher Haustiere Haustiere nicht erlaubt Service Rezeption Reinigung inklusive Eignung Nur Erwachsene Kleinkinder nicht erlaubt Langzeitmiete Rauchen nicht erlaubt Nicht rollstuhlgeeignet Barrierefrei",
+                    "tariff_text": "Previous Next Anzahl Anzahl 1 Erwachsene 1 Erwachsener 2 Erwachsene Anfragen Verfügbarkeit schließen Mo Di Mi Do Fr Sa So Mo Di Mi Do Fr Sa So Mo Di Mi Do Fr Sa So",
+                    "room_text_truncated": false,
+                    "tariff_text_truncated": false,
+                    "facts": {},
+                    "proof": {},
+                    "quote_terms": "",
+                    "quote_terms_truncated": false
+                  }
+                ],
+                "quote_url": "https://beds24.com/booking.php?propid=66897&checkin=2026-11-13&numnight=4&numadult=5&numchild=0&lang=de&multiroom=1&sr1-155792=1&sr1-155793=1&sr1-185901=1&naa1-1-155793=2&naa1-1-185901=2&naa1-1-155792=1&page=book3&bookmult=",
+                "final_quote_url": "https://beds24.com/booking.php?propid=66897&checkin=2026-11-13&numnight=4&numadult=5&numchild=0&lang=de&multiroom=1&sr1-155792=1&sr1-155793=1&sr1-185901=1&naa1-1-155793=2&naa1-1-185901=2&naa1-1-155792=1&page=book3&bookmult=",
+                "quote_sha256": "396b68b43eeda7870795764746db948ca229adfdc14603f6a0b263b976363e6b",
+                "quote_retrieved_at": "2026-11-12T11:53:52+00:00"
+              },
+              "fx": null,
+              "quality": {
+                "version": 1,
+                "status": "partial",
+                "label": "Teilweise geprüft; Angaben fehlen",
+                "price_eligible": true,
+                "gaps": [
+                  {
+                    "field": "fees",
+                    "message": "Vollständigkeit aller verpflichtenden Gebühren nicht ausdrücklich belegt"
+                  },
+                  {
+                    "field": "provider",
+                    "message": "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt"
+                  }
+                ],
+                "conflicts": [],
+                "mismatches": [],
+                "fee_costs": [],
+                "source_publication_at": null,
+                "checked_at": "2026-11-12T11:54:03.575133+00:00",
+                "booking_guarantee": false
+              }
+            }
+          ],
+          "official_website": true,
+          "system": "Beds24",
+          "variant": "responsive-selection-v1",
+          "offer_checks": 1,
+          "network_calls": 5,
+          "website": "https://www.h41-inn.de/",
+          "website_checked_at": "2026-11-12T11:53:41+00:00",
+          "booking_url": "https://beds24.com/booking.php?propid=66897",
+          "selection_responses": 1,
+          "last_attempt": "2026-11-12T11:53:52+00:00"
+        },
+        {
+          "id": "osm:node:1583751940",
+          "lodging": {
+            "id": "osm:node:1583751940",
+            "name": "B&B Hotel Freiburg-Nord",
+            "latitude": 48.0321667,
+            "longitude": 7.8442519,
+            "type": "Hotel",
+            "source": "https://www.openstreetmap.org/node/1583751940",
+            "url": "https://www.hotel-bb.com/de/hotel/freiburg-nord",
+            "identity_tags": {
+              "addr:housenumber": "87c",
+              "addr:postcode": "79108",
+              "addr:street": "Tullastraße",
+              "brand": "B&B Hotels",
+              "email": "freiburg-nord@hotelbb.com",
+              "name": "B&B Hotel Freiburg-Nord",
+              "note": "Preis pro Nacht ab 52,00 €",
+              "phone": "+49 761 557 730",
+              "rooms": "80",
+              "smoking": "isolated",
+              "tourism": "guest_house",
+              "website": "https://www.hotel-bb.com/de/hotel/freiburg-nord"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Tullastraße 87c 79108",
+            "retrieved_at": "2026-11-12T11:53:35+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt",
+              "scope": "5 Erwachsene / 3 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 1.96,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Tullastraße 87c 79108",
+            "vicinity": false,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+            "open_criteria": [],
+            "requested_occupancy": [
+              2,
+              2,
+              1
+            ],
+            "requested_room_parties": [
+              {
+                "adults": 2,
+                "children_ages": []
+              },
+              {
+                "adults": 2,
+                "children_ages": []
+              },
+              {
+                "adults": 1,
+                "children_ages": []
+              }
+            ],
+            "occupancy_status": "Anfrage: 5 Erwachsene / 3 Zimmer, Aufteilung [2, 2, 1]; Belegung und freie Zimmer unbestätigt",
+            "search_url": "https://www.booking.com/searchresults.de.html?ss=B%26B+Hotel+Freiburg-Nord+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=5&no_rooms=3&group_children=0&selected_currency=EUR",
+            "source_aliases": [
+              "https://www.openstreetmap.org/node/1583751940"
+            ]
+          },
+          "state": "blocked",
+          "stage": "website",
+          "attempts": 1,
+          "reason": "Robots-Regeln nicht abrufbar; Quelle bleibt gesperrt.",
+          "history": [
+            {
+              "state": "blocked",
+              "reason": "Robots-Regeln nicht abrufbar; Quelle bleibt gesperrt.",
+              "at": "2026-11-12T11:53:52+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": false,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 1,
+          "last_attempt": "2026-11-12T11:53:52+00:00",
+          "retry_after": 1794485332.5478652
+        },
+        {
+          "id": "osm:node:4818612507",
+          "lodging": {
+            "id": "osm:node:4818612507",
+            "name": "Friz Ferienapartments",
+            "latitude": 48.0410594,
+            "longitude": 7.8663398,
+            "type": "Hotel",
+            "source": "https://www.openstreetmap.org/node/4818612507",
+            "url": "https://frizbnb.de/",
+            "identity_tags": {
+              "addr:city": "Gundelfingen",
+              "addr:housenumber": "54b",
+              "addr:street": "Alte Bundesstraße",
+              "email": "relax@frizbnb.de",
+              "name": "Friz Ferienapartments",
+              "phone": "+49 179 853 5445",
+              "tourism": "guest_house",
+              "website": "https://frizbnb.de/"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Alte Bundesstraße 54b  Gundelfingen",
+            "retrieved_at": "2026-11-12T11:53:35+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt",
+              "scope": "5 Erwachsene / 3 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 0.16,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Alte Bundesstraße 54b  Gundelfingen",
+            "vicinity": false,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+            "open_criteria": [],
+            "requested_occupancy": [
+              2,
+              2,
+              1
+            ],
+            "requested_room_parties": [
+              {
+                "adults": 2,
+                "children_ages": []
+              },
+              {
+                "adults": 2,
+                "children_ages": []
+              },
+              {
+                "adults": 1,
+                "children_ages": []
+              }
+            ],
+            "occupancy_status": "Anfrage: 5 Erwachsene / 3 Zimmer, Aufteilung [2, 2, 1]; Belegung und freie Zimmer unbestätigt",
+            "search_url": "https://www.booking.com/searchresults.de.html?ss=Friz+Ferienapartments+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=5&no_rooms=3&group_children=0&selected_currency=EUR",
+            "source_aliases": [
+              "https://www.openstreetmap.org/node/4818612507"
+            ]
+          },
+          "state": "identity_uncertain",
+          "stage": "website",
+          "attempts": 1,
+          "reason": "Website nicht durch Name und zusätzliche Orts-/Adress-/Telefonmerkmale zugeordnet",
+          "history": [
+            {
+              "state": "identity_uncertain",
+              "reason": "Website nicht durch Name und zusätzliche Orts-/Adress-/Telefonmerkmale zugeordnet",
+              "at": "2026-11-12T11:54:03+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": false,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 5,
+          "last_attempt": "2026-11-12T11:54:03+00:00"
+        },
+        {
+          "id": "osm:node:10215539677",
+          "lodging": {
+            "id": "osm:node:10215539677",
+            "name": "Der Turm",
+            "latitude": 48.0176066,
+            "longitude": 7.8539863,
+            "type": "Ferienwohnung",
+            "source": "https://www.openstreetmap.org/node/10215539677",
+            "url": "https://derturmfreiburg.de",
+            "identity_tags": {
+              "addr:city": "Freiburg im Breisgau",
+              "addr:housenumber": "50",
+              "addr:postcode": "79108",
+              "addr:street": "Offenburger Straße",
+              "name": "Der Turm",
+              "operator": "Ingrid Maria Buron de Preser - https://buronarchitecture.de",
+              "phone": "+49 160 90555307",
+              "tourism": "apartment",
+              "website": "https://derturmfreiburg.de"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Offenburger Straße 50 79108 Freiburg im Breisgau",
+            "retrieved_at": "2026-11-12T11:53:35+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt",
+              "scope": "5 Erwachsene / 3 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 2.9,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Offenburger Straße 50 79108 Freiburg im Breisgau",
+            "vicinity": true,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+            "open_criteria": [],
+            "requested_occupancy": [
+              2,
+              2,
+              1
+            ],
+            "requested_room_parties": [
+              {
+                "adults": 2,
+                "children_ages": []
+              },
+              {
+                "adults": 2,
+                "children_ages": []
+              },
+              {
+                "adults": 1,
+                "children_ages": []
+              }
+            ],
+            "occupancy_status": "Anfrage: 5 Erwachsene / 3 Zimmer, Aufteilung [2, 2, 1]; Belegung und freie Zimmer unbestätigt",
+            "search_url": "https://www.booking.com/searchresults.de.html?ss=Der+Turm+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=5&no_rooms=3&group_children=0&selected_currency=EUR",
+            "source_aliases": [
+              "https://www.openstreetmap.org/node/10215539677"
+            ]
+          },
+          "state": "no_booking_source",
+          "stage": "website",
+          "attempts": 1,
+          "reason": "Im begrenzten Websiteumfang keine unterstützte Buchungsquelle; kein Verfügbarkeitsnachweis",
+          "history": [
+            {
+              "state": "no_booking_source",
+              "reason": "Im begrenzten Websiteumfang keine unterstützte Buchungsquelle; kein Verfügbarkeitsnachweis",
+              "at": "2026-11-12T11:53:39+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": true,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 4,
+          "website": "https://www.derturmfreiburg.de/",
+          "website_checked_at": "2026-11-12T11:53:39+00:00",
+          "last_attempt": "2026-11-12T11:53:39+00:00"
+        },
+        {
+          "id": "osm:way:71185464",
+          "lodging": {
+            "id": "osm:way:71185464",
+            "name": "Eselswinkel",
+            "latitude": 48.0255632,
+            "longitude": 7.8365261,
+            "type": "Camping",
+            "source": "https://www.openstreetmap.org/way/71185464",
+            "url": "https://www.openstreetmap.org/way/71185464",
+            "identity_tags": {
+              "access": "private",
+              "addr:city": "Freiburg im Breisgau",
+              "addr:housenumber": "21b",
+              "addr:postcode": "79108",
+              "addr:street": "Hermann-Mitsch-Straße",
+              "name": "Eselswinkel",
+              "note:de": "Wagenplatz",
+              "permanent_camping": "only",
+              "tourism": "camp_site"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Hermann-Mitsch-Straße 21b 79108 Freiburg im Breisgau",
+            "retrieved_at": "2026-11-12T11:53:35+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 2.87,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Hermann-Mitsch-Straße 21b 79108 Freiburg im Breisgau",
+            "vicinity": true,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt"
+          },
+          "state": "criteria_mismatch",
+          "stage": "website",
+          "attempts": 0,
+          "reason": "Unterkunftsart oder belegte Pflichtausstattung passt nicht",
+          "history": [
+            {
+              "state": "criteria_mismatch",
+              "reason": "Unterkunftsart oder belegte Pflichtausstattung passt nicht",
+              "at": "2026-11-12T11:53:35+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": false,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 0,
+          "last_attempt": "2026-11-12T11:53:35+00:00"
+        },
+        {
+          "id": "osm:way:1112059324",
+          "lodging": {
+            "id": "osm:way:1112059324",
+            "name": "Schattenparker",
+            "latitude": 48.0245478,
+            "longitude": 7.8370175,
+            "type": "Camping",
+            "source": "https://www.openstreetmap.org/way/1112059324",
+            "url": "https://schattenpark.blackblogs.org/",
+            "identity_tags": {
+              "access": "private",
+              "addr:city": "Freiburg im Breisgau",
+              "addr:housenumber": "7",
+              "addr:postcode": "79108",
+              "addr:street": "Am Eselwinkel",
+              "contact:website": "https://schattenpark.blackblogs.org/",
+              "name": "Schattenparker",
+              "note:de": "Wagenplatz",
+              "permanent_camping": "only",
+              "tourism": "camp_site"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Am Eselwinkel 7 79108 Freiburg im Breisgau",
+            "retrieved_at": "2026-11-12T11:53:35+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 2.92,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Am Eselwinkel 7 79108 Freiburg im Breisgau",
+            "vicinity": true,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt"
+          },
+          "state": "criteria_mismatch",
+          "stage": "website",
+          "attempts": 0,
+          "reason": "Unterkunftsart oder belegte Pflichtausstattung passt nicht",
+          "history": [
+            {
+              "state": "criteria_mismatch",
+              "reason": "Unterkunftsart oder belegte Pflichtausstattung passt nicht",
+              "at": "2026-11-12T11:53:35+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": false,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 0,
+          "last_attempt": "2026-11-12T11:53:35+00:00"
+        }
+      ]
+    },
+    {
+      "name": "gundelfingen-family",
+      "destination": {
+        "id": "geonames:2913713",
+        "geonames_id": "2913713",
+        "name": "Gundelfingen",
+        "aliases": [
+          "Gundelfingen",
+          "Gundel'fingen",
+          "Gundelfingen im Breisgau",
+          "gong de er fen gen",
+          "Гунделфинген",
+          "Гундельфинген",
+          "Гундельфінген",
+          "Գունդելֆինգեն",
+          "贡德尔芬根"
+        ],
+        "latitude": 48.04246,
+        "longitude": 7.8657,
+        "code": "DE",
+        "country": "Deutschland",
+        "admin1": "01",
+        "admin2": "083",
+        "admin3": "08315",
+        "admin4": "08315047",
+        "region": "Baden-Wurttemberg",
+        "regions": [
+          "Baden-Wurttemberg",
+          "DE.01"
+        ],
+        "regional_name": "Baden-Wurttemberg",
+        "base_name": "Gundelfingen",
+        "kind": "settlement",
+        "type": "Klein-/Mittelstadt",
+        "feature_class": "P",
+        "feature_code": "PPLA4",
+        "population": 11563,
+        "elevation": "",
+        "timezone": "Europe/Berlin",
+        "source": "https://www.geonames.org/2913713/",
+        "source_updated": "2013-03-04",
+        "source_checked_at": "2026-10-29T21:21:31+00:00",
+        "license": "CC BY 4.0",
+        "coordinate_source": "https://www.geonames.org/2913713/",
+        "coordinate_note": "GeoNames-Ortskoordinate; keine Unterkunftszufahrt",
+        "scope_version": "europe-eea-v1",
+        "alternate_countries": [],
+        "area_id": "DE:01:083",
+        "interests": [],
+        "landscapes": [],
+        "attributions": [
+          {
+            "label": "GeoNames · CC BY 4.0",
+            "url": "https://www.geonames.org/about.html"
+          }
+        ],
+        "inventory_place": true
+      },
+      "request": {
+        "adults": 2,
+        "rooms": 1,
+        "children_ages": [
+          5
+        ],
+        "room_assignments": []
+      },
+      "start": "2026-11-13",
+      "end": "2026-11-17",
+      "coverage": [
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-12T11:54:23+00:00",
+          "radius_km": 3.0,
+          "returned": 9,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        }
+      ],
+      "runs": [
+        {
+          "at": "2026-11-12T11:54:45+00:00",
+          "calls": 16,
+          "seconds": 21.73,
+          "property_turn_limit": 64,
+          "metrics": {
+            "found": 7,
+            "states": {
+              "no_booking_source": 2,
+              "unsupported_variant": 1,
+              "blocked": 1,
+              "deferred_budget": 1,
+              "criteria_mismatch": 2
+            },
+            "official_websites": 3,
+            "systems": {
+              "Beds24 / responsive-selection-v1": 1
+            },
+            "offer_checks": 1,
+            "selection_responses": 0,
+            "rejected_responses": 1,
+            "confirmed_properties": 0,
+            "partial_properties": 0,
+            "confirmed_offers": 0,
+            "source_quotes": 0
+          }
+        }
+      ],
+      "metrics": {
+        "found": 7,
+        "states": {
+          "no_booking_source": 2,
+          "unsupported_variant": 1,
+          "blocked": 1,
+          "deferred_budget": 1,
+          "criteria_mismatch": 2
+        },
+        "official_websites": 3,
+        "systems": {
+          "Beds24 / responsive-selection-v1": 1
+        },
+        "offer_checks": 1,
+        "selection_responses": 0,
+        "rejected_responses": 1,
+        "confirmed_properties": 0,
+        "partial_properties": 0,
+        "confirmed_offers": 0,
+        "source_quotes": 0
+      },
+      "entries": [
+        {
+          "id": "osm:node:288434369",
+          "lodging": {
+            "id": "osm:node:288434369",
+            "name": "Hotel Classic",
+            "latitude": 48.0302889,
+            "longitude": 7.8635353,
+            "type": "Hotel",
+            "source": "https://www.openstreetmap.org/node/288434369",
+            "url": "https://www.hotel-classic-freiburg.de",
+            "identity_tags": {
+              "addr:housenumber": "27b",
+              "addr:street": "Gundelfinger Straße",
+              "air_conditioning": "yes",
+              "internet_access": "wlan",
+              "internet_access:fee": "no",
+              "name": "Hotel Classic",
+              "phone": "+49 761 5036930",
+              "tourism": "hotel",
+              "website": "https://www.hotel-classic-freiburg.de",
+              "wheelchair": "yes"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Gundelfinger Straße 27b",
+            "retrieved_at": "2026-11-12T11:54:23+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt",
+              "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 5) / 1 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 1.36,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Gundelfinger Straße 27b",
+            "vicinity": false,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+            "open_criteria": [],
+            "requested_occupancy": [
+              3
+            ],
+            "requested_room_parties": [
+              {
+                "adults": 2,
+                "children_ages": [
+                  5
+                ]
+              }
+            ],
+            "occupancy_status": "Anfrage: 2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 5) / 1 Zimmer, Aufteilung [3]; Belegung und freie Zimmer unbestätigt",
+            "search_url": "https://www.booking.com/searchresults.de.html?ss=Hotel+Classic+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=2&no_rooms=1&group_children=1&selected_currency=EUR&age=5",
+            "source_aliases": [
+              "https://www.openstreetmap.org/node/288434369"
+            ]
+          },
+          "state": "no_booking_source",
+          "stage": "website",
+          "attempts": 1,
+          "reason": "Im begrenzten Websiteumfang keine unterstützte Buchungsquelle; kein Verfügbarkeitsnachweis",
+          "history": [
+            {
+              "state": "no_booking_source",
+              "reason": "Im begrenzten Websiteumfang keine unterstützte Buchungsquelle; kein Verfügbarkeitsnachweis",
+              "at": "2026-11-12T11:54:37+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": true,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 3,
+          "website": "https://www.hotel-classic-freiburg.de/",
+          "website_checked_at": "2026-11-12T11:54:36+00:00",
+          "last_attempt": "2026-11-12T11:54:37+00:00"
+        },
+        {
+          "id": "osm:node:1033886817",
+          "lodging": {
+            "id": "osm:node:1033886817",
+            "name": "H41-Inn Hostel",
+            "latitude": 48.0464051,
+            "longitude": 7.8637455,
+            "type": "Hotel",
+            "source": "https://www.openstreetmap.org/node/1033886817",
+            "url": "https://www.h41-inn.de/",
+            "identity_tags": {
+              "contact:email": "info@freiburg-inn.de",
+              "contact:fax": "+49 761 50364888",
+              "contact:phone": "+49 761 503646",
+              "contact:website": "https://www.h41-inn.de/",
+              "name": "H41-Inn Hostel",
+              "tourism": "guest_house",
+              "wheelchair": "no"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Anschrift unbekannt",
+            "retrieved_at": "2026-11-12T11:54:23+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt",
+              "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 5) / 1 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 0.46,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Anschrift unbekannt",
+            "vicinity": false,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+            "open_criteria": [],
+            "requested_occupancy": [
+              3
+            ],
+            "requested_room_parties": [
+              {
+                "adults": 2,
+                "children_ages": [
+                  5
+                ]
+              }
+            ],
+            "occupancy_status": "Anfrage: 2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 5) / 1 Zimmer, Aufteilung [3]; Belegung und freie Zimmer unbestätigt",
+            "search_url": "https://www.booking.com/searchresults.de.html?ss=H41-Inn+Hostel+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=2&no_rooms=1&group_children=1&selected_currency=EUR&age=5",
+            "source_aliases": [
+              "https://www.openstreetmap.org/node/1033886817"
+            ]
+          },
+          "state": "unsupported_variant",
+          "stage": "offer",
+          "attempts": 1,
+          "reason": "Veröffentlichte Kinder-Altersgruppe fehlt, widerspricht sich oder passt nicht; keine Ersatzsuche für Erwachsene",
+          "history": [
+            {
+              "state": "unsupported_variant",
+              "reason": "Veröffentlichte Kinder-Altersgruppe fehlt, widerspricht sich oder passt nicht; keine Ersatzsuche für Erwachsene",
+              "at": "2026-11-12T11:54:33+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": true,
+          "system": "Beds24",
+          "variant": "responsive-selection-v1",
+          "offer_checks": 1,
+          "network_calls": 4,
+          "website": "https://www.h41-inn.de/",
+          "website_checked_at": "2026-11-12T11:54:28+00:00",
+          "booking_url": "https://beds24.com/booking.php?propid=66897",
+          "rejected_responses": [
+            {
+              "source": "https://beds24.com/booking.php?propid=66897",
+              "reason": "Veröffentlichte Kinder-Altersgruppe fehlt, widerspricht sich oder passt nicht; keine Ersatzsuche für Erwachsene",
+              "at": "2026-11-12T11:54:33+00:00",
+              "kind": "unsupported_variant"
+            }
+          ],
+          "selection_responses": 0,
+          "last_attempt": "2026-11-12T11:54:33+00:00"
+        },
+        {
+          "id": "osm:node:1583751940",
+          "lodging": {
+            "id": "osm:node:1583751940",
+            "name": "B&B Hotel Freiburg-Nord",
+            "latitude": 48.0321667,
+            "longitude": 7.8442519,
+            "type": "Hotel",
+            "source": "https://www.openstreetmap.org/node/1583751940",
+            "url": "https://www.hotel-bb.com/de/hotel/freiburg-nord",
+            "identity_tags": {
+              "addr:housenumber": "87c",
+              "addr:postcode": "79108",
+              "addr:street": "Tullastraße",
+              "brand": "B&B Hotels",
+              "email": "freiburg-nord@hotelbb.com",
+              "name": "B&B Hotel Freiburg-Nord",
+              "note": "Preis pro Nacht ab 52,00 €",
+              "phone": "+49 761 557 730",
+              "rooms": "80",
+              "smoking": "isolated",
+              "tourism": "guest_house",
+              "website": "https://www.hotel-bb.com/de/hotel/freiburg-nord"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Tullastraße 87c 79108",
+            "retrieved_at": "2026-11-12T11:54:23+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt",
+              "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 5) / 1 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 1.96,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Tullastraße 87c 79108",
+            "vicinity": false,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+            "open_criteria": [],
+            "requested_occupancy": [
+              3
+            ],
+            "requested_room_parties": [
+              {
+                "adults": 2,
+                "children_ages": [
+                  5
+                ]
+              }
+            ],
+            "occupancy_status": "Anfrage: 2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 5) / 1 Zimmer, Aufteilung [3]; Belegung und freie Zimmer unbestätigt",
+            "search_url": "https://www.booking.com/searchresults.de.html?ss=B%26B+Hotel+Freiburg-Nord+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=2&no_rooms=1&group_children=1&selected_currency=EUR&age=5",
+            "source_aliases": [
+              "https://www.openstreetmap.org/node/1583751940"
+            ]
+          },
+          "state": "blocked",
+          "stage": "website",
+          "attempts": 1,
+          "reason": "Robots-Regeln nicht abrufbar; Quelle bleibt gesperrt.",
+          "history": [
+            {
+              "state": "blocked",
+              "reason": "Robots-Regeln nicht abrufbar; Quelle bleibt gesperrt.",
+              "at": "2026-11-12T11:54:34+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": false,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 1,
+          "last_attempt": "2026-11-12T11:54:34+00:00",
+          "retry_after": 1794485374.0245178
+        },
+        {
+          "id": "osm:node:4818612507",
+          "lodging": {
+            "id": "osm:node:4818612507",
+            "name": "Friz Ferienapartments",
+            "latitude": 48.0410594,
+            "longitude": 7.8663398,
+            "type": "Hotel",
+            "source": "https://www.openstreetmap.org/node/4818612507",
+            "url": "https://frizbnb.de/",
+            "identity_tags": {
+              "addr:city": "Gundelfingen",
+              "addr:housenumber": "54b",
+              "addr:street": "Alte Bundesstraße",
+              "email": "relax@frizbnb.de",
+              "name": "Friz Ferienapartments",
+              "phone": "+49 179 853 5445",
+              "tourism": "guest_house",
+              "website": "https://frizbnb.de/"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Alte Bundesstraße 54b  Gundelfingen",
+            "retrieved_at": "2026-11-12T11:54:23+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt",
+              "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 5) / 1 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 0.16,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Alte Bundesstraße 54b  Gundelfingen",
+            "vicinity": false,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+            "open_criteria": [],
+            "requested_occupancy": [
+              3
+            ],
+            "requested_room_parties": [
+              {
+                "adults": 2,
+                "children_ages": [
+                  5
+                ]
+              }
+            ],
+            "occupancy_status": "Anfrage: 2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 5) / 1 Zimmer, Aufteilung [3]; Belegung und freie Zimmer unbestätigt",
+            "search_url": "https://www.booking.com/searchresults.de.html?ss=Friz+Ferienapartments+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=2&no_rooms=1&group_children=1&selected_currency=EUR&age=5",
+            "source_aliases": [
+              "https://www.openstreetmap.org/node/4818612507"
+            ]
+          },
+          "state": "deferred_budget",
+          "stage": "website",
+          "attempts": 1,
+          "reason": "Abfragebudget erreicht; vorhandene Teilergebnisse bleiben erhalten.",
+          "history": [
+            {
+              "state": "deferred_budget",
+              "reason": "Abfragebudget erreicht; vorhandene Teilergebnisse bleiben erhalten.",
+              "at": "2026-11-12T11:54:45+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": false,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 4,
+          "last_attempt": "2026-11-12T11:54:45+00:00"
+        },
+        {
+          "id": "osm:node:10215539677",
+          "lodging": {
+            "id": "osm:node:10215539677",
+            "name": "Der Turm",
+            "latitude": 48.0176066,
+            "longitude": 7.8539863,
+            "type": "Ferienwohnung",
+            "source": "https://www.openstreetmap.org/node/10215539677",
+            "url": "https://derturmfreiburg.de",
+            "identity_tags": {
+              "addr:city": "Freiburg im Breisgau",
+              "addr:housenumber": "50",
+              "addr:postcode": "79108",
+              "addr:street": "Offenburger Straße",
+              "name": "Der Turm",
+              "operator": "Ingrid Maria Buron de Preser - https://buronarchitecture.de",
+              "phone": "+49 160 90555307",
+              "tourism": "apartment",
+              "website": "https://derturmfreiburg.de"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Offenburger Straße 50 79108 Freiburg im Breisgau",
+            "retrieved_at": "2026-11-12T11:54:23+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt",
+              "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 5) / 1 Zimmer / 4 Nächte; Gesamtpreis unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 2.9,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Offenburger Straße 50 79108 Freiburg im Breisgau",
+            "vicinity": true,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt",
+            "open_criteria": [],
+            "requested_occupancy": [
+              3
+            ],
+            "requested_room_parties": [
+              {
+                "adults": 2,
+                "children_ages": [
+                  5
+                ]
+              }
+            ],
+            "occupancy_status": "Anfrage: 2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 5) / 1 Zimmer, Aufteilung [3]; Belegung und freie Zimmer unbestätigt",
+            "search_url": "https://www.booking.com/searchresults.de.html?ss=Der+Turm+Gundelfingen&checkin=2026-11-13&checkout=2026-11-17&group_adults=2&no_rooms=1&group_children=1&selected_currency=EUR&age=5",
+            "source_aliases": [
+              "https://www.openstreetmap.org/node/10215539677"
+            ]
+          },
+          "state": "no_booking_source",
+          "stage": "website",
+          "attempts": 1,
+          "reason": "Im begrenzten Websiteumfang keine unterstützte Buchungsquelle; kein Verfügbarkeitsnachweis",
+          "history": [
+            {
+              "state": "no_booking_source",
+              "reason": "Im begrenzten Websiteumfang keine unterstützte Buchungsquelle; kein Verfügbarkeitsnachweis",
+              "at": "2026-11-12T11:54:26+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": true,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 4,
+          "website": "https://www.derturmfreiburg.de/",
+          "website_checked_at": "2026-11-12T11:54:26+00:00",
+          "last_attempt": "2026-11-12T11:54:26+00:00"
+        },
+        {
+          "id": "osm:way:71185464",
+          "lodging": {
+            "id": "osm:way:71185464",
+            "name": "Eselswinkel",
+            "latitude": 48.0255632,
+            "longitude": 7.8365261,
+            "type": "Camping",
+            "source": "https://www.openstreetmap.org/way/71185464",
+            "url": "https://www.openstreetmap.org/way/71185464",
+            "identity_tags": {
+              "access": "private",
+              "addr:city": "Freiburg im Breisgau",
+              "addr:housenumber": "21b",
+              "addr:postcode": "79108",
+              "addr:street": "Hermann-Mitsch-Straße",
+              "name": "Eselswinkel",
+              "note:de": "Wagenplatz",
+              "permanent_camping": "only",
+              "tourism": "camp_site"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Hermann-Mitsch-Straße 21b 79108 Freiburg im Breisgau",
+            "retrieved_at": "2026-11-12T11:54:23+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 2.87,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Hermann-Mitsch-Straße 21b 79108 Freiburg im Breisgau",
+            "vicinity": true,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt"
+          },
+          "state": "criteria_mismatch",
+          "stage": "website",
+          "attempts": 0,
+          "reason": "Unterkunftsart oder belegte Pflichtausstattung passt nicht",
+          "history": [
+            {
+              "state": "criteria_mismatch",
+              "reason": "Unterkunftsart oder belegte Pflichtausstattung passt nicht",
+              "at": "2026-11-12T11:54:23+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": false,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 0,
+          "last_attempt": "2026-11-12T11:54:23+00:00"
+        },
+        {
+          "id": "osm:way:1112059324",
+          "lodging": {
+            "id": "osm:way:1112059324",
+            "name": "Schattenparker",
+            "latitude": 48.0245478,
+            "longitude": 7.8370175,
+            "type": "Camping",
+            "source": "https://www.openstreetmap.org/way/1112059324",
+            "url": "https://schattenpark.blackblogs.org/",
+            "identity_tags": {
+              "access": "private",
+              "addr:city": "Freiburg im Breisgau",
+              "addr:housenumber": "7",
+              "addr:postcode": "79108",
+              "addr:street": "Am Eselwinkel",
+              "contact:website": "https://schattenpark.blackblogs.org/",
+              "name": "Schattenparker",
+              "note:de": "Wagenplatz",
+              "permanent_camping": "only",
+              "tourism": "camp_site"
+            },
+            "geo_source": "OSM",
+            "country_code": null,
+            "administrative_region": "",
+            "address": "Am Eselwinkel 7 79108 Freiburg im Breisgau",
+            "retrieved_at": "2026-11-12T11:54:23+00:00",
+            "source_updated": "OSM-Verzeichnisabruf, keine Preisprüfung",
+            "amenities": {},
+            "rooms": null,
+            "link_kind": "Kartierter Website-Hinweis",
+            "data_status": "Verzeichniseintrag; Identität/Verfügbarkeit zu prüfen",
+            "booking_status": "Noch keine Angebotsprüfung",
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "status": "unbekannt"
+            },
+            "attributions": [
+              {
+                "label": "© OpenStreetMap-Mitwirkende · ODbL",
+                "url": "https://www.openstreetmap.org/copyright"
+              }
+            ],
+            "distance_km": 2.92,
+            "source_place": "Gundelfingen",
+            "source_page_name": "Gundelfingen",
+            "location_name": "Am Eselwinkel 7 79108 Freiburg im Breisgau",
+            "vicinity": true,
+            "distance_kind": "Luftlinie; Erreichbarkeit nicht belegt"
+          },
+          "state": "criteria_mismatch",
+          "stage": "website",
+          "attempts": 0,
+          "reason": "Unterkunftsart oder belegte Pflichtausstattung passt nicht",
+          "history": [
+            {
+              "state": "criteria_mismatch",
+              "reason": "Unterkunftsart oder belegte Pflichtausstattung passt nicht",
+              "at": "2026-11-12T11:54:23+00:00"
+            }
+          ],
+          "offers": [],
+          "official_website": false,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "network_calls": 0,
+          "last_attempt": "2026-11-12T11:54:23+00:00"
+        }
+      ]
+    }
+  ],
+  "gui": {
+    "elapsed_seconds": 34.797,
+    "callbacks": 3101,
+    "max_callback_gap": 0.0337,
+    "metrics": {
+      "found": 7,
+      "states": {
+        "no_booking_source": 2,
+        "partial": 1,
+        "blocked": 1,
+        "identity_uncertain": 1,
+        "criteria_mismatch": 2
+      },
+      "official_websites": 3,
+      "systems": {
+        "Beds24 / responsive-selection-v1": 1
+      },
+      "offer_checks": 1,
+      "selection_responses": 1,
+      "rejected_responses": 0,
+      "confirmed_properties": 0,
+      "partial_properties": 1,
+      "confirmed_offers": 0,
+      "source_quotes": 1
+    },
+    "old_saved_unchanged": true,
+    "quotes": [
+      {
+        "name": "H41-Inn Hostel",
+        "amount": "1202.00",
+        "rooms": [
+          {
+            "room_id": "155792",
+            "offer_id": "1",
+            "quantity": 1,
+            "adults_per_unit": 1,
+            "children_ages_per_unit": [
+              []
+            ],
+            "name": "Einzelzimmer Economy (kleines Einzelzimmer)",
+            "total": "343.00",
+            "tariff_name": "",
+            "source_terms": "",
+            "terms_truncated": false
+          },
+          {
+            "room_id": "155793",
+            "offer_id": "1",
+            "quantity": 1,
+            "adults_per_unit": 2,
+            "children_ages_per_unit": [
+              []
+            ],
+            "name": "Doppelzimmer Economy (kleines Doppelzimmer)",
+            "total": "411.00",
+            "tariff_name": "",
+            "source_terms": "",
+            "terms_truncated": false
+          },
+          {
+            "room_id": "185901",
+            "offer_id": "1",
+            "quantity": 1,
+            "adults_per_unit": 2,
+            "children_ages_per_unit": [
+              []
+            ],
+            "name": "Privatzimmer Studio (ebenerdig)",
+            "total": "448.00",
+            "tariff_name": "",
+            "source_terms": "",
+            "terms_truncated": false
+          }
+        ]
+      }
+    ],
+    "explicit_save_retained_quotes": true,
+    "displayed_quote": true
+  }
+}

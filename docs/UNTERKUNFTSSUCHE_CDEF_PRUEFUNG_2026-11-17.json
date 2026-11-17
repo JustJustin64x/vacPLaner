@@ -1,0 +1,1995 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-17",
+  "work_period": "2026-11-12 bis 2026-11-17",
+  "price_observations_are_historical_not_current_guarantees": true,
+  "campaigns": [
+    {
+      "name": "Normaler Verzeichnislauf Monsanto",
+      "automatic_directory_discovery": true,
+      "destination": {
+        "id": "geonames:2737506",
+        "name": "Monsanto",
+        "latitude": 40.03921,
+        "longitude": -7.11477
+      },
+      "request": {
+        "adults": 2,
+        "rooms": 1,
+        "children_ages": [
+          6
+        ],
+        "room_assignments": []
+      },
+      "start": "2027-04-12",
+      "end": "2027-04-15",
+      "coverage": [
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-12T14:19:15+00:00",
+          "radius_km": 3.0,
+          "returned": 1,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        },
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-12T14:19:16+00:00",
+          "radius_km": 3.0,
+          "returned": 1,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        },
+        {
+          "status": "deferred_budget",
+          "radius_km": 3.0,
+          "reason": "Zwei gezielte Verzeichnisversuche je Suche erreicht"
+        }
+      ],
+      "metrics": {
+        "found": 1,
+        "states": {
+          "no_booking_source": 1
+        },
+        "official_websites": 0,
+        "systems": {},
+        "offer_checks": 0,
+        "selection_responses": 0,
+        "rejected_responses": 0,
+        "confirmed_properties": 0,
+        "partial_properties": 0,
+        "confirmed_offers": 0,
+        "source_quotes": 0
+      },
+      "runs": [
+        {
+          "at": "2026-11-12T14:19:16+00:00",
+          "calls": 0,
+          "seconds": 0.001,
+          "property_turn_limit": 64,
+          "metrics": {
+            "found": 1,
+            "states": {
+              "no_booking_source": 1
+            },
+            "official_websites": 0,
+            "systems": {},
+            "offer_checks": 0,
+            "selection_responses": 0,
+            "rejected_responses": 0,
+            "confirmed_properties": 0,
+            "partial_properties": 0,
+            "confirmed_offers": 0,
+            "source_quotes": 0
+          }
+        }
+      ],
+      "entries": [
+        {
+          "id": "osm:way:383375172",
+          "state": "no_booking_source",
+          "reason": "Verzeichnis enthält keinen zugeordneten offiziellen Website-Hinweis",
+          "official_website": false,
+          "website": null,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "selection_responses": null,
+          "network_calls": 0,
+          "rejected_responses": null,
+          "name": "Casa Pires Mateus",
+          "source": "https://www.openstreetmap.org/way/383375172",
+          "offers": []
+        }
+      ]
+    },
+    {
+      "name": "Öffentliche Gemeinderecherche / erste Familienquote",
+      "automatic_directory_discovery": false,
+      "destination": {
+        "id": "geonames:2737506",
+        "name": "Monsanto",
+        "latitude": 40.03921,
+        "longitude": -7.11477
+      },
+      "request": {
+        "adults": 2,
+        "rooms": 1,
+        "children_ages": [
+          6
+        ],
+        "room_assignments": []
+      },
+      "start": "2027-04-12",
+      "end": "2027-04-15",
+      "coverage": [
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-12T14:19:15+00:00",
+          "radius_km": 3.0,
+          "returned": 1,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        },
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-12T14:19:16+00:00",
+          "radius_km": 3.0,
+          "returned": 1,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        },
+        {
+          "status": "deferred_budget",
+          "radius_km": 3.0,
+          "reason": "Zwei gezielte Verzeichnisversuche je Suche erreicht"
+        }
+      ],
+      "metrics": {
+        "found": 1,
+        "states": {
+          "partial": 1
+        },
+        "official_websites": 1,
+        "systems": {
+          "Beds24 / responsive-selection-v1": 1
+        },
+        "offer_checks": 1,
+        "selection_responses": 1,
+        "rejected_responses": 0,
+        "confirmed_properties": 0,
+        "partial_properties": 1,
+        "confirmed_offers": 0,
+        "source_quotes": 1
+      },
+      "runs": [
+        {
+          "at": "2026-11-12T14:21:43+00:00",
+          "calls": 5,
+          "seconds": 15.935,
+          "property_turn_limit": 64,
+          "metrics": {
+            "found": 1,
+            "states": {
+              "partial": 1
+            },
+            "official_websites": 1,
+            "systems": {
+              "Beds24 / responsive-selection-v1": 1
+            },
+            "offer_checks": 1,
+            "selection_responses": 1,
+            "rejected_responses": 0,
+            "confirmed_properties": 0,
+            "partial_properties": 1,
+            "confirmed_offers": 0,
+            "source_quotes": 1
+          }
+        }
+      ],
+      "entries": [
+        {
+          "id": "source:https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+          "state": "partial",
+          "reason": "Gemeinsame Auswahlquote geprüft; keine Buchung. Weitere Pflichtangaben fehlen; siehe Belege",
+          "official_website": true,
+          "website": "https://casasdavilla.com/home/",
+          "system": "Beds24",
+          "variant": "responsive-selection-v1",
+          "offer_checks": 1,
+          "selection_responses": 1,
+          "network_calls": 5,
+          "rejected_responses": null,
+          "name": "Casas da Villa",
+          "source": "https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+          "offers": [
+            {
+              "provider": "Beds24 · direkte Gastquelle",
+              "category": "lodging",
+              "identifier": "beds24:77240bf93fe59ec3b2a23311",
+              "source": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+              "retrieved_at": "2026-11-12T14:21:42+00:00",
+              "parameters": {
+                "origin": "Berlin",
+                "destination": "Monsanto",
+                "start": "2027-04-12",
+                "end": "2027-04-15",
+                "adults": 2,
+                "rooms": 1,
+                "occupancy": [
+                  2
+                ],
+                "accommodation_types": [
+                  "Hotel",
+                  "Ferienwohnung"
+                ],
+                "currency": "EUR",
+                "travel_class": "2",
+                "discount_cards": [],
+                "children_ages": [
+                  6
+                ],
+                "room_assignments": [
+                  {
+                    "adults": 2,
+                    "children_ages": [
+                      6
+                    ]
+                  }
+                ]
+              },
+              "original_amount": "480.00",
+              "original_currency": "EUR",
+              "price_basis": "group_stay",
+              "eur_amount": "480.00",
+              "price_status": "aktuell abgerufen",
+              "availability": "available_at_retrieval",
+              "valid_until": "2026-11-12T14:31:42+00:00",
+              "included": [],
+              "additional_fees": [],
+              "unresolved": [
+                "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt",
+                "Buchungseinheiten; getrennte Schlafzimmer nicht unabhängig belegt"
+              ],
+              "details": {
+                "property": {
+                  "id": "source:https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+                  "name": "Casas da Villa",
+                  "address": "Monsanto, Idanha-a-Nova, Portugal",
+                  "source": "https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+                  "url": "https://casasdavilla.com/home/",
+                  "identity_tags": {
+                    "phone": "+351960281677"
+                  },
+                  "amenities": {}
+                },
+                "units": 1,
+                "capacity": 3,
+                "nights": 3,
+                "selected_rooms": [
+                  {
+                    "room_id": "190828",
+                    "offer_id": "1",
+                    "quantity": 1,
+                    "adults_per_unit": 2,
+                    "children_ages_per_unit": [
+                      [
+                        6
+                      ]
+                    ],
+                    "name": "Casa Sobreiro - Address: Rua do Pardieiro, 6 - 6060-091 Monsanto - Portugal",
+                    "total": "480.00",
+                    "tariff_name": "Rack Rate",
+                    "source_terms": "One-night bookings available on weekdays only.",
+                    "terms_truncated": false
+                  }
+                ],
+                "included_surcharges": [],
+                "board": "Nicht unabhängig normalisiert",
+                "cancellation": "Nicht unabhängig normalisiert"
+              },
+              "evidence": {
+                "parameter_echo": {
+                  "start": "2027-04-12",
+                  "end": "2027-04-15",
+                  "rooms": [
+                    {
+                      "room_id": "190828",
+                      "offer_id": "1",
+                      "quantity": 1,
+                      "adults_per_unit": 2,
+                      "children_ages_per_unit": [
+                        [
+                          6
+                        ]
+                      ],
+                      "name": "Casa Sobreiro - Address: Rua do Pardieiro, 6 - 6060-091 Monsanto - Portugal",
+                      "total": "480.00",
+                      "tariff_name": "Rack Rate",
+                      "source_terms": "One-night bookings available on weekdays only.",
+                      "terms_truncated": false
+                    }
+                  ],
+                  "property": {
+                    "propid": "83429"
+                  }
+                },
+                "fees_complete": false,
+                "normalization": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+                "original_total": "480.00",
+                "system_variant": "responsive-selection-v1",
+                "child_age_contracts": [
+                  {
+                    "minimum": 4,
+                    "maximum": 12,
+                    "label": "Children ages 4 to 12",
+                    "contract": "selector-age-range-v1"
+                  }
+                ],
+                "selected_room_evidence": [
+                  {
+                    "room_id": "190828",
+                    "offer_id": "1",
+                    "room_text_truncated": false,
+                    "tariff_text_truncated": false,
+                    "facts": {},
+                    "proof": {},
+                    "quote_terms": "One-night bookings available on weekdays only.",
+                    "quote_terms_truncated": false
+                  }
+                ],
+                "quote_url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1&br1-190828=Book",
+                "final_quote_url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1&br1-190828=Book",
+                "quote_sha256": "74b2d4c2b427080b5a574cf92471e1e71fd2508f5d6dad7438bd7f2cbe6ab286",
+                "quote_retrieved_at": "2026-11-12T14:21:42+00:00"
+              },
+              "fx": null,
+              "quality": {
+                "version": 1,
+                "status": "partial",
+                "label": "Teilweise geprüft; Angaben fehlen",
+                "price_eligible": true,
+                "gaps": [
+                  {
+                    "field": "fees",
+                    "message": "Vollständigkeit aller verpflichtenden Gebühren nicht ausdrücklich belegt"
+                  },
+                  {
+                    "field": "provider",
+                    "message": "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt"
+                  },
+                  {
+                    "field": "provider",
+                    "message": "Buchungseinheiten; getrennte Schlafzimmer nicht unabhängig belegt"
+                  }
+                ],
+                "conflicts": [],
+                "mismatches": [],
+                "fee_costs": [],
+                "source_publication_at": null,
+                "checked_at": "2026-11-12T14:21:43.013686+00:00",
+                "booking_guarantee": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Gesonderter gescheiterter Aktualisierungsversuch",
+      "automatic_directory_discovery": false,
+      "destination": {
+        "id": "geonames:2737506",
+        "name": "Monsanto",
+        "latitude": 40.03921,
+        "longitude": -7.11477
+      },
+      "request": {
+        "adults": 2,
+        "rooms": 1,
+        "children_ages": [
+          6
+        ],
+        "room_assignments": []
+      },
+      "start": "2027-04-12",
+      "end": "2027-04-15",
+      "coverage": [
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-12T14:19:15+00:00",
+          "radius_km": 3.0,
+          "returned": 1,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        },
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-12T14:19:16+00:00",
+          "radius_km": 3.0,
+          "returned": 1,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        },
+        {
+          "status": "deferred_budget",
+          "radius_km": 3.0,
+          "reason": "Zwei gezielte Verzeichnisversuche je Suche erreicht"
+        }
+      ],
+      "metrics": {
+        "found": 1,
+        "states": {
+          "source_error": 1
+        },
+        "official_websites": 0,
+        "systems": {},
+        "offer_checks": 0,
+        "selection_responses": 0,
+        "rejected_responses": 0,
+        "confirmed_properties": 0,
+        "partial_properties": 0,
+        "confirmed_offers": 0,
+        "source_quotes": 0
+      },
+      "runs": [
+        {
+          "at": "2026-11-12T20:32:18+00:00",
+          "calls": 2,
+          "seconds": 5.723,
+          "property_turn_limit": 64,
+          "metrics": {
+            "found": 1,
+            "states": {
+              "source_error": 1
+            },
+            "official_websites": 0,
+            "systems": {},
+            "offer_checks": 0,
+            "selection_responses": 0,
+            "rejected_responses": 0,
+            "confirmed_properties": 0,
+            "partial_properties": 0,
+            "confirmed_offers": 0,
+            "source_quotes": 0
+          }
+        }
+      ],
+      "entries": [
+        {
+          "id": "source:https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+          "state": "source_error",
+          "reason": "Begrenzter Quellenabruf fehlgeschlagen (curl 28).",
+          "official_website": false,
+          "website": null,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "selection_responses": null,
+          "network_calls": 2,
+          "rejected_responses": null,
+          "name": "Casas da Villa",
+          "source": "https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+          "offers": []
+        }
+      ]
+    },
+    {
+      "name": "Betreiberübersicht / neue Variante",
+      "automatic_directory_discovery": false,
+      "destination": {
+        "id": "geonames:2737506",
+        "name": "Monsanto",
+        "latitude": 40.03921,
+        "longitude": -7.11477
+      },
+      "request": {
+        "adults": 2,
+        "rooms": 1,
+        "children_ages": [
+          6
+        ],
+        "room_assignments": []
+      },
+      "start": "2027-04-12",
+      "end": "2027-04-15",
+      "coverage": [
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-12T14:19:15+00:00",
+          "radius_km": 3.0,
+          "returned": 1,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        },
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-12T14:19:16+00:00",
+          "radius_km": 3.0,
+          "returned": 1,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        },
+        {
+          "status": "deferred_budget",
+          "radius_km": 3.0,
+          "reason": "Zwei gezielte Verzeichnisversuche je Suche erreicht"
+        }
+      ],
+      "metrics": {
+        "found": 1,
+        "states": {
+          "partial": 1
+        },
+        "official_websites": 1,
+        "systems": {
+          "Beds24 / owner-property-list-v1 / responsive-selection-v1": 1
+        },
+        "offer_checks": 1,
+        "selection_responses": 1,
+        "rejected_responses": 0,
+        "confirmed_properties": 0,
+        "partial_properties": 1,
+        "confirmed_offers": 0,
+        "source_quotes": 1
+      },
+      "runs": [
+        {
+          "at": "2026-11-13T05:26:14+00:00",
+          "calls": 5,
+          "seconds": 21.552,
+          "property_turn_limit": 64,
+          "metrics": {
+            "found": 1,
+            "states": {
+              "partial": 1
+            },
+            "official_websites": 1,
+            "systems": {
+              "Beds24 / owner-property-list-v1 / responsive-selection-v1": 1
+            },
+            "offer_checks": 1,
+            "selection_responses": 1,
+            "rejected_responses": 0,
+            "confirmed_properties": 0,
+            "partial_properties": 1,
+            "confirmed_offers": 0,
+            "source_quotes": 1
+          }
+        }
+      ],
+      "entries": [
+        {
+          "id": "source:https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+          "state": "partial",
+          "reason": "Gemeinsame Auswahlquote geprüft; keine Buchung. Weitere Pflichtangaben fehlen; siehe Belege",
+          "official_website": true,
+          "website": "https://www.beds24.com/booking2.php?propid=83429",
+          "system": "Beds24",
+          "variant": "owner-property-list-v1 / responsive-selection-v1",
+          "offer_checks": 1,
+          "selection_responses": 1,
+          "network_calls": 5,
+          "rejected_responses": null,
+          "name": "Casas da Villa",
+          "source": "https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+          "offers": [
+            {
+              "provider": "Beds24 · direkte Gastquelle",
+              "category": "lodging",
+              "identifier": "beds24:77240bf93fe59ec3b2a23311",
+              "source": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+              "retrieved_at": "2026-11-13T05:26:14+00:00",
+              "parameters": {
+                "origin": "Berlin",
+                "destination": "Monsanto",
+                "start": "2027-04-12",
+                "end": "2027-04-15",
+                "adults": 2,
+                "rooms": 1,
+                "occupancy": [
+                  2
+                ],
+                "accommodation_types": [
+                  "Hotel",
+                  "Ferienwohnung"
+                ],
+                "currency": "EUR",
+                "travel_class": "2",
+                "discount_cards": [],
+                "children_ages": [
+                  6
+                ],
+                "room_assignments": [
+                  {
+                    "adults": 2,
+                    "children_ages": [
+                      6
+                    ]
+                  }
+                ]
+              },
+              "original_amount": "480.00",
+              "original_currency": "EUR",
+              "price_basis": "group_stay",
+              "eur_amount": "480.00",
+              "price_status": "aktuell abgerufen",
+              "availability": "available_at_retrieval",
+              "valid_until": "2026-11-13T05:36:14+00:00",
+              "included": [],
+              "additional_fees": [],
+              "unresolved": [
+                "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt",
+                "Buchungseinheiten; getrennte Schlafzimmer nicht unabhängig belegt"
+              ],
+              "details": {
+                "property": {
+                  "id": "source:https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+                  "name": "Casas da Villa",
+                  "address": "Monsanto, Idanha-a-Nova, Portugal",
+                  "source": "https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+                  "url": "https://www.beds24.com/booking2.php?ownerid=48360",
+                  "identity_tags": {
+                    "phone": "+351960281677",
+                    "addr:street": "Rua do Pardieiro",
+                    "addr:housenumber": "6"
+                  },
+                  "amenities": {
+                    "Frühstück": true
+                  }
+                },
+                "units": 1,
+                "capacity": 3,
+                "nights": 3,
+                "selected_rooms": [
+                  {
+                    "room_id": "190828",
+                    "offer_id": "1",
+                    "quantity": 1,
+                    "adults_per_unit": 2,
+                    "children_ages_per_unit": [
+                      [
+                        6
+                      ]
+                    ],
+                    "name": "Casa Sobreiro - Address: Rua do Pardieiro, 6 - 6060-091 Monsanto - Portugal",
+                    "total": "480.00",
+                    "tariff_name": "Rack Rate",
+                    "source_terms": "One-night bookings available on weekdays only.",
+                    "terms_truncated": false
+                  }
+                ],
+                "included_surcharges": [],
+                "board": "Nicht unabhängig normalisiert",
+                "cancellation": "Nicht unabhängig normalisiert"
+              },
+              "evidence": {
+                "parameter_echo": {
+                  "start": "2027-04-12",
+                  "end": "2027-04-15",
+                  "rooms": [
+                    {
+                      "room_id": "190828",
+                      "offer_id": "1",
+                      "quantity": 1,
+                      "adults_per_unit": 2,
+                      "children_ages_per_unit": [
+                        [
+                          6
+                        ]
+                      ],
+                      "name": "Casa Sobreiro - Address: Rua do Pardieiro, 6 - 6060-091 Monsanto - Portugal",
+                      "total": "480.00",
+                      "tariff_name": "Rack Rate",
+                      "source_terms": "One-night bookings available on weekdays only.",
+                      "terms_truncated": false
+                    }
+                  ],
+                  "property": {
+                    "propid": "83429"
+                  }
+                },
+                "fees_complete": false,
+                "normalization": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+                "original_total": "480.00",
+                "system_variant": "responsive-selection-v1",
+                "child_age_contracts": [
+                  {
+                    "minimum": 4,
+                    "maximum": 12,
+                    "label": "Children ages 4 to 12",
+                    "contract": "selector-age-range-v1"
+                  }
+                ],
+                "selected_room_evidence": [
+                  {
+                    "room_id": "190828",
+                    "offer_id": "1",
+                    "room_text_truncated": false,
+                    "tariff_text_truncated": false,
+                    "source_features": [
+                      "Breakfast Included"
+                    ],
+                    "facts": {
+                      "Frühstück": true
+                    },
+                    "proof": {
+                      "Frühstück": "Veröffentlichte Zimmerausstattung: Breakfast Included"
+                    },
+                    "quote_terms": "One-night bookings available on weekdays only.",
+                    "quote_terms_truncated": false
+                  }
+                ],
+                "quote_url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1&br1-190828=Book",
+                "final_quote_url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1&br1-190828=Book",
+                "quote_sha256": "8e763fc384a9c647475b38b008b565dbf6e65ea1f47a405eaa7e5293a7a7da8f",
+                "quote_retrieved_at": "2026-11-13T05:26:14+00:00",
+                "child_age_source": {
+                  "url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+                  "retrieved_at": "2026-11-13T05:26:09+00:00",
+                  "sha256": "34a678b96fd7f011d74d905f6cd49e1d831290d7c65dd8bbd53f7f92faa9e848",
+                  "selector": "form#formlook label[for] / aria-label / title",
+                  "labels": [
+                    "Children ages 4 to 12"
+                  ]
+                },
+                "discovery_variant": "owner-property-list-v1",
+                "owner_source": {
+                  "url": "https://www.beds24.com/booking2.php?ownerid=48360",
+                  "retrieved_at": "2026-11-13T05:25:58+00:00",
+                  "sha256": "ee1c8a01e3debd747d5c68b46ff7ab8ed7fd1ad737aeb5d9cc8b13323beef509",
+                  "observed_property_url": "https://www.beds24.com/booking2.php?propid=83429"
+                }
+              },
+              "fx": null,
+              "quality": {
+                "version": 1,
+                "status": "partial",
+                "label": "Teilweise geprüft; Angaben fehlen",
+                "price_eligible": true,
+                "gaps": [
+                  {
+                    "field": "fees",
+                    "message": "Vollständigkeit aller verpflichtenden Gebühren nicht ausdrücklich belegt"
+                  },
+                  {
+                    "field": "provider",
+                    "message": "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt"
+                  },
+                  {
+                    "field": "provider",
+                    "message": "Buchungseinheiten; getrennte Schlafzimmer nicht unabhängig belegt"
+                  }
+                ],
+                "conflicts": [],
+                "mismatches": [],
+                "fee_costs": [],
+                "source_publication_at": null,
+                "checked_at": "2026-11-13T05:26:14.409478+00:00",
+                "booking_guarantee": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Normaler Verzeichnislauf / neue Gruppen-Termine",
+      "automatic_directory_discovery": true,
+      "destination": {
+        "id": "geonames:2913713",
+        "name": "Gundelfingen",
+        "latitude": 48.04246,
+        "longitude": 7.8657
+      },
+      "request": {
+        "adults": 5,
+        "rooms": 3,
+        "children_ages": [],
+        "room_assignments": []
+      },
+      "start": "2026-11-16",
+      "end": "2026-11-20",
+      "coverage": [
+        {
+          "status": "directory_response",
+          "source": "https://ovp.dresel.systems/api/interpreter",
+          "retrieved_at": "2026-11-14T15:38:19+00:00",
+          "radius_km": 3.0,
+          "returned": 9,
+          "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+        }
+      ],
+      "metrics": {
+        "found": 7,
+        "states": {
+          "no_booking_source": 2,
+          "partial": 1,
+          "blocked": 1,
+          "identity_uncertain": 1,
+          "criteria_mismatch": 2
+        },
+        "official_websites": 3,
+        "systems": {
+          "Beds24 / responsive-selection-v1": 1
+        },
+        "offer_checks": 1,
+        "selection_responses": 1,
+        "rejected_responses": 0,
+        "confirmed_properties": 0,
+        "partial_properties": 1,
+        "confirmed_offers": 0,
+        "source_quotes": 1
+      },
+      "runs": [
+        {
+          "at": "2026-11-14T15:38:52+00:00",
+          "calls": 18,
+          "seconds": 33.219,
+          "property_turn_limit": 64,
+          "metrics": {
+            "found": 7,
+            "states": {
+              "no_booking_source": 2,
+              "partial": 1,
+              "blocked": 1,
+              "identity_uncertain": 1,
+              "criteria_mismatch": 2
+            },
+            "official_websites": 3,
+            "systems": {
+              "Beds24 / responsive-selection-v1": 1
+            },
+            "offer_checks": 1,
+            "selection_responses": 1,
+            "rejected_responses": 0,
+            "confirmed_properties": 0,
+            "partial_properties": 1,
+            "confirmed_offers": 0,
+            "source_quotes": 1
+          }
+        }
+      ],
+      "entries": [
+        {
+          "id": "osm:node:288434369",
+          "state": "no_booking_source",
+          "reason": "Im begrenzten Websiteumfang keine unterstützte Buchungsquelle; kein Verfügbarkeitsnachweis",
+          "official_website": true,
+          "website": "https://www.hotel-classic-freiburg.de/",
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "selection_responses": null,
+          "network_calls": 3,
+          "rejected_responses": null,
+          "name": "Hotel Classic",
+          "source": "https://www.openstreetmap.org/node/288434369",
+          "offers": []
+        },
+        {
+          "id": "osm:node:1033886817",
+          "state": "partial",
+          "reason": "Gemeinsame Auswahlquote geprüft; keine Buchung. Weitere Pflichtangaben fehlen; siehe Belege",
+          "official_website": true,
+          "website": "https://www.h41-inn.de/",
+          "system": "Beds24",
+          "variant": "responsive-selection-v1",
+          "offer_checks": 1,
+          "selection_responses": 1,
+          "network_calls": 5,
+          "rejected_responses": null,
+          "name": "H41-Inn Hostel",
+          "source": "https://www.openstreetmap.org/node/1033886817",
+          "offers": [
+            {
+              "provider": "Beds24 · direkte Gastquelle",
+              "category": "lodging",
+              "identifier": "beds24:72f7424decd1e6c317d81dff",
+              "source": "https://beds24.com/booking.php?propid=66897&checkin=2026-11-16&numnight=4&numadult=5&numchild=0&lang=de&multiroom=1",
+              "retrieved_at": "2026-11-14T15:38:37+00:00",
+              "parameters": {
+                "origin": "Berlin",
+                "destination": "Gundelfingen",
+                "start": "2026-11-16",
+                "end": "2026-11-20",
+                "adults": 5,
+                "rooms": 3,
+                "occupancy": [
+                  2,
+                  2,
+                  1
+                ],
+                "accommodation_types": [
+                  "Hotel",
+                  "Ferienwohnung"
+                ],
+                "currency": "EUR",
+                "travel_class": "2",
+                "discount_cards": []
+              },
+              "original_amount": "1120.00",
+              "original_currency": "EUR",
+              "price_basis": "group_stay",
+              "eur_amount": "1120.00",
+              "price_status": "aktuell abgerufen",
+              "availability": "available_at_retrieval",
+              "valid_until": "2026-11-14T15:48:37+00:00",
+              "included": [],
+              "additional_fees": [],
+              "unresolved": [
+                "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt"
+              ],
+              "details": {
+                "property": {
+                  "id": "osm:node:1033886817",
+                  "name": "H41-Inn Hostel",
+                  "address": "Anschrift unbekannt",
+                  "source": "https://www.openstreetmap.org/node/1033886817",
+                  "url": "https://www.h41-inn.de/",
+                  "identity_tags": {
+                    "contact:email": "info@freiburg-inn.de",
+                    "contact:fax": "+49 761 50364888",
+                    "contact:phone": "+49 761 503646",
+                    "contact:website": "https://www.h41-inn.de/",
+                    "name": "H41-Inn Hostel",
+                    "tourism": "guest_house",
+                    "wheelchair": "no"
+                  },
+                  "amenities": {}
+                },
+                "units": 3,
+                "capacity": 5,
+                "nights": 4,
+                "selected_rooms": [
+                  {
+                    "room_id": "155792",
+                    "offer_id": "1",
+                    "quantity": 1,
+                    "adults_per_unit": 1,
+                    "children_ages_per_unit": [
+                      []
+                    ],
+                    "name": "Einzelzimmer Economy (kleines Einzelzimmer)",
+                    "total": "320.00",
+                    "tariff_name": "",
+                    "source_terms": "",
+                    "terms_truncated": false
+                  },
+                  {
+                    "room_id": "155793",
+                    "offer_id": "1",
+                    "quantity": 1,
+                    "adults_per_unit": 2,
+                    "children_ages_per_unit": [
+                      []
+                    ],
+                    "name": "Doppelzimmer Economy (kleines Doppelzimmer)",
+                    "total": "380.00",
+                    "tariff_name": "",
+                    "source_terms": "",
+                    "terms_truncated": false
+                  },
+                  {
+                    "room_id": "185901",
+                    "offer_id": "1",
+                    "quantity": 1,
+                    "adults_per_unit": 2,
+                    "children_ages_per_unit": [
+                      []
+                    ],
+                    "name": "Privatzimmer Studio (ebenerdig)",
+                    "total": "420.00",
+                    "tariff_name": "",
+                    "source_terms": "",
+                    "terms_truncated": false
+                  }
+                ],
+                "included_surcharges": [],
+                "board": "Nicht unabhängig normalisiert",
+                "cancellation": "Nicht unabhängig normalisiert"
+              },
+              "evidence": {
+                "parameter_echo": {
+                  "start": "2026-11-16",
+                  "end": "2026-11-20",
+                  "rooms": [
+                    {
+                      "room_id": "155792",
+                      "offer_id": "1",
+                      "quantity": 1,
+                      "adults_per_unit": 1,
+                      "children_ages_per_unit": [
+                        []
+                      ],
+                      "name": "Einzelzimmer Economy (kleines Einzelzimmer)",
+                      "total": "320.00",
+                      "tariff_name": "",
+                      "source_terms": "",
+                      "terms_truncated": false
+                    },
+                    {
+                      "room_id": "155793",
+                      "offer_id": "1",
+                      "quantity": 1,
+                      "adults_per_unit": 2,
+                      "children_ages_per_unit": [
+                        []
+                      ],
+                      "name": "Doppelzimmer Economy (kleines Doppelzimmer)",
+                      "total": "380.00",
+                      "tariff_name": "",
+                      "source_terms": "",
+                      "terms_truncated": false
+                    },
+                    {
+                      "room_id": "185901",
+                      "offer_id": "1",
+                      "quantity": 1,
+                      "adults_per_unit": 2,
+                      "children_ages_per_unit": [
+                        []
+                      ],
+                      "name": "Privatzimmer Studio (ebenerdig)",
+                      "total": "420.00",
+                      "tariff_name": "",
+                      "source_terms": "",
+                      "terms_truncated": false
+                    }
+                  ],
+                  "property": {
+                    "propid": "66897"
+                  }
+                },
+                "fees_complete": false,
+                "normalization": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+                "original_total": "1.120,00",
+                "system_variant": "responsive-selection-v1",
+                "selected_room_evidence": [
+                  {
+                    "room_id": "155792",
+                    "offer_id": "1",
+                    "room_text_truncated": false,
+                    "tariff_text_truncated": false,
+                    "source_features": [],
+                    "source_features_truncated": false,
+                    "facts": {},
+                    "proof": {},
+                    "quote_terms": "",
+                    "quote_terms_truncated": false
+                  },
+                  {
+                    "room_id": "155793",
+                    "offer_id": "1",
+                    "room_text_truncated": false,
+                    "tariff_text_truncated": false,
+                    "source_features": [],
+                    "source_features_truncated": false,
+                    "facts": {},
+                    "proof": {},
+                    "quote_terms": "",
+                    "quote_terms_truncated": false
+                  },
+                  {
+                    "room_id": "185901",
+                    "offer_id": "1",
+                    "room_text_truncated": false,
+                    "tariff_text_truncated": false,
+                    "source_features": [],
+                    "source_features_truncated": false,
+                    "facts": {},
+                    "proof": {},
+                    "quote_terms": "",
+                    "quote_terms_truncated": false
+                  }
+                ],
+                "quote_url": "https://beds24.com/booking.php?propid=66897&checkin=2026-11-16&numnight=4&numadult=5&numchild=0&lang=de&multiroom=1&sr1-155792=1&sr1-155793=1&sr1-185901=1&naa1-1-155793=2&naa1-1-185901=2&naa1-1-155792=1&page=book3&bookmult=",
+                "final_quote_url": "https://beds24.com/booking.php?propid=66897&checkin=2026-11-16&numnight=4&numadult=5&numchild=0&lang=de&multiroom=1&sr1-155792=1&sr1-155793=1&sr1-185901=1&naa1-1-155793=2&naa1-1-185901=2&naa1-1-155792=1&page=book3&bookmult=",
+                "quote_sha256": "c409115803dc2c2f8a2ee74508a095ad7895014bac9e7acd7adb3d7031865ffa",
+                "quote_retrieved_at": "2026-11-14T15:38:37+00:00"
+              },
+              "fx": null,
+              "quality": {
+                "version": 1,
+                "status": "partial",
+                "label": "Teilweise geprüft; Angaben fehlen",
+                "price_eligible": true,
+                "gaps": [
+                  {
+                    "field": "fees",
+                    "message": "Vollständigkeit aller verpflichtenden Gebühren nicht ausdrücklich belegt"
+                  },
+                  {
+                    "field": "provider",
+                    "message": "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt"
+                  }
+                ],
+                "conflicts": [],
+                "mismatches": [],
+                "fee_costs": [],
+                "source_publication_at": null,
+                "checked_at": "2026-11-14T15:38:52.701147+00:00",
+                "booking_guarantee": false
+              }
+            }
+          ]
+        },
+        {
+          "id": "osm:node:1583751940",
+          "state": "blocked",
+          "reason": "Robots-Regeln nicht abrufbar; Quelle bleibt gesperrt.",
+          "official_website": false,
+          "website": null,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "selection_responses": null,
+          "network_calls": 1,
+          "rejected_responses": null,
+          "name": "B&B Hotel Freiburg-Nord",
+          "source": "https://www.openstreetmap.org/node/1583751940",
+          "offers": []
+        },
+        {
+          "id": "osm:node:4818612507",
+          "state": "identity_uncertain",
+          "reason": "Website nicht durch Name und zusätzliche Orts-/Adress-/Telefonmerkmale zugeordnet",
+          "official_website": false,
+          "website": null,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "selection_responses": null,
+          "network_calls": 5,
+          "rejected_responses": null,
+          "name": "Friz Ferienapartments",
+          "source": "https://www.openstreetmap.org/node/4818612507",
+          "offers": []
+        },
+        {
+          "id": "osm:node:10215539677",
+          "state": "no_booking_source",
+          "reason": "Im begrenzten Websiteumfang keine unterstützte Buchungsquelle; kein Verfügbarkeitsnachweis",
+          "official_website": true,
+          "website": "https://www.derturmfreiburg.de/",
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "selection_responses": null,
+          "network_calls": 4,
+          "rejected_responses": null,
+          "name": "Der Turm",
+          "source": "https://www.openstreetmap.org/node/10215539677",
+          "offers": []
+        },
+        {
+          "id": "osm:way:71185464",
+          "state": "criteria_mismatch",
+          "reason": "Unterkunftsart oder belegte Pflichtausstattung passt nicht",
+          "official_website": false,
+          "website": null,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "selection_responses": null,
+          "network_calls": 0,
+          "rejected_responses": null,
+          "name": "Eselswinkel",
+          "source": "https://www.openstreetmap.org/way/71185464",
+          "offers": []
+        },
+        {
+          "id": "osm:way:1112059324",
+          "state": "criteria_mismatch",
+          "reason": "Unterkunftsart oder belegte Pflichtausstattung passt nicht",
+          "official_website": false,
+          "website": null,
+          "system": "",
+          "variant": "",
+          "offer_checks": 0,
+          "selection_responses": null,
+          "network_calls": 0,
+          "rejected_responses": null,
+          "name": "Schattenparker",
+          "source": "https://www.openstreetmap.org/way/1112059324",
+          "offers": []
+        }
+      ]
+    },
+    {
+      "name": "Reproduktion über mitgelieferte öffentliche Prüfdaten",
+      "automatic_directory_discovery": false,
+      "destination": {
+        "id": "geonames:2737506",
+        "name": "Monsanto"
+      },
+      "start": "2027-04-12",
+      "end": "2027-04-15",
+      "metrics": {
+        "found": 1,
+        "states": {
+          "partial": 1
+        },
+        "official_websites": 1,
+        "systems": {
+          "Beds24 / owner-property-list-v1 / responsive-selection-v1": 1
+        },
+        "offer_checks": 1,
+        "selection_responses": 1,
+        "rejected_responses": 0,
+        "confirmed_properties": 0,
+        "partial_properties": 1,
+        "confirmed_offers": 0,
+        "source_quotes": 1
+      },
+      "runs": [
+        {
+          "at": "2026-11-15T07:19:55+00:00",
+          "calls": 5,
+          "seconds": 21.604,
+          "property_turn_limit": 64,
+          "metrics": {
+            "found": 1,
+            "states": {
+              "partial": 1
+            },
+            "official_websites": 1,
+            "systems": {
+              "Beds24 / owner-property-list-v1 / responsive-selection-v1": 1
+            },
+            "offer_checks": 1,
+            "selection_responses": 1,
+            "rejected_responses": 0,
+            "confirmed_properties": 0,
+            "partial_properties": 1,
+            "confirmed_offers": 0,
+            "source_quotes": 1
+          }
+        }
+      ],
+      "offers": [
+        {
+          "provider": "Beds24 · direkte Gastquelle",
+          "category": "lodging",
+          "identifier": "beds24:77240bf93fe59ec3b2a23311",
+          "source": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+          "retrieved_at": "2026-11-15T07:19:55+00:00",
+          "parameters": {
+            "origin": "Berlin",
+            "destination": "Monsanto",
+            "start": "2027-04-12",
+            "end": "2027-04-15",
+            "adults": 2,
+            "rooms": 1,
+            "occupancy": [
+              2
+            ],
+            "accommodation_types": [
+              "Hotel",
+              "Ferienwohnung"
+            ],
+            "currency": "EUR",
+            "travel_class": "2",
+            "discount_cards": [],
+            "children_ages": [
+              6
+            ],
+            "room_assignments": [
+              {
+                "adults": 2,
+                "children_ages": [
+                  6
+                ]
+              }
+            ]
+          },
+          "original_amount": "480.00",
+          "original_currency": "EUR",
+          "price_basis": "group_stay",
+          "eur_amount": "480.00",
+          "price_status": "aktuell abgerufen",
+          "availability": "available_at_retrieval",
+          "valid_until": "2026-11-15T07:29:55+00:00",
+          "included": [],
+          "additional_fees": [],
+          "unresolved": [
+            "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt",
+            "Buchungseinheiten; getrennte Schlafzimmer nicht unabhängig belegt"
+          ],
+          "details": {
+            "property": {
+              "id": "source:https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+              "name": "Casas da Villa",
+              "type": "Ferienwohnung",
+              "source": "https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+              "url": "https://www.beds24.com/booking2.php?ownerid=48360",
+              "address": "Monsanto, Idanha-a-Nova, Portugal",
+              "identity_tags": {
+                "phone": "+351960281677",
+                "addr:street": "Rua do Pardieiro",
+                "addr:housenumber": "6"
+              },
+              "amenities": {
+                "Frühstück": true
+              },
+              "latitude": null,
+              "longitude": null,
+              "distance_km": null,
+              "price": {
+                "label": "Unterkunft für Gruppe und Aufenthalt",
+                "low": null,
+                "high": null,
+                "status": "unbekannt",
+                "source": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+                "retrieved_at": "2026-11-13T05:26:14+00:00",
+                "scope": "2 Erwachsene und 1 Kind / 1 Einheit / 3 Nächte; Preis unbekannt",
+                "method": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+                "optional": false
+              },
+              "occupancy_status": "Angefragt: zwei Erwachsene und ein Kind (6 Jahre), eine Einheit; noch nicht neu geprüft",
+              "booking_status": "Neue Preisprüfung ausstehend",
+              "retrieved_at": "2026-11-13T18:11:05+00:00",
+              "open_criteria": [],
+              "rooms": 1,
+              "source_aliases": [
+                "https://www.visitportugal.com/pt-pt/content/casas-da-villa-adufe-e-sobreiro"
+              ],
+              "data_status": "Öffentliche Gemeinde-/Tourismusquelle; Buchungsquelle unabhängig prüfen",
+              "link_kind": "Öffentlich beobachteter Gastzugang",
+              "search_url": "https://www.beds24.com/booking2.php?ownerid=48360"
+            },
+            "units": 1,
+            "capacity": 3,
+            "nights": 3,
+            "selected_rooms": [
+              {
+                "room_id": "190828",
+                "offer_id": "1",
+                "quantity": 1,
+                "adults_per_unit": 2,
+                "children_ages_per_unit": [
+                  [
+                    6
+                  ]
+                ],
+                "name": "Casa Sobreiro - Address: Rua do Pardieiro, 6 - 6060-091 Monsanto - Portugal",
+                "total": "480.00",
+                "tariff_name": "Rack Rate",
+                "source_terms": "One-night bookings available on weekdays only.",
+                "terms_truncated": false
+              }
+            ],
+            "included_surcharges": [],
+            "board": "Nicht unabhängig normalisiert",
+            "cancellation": "Nicht unabhängig normalisiert"
+          },
+          "evidence": {
+            "parameter_echo": {
+              "start": "2027-04-12",
+              "end": "2027-04-15",
+              "rooms": [
+                {
+                  "room_id": "190828",
+                  "offer_id": "1",
+                  "quantity": 1,
+                  "adults_per_unit": 2,
+                  "children_ages_per_unit": [
+                    [
+                      6
+                    ]
+                  ],
+                  "name": "Casa Sobreiro - Address: Rua do Pardieiro, 6 - 6060-091 Monsanto - Portugal",
+                  "total": "480.00",
+                  "tariff_name": "Rack Rate",
+                  "source_terms": "One-night bookings available on weekdays only.",
+                  "terms_truncated": false
+                }
+              ],
+              "property": {
+                "propid": "83429"
+              }
+            },
+            "fees_complete": false,
+            "normalization": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+            "original_total": "480.00",
+            "system_variant": "responsive-selection-v1",
+            "child_age_contracts": [
+              {
+                "minimum": 4,
+                "maximum": 12,
+                "label": "Children ages 4 to 12",
+                "contract": "selector-age-range-v1"
+              }
+            ],
+            "selected_room_evidence": [
+              {
+                "room_id": "190828",
+                "offer_id": "1",
+                "room_text_truncated": false,
+                "tariff_text_truncated": false,
+                "source_features": [
+                  "Terrace",
+                  "Air Conditioning",
+                  "Telephone",
+                  "Living Room",
+                  "Towels",
+                  "Linens",
+                  "Heating",
+                  "Toiletries",
+                  "Private Entrance",
+                  "Smoke Detector",
+                  "Shampoo",
+                  "First Aid Kit",
+                  "Wifi",
+                  "Internet",
+                  "Refrigerator",
+                  "Microwave",
+                  "Kettle",
+                  "Toaster",
+                  "Stove",
+                  "Coffee Maker",
+                  "Dishes, Utensils",
+                  "Kitchen",
+                  "TV",
+                  "Satellite",
+                  "Mountain View",
+                  "Village",
+                  "Mountain",
+                  "Desk",
+                  "Smoking Not Allowed",
+                  "Breakfast Included",
+                  "Pets Considered"
+                ],
+                "source_features_truncated": false,
+                "facts": {
+                  "Frühstück": true
+                },
+                "proof": {
+                  "Frühstück": "Veröffentlichte Zimmerausstattung: Breakfast Included"
+                },
+                "quote_terms": "One-night bookings available on weekdays only.",
+                "quote_terms_truncated": false
+              }
+            ],
+            "quote_url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1&br1-190828=Book",
+            "final_quote_url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1&br1-190828=Book",
+            "quote_sha256": "774c7c0eaf03d4883b30787ab24d89eb1cc069cd1b1d32a4c18fb83cd075f4c0",
+            "quote_retrieved_at": "2026-11-15T07:19:55+00:00",
+            "child_age_source": {
+              "url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+              "retrieved_at": "2026-11-15T07:19:50+00:00",
+              "sha256": "269a19f6e0844a98acadda632175f971940cc4c5e2635d7fae3a9450dc2c2ff7",
+              "selector": "form#formlook label[for] / aria-label / title",
+              "labels": [
+                "Children ages 4 to 12"
+              ]
+            },
+            "discovery_variant": "owner-property-list-v1",
+            "owner_source": {
+              "url": "https://www.beds24.com/booking2.php?ownerid=48360",
+              "retrieved_at": "2026-11-15T07:19:39+00:00",
+              "sha256": "398ea3c75479e787af8e49c9ff2f5edfdd212c2bb6af6cd7baf94d013c3af4db",
+              "observed_property_url": "https://www.beds24.com/booking2.php?propid=83429",
+              "identity_retrieved_at": "2026-11-15T07:19:45+00:00",
+              "identity_sha256": "11e9824b1b4f22a9792314c2f8f2676c33bce6e2805d53d0fa13548ad823c848"
+            }
+          },
+          "fx": null,
+          "quality": {
+            "version": 1,
+            "status": "partial",
+            "label": "Teilweise geprüft; Angaben fehlen",
+            "price_eligible": true,
+            "gaps": [
+              {
+                "field": "fees",
+                "message": "Vollständigkeit aller verpflichtenden Gebühren nicht ausdrücklich belegt"
+              },
+              {
+                "field": "provider",
+                "message": "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt"
+              },
+              {
+                "field": "provider",
+                "message": "Buchungseinheiten; getrennte Schlafzimmer nicht unabhängig belegt"
+              }
+            ],
+            "conflicts": [],
+            "mismatches": [],
+            "fee_costs": [],
+            "source_publication_at": null,
+            "checked_at": "2026-11-15T07:19:55.922079+00:00",
+            "booking_guarantee": false
+          }
+        }
+      ]
+    }
+  ],
+  "gui": {
+    "family_form": true,
+    "live_gui": {
+      "seconds": 22.073,
+      "callbacks": 1796,
+      "max_callback_gap": 0.1064
+    },
+    "metrics": {
+      "found": 1,
+      "states": {
+        "partial": 1
+      },
+      "official_websites": 1,
+      "systems": {
+        "Beds24 / owner-property-list-v1 / responsive-selection-v1": 1
+      },
+      "offer_checks": 1,
+      "selection_responses": 1,
+      "rejected_responses": 0,
+      "confirmed_properties": 0,
+      "partial_properties": 1,
+      "confirmed_offers": 0,
+      "source_quotes": 1
+    },
+    "runs": [
+      {
+        "at": "2026-11-13T18:11:05+00:00",
+        "calls": 5,
+        "seconds": 21.975,
+        "property_turn_limit": 64,
+        "metrics": {
+          "found": 1,
+          "states": {
+            "partial": 1
+          },
+          "official_websites": 1,
+          "systems": {
+            "Beds24 / owner-property-list-v1 / responsive-selection-v1": 1
+          },
+          "offer_checks": 1,
+          "selection_responses": 1,
+          "rejected_responses": 0,
+          "confirmed_properties": 0,
+          "partial_properties": 1,
+          "confirmed_offers": 0,
+          "source_quotes": 1
+        }
+      }
+    ],
+    "old_snapshot_unchanged": true,
+    "displayed_family": true,
+    "explicit_save_preserves_evidence": true,
+    "historical_long_list": {
+      "count": 201,
+      "last_detail_present": true,
+      "seconds": 0.013
+    },
+    "restart_gui": {
+      "seconds": 0.17,
+      "callbacks": 12,
+      "max_callback_gap": 0.0192
+    },
+    "restart_runs": [
+      {
+        "at": "2026-11-13T18:11:05+00:00",
+        "calls": 5,
+        "seconds": 21.975,
+        "property_turn_limit": 64,
+        "metrics": {
+          "found": 1,
+          "states": {
+            "partial": 1
+          },
+          "official_websites": 1,
+          "systems": {
+            "Beds24 / owner-property-list-v1 / responsive-selection-v1": 1
+          },
+          "offer_checks": 1,
+          "selection_responses": 1,
+          "rejected_responses": 0,
+          "confirmed_properties": 0,
+          "partial_properties": 1,
+          "confirmed_offers": 0,
+          "source_quotes": 1
+        }
+      },
+      {
+        "at": "2026-11-13T18:11:05+00:00",
+        "calls": 0,
+        "seconds": 0.0,
+        "property_turn_limit": 64,
+        "metrics": {
+          "found": 1,
+          "states": {
+            "partial": 1
+          },
+          "official_websites": 1,
+          "systems": {
+            "Beds24 / owner-property-list-v1 / responsive-selection-v1": 1
+          },
+          "offer_checks": 1,
+          "selection_responses": 1,
+          "rejected_responses": 0,
+          "confirmed_properties": 0,
+          "partial_properties": 1,
+          "confirmed_offers": 0,
+          "source_quotes": 1
+        }
+      }
+    ],
+    "restart_quote_timestamp_unchanged": true,
+    "original_saved_still_unchanged": true
+  },
+  "gui_quotes": [
+    {
+      "provider": "Beds24 · direkte Gastquelle",
+      "category": "lodging",
+      "identifier": "beds24:77240bf93fe59ec3b2a23311",
+      "source": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+      "retrieved_at": "2026-11-13T18:11:05+00:00",
+      "parameters": {
+        "origin": "Berlin",
+        "destination": "Monsanto",
+        "start": "2027-04-12",
+        "end": "2027-04-15",
+        "adults": 2,
+        "rooms": 1,
+        "occupancy": [
+          2
+        ],
+        "accommodation_types": [
+          "Hotel",
+          "Ferienwohnung"
+        ],
+        "currency": "EUR",
+        "travel_class": "2",
+        "discount_cards": [],
+        "children_ages": [
+          6
+        ],
+        "room_assignments": [
+          {
+            "adults": 2,
+            "children_ages": [
+              6
+            ]
+          }
+        ]
+      },
+      "original_amount": "480.00",
+      "original_currency": "EUR",
+      "price_basis": "group_stay",
+      "eur_amount": "480.00",
+      "price_status": "aktuell abgerufen",
+      "availability": "available_at_retrieval",
+      "valid_until": "2026-11-13T18:21:05+00:00",
+      "included": [],
+      "additional_fees": [],
+      "unresolved": [
+        "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt",
+        "Buchungseinheiten; getrennte Schlafzimmer nicht unabhängig belegt"
+      ],
+      "details": {
+        "property": {
+          "id": "source:https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+          "name": "Casas da Villa",
+          "address": "Monsanto, Idanha-a-Nova, Portugal",
+          "source": "https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+          "url": "https://www.beds24.com/booking2.php?ownerid=48360",
+          "identity_tags": {
+            "phone": "+351960281677",
+            "addr:street": "Rua do Pardieiro",
+            "addr:housenumber": "6"
+          },
+          "amenities": {
+            "Frühstück": true
+          }
+        },
+        "units": 1,
+        "capacity": 3,
+        "nights": 3,
+        "selected_rooms": [
+          {
+            "room_id": "190828",
+            "offer_id": "1",
+            "quantity": 1,
+            "adults_per_unit": 2,
+            "children_ages_per_unit": [
+              [
+                6
+              ]
+            ],
+            "name": "Casa Sobreiro - Address: Rua do Pardieiro, 6 - 6060-091 Monsanto - Portugal",
+            "total": "480.00",
+            "tariff_name": "Rack Rate",
+            "source_terms": "One-night bookings available on weekdays only.",
+            "terms_truncated": false
+          }
+        ],
+        "included_surcharges": [],
+        "board": "Nicht unabhängig normalisiert",
+        "cancellation": "Nicht unabhängig normalisiert"
+      },
+      "evidence": {
+        "parameter_echo": {
+          "start": "2027-04-12",
+          "end": "2027-04-15",
+          "rooms": [
+            {
+              "room_id": "190828",
+              "offer_id": "1",
+              "quantity": 1,
+              "adults_per_unit": 2,
+              "children_ages_per_unit": [
+                [
+                  6
+                ]
+              ],
+              "name": "Casa Sobreiro - Address: Rua do Pardieiro, 6 - 6060-091 Monsanto - Portugal",
+              "total": "480.00",
+              "tariff_name": "Rack Rate",
+              "source_terms": "One-night bookings available on weekdays only.",
+              "terms_truncated": false
+            }
+          ],
+          "property": {
+            "propid": "83429"
+          }
+        },
+        "fees_complete": false,
+        "normalization": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+        "original_total": "480.00",
+        "system_variant": "responsive-selection-v1",
+        "child_age_contracts": [
+          {
+            "minimum": 4,
+            "maximum": 12,
+            "label": "Children ages 4 to 12",
+            "contract": "selector-age-range-v1"
+          }
+        ],
+        "selected_room_evidence": [
+          {
+            "room_id": "190828",
+            "offer_id": "1",
+            "room_text_truncated": false,
+            "tariff_text_truncated": false,
+            "source_features": [
+              "Breakfast Included"
+            ],
+            "source_features_truncated": false,
+            "facts": {
+              "Frühstück": true
+            },
+            "proof": {
+              "Frühstück": "Veröffentlichte Zimmerausstattung: Breakfast Included"
+            },
+            "quote_terms": "One-night bookings available on weekdays only.",
+            "quote_terms_truncated": false
+          }
+        ],
+        "quote_url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1&br1-190828=Book",
+        "final_quote_url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1&br1-190828=Book",
+        "quote_sha256": "5ad0e21d471db44c65acee86233d913c6929015ce6990fe9e3bbd380d2a8a4ce",
+        "quote_retrieved_at": "2026-11-13T18:11:05+00:00",
+        "child_age_source": {
+          "url": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+          "retrieved_at": "2026-11-13T18:11:00+00:00",
+          "sha256": "56c01991e79267d5c9e7aaddea0148d1307e2dc7d28ce37c3150871432b249e2",
+          "selector": "form#formlook label[for] / aria-label / title",
+          "labels": [
+            "Children ages 4 to 12"
+          ]
+        },
+        "discovery_variant": "owner-property-list-v1",
+        "owner_source": {
+          "url": "https://www.beds24.com/booking2.php?ownerid=48360",
+          "retrieved_at": "2026-11-13T17:55:23+00:00",
+          "sha256": "373fd6a78f614836505f9d6f57b25671a8e655a67e5ab8512ef9ab3db47cc45d",
+          "observed_property_url": "https://www.beds24.com/booking2.php?propid=83429",
+          "identity_retrieved_at": "2026-11-13T18:10:54+00:00",
+          "identity_sha256": "04f8d9fbb98ae6731e86a2765df1615b18bad5c8863cfd96aa8823c9f20ff608"
+        }
+      },
+      "fx": null,
+      "quality": {
+        "version": 1,
+        "status": "partial",
+        "label": "Teilweise geprüft; Angaben fehlen",
+        "price_eligible": true,
+        "gaps": [
+          {
+            "field": "fees",
+            "message": "Vollständigkeit aller verpflichtenden Gebühren nicht ausdrücklich belegt"
+          },
+          {
+            "field": "provider",
+            "message": "Vollständigkeit weiterer verpflichtender Gebühren und örtlicher Abgaben nicht ausdrücklich belegt"
+          },
+          {
+            "field": "provider",
+            "message": "Buchungseinheiten; getrennte Schlafzimmer nicht unabhängig belegt"
+          }
+        ],
+        "conflicts": [],
+        "mismatches": [],
+        "fee_costs": [],
+        "source_publication_at": null,
+        "checked_at": "2026-11-13T18:11:05.586979+00:00",
+        "booking_guarantee": false
+      }
+    }
+  ],
+  "external_access_attempts": [
+    {
+      "url": "https://hotel-litz.de/",
+      "error": "Begrenzter Quellenabruf fehlgeschlagen (curl 60)."
+    },
+    {
+      "url": "https://onepagebooking.com/seehotel-litz",
+      "final": "https://onepagebooking.com/seehotel-litz",
+      "retrieved_at": "2026-11-12T14:16:56+00:00",
+      "bytes": 205,
+      "sha256": "83fb2154df4639f25fc0e0f254b02dc6fd188a6c5de5dfa6b707ef9a11973a94",
+      "links": {
+        "booking": [],
+        "pages": [],
+        "systems": [],
+        "identity_pages": []
+      }
+    },
+    {
+      "url": "https://adlerehingen.de/hoteladlerehingen",
+      "final": "https://adlerehingen.de/hoteladlerehingen",
+      "retrieved_at": "2026-11-12T14:17:56+00:00",
+      "bytes": 540593,
+      "sha256": "49b13b78e5484161c33faa4aa311864541b51800f1c108c6ad256903a4c879e1",
+      "links": {
+        "booking": [],
+        "pages": [
+          "https://adlerehingen.de/hoteladlerehingen",
+          "https://adlerehingen.de/hochzeiten"
+        ],
+        "systems": [
+          {
+            "system": "OnePageBooking",
+            "variant": "observed-link-only",
+            "url": "https://onepagebooking.com/adler-ehingen"
+          }
+        ],
+        "identity_pages": [
+          "https://adlerehingen.de/impressum"
+        ]
+      }
+    },
+    {
+      "url": "https://onepagebooking.com/loewefrei",
+      "final": "https://onepagebooking.com/loewefrei",
+      "retrieved_at": "2026-11-12T14:17:57+00:00",
+      "bytes": 11098,
+      "sha256": "ea35254b231f3dd3992658930e8d08af96586efe1b6e9a829b014cc77970b163",
+      "links": {
+        "booking": [],
+        "pages": [],
+        "systems": [],
+        "identity_pages": []
+      }
+    },
+    {
+      "url": "https://www.beds24.com/booking2.php?propid=83429",
+      "final": "https://www.beds24.com/booking2.php?propid=83429",
+      "retrieved_at": "2026-11-12T14:18:03+00:00",
+      "bytes": 191737,
+      "sha256": "3cd71553bd9b4de24d8977181dac479e55d875f9cecd597db00bce13f2133f4d",
+      "links": {
+        "booking": [
+          "https://www.beds24.com/booking2.php?propid=83429"
+        ],
+        "pages": [],
+        "systems": [],
+        "identity_pages": []
+      }
+    },
+    {
+      "url": "https://casasdavilla.com/home/",
+      "final": "https://casasdavilla.com/home/",
+      "retrieved_at": "2026-11-12T14:20:37+00:00",
+      "bytes": 127234,
+      "sha256": "56478b55506022df752f3a6feeeed6eef51de2f67603c9ac43a10bd82648a807",
+      "links": {
+        "booking": [
+          "https://www.beds24.com/booking2.php?propid=83429",
+          "https://www.beds24.com/booking2.php?propid=116208"
+        ],
+        "pages": [],
+        "systems": [],
+        "identity_pages": [
+          "https://casasdavilla.com/contacts/"
+        ]
+      }
+    },
+    {
+      "url": "https://onepagebooking.com/adler-ehingen",
+      "final": "https://onepagebooking.com/adler-ehingen",
+      "retrieved_at": "2026-11-12T14:20:39+00:00",
+      "bytes": 6791,
+      "sha256": "1af4d144da409863b8b990fab48b0600df9d48af2736fddb88e4c060dd2f65b5",
+      "links": {
+        "booking": [],
+        "pages": [],
+        "systems": [],
+        "identity_pages": []
+      }
+    },
+    {
+      "url": "https://v6.onepagebooking.com/api/Property",
+      "error": "Robots-Regeln sperren diesen Quellenpfad."
+    }
+  ],
+  "opb_public_asset_probe": [
+    {
+      "url": "https://onepagebooking.com/opb-version-6/main-IA4JEDAK.js",
+      "bytes": 1160278,
+      "sha256": "bcadc8f15340dc2463dc8f6e1fd51a75e59771f7d22ba7b867e033905c2565c8",
+      "retrieved_at": "2026-11-12T14:21:47+00:00"
+    }
+  ],
+  "startup": [
+    {
+      "returncode": 0,
+      "seconds": 0.414,
+      "stdout": "Tk 9.1.0",
+      "stderr": ""
+    },
+    {
+      "returncode": 0,
+      "seconds": 0.36,
+      "stdout": "Tk 9.1.0",
+      "stderr": ""
+    },
+    {
+      "returncode": 0,
+      "seconds": 0.356,
+      "stdout": "Tk 9.1.0",
+      "stderr": ""
+    }
+  ],
+  "crash_audit": {
+    "report": "Python-2026-11-12-122349.ips",
+    "version": "3.13.18",
+    "parent": "codex",
+    "exception": "SIGABRT",
+    "frames": [
+      "abort",
+      "_RegisterApplication",
+      "GetCurrentProcess",
+      "TkMacOSXDisplayChanged",
+      "TkpOpenDisplay",
+      "Tkinter_TkInit"
+    ],
+    "prior_restricted_test_log_mtime_utc": "2026-11-12T11:23:46.900198+00:00",
+    "report_launch_utc": "2026-11-12T11:23:46.8722+00:00",
+    "prior_desktop_allowed_test_log_mtime_utc": "2026-11-12T11:24:39.889422+00:00",
+    "conclusion": "Abbruch bei macOS-/Tk-Initialisierung im eingeschränkten Codex-Startkontext zeitlich zugeordnet. Keine abschließende interne LaunchServices-Ursache belegt; in aktueller Aqua-Sitzung nicht reproduziert. Kein belegter Produktfehler dafür."
+  },
+  "manual_native_acceptance": {
+    "status": "blocked",
+    "error": "ScreenCaptureKit.SCStreamErrorDomain -3811: Start des Streams aufgrund Audio/Video-Aufnahmefehlers fehlgeschlagen",
+    "settings_changed": false
+  },
+  "regression": {
+    "baseline_tests": 426,
+    "baseline_seconds": 20.097,
+    "final_tests": 444,
+    "final_seconds": 21.727,
+    "compileall": "passed",
+    "git_diff_check": "passed",
+    "resource_warning": "Test connection fixed; final run without ResourceWarning"
+  },
+  "limits": [
+    "Kein vollständig belegter Gebühren-Gesamtpreis",
+    "OnePageBooking API durch Robots gesperrt, kein Preisadapter dafür behauptet",
+    "Zweiter unabhängiger erfolgreicher Livefall der neuen Betreiberübersichtsvariante nicht nachgewiesen",
+    "Gemischte Belegungen desselben physischen Zimmertyps mit Fixtures geprüft; nicht als neuer Livefall behauptet",
+    "Öffentlicher Familienfall nicht durch die normale Monsanto-Verzeichnissuche gefunden",
+    "Keine neue lokale Modellabnahme; vorhandene KI-Regressionen erhalten"
+  ]
+}

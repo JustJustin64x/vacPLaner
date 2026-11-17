@@ -9,23 +9,32 @@ def distance(a,b):
 
 
 def deduplicate(items):
-    result=[];seen_ids=set();by_name={}
+    result=[];seen_ids=set();by_id={};by_name={}
     for item in items:
         identity=item.get('id')
-        if identity and identity in seen_ids:continue
+        if identity and identity in seen_ids:
+            old=by_id[identity]
+            old['source_aliases']=list(dict.fromkeys(old.get('source_aliases',[])+[old.get('source',''),item.get('source','')]))
+            for key in ('identity_tags','url'):
+                if not old.get(key) and item.get(key):old[key]=copy.deepcopy(item[key])
+            continue
         duplicate=False
         name=item['name'].casefold()
         if name in ('erfasstes freizeitmerkmal','unbenannt','unnamed'):
             result.append(item)
-            if identity:seen_ids.add(identity)
+            if identity:seen_ids.add(identity);by_id[identity]=item
             continue
         for old in by_name.get(name,[]):
             located=all(x.get(k) is not None for x in (item,old) for k in ('latitude','longitude'))
-            if located and distance(item,old)<.1:
+            same_address=item.get('address') and item.get('address')==old.get('address') and 'unbekannt' not in item['address'].casefold()
+            # Lodgings with different IDs and only the same nearby name stay separate.
+            proven_pair=same_address if item.get('type') in ('Hotel','Ferienwohnung','Camping') else True
+            if located and distance(item,old)<.1 and proven_pair:
+                old['source_aliases']=list(dict.fromkeys(old.get('source_aliases',[])+[old.get('source',''),item.get('source','')]))
                 duplicate=True;break
         if not duplicate:
             result.append(item);by_name.setdefault(name,[]).append(item)
-            if identity:seen_ids.add(identity)
+            if identity:seen_ids.add(identity);by_id[identity]=item
     return result
 
 
@@ -33,7 +42,7 @@ class PlaceResearch:
     def __init__(self,catalog,provider):self.catalog,self.provider=catalog,provider
 
     def collect(self,base,request,context,emit):
-        result=dict(lodgings=[],activities=[],warnings=[],cache_note='',sources=[])
+        result=dict(lodgings=[],activities=[],warnings=[],cache_note='',sources=[],lodging_coverage=[])
         pages=[base]
         if request.surroundings:pages+=self.catalog.nearby(base,request)
         for index,page in enumerate(pages):
@@ -51,6 +60,7 @@ class PlaceResearch:
                 related=[dict(base,**p) for p in data.get('related_pages',[])]
                 pages[:]=[base]+(related+pages[1:])[:2]
             result['warnings']+=data.get('warnings',[])
+            result['lodging_coverage']+=data.get('lodging_coverage',[])
             result['sources'].append(dict(source=page['source'],note=data.get('cache_note','')))
             result['cache_note']+=' '+page['name']+': '+data.get('cache_note','')
             for kind,radius in [('lodgings',float(request.lodging_radius_km)),('activities',float(request.activity_radius_km))]:

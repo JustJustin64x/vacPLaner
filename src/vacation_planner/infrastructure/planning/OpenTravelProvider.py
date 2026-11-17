@@ -24,19 +24,47 @@ class OpenTravelProvider:
     def research_offers(self,trip,context,emit=lambda *args:None,categories=None,samples=False):
         from ...core.planning.OfferResearchService import OfferResearchService
         from .RegioJetOfferProvider import RegioJetOfferProvider
-        from .SmoobuOfferProvider import SmoobuOfferProvider
+        from .LodgingOfferProvider import LodgingOfferProvider
         from .FlightAccessDiagnostics import FlightAccessDiagnostics
         from .OfficialActivityPrices import OfficialActivityPrices
         from .ResearchHttp import ResearchHttp
+        original_emit=emit;job=None;last_trip=trip
+        if not samples and (not categories or 'lodging' in categories):
+            from .LodgingJobStore import LodgingJobStore
+            import sqlite3
+            try:
+                jobs=LodgingJobStore(self.store);job=jobs.begin(trip)
+            except (OSError,sqlite3.Error) as exc:
+                original_emit('warning','Recherchefortschritt konnte nicht dauerhaft angelegt werden: '+str(exc))
+            def emit(kind,value):
+                nonlocal job,last_trip
+                if kind=='offer_partial' and isinstance(value,dict):
+                    last_trip=value
+                    if job:
+                        try:jobs.checkpoint(job,value)
+                        except (OSError,sqlite3.Error) as exc:
+                            job=None;original_emit('warning','Dauerhafter Recherchefortschritt fehlgeschlagen; Arbeitskopie bleibt nutzbar: '+str(exc))
+                original_emit(kind,value)
         # Reuse the existing secure transport, including robots/DNS/redirect gates.
         http=ResearchHttp(self.store) if isinstance(self.http,PublicHttpClient) else self.http
-        providers=[SmoobuOfferProvider(http),OfficialActivityPrices(http)]
+        providers=[LodgingOfferProvider(self.store,emit),OfficialActivityPrices(http)]
         providers.append(RegioJetOfferProvider(http,self.store))
         providers.append(FlightAccessDiagnostics())
         from ..local_ai.OfferAnalysisService import OfferAnalysisService
         if not hasattr(self,'offer_analysis'):self.offer_analysis=OfferAnalysisService()
         service=OfferResearchService(providers,self.offer_analysis)
-        return service.research_samples(trip,context,emit,categories) if samples else service.research(trip,context,emit,categories)
+        completed=False
+        try:
+            result=service.research_samples(trip,context,emit,categories) if samples else service.research(trip,context,emit,categories)
+            last_trip=result;completed=True
+            return result
+        finally:
+            if job:
+                states={e['state'] for e in last_trip.get('lodging_research',{}).get('entries',[])}
+                state='paused' if context.cancel.is_set() or states & {'pending','running','cancelled','deferred_budget','source_error'} else 'finished'
+                if not completed:state='paused' if context.cancel.is_set() else 'error'
+                try:jobs.checkpoint(job,last_trip,state)
+                except (OSError,sqlite3.Error) as exc:original_emit('warning','Letzter Recherchefortschritt konnte nicht gespeichert werden: '+str(exc))
 
     def origin(self, name, address, context):
         known = self.catalog.resolve(name)
@@ -103,7 +131,18 @@ class OpenTravelProvider:
             self.catalog.refresh(context);return self.catalog.candidates(request)
         return candidates
 
-    def places(self, destination, context):
+    def places(self,destination,context):
+        data=self._places(destination,context)
+        # All local rows survive; only a missing directory gets a cold-area query.
+        if not data.get('lodgings') and getattr(context,'request',None) and isinstance(self.http,PublicHttpClient):
+            from .LodgingDirectory import LodgingDirectory
+            extra=LodgingDirectory(self.store).collect(destination,context.request,context)
+            data['lodgings']=extra['lodgings'];data['lodging_coverage']=[extra['coverage']]
+            if extra['coverage']['status'] in ('source_error','deferred_budget'):
+                data.setdefault('warnings',[]).append('Unterkunftsverzeichnis offen: '+extra['coverage'].get('reason',''))
+        return data
+
+    def _places(self, destination, context):
         if destination.get('geonames_id') or destination.get('inventory_place'):
             local=self._inventory_places(destination,context)
             source=destination.get('wikivoyage_source')
@@ -162,7 +201,8 @@ class OpenTravelProvider:
             country=country.strip().upper() if isinstance(country,str) and len(country.strip())==2 else None
             item.update(geometry=f.get('geometry'),geo_source='OSM',country_code=country,administrative_region=tags.get('addr:state') or '')
             if lodging_type and (tags.get('name') or tags.get('name:de')):
-                result['lodgings'].append(dict(item,type=lodging_type,amenities={},price={'label':'Unterkunft für Gruppe und Aufenthalt','low':None,'status':'unbekannt'},
+                identity_tags={k:v for k,v in tags.items() if k in ('name','name:de','website','contact:website','website:booking','phone','contact:phone','tourism') or k.startswith('addr:')}
+                result['lodgings'].append(dict(item,type=lodging_type,identity_tags=identity_tags,amenities={},price={'label':'Unterkunft für Gruppe und Aufenthalt','low':None,'status':'unbekannt'},
                     booking_status='Kartierte Unterkunftsidentität; Belegung und Verfügbarkeit unbestätigt',rooms=None))
             topics=feature_topics(tags)
             if tags.get('route')=='hiking' and f.get('geometry') and not f['geometry'].get('complete'):

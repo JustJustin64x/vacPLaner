@@ -67,8 +67,23 @@ def assess(offer,query,request=None,now=None):
     except (KeyError,TypeError,ValueError):conflicts.append('Ungültige Betragsangabe')
     if offer.get('category')=='lodging':
         if d.get('units') is not None and d['units']!=query.rooms:mismatches.append('Anzahl angebotener Einheiten passt nicht zur Zimmeranfrage')
-        if d.get('capacity') is not None and d['capacity']<query.adults:mismatches.append('Belegte Kapazität reicht nicht für die Gruppe')
+        if d.get('capacity') is not None and d['capacity']<query.persons:mismatches.append('Belegte Kapazität reicht nicht für die Gruppe')
         if not offer.get('evidence',{}).get('parameter_echo'):gap('occupancy','Zimmerbelegung nicht unabhängig durch Anbieterparameter bestätigt')
+        if query.children_ages:
+            from collections import Counter
+            from .ChildAgeRange import ChildAgeRange
+            contracts=offer.get('evidence',{}).get('child_age_contracts',[])
+            try:
+                valid=bool(contracts) and all(ChildAgeRange.parse(c['label']).to_dict()==c and ChildAgeRange.parse(c['label']).accepts(query.children_ages) for c in contracts)
+                actual=[]
+                for row in d.get('selected_rooms',[]):
+                    ages=row['children_ages_per_unit']
+                    if len(ages)!=row['quantity']:raise ValueError('Zimmeranzahl')
+                    actual.extend((row['adults_per_unit'],tuple(sorted(a))) for a in ages)
+                wanted=[(p.adults,tuple(sorted(p.children_ages))) for p in query.room_assignments]
+                valid=valid and Counter(actual)==Counter(wanted)
+            except (KeyError,TypeError,ValueError,AttributeError):valid=False
+            if not valid:mismatches.append('Kinderalter und vollständige Zimmerbelegung nicht unabhängig bestätigt')
         if not offer.get('evidence',{}).get('fees_complete'):gap('fees','Vollständigkeit aller verpflichtenden Gebühren nicht ausdrücklich belegt')
     if offer.get('category') in ('rail','flight'):
         legs=d.get('legs',[])

@@ -40,3 +40,17 @@ def analysis_lines(analysis):
         lines.append('Quellenhinweis' if f['validation']=='source_hint_only' else 'Geprüfte Fundstelle')
         lines.append(f['pointer']+': '+value+' '+unit+' · Quelle '+f['source_url']+' · Abruf '+f['retrieved_at'])
     return lines
+
+
+def lodging_evidence_lines(offer):
+    """Bounded source claims, distinct from a complete price or legal guarantee."""
+    evidence=offer.get('evidence',{});lines=[]
+    for contract in evidence.get('child_age_contracts',[]):
+        lines.append('Veröffentlichte Kinder-Altersgruppe: '+contract['label']+f" ({contract['minimum']}–{contract['maximum']} Jahre)")
+    source=evidence.get('child_age_source')
+    if source:lines.append('Altersregel: '+source['url']+' · Abruf '+source['retrieved_at'])
+    for row in evidence.get('selected_room_evidence',[]):
+        for name,value in row.get('facts',{}).items():
+            lines.append('Quellenangabe zur gewählten Einheit: '+name+(' · enthalten/beschrieben' if value else ' · ausdrücklich ausgeschlossen')+' · '+row.get('proof',{}).get(name,''))
+    if evidence.get('quote_url'):lines.append('Tatsächliche Auswahlquote: '+evidence['quote_url'])
+    return lines

@@ -114,7 +114,7 @@ class TripPdfExporter:
         data=[[self._paragraph('Reiseziel','TravelSmall'),self._paragraph('Rahmen','TravelSmall'),self._paragraph('Vorschlag & Kosten','TravelSmall')]]
         for m in models:
             issues='; '.join(m['issues'][:2]) or 'Keine wesentlichen Lücken erkannt'
-            data.append([self._paragraph(f"<b>{escape(m['name'])}</b><br/>{escape(m['country'])}",'TravelCard'),self._paragraph(f"{m['period']}<br/>{m['nights']} Nächte · {m['adults']} Erwachsene<br/>{escape(', '.join(m['interests']) or 'offene Suche')}",'TravelCard'),self._paragraph(f"{escape(m['lodging']['name'] if m['lodging'] else 'Unterkunft offen')}<br/>{escape(m['transport']['mode'] if m['transport'] else 'Anreise offen')} · {escape(m['transport']['time'] if m['transport'] else 'Zeit offen')}<br/><b>{escape(m['cost']['group'])}</b><br/><font color='{RED}'>{escape(issues)}</font>",'TravelCard')])
+            data.append([self._paragraph(f"<b>{escape(m['name'])}</b><br/>{escape(m['country'])}",'TravelCard'),self._paragraph(f"{m['period']}<br/>{m['nights']} Nächte · {escape(m['group_label'])}<br/>{escape(', '.join(m['interests']) or 'offene Suche')}",'TravelCard'),self._paragraph(f"{escape(m['lodging']['name'] if m['lodging'] else 'Unterkunft offen')}<br/>{escape(m['transport']['mode'] if m['transport'] else 'Anreise offen')} · {escape(m['transport']['time'] if m['transport'] else 'Zeit offen')}<br/><b>{escape(m['cost']['group'])}</b><br/><font color='{RED}'>{escape(issues)}</font>",'TravelCard')])
         table=Table(data,colWidths=[43*mm,55*mm,67*mm],repeatRows=1)
         table.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.HexColor(NAVY)),('TEXTCOLOR',(0,0),(-1,0),colors.white),('GRID',(0,0),(-1,-1),.4,colors.HexColor('#C7D4D7')),('VALIGN',(0,0),(-1,-1),'TOP'),('ROWBACKGROUNDS',(0,1),(-1,-1),[colors.white,colors.HexColor('#F4F8F8')]),('PADDING',(0,0),(-1,-1),6)]))
         return [self._heading('Reisen vergleichen',0,'vergleich'),table,PageBreak()]
@@ -133,7 +133,7 @@ class TripPdfExporter:
         if len(m['map_points'])>8:story.append(self._paragraph('Weitere Kartenlinks stehen direkt bei den Unterkünften und Aktivitäten.','TravelSmall'))
         story.append(PageBreak())
         story.append(self._heading('Anreise vergleichen',1,key+'-anreise'))
-        story.append(self._paragraph('Für alle Optionen: '+escape(m['period'])+'. Hin- und Rückreise für '+str(m['adults'])+' Erwachsene. Nicht geprüfte Möglichkeiten bleiben offen.','TravelCard'))
+        story.append(self._paragraph('Für alle Optionen: '+escape(m['period'])+'. Hin- und Rückreise für '+escape(m['group_label'])+'. Nicht geprüfte Möglichkeiten bleiben offen.','TravelCard'))
         story.append(self._transport_comparison(m))
         story.append(self._heading('Unterkunft plus Anreise: getrennte Szenarien',2,key+'-szenarien'))
         story.append(self._scenario_comparison(m))
@@ -205,7 +205,7 @@ class TripPdfExporter:
         from reportlab.platypus import Table,TableStyle
         from reportlab.lib import colors
         from reportlab.lib.units import mm
-        rows=[[self._paragraph('<b>Zeitraum</b><br/>'+escape(m['period']),'TravelCard'),self._paragraph(f"<b>Reisegruppe</b><br/>{m['adults']} Erwachsene · {m['rooms']} Zimmer",'TravelCard')],[self._paragraph('<b>Unterkunft</b><br/>'+escape(m['lodging']['name'] if m['lodging'] else 'offen'),'TravelCard'),self._paragraph('<b>Anreise</b><br/>'+escape((m['transport']['mode']+' · '+m['transport']['time']) if m['transport'] else 'offen'),'TravelCard')],[self._paragraph('<b>'+escape(m['cost']['title'])+'</b><br/>Gruppe: '+escape(m['cost']['group'])+'<br/>Rechnerisch pro Person: '+escape(m['cost']['per_person']),'TravelCard'),self._paragraph('<b>Passt zu</b><br/>'+escape(', '.join(m['interests']) or 'offene Suche'),'TravelCard')]]
+        rows=[[self._paragraph('<b>Zeitraum</b><br/>'+escape(m['period']),'TravelCard'),self._paragraph(f"<b>Reisegruppe</b><br/>{escape(m['group_label'])} · {m['rooms']} Zimmer",'TravelCard')],[self._paragraph('<b>Unterkunft</b><br/>'+escape(m['lodging']['name'] if m['lodging'] else 'offen'),'TravelCard'),self._paragraph('<b>Anreise</b><br/>'+escape((m['transport']['mode']+' · '+m['transport']['time']) if m['transport'] else 'offen'),'TravelCard')],[self._paragraph('<b>'+escape(m['cost']['title'])+'</b><br/>Gruppe: '+escape(m['cost']['group'])+'<br/>Rechnerisch pro Person: '+escape(m['cost']['per_person']),'TravelCard'),self._paragraph('<b>Passt zu</b><br/>'+escape(', '.join(m['interests']) or 'offene Suche'),'TravelCard')]]
         t=Table(rows,colWidths=[82.5*mm,82.5*mm]);t.setStyle(TableStyle([('BOX',(0,0),(-1,-1),.5,colors.HexColor('#BFD0D3')),('INNERGRID',(0,0),(-1,-1),.5,colors.HexColor('#DCE6E8')),('BACKGROUND',(0,0),(-1,-1),colors.HexColor('#F7FAFA')),('VALIGN',(0,0),(-1,-1),'TOP'),('PADDING',(0,0),(-1,-1),8)]));return [t]
 
     def _heading(self,text,level,key,toc=True):

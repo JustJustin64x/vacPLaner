@@ -1,0 +1,700 @@
+{
+  "schema_version": 1,
+  "note": "Öffentliche Prüfdaten, keine produktive Unterkunftsliste. Replay prüft Quellen/Preis neu, nicht die damalige Unterkunftsfindung. Keine Buchung.",
+  "cases": {
+    "family-official": {
+      "description": "Offizieller Gemeinde-Eintrag → Betreiberwebsite → konkret beobachtetes Objekt, Kind 6 Jahre",
+      "trip": {
+        "id": "361d0f0d-9594-494b-8ea8-70dc9b7f96b1",
+        "destination": {
+          "id": "geonames:2737506",
+          "geonames_id": "2737506",
+          "name": "Monsanto",
+          "aliases": [
+            "Monsanto",
+            "Monsantu",
+            "Mossanto",
+            "Монсанту"
+          ],
+          "latitude": 40.03921,
+          "longitude": -7.11477,
+          "code": "PT",
+          "country": "Portugal",
+          "admin1": "06",
+          "admin2": "0505",
+          "admin3": "050520",
+          "admin4": "",
+          "region": "Castelo Branco",
+          "regions": [
+            "Castelo Branco",
+            "PT.06"
+          ],
+          "regional_name": "Castelo Branco",
+          "base_name": "Monsanto",
+          "kind": "settlement",
+          "type": "Dorf/Ferienort",
+          "feature_class": "P",
+          "feature_code": "PPL",
+          "population": 828,
+          "elevation": "",
+          "timezone": "Europe/Lisbon",
+          "source": "https://www.geonames.org/2737506/",
+          "source_updated": "2023-09-28",
+          "source_checked_at": "2026-10-29T21:21:49+00:00",
+          "license": "CC BY 4.0",
+          "coordinate_source": "https://www.geonames.org/2737506/",
+          "coordinate_note": "GeoNames-Ortskoordinate; keine Unterkunftszufahrt",
+          "scope_version": "europe-eea-v1",
+          "alternate_countries": [],
+          "area_id": "PT:06:0505",
+          "interests": [],
+          "landscapes": [],
+          "attributions": [
+            {
+              "label": "GeoNames · CC BY 4.0",
+              "url": "https://www.geonames.org/about.html"
+            }
+          ],
+          "inventory_place": true
+        },
+        "origin": {
+          "name": "Berlin",
+          "code": "DE",
+          "country": "Deutschland",
+          "region": "Mitteleuropa",
+          "latitude": 52.51789,
+          "longitude": 13.38873,
+          "interests": [
+            "Kultur",
+            "Städte",
+            "Feiern",
+            "Restaurants",
+            "Veranstaltungen"
+          ],
+          "source": "https://de.wikivoyage.org/wiki/Berlin",
+          "editorial_note": "Redaktionelle grobe Themenauswahl; keine saisonale Vorhersage",
+          "coordinate_source": "https://de.wikivoyage.org/wiki/Berlin",
+          "source_checked_at": "2026-10-27T13:40:40+00:00",
+          "id": "wv-de-title:Berlin",
+          "type": "Großstadt",
+          "regions": [
+            "Mitteleuropa"
+          ],
+          "landscapes": [],
+          "area_id": "DE:Berlin",
+          "base_name": "Berlin",
+          "catalog_version": 2,
+          "aliases": [],
+          "interest_strengths": {
+            "Kultur": 3,
+            "Städte": 3,
+            "Feiern": 3,
+            "Restaurants": 3
+          },
+          "regional_name": "Mitteleuropa",
+          "precision": "Ortszentrum; Startadresse fehlt"
+        },
+        "request": {
+          "origin": "Berlin",
+          "address": "",
+          "earliest": "2027-04-12",
+          "latest": "2027-04-15",
+          "min_days": 4,
+          "max_days": 4,
+          "adults": 2,
+          "rooms": 1,
+          "budget": "2000",
+          "countries": [],
+          "regions": [],
+          "excluded": [],
+          "interests": {
+            "Wandern": 0,
+            "Baden": 0,
+            "Natur": 0,
+            "Ruhe": 0,
+            "Berge": 0,
+            "Kultur": 0,
+            "Städte": 0,
+            "Feiern": 0,
+            "Barhopping": 0,
+            "Restaurants": 0,
+            "Veranstaltungen": 0,
+            "Kostenlos": 0
+          },
+          "weights": {
+            "Preis": 1,
+            "Reisezeit": 1,
+            "Komfort": 1,
+            "Interessen": 1
+          },
+          "modes": [
+            "Zug"
+          ],
+          "max_hours": "",
+          "cars": 1,
+          "seats": 5,
+          "consumption": "7.0",
+          "petrol": "1.80",
+          "accommodation_types": [
+            "Hotel",
+            "Ferienwohnung"
+          ],
+          "required": [],
+          "desired": [],
+          "max_center_km": "",
+          "shortlist": 4,
+          "request_budget": 24,
+          "timeout_seconds": 300,
+          "price_targets": 0,
+          "candidate_pool": 35,
+          "max_distance_km": "",
+          "regional_queries": 0,
+          "target_type": "gemischt",
+          "surroundings": true,
+          "lodging_radius_km": "3",
+          "activity_radius_km": "3",
+          "show_ideas": true,
+          "ai_discovery": false,
+          "ai_offer_analysis": false,
+          "children_ages": [
+            6
+          ],
+          "room_assignments": []
+        },
+        "start": "2027-04-12",
+        "end": "2027-04-15",
+        "date_options": [
+          [
+            "2027-04-12",
+            "2027-04-15"
+          ]
+        ],
+        "nights": 3,
+        "lodgings": [
+          {
+            "id": "source:https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+            "name": "Casas da Villa",
+            "type": "Ferienwohnung",
+            "source": "https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+            "url": "https://casasdavilla.com/home/",
+            "address": "Monsanto, Idanha-a-Nova, Portugal",
+            "identity_tags": {
+              "phone": "+351960281677",
+              "addr:street": "Rua do Pardieiro",
+              "addr:housenumber": "6"
+            },
+            "amenities": {
+              "Frühstück": true
+            },
+            "latitude": null,
+            "longitude": null,
+            "distance_km": null,
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "high": null,
+              "status": "unbekannt",
+              "source": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+              "retrieved_at": "2026-11-13T05:26:14+00:00",
+              "scope": "2 Erwachsene und 1 Kind / 1 Einheit / 3 Nächte; Preis unbekannt",
+              "method": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+              "optional": false
+            },
+            "occupancy_status": "Angefragt: zwei Erwachsene und ein Kind (6 Jahre), eine Einheit; noch nicht neu geprüft",
+            "booking_status": "Neue Preisprüfung ausstehend",
+            "retrieved_at": "2026-11-13T18:11:05+00:00",
+            "open_criteria": [],
+            "rooms": 1,
+            "source_aliases": [
+              "https://www.visitportugal.com/pt-pt/content/casas-da-villa-adufe-e-sobreiro"
+            ],
+            "data_status": "Öffentliche Gemeinde-/Tourismusquelle; Buchungsquelle unabhängig prüfen",
+            "link_kind": "Öffentlich beobachteter Gastzugang",
+            "search_url": "https://casasdavilla.com/home/"
+          }
+        ],
+        "activities": [],
+        "transports": [
+          {
+            "mode": "Zug",
+            "costs": [
+              {
+                "label": "Zug für gesamte Gruppe hin und zurück",
+                "low": null,
+                "status": "unbekannt",
+                "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 6), Hin- und Rückreise 2027-04-12 bis 2027-04-15"
+              },
+              {
+                "label": "Zubringer und Unterkunftstransfers hin und zurück",
+                "low": null,
+                "status": "unbekannt",
+                "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 6), Hin- und Rückreise 2027-04-12 bis 2027-04-15"
+              }
+            ],
+            "hours_high": null,
+            "hours_low": null,
+            "comfort": 0,
+            "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 6), Hin- und Rückreise 2027-04-12 bis 2027-04-15",
+            "notes": [
+              "Keine bestätigten datierten Verbindungen, Ticketpreise, Gepäck-/Tarifbedingungen oder Transferzeiten. Nicht als buchbare Verbindung zu verstehen."
+            ],
+            "links": [
+              {
+                "label": "Deutsche Bahn",
+                "url": "https://www.bahn.de/buchung/start",
+                "kind": "Allgemeiner Anbieterlink"
+              }
+            ],
+            "status": "Nicht vollständig vergleichbar"
+          }
+        ],
+        "selected_lodging": 0,
+        "selected_transport": 0,
+        "interest_match": 0.5,
+        "interest_evidence": {},
+        "evidence_confidence": 0,
+        "filter_status": "offen",
+        "open_criteria": [
+          "Weniger als zwei Unterkunftsidentitäten"
+        ],
+        "search_id": "061d029c-8f0f-4389-93c4-d5a1e37c24f2",
+        "researched_at": "2026-11-12T14:19:16+00:00",
+        "notes": [
+          " Monsanto: Lokale OSM-Merkmale; keine aktuelle Öffnungs- oder Verfügbarkeitsprüfung Relva: Lokale OSM-Merkmale; keine aktuelle Öffnungs- oder Verfügbarkeitsprüfung Maria Martins: Lokale OSM-Merkmale; keine aktuelle Öffnungs- oder Verfügbarkeitsprüfung",
+          "GeoNames-Ortskoordinate; keine Unterkunftszufahrt",
+          "Adaptive begrenzte Suche; kein vollständiger Marktvergleich. Natur-/Badeinteressen bevorzugen in der Vorauswahl passende kleinere Landschaftsziele; keine Aktivitätszusage.",
+          "Termine sind plausible Stichproben, keine Optimierung datierter Preise.",
+          "Reiseführer-Einträge belegen Identität, keine Verfügbarkeit oder Zimmerbelegung.",
+          "Lageabstände sind Luftlinie, keine belegte Erreichbarkeit. Hotelzufahrt fehlt.",
+          "Optionale Verpflegung und Aktivitäten liegen außerhalb des Budgets.",
+          "Zug-/Flugfahrpläne und Preise sowie datierte Veranstaltungen sind nicht angebunden.",
+          "Öffentlicher Abnahmefall aus Gemeinde-/Tourismusquelle; keine neu durchgeführte automatische Verzeichnisfindung beim Replay."
+        ],
+        "explanation": "Offene Suche ohne Interessenfilter.",
+        "research_status": "Passende Reiseidee – Angaben noch offen: Weniger als zwei Unterkunftsidentitäten",
+        "lodging_coverage": [
+          {
+            "status": "directory_response",
+            "source": "https://ovp.dresel.systems/api/interpreter",
+            "retrieved_at": "2026-11-12T14:19:15+00:00",
+            "radius_km": 3.0,
+            "returned": 1,
+            "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+          },
+          {
+            "status": "directory_response",
+            "source": "https://ovp.dresel.systems/api/interpreter",
+            "retrieved_at": "2026-11-12T14:19:16+00:00",
+            "radius_km": 3.0,
+            "returned": 1,
+            "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+          },
+          {
+            "status": "deferred_budget",
+            "radius_km": 3.0,
+            "reason": "Zwei gezielte Verzeichnisversuche je Suche erreicht"
+          }
+        ],
+        "costs": [
+          {
+            "label": "Zug für gesamte Gruppe hin und zurück",
+            "low": null,
+            "status": "unbekannt",
+            "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 6), Hin- und Rückreise 2027-04-12 bis 2027-04-15"
+          },
+          {
+            "label": "Zubringer und Unterkunftstransfers hin und zurück",
+            "low": null,
+            "status": "unbekannt",
+            "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 6), Hin- und Rückreise 2027-04-12 bis 2027-04-15"
+          },
+          {
+            "label": "Unterkunft für Gruppe und Aufenthalt",
+            "low": null,
+            "high": null,
+            "status": "unbekannt",
+            "source": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+            "retrieved_at": "2026-11-13T05:26:14+00:00",
+            "scope": "2 Erwachsene und 1 Kind / 1 Einheit / 3 Nächte; Preis unbekannt",
+            "method": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+            "optional": false
+          },
+          {
+            "label": "Verpflegung und Aktivitäten (optional)",
+            "low": null,
+            "status": "unbekannt",
+            "optional": true
+          }
+        ],
+        "cost_summary": {
+          "low": "0.00",
+          "high": "0.00",
+          "status": "Teilsumme",
+          "missing": [
+            "Zug für gesamte Gruppe hin und zurück",
+            "Zubringer und Unterkunftstransfers hin und zurück",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "budget_delta": null,
+          "budget_ok": null,
+          "coverage": 0.0
+        },
+        "score": 8.8,
+        "normalized_weights": {
+          "Preis": 0.25,
+          "Reisezeit": 0.25,
+          "Komfort": 0.25,
+          "Interessen": 0.25
+        },
+        "recommendation": "Vorläufige Orientierung: Zug; Interessenpassung 50%. Bewertung 8.8/100. Unbekannte Preise und Zeiten erhalten keinen Vorteil. Kein belegter Preis-/Zeit-Sieger bei unvollständigen Vergleichsdaten."
+      }
+    },
+    "owner-overview": {
+      "description": "Beobachtete Betreiberkennung → veröffentlichter Objektlink → unabhängige Zuordnung → Familienquote",
+      "trip": {
+        "id": "361d0f0d-9594-494b-8ea8-70dc9b7f96b1",
+        "destination": {
+          "id": "geonames:2737506",
+          "geonames_id": "2737506",
+          "name": "Monsanto",
+          "aliases": [
+            "Monsanto",
+            "Monsantu",
+            "Mossanto",
+            "Монсанту"
+          ],
+          "latitude": 40.03921,
+          "longitude": -7.11477,
+          "code": "PT",
+          "country": "Portugal",
+          "admin1": "06",
+          "admin2": "0505",
+          "admin3": "050520",
+          "admin4": "",
+          "region": "Castelo Branco",
+          "regions": [
+            "Castelo Branco",
+            "PT.06"
+          ],
+          "regional_name": "Castelo Branco",
+          "base_name": "Monsanto",
+          "kind": "settlement",
+          "type": "Dorf/Ferienort",
+          "feature_class": "P",
+          "feature_code": "PPL",
+          "population": 828,
+          "elevation": "",
+          "timezone": "Europe/Lisbon",
+          "source": "https://www.geonames.org/2737506/",
+          "source_updated": "2023-09-28",
+          "source_checked_at": "2026-10-29T21:21:49+00:00",
+          "license": "CC BY 4.0",
+          "coordinate_source": "https://www.geonames.org/2737506/",
+          "coordinate_note": "GeoNames-Ortskoordinate; keine Unterkunftszufahrt",
+          "scope_version": "europe-eea-v1",
+          "alternate_countries": [],
+          "area_id": "PT:06:0505",
+          "interests": [],
+          "landscapes": [],
+          "attributions": [
+            {
+              "label": "GeoNames · CC BY 4.0",
+              "url": "https://www.geonames.org/about.html"
+            }
+          ],
+          "inventory_place": true
+        },
+        "origin": {
+          "name": "Berlin",
+          "code": "DE",
+          "country": "Deutschland",
+          "region": "Mitteleuropa",
+          "latitude": 52.51789,
+          "longitude": 13.38873,
+          "interests": [
+            "Kultur",
+            "Städte",
+            "Feiern",
+            "Restaurants",
+            "Veranstaltungen"
+          ],
+          "source": "https://de.wikivoyage.org/wiki/Berlin",
+          "editorial_note": "Redaktionelle grobe Themenauswahl; keine saisonale Vorhersage",
+          "coordinate_source": "https://de.wikivoyage.org/wiki/Berlin",
+          "source_checked_at": "2026-10-27T13:40:40+00:00",
+          "id": "wv-de-title:Berlin",
+          "type": "Großstadt",
+          "regions": [
+            "Mitteleuropa"
+          ],
+          "landscapes": [],
+          "area_id": "DE:Berlin",
+          "base_name": "Berlin",
+          "catalog_version": 2,
+          "aliases": [],
+          "interest_strengths": {
+            "Kultur": 3,
+            "Städte": 3,
+            "Feiern": 3,
+            "Restaurants": 3
+          },
+          "regional_name": "Mitteleuropa",
+          "precision": "Ortszentrum; Startadresse fehlt"
+        },
+        "request": {
+          "origin": "Berlin",
+          "address": "",
+          "earliest": "2027-04-12",
+          "latest": "2027-04-15",
+          "min_days": 4,
+          "max_days": 4,
+          "adults": 2,
+          "rooms": 1,
+          "budget": "2000",
+          "countries": [],
+          "regions": [],
+          "excluded": [],
+          "interests": {
+            "Wandern": 0,
+            "Baden": 0,
+            "Natur": 0,
+            "Ruhe": 0,
+            "Berge": 0,
+            "Kultur": 0,
+            "Städte": 0,
+            "Feiern": 0,
+            "Barhopping": 0,
+            "Restaurants": 0,
+            "Veranstaltungen": 0,
+            "Kostenlos": 0
+          },
+          "weights": {
+            "Preis": 1,
+            "Reisezeit": 1,
+            "Komfort": 1,
+            "Interessen": 1
+          },
+          "modes": [
+            "Zug"
+          ],
+          "max_hours": "",
+          "cars": 1,
+          "seats": 5,
+          "consumption": "7.0",
+          "petrol": "1.80",
+          "accommodation_types": [
+            "Hotel",
+            "Ferienwohnung"
+          ],
+          "required": [],
+          "desired": [],
+          "max_center_km": "",
+          "shortlist": 4,
+          "request_budget": 24,
+          "timeout_seconds": 300,
+          "price_targets": 0,
+          "candidate_pool": 35,
+          "max_distance_km": "",
+          "regional_queries": 0,
+          "target_type": "gemischt",
+          "surroundings": true,
+          "lodging_radius_km": "3",
+          "activity_radius_km": "3",
+          "show_ideas": true,
+          "ai_discovery": false,
+          "ai_offer_analysis": false,
+          "children_ages": [
+            6
+          ],
+          "room_assignments": []
+        },
+        "start": "2027-04-12",
+        "end": "2027-04-15",
+        "date_options": [
+          [
+            "2027-04-12",
+            "2027-04-15"
+          ]
+        ],
+        "nights": 3,
+        "lodgings": [
+          {
+            "id": "source:https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+            "name": "Casas da Villa",
+            "type": "Ferienwohnung",
+            "source": "https://www.idanha.pt/idanhapt/onde-dormir/casas-da-villa/",
+            "url": "https://www.beds24.com/booking2.php?ownerid=48360",
+            "address": "Monsanto, Idanha-a-Nova, Portugal",
+            "identity_tags": {
+              "phone": "+351960281677",
+              "addr:street": "Rua do Pardieiro",
+              "addr:housenumber": "6"
+            },
+            "amenities": {
+              "Frühstück": true
+            },
+            "latitude": null,
+            "longitude": null,
+            "distance_km": null,
+            "price": {
+              "label": "Unterkunft für Gruppe und Aufenthalt",
+              "low": null,
+              "high": null,
+              "status": "unbekannt",
+              "source": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+              "retrieved_at": "2026-11-13T05:26:14+00:00",
+              "scope": "2 Erwachsene und 1 Kind / 1 Einheit / 3 Nächte; Preis unbekannt",
+              "method": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+              "optional": false
+            },
+            "occupancy_status": "Angefragt: zwei Erwachsene und ein Kind (6 Jahre), eine Einheit; noch nicht neu geprüft",
+            "booking_status": "Neue Preisprüfung ausstehend",
+            "retrieved_at": "2026-11-13T18:11:05+00:00",
+            "open_criteria": [],
+            "rooms": 1,
+            "source_aliases": [
+              "https://www.visitportugal.com/pt-pt/content/casas-da-villa-adufe-e-sobreiro"
+            ],
+            "data_status": "Öffentliche Gemeinde-/Tourismusquelle; Buchungsquelle unabhängig prüfen",
+            "link_kind": "Öffentlich beobachteter Gastzugang",
+            "search_url": "https://www.beds24.com/booking2.php?ownerid=48360"
+          }
+        ],
+        "activities": [],
+        "transports": [
+          {
+            "mode": "Zug",
+            "costs": [
+              {
+                "label": "Zug für gesamte Gruppe hin und zurück",
+                "low": null,
+                "status": "unbekannt",
+                "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 6), Hin- und Rückreise 2027-04-12 bis 2027-04-15"
+              },
+              {
+                "label": "Zubringer und Unterkunftstransfers hin und zurück",
+                "low": null,
+                "status": "unbekannt",
+                "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 6), Hin- und Rückreise 2027-04-12 bis 2027-04-15"
+              }
+            ],
+            "hours_high": null,
+            "hours_low": null,
+            "comfort": 0,
+            "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 6), Hin- und Rückreise 2027-04-12 bis 2027-04-15",
+            "notes": [
+              "Keine bestätigten datierten Verbindungen, Ticketpreise, Gepäck-/Tarifbedingungen oder Transferzeiten. Nicht als buchbare Verbindung zu verstehen."
+            ],
+            "links": [
+              {
+                "label": "Deutsche Bahn",
+                "url": "https://www.bahn.de/buchung/start",
+                "kind": "Allgemeiner Anbieterlink"
+              }
+            ],
+            "status": "Nicht vollständig vergleichbar"
+          }
+        ],
+        "selected_lodging": 0,
+        "selected_transport": 0,
+        "interest_match": 0.5,
+        "interest_evidence": {},
+        "evidence_confidence": 0,
+        "filter_status": "offen",
+        "open_criteria": [
+          "Weniger als zwei Unterkunftsidentitäten"
+        ],
+        "search_id": "061d029c-8f0f-4389-93c4-d5a1e37c24f2",
+        "researched_at": "2026-11-12T14:19:16+00:00",
+        "notes": [
+          " Monsanto: Lokale OSM-Merkmale; keine aktuelle Öffnungs- oder Verfügbarkeitsprüfung Relva: Lokale OSM-Merkmale; keine aktuelle Öffnungs- oder Verfügbarkeitsprüfung Maria Martins: Lokale OSM-Merkmale; keine aktuelle Öffnungs- oder Verfügbarkeitsprüfung",
+          "GeoNames-Ortskoordinate; keine Unterkunftszufahrt",
+          "Adaptive begrenzte Suche; kein vollständiger Marktvergleich. Natur-/Badeinteressen bevorzugen in der Vorauswahl passende kleinere Landschaftsziele; keine Aktivitätszusage.",
+          "Termine sind plausible Stichproben, keine Optimierung datierter Preise.",
+          "Reiseführer-Einträge belegen Identität, keine Verfügbarkeit oder Zimmerbelegung.",
+          "Lageabstände sind Luftlinie, keine belegte Erreichbarkeit. Hotelzufahrt fehlt.",
+          "Optionale Verpflegung und Aktivitäten liegen außerhalb des Budgets.",
+          "Zug-/Flugfahrpläne und Preise sowie datierte Veranstaltungen sind nicht angebunden.",
+          "Öffentlicher Abnahmefall aus Gemeinde-/Tourismusquelle; keine neu durchgeführte automatische Verzeichnisfindung beim Replay."
+        ],
+        "explanation": "Offene Suche ohne Interessenfilter.",
+        "research_status": "Passende Reiseidee – Angaben noch offen: Weniger als zwei Unterkunftsidentitäten",
+        "lodging_coverage": [
+          {
+            "status": "directory_response",
+            "source": "https://ovp.dresel.systems/api/interpreter",
+            "retrieved_at": "2026-11-12T14:19:15+00:00",
+            "radius_km": 3.0,
+            "returned": 1,
+            "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+          },
+          {
+            "status": "directory_response",
+            "source": "https://ovp.dresel.systems/api/interpreter",
+            "retrieved_at": "2026-11-12T14:19:16+00:00",
+            "radius_km": 3.0,
+            "returned": 1,
+            "note": "Europa-Bestand dieses Servers; OSM-Kartierung unvollständig; maximal 500 Quellelemente, keine Markt-/Preisvollständigkeit"
+          },
+          {
+            "status": "deferred_budget",
+            "radius_km": 3.0,
+            "reason": "Zwei gezielte Verzeichnisversuche je Suche erreicht"
+          }
+        ],
+        "costs": [
+          {
+            "label": "Zug für gesamte Gruppe hin und zurück",
+            "low": null,
+            "status": "unbekannt",
+            "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 6), Hin- und Rückreise 2027-04-12 bis 2027-04-15"
+          },
+          {
+            "label": "Zubringer und Unterkunftstransfers hin und zurück",
+            "low": null,
+            "status": "unbekannt",
+            "scope": "2 Erwachsene und 1 Kinder (Alter am Reisebeginn: 6), Hin- und Rückreise 2027-04-12 bis 2027-04-15"
+          },
+          {
+            "label": "Unterkunft für Gruppe und Aufenthalt",
+            "low": null,
+            "high": null,
+            "status": "unbekannt",
+            "source": "https://www.beds24.com/booking2.php?propid=83429&checkin=2027-04-12&numnight=3&numadult=2&numchild=1&lang=de&multiroom=1",
+            "retrieved_at": "2026-11-13T05:26:14+00:00",
+            "scope": "2 Erwachsene und 1 Kind / 1 Einheit / 3 Nächte; Preis unbekannt",
+            "method": "Gemeinsame responsive Auswahl; sichtbare Zeilen, Belegung, Pflichtzuschläge und Gesamtsumme abgeglichen",
+            "optional": false
+          },
+          {
+            "label": "Verpflegung und Aktivitäten (optional)",
+            "low": null,
+            "status": "unbekannt",
+            "optional": true
+          }
+        ],
+        "cost_summary": {
+          "low": "0.00",
+          "high": "0.00",
+          "status": "Teilsumme",
+          "missing": [
+            "Zug für gesamte Gruppe hin und zurück",
+            "Zubringer und Unterkunftstransfers hin und zurück",
+            "Unterkunft für Gruppe und Aufenthalt"
+          ],
+          "budget_delta": null,
+          "budget_ok": null,
+          "coverage": 0.0
+        },
+        "score": 8.8,
+        "normalized_weights": {
+          "Preis": 0.25,
+          "Reisezeit": 0.25,
+          "Komfort": 0.25,
+          "Interessen": 0.25
+        },
+        "recommendation": "Vorläufige Orientierung: Zug; Interessenpassung 50%. Bewertung 8.8/100. Unbekannte Preise und Zeiten erhalten keinen Vorteil. Kein belegter Preis-/Zeit-Sieger bei unvollständigen Vergleichsdaten."
+      }
+    }
+  }
+}

@@ -65,7 +65,15 @@ class ResearchHttp:
     _lock=threading.Lock()
     _last={}
     _dns_slots=threading.BoundedSemaphore(2)
-    def __init__(self,store):self.store=store;self.memory={};self.robot_memory={};self.audit=[]
+    def __init__(self,store,policy=None):
+        self.store=store;self.memory={};self.robot_memory={};self.audit=[];self.policy=policy
+
+    def checked_url(self,url):
+        return self.policy.validate_url(url) if self.policy else self.validate_url(url)
+
+    def redirected_url(self,current,target):
+        if self.policy:self.policy.redirect(current,target)
+        return self.checked_url(target)
 
     @staticmethod
     def validate_url(url):
@@ -153,7 +161,7 @@ class ResearchHttp:
                 process.communicate()  # drain/close pipes even after an early completed exit
 
     def _one(self,url,context,maximum,delay=1.1,request_headers=None):
-        url=self.validate_url(url);host=urlsplit(url).hostname
+        url=self.checked_url(url);host=urlsplit(url).hostname
         if host in context.disabled:raise OSError('Quelle nach Sperrantwort deaktiviert: '+host)
         while not self._lock.acquire(timeout=.05):context.check()
         try:
@@ -178,8 +186,10 @@ class ResearchHttp:
             for _ in range(3):
                 response=self._one(current,context,128000)
                 if response['status'] in (301,302,303,307,308):
-                    current=self.validate_url(urljoin(current,response['headers'].get('location','')))
-                    if current!=origin+'/robots.txt':raise ValueError('Robots-Weiterleitung außerhalb desselben Robots-Pfads.')
+                    target=self.redirected_url(current,urljoin(current,response['headers'].get('location','')))
+                    if target!=origin+'/robots.txt' and not (self.policy and self.policy.robots_redirect(current,target)):
+                        raise ValueError('Robots-Weiterleitung außerhalb desselben Robots-Pfads.')
+                    current=target
                     continue
                 if response['status']==404:text='';break
                 if response['status']!=200:raise OSError('Robots-Regeln nicht abrufbar; Quelle bleibt gesperrt.')
@@ -199,9 +209,9 @@ class ResearchHttp:
 
     def fetch(self,url,context,types=('text/html','application/json'),maximum=None,headers=None):
         request_headers=self.public_headers(headers)
-        maximum=maximum or self.MAX_BYTES;original=self.validate_url(url);current=original
+        maximum=maximum or self.MAX_BYTES;original=self.checked_url(url);current=original
         for _ in range(4):
-            current=self.validate_url(current);rules=self._robots(current,context)
+            current=self.checked_url(current);rules=self._robots(current,context)
             if not rules.allowed(current):raise ValueError('Robots-Regeln sperren diesen Quellenpfad.')
             key=(current,tuple(sorted(request_headers.items()))) if request_headers else current
             if key in self.memory:
@@ -213,7 +223,7 @@ class ResearchHttp:
             if status in (301,302,303,307,308):
                 location=response_headers.get('location')
                 if not location:raise ValueError('Weiterleitung ohne Ziel.')
-                current=self.validate_url(urljoin(current,location));continue
+                current=self.redirected_url(current,urljoin(current,location));continue
             if status!=200:
                 if status in (401,403,406,429):context.disabled.add(urlsplit(current).hostname)
                 raise OSError('Quelle HTTP '+str(status)+'; keine Sperrumgehung.')

@@ -117,6 +117,12 @@ class SurprisePlannerApplication:
         self._note(f,'1 · Rahmenbedingungen')
         for key,label in [('origin','Startort'),('address','Genaue Startadresse (optional, bleibt lokal)'),('earliest','Früheste Abreise · JJJJ-MM-TT'),('latest','Späteste Rückkehr · JJJJ-MM-TT'),('min_days','Kalendertage mindestens'),('max_days','Kalendertage höchstens'),('adults','Erwachsene'),('rooms','Zimmer'),('budget','Gruppenbudget · EUR')]:
             self._entry(f,key,label,getattr(default,key))
+        self._entry(f,'children_ages','Kinderalter am Reisebeginn · Komma; leer = keine Kinder','')
+        self.room_assignments=[]
+        self.room_assignment_note=ttk.Label(f,text='Zimmeraufteilung: automatisch',wraplength=350)
+        self.room_assignment_note.pack(fill='x',pady=3)
+        ttk.Button(f,text='Zimmeraufteilung bearbeiten',command=self.edit_room_assignments).pack(fill='x',pady=3)
+        ttk.Button(f,text='Zimmer automatisch verteilen',command=lambda:self.set_room_assignments([])).pack(fill='x',pady=3)
         self._note(f,'7 Kalendertage = 6 Nächte. Reisejahr steht im Datum. Budget ist eine weiche Grenze.')
         self._entry(f,'countries','Länder oder Ländercodes · Komma; leer = alle','')
         self._entry(f,'regions','Regionen · Komma; leer = alle','')
@@ -211,6 +217,8 @@ class SurprisePlannerApplication:
         assistance=ttk.Frame(results);assistance.pack(fill='x')
         ttk.Button(assistance,text='Im Browser unterstützen',command=self.support_source).pack(side='left')
         ttk.Button(assistance,text='Quelle überspringen',command=self.skip_source).pack(side='left',padx=6)
+        ttk.Button(assistance,text='Unterkünfte fortsetzen',command=lambda:self.research_prices(lodging_continue=True)).pack(side='left')
+        ttk.Button(results,text='Alle Unterkünfte und Prüfstände anzeigen',command=self.show_lodging_research).pack(anchor='w',pady=(2,4))
         self.media_label=ttk.Label(results,text='')
         self.media_label.pack(fill='x',pady=(2,6))
         self.media_selector=ttk.Combobox(results,state='readonly')
@@ -252,6 +260,8 @@ class SurprisePlannerApplication:
         self.search_form_traces=[]
         for variable in list(self.vars.values())+[v for choices in self.checks.values() for v in choices.values()]:
             self.search_form_traces.append((variable,variable.trace_add('write',self.search_criteria_changed)))
+        from .ResearchJobsPanel import ResearchJobsPanel
+        self.research_jobs=ResearchJobsPanel(self)
         self.refresh_saved()
         self.root.protocol('WM_DELETE_WINDOW',self.close)
         self.root.after(150,self.poll)
@@ -286,6 +296,9 @@ class SurprisePlannerApplication:
         for key,var in self.vars.items():
             if ':' in key: continue
             value=var.get().strip()
+            if key=='children_ages':
+                from ...core.planning.RoomParty import ages_from_text
+                data[key]=ages_from_text(value);continue
             if key in ('surroundings','show_ideas','ai_discovery','ai_offer_analysis'):
                 data[key]=value=='ja';continue
             data[key]=int(value) if key in integers else [v.strip() for v in value.split(',') if v.strip()] if key in lists else value.replace(',','.') if key in decimals else value
@@ -294,18 +307,37 @@ class SurprisePlannerApplication:
         data['required']=[k for k in AMENITIES if self.vars['amenity:'+k].get()=='Pflicht']
         data['desired']=[k for k in AMENITIES if self.vars['amenity:'+k].get()=='Wunsch']
         for key,choices in self.checks.items():data[key]=[k for k,v in choices.items() if v.get()]
+        data['room_assignments']=list(getattr(self,'room_assignments',[]))
         request=SearchRequest(**data);request.validate()
         return request
 
     def populate_request(self,request):
         request={**SearchRequest().to_dict(),**request}
+        self.set_room_assignments(request.get('room_assignments',[]))
         for key,value in request.items():
-            if key in self.vars:self.vars[key].set(('ja' if value else 'nein') if isinstance(value,bool) else ', '.join(value) if isinstance(value,list) else str(value))
+            if key in self.vars:self.vars[key].set(('ja' if value else 'nein') if isinstance(value,bool) else ', '.join(map(str,value)) if isinstance(value,list) else str(value))
         for k in INTERESTS:self.vars['interest:'+k].set(request['interests'].get(k,0))
         for k in ('Preis','Reisezeit','Komfort','Interessen'):self.vars['weight:'+k].set(request['weights'].get(k,0))
         for k in AMENITIES:self.vars['amenity:'+k].set('Pflicht' if k in request['required'] else 'Wunsch' if k in request['desired'] else 'egal')
         for key,choices in self.checks.items():
             for k,v in choices.items():v.set(k in request[key])
+
+    def set_room_assignments(self,assignments):
+        import copy
+        self.room_assignments=copy.deepcopy(assignments)
+        if hasattr(self,'room_assignment_note'):
+            text='Zimmeraufteilung: '+(' · '.join(f"{p['adults']} Erwachsene"+(f" + Kinder {', '.join(map(str,p['children_ages']))}" if p['children_ages'] else '') for p in assignments) if assignments else 'automatisch')
+            self.room_assignment_note.configure(text=text)
+
+    def edit_room_assignments(self):
+        from .RoomAssignmentWindow import RoomAssignmentWindow
+        from ...core.planning.RoomParty import ages_from_text,room_parties
+        try:
+            adults=int(self.vars['adults'].get());rooms=int(self.vars['rooms'].get());ages=ages_from_text(self.vars['children_ages'].get())
+            room_parties(adults,ages,rooms)
+        except ValueError as exc:
+            messagebox.showerror('Reisegruppe prüfen',str(exc),parent=self.root);return
+        self.room_assignment_window=RoomAssignmentWindow(self.root,adults,ages,rooms,self.room_assignments,self.set_room_assignments)
 
     def start_search(self):
         try:request=self.read_request()
@@ -380,7 +412,7 @@ class SurprisePlannerApplication:
             elif kind in ('result','offer_partial'):
                 previous=self.trips.get(value['id'])
                 if previous:
-                    value['selected_lodging']=previous['selected_lodging'];value['selected_transport']=previous['selected_transport'];RankingService.recompute(value)
+                    self.preserve_selections(previous,value);RankingService.recompute(value)
                 self.trips[value['id']]=value;self.update_row(value)
                 if self.active is not None and self.active['id']==value['id']:
                     self.active=value;self.refresh_trip_choices();self.show_details()
@@ -408,12 +440,13 @@ class SurprisePlannerApplication:
             elif kind in ('price_result','price_offer_partial'):
                 previous=self.trips.get(value['id'])
                 if previous:
-                    value['selected_lodging']=previous['selected_lodging'];value['selected_transport']=previous['selected_transport'];RankingService.recompute(value)
+                    self.preserve_selections(previous,value);RankingService.recompute(value)
                 self.trips[value['id']]=value;self.update_row(value)
                 if self.active is not None and self.active['id']==value['id']:
                     self.active=value;self.refresh_trip_choices();self.show_details()
-                self.status.set('Preisprüfung abgeschlossen. Details zeigen Anbieterstatus und Preisstand. Zum Bewahren ausdrücklich speichern.')
+                self.status.set(('Unterkunfts-/Preisprüfung läuft; bisherige Einzelstände stehen in den Details.' if kind=='price_offer_partial' else 'Preisprüfung abgeschlossen. Details zeigen Anbieterstatus und Preisstand. Zum Bewahren ausdrücklich speichern.'))
             elif kind=='price_done':
+                self.research_jobs.refresh()
                 self.price_context=None;self.price_button.configure(state='normal');self.cancel_button.configure(state='disabled')
             elif kind=='price_export_ready':
                 self._export_trips(value[0],value[1])
@@ -425,6 +458,13 @@ class SurprisePlannerApplication:
                 prices=getattr(self.context,'price_context',None)
                 if prices:self.elapsed.set(self.elapsed.get()+f' · Preise {prices.calls}/{prices.budget} Abfragen')
         self.root.after(150,self.poll)
+
+    @staticmethod
+    def preserve_selections(previous,value):
+        old=previous.get('lodgings',[]);index=previous.get('selected_lodging',0)
+        identity=old[index].get('id') if old and 0<=index<len(old) else None
+        value['selected_lodging']=next((i for i,x in enumerate(value.get('lodgings',[])) if identity and x.get('id')==identity),0)
+        value['selected_transport']=min(previous.get('selected_transport',0),max(0,len(value.get('transports',[]))-1))
 
     def update_row(self,trip):
         s=trip['cost_summary']
@@ -468,16 +508,25 @@ class SurprisePlannerApplication:
         if self.active['lodgings']:self.active['selected_lodging']=max(0,self.lodging_box.current())
         self.active['selected_transport']=max(0,self.transport_box.current())
         RankingService.recompute(self.active);self.update_row(self.active);self.show_details()
+        self.research_jobs.store.remember_selection(self.active)
 
-    def show_details(self,source_notes=False):
+    def show_lodging_research(self):
+        if not self.active:return
+        from .LodgingResearchWindow import LodgingResearchWindow
+        self.lodging_window=LodgingResearchWindow(self,self.active)
+
+    def show_details(self,source_notes=False,lodging_notes=False):
+        view=getattr(self,'lodging_window',None)
+        if view and view.window.winfo_exists():view.refresh(self.active)
         self.explanation_panel.sync(self.active)
         self._show_active_image()
         self.details.configure(state='normal');self.details.delete('1.0','end')
         for tag in self.details.tag_names():
             if tag.startswith('link'):self.details.tag_delete(tag)
-        index=0;source_index=None
+        index=0;source_index=None;lodging_index=None
         for heading,paragraphs,links in TripPresenter.sections(self.active):
             if heading=='Neue Quellenhinweise · Grenzen und Rechercheverlauf':source_index=self.details.index('end-1c')
+            if heading=='Unterkunftsprüfliste – alle Funde':lodging_index=self.details.index('end-1c')
             self.details.insert('end',heading+'\n','heading')
             for paragraph in paragraphs:self.details.insert('end',paragraph+'\n\n')
             for label,url in links:
@@ -485,7 +534,7 @@ class SurprisePlannerApplication:
                 self.details.tag_configure(tag,foreground='#7dd3fc',underline=True)
                 self.details.tag_bind(tag,'<Button-1>',lambda e,u=url:webbrowser.open(u))
                 self.details.insert('end',label+' ↗\n',tag)
-        self.details.configure(state='disabled');self.details.see(source_index if source_notes and source_index else '1.0')
+        self.details.configure(state='disabled');self.details.see(lodging_index if lodging_notes and lodging_index else source_index if source_notes and source_index else '1.0')
 
     def _show_active_image(self):
         self.media_photo=None;self.media_label.configure(image='',text='');self._media_items=[]
@@ -533,15 +582,17 @@ class SurprisePlannerApplication:
         gc.collect()
         worker=threading.Thread(target=work,name='trip-enrichment',daemon=False);self.workers.append(worker);worker.start()
 
-    def research_prices(self,samples=False,trips=None,export_filename=None):
+    def research_prices(self,samples=False,trips=None,export_filename=None,lodging_continue=False):
         if not self.active or self.running or self.price_context or self.enrichment_context:return
         if not callable(getattr(self.provider,'research_offers',None)):
             messagebox.showinfo('Angebotsprüfung','Der gewählte Datenprovider unterstützt keine Angebotsprüfung.',parent=self.root);return
         context=SearchContext(seconds=600,budget=40);self.price_context=context
+        context.lodging_continue=lodging_continue
         originals=copy.deepcopy(trips or [self.active]);generation=self.generation
         for original in originals:original['request']['ai_offer_analysis']=self.vars['ai_offer_analysis'].get()=='ja'
         mapping={'Alle Preise':None,'Unterkunft':['lodging'],'Bahn':['rail'],'Flug':['flight'],'Aktivitäten':['activities']}
         categories=None if trips else mapping.get(self.price_category.get());self.price_button.configure(state='disabled');self.cancel_button.configure(state='normal')
+        if lodging_continue:categories=['lodging']
         def emit(kind,value):self.events.put((generation,'price_'+kind,value))
         def work():
             checked=copy.deepcopy(originals)
@@ -563,7 +614,13 @@ class SurprisePlannerApplication:
         sources=result.get('sources') or []
         url=next((s for s in sources if isinstance(s,str) and s.startswith('https://') and '/restapi/' not in s),None)
         if not url:
-            url={'flight':'https://www.google.com/travel/flights','rail':'https://www.bahn.de/buchung/start','lodging':'https://www.apartments-innsbruck.com/en/buchen/' if self.active['destination']['name']=='Innsbruck' else None}.get(category)
+            url={'flight':'https://www.google.com/travel/flights','rail':'https://www.bahn.de/buchung/start'}.get(category)
+            if category=='lodging' and self.active.get('lodgings'):
+                selected=self.active['lodgings'][self.active.get('selected_lodging',0)]
+                candidate=selected.get('url','')
+                from ...infrastructure.planning.LodgingSourcePolicy import normalize
+                try:url=normalize('https://'+candidate[7:] if candidate.startswith('http://') else candidate)
+                except ValueError:url=None
         if url:
             import webbrowser
             webbrowser.open(url)

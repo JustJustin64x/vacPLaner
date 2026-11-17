@@ -120,7 +120,8 @@ class PdfTripPresenter:
             'period': f"{german_date(trip.get('start'))} bis {german_date(trip.get('end'))}",
             'nights': trip.get('nights'),
             'days': (trip.get('nights') + 1) if isinstance(trip.get('nights'), int) else None,
-            'adults': request.get('adults'), 'rooms': request.get('rooms'),
+            'group_label': f"{request.get('adults','?')} Erwachsene"+(f" und {len(request['children_ages'])} Kinder (Alter: "+', '.join(map(str,request['children_ages']))+')' if request.get('children_ages') else ''),
+            'adults': request.get('adults'), 'children_ages': request.get('children_ages',[]), 'rooms': request.get('rooms'),
             'origin': request.get('origin', 'offen'),
             'interests': topics,
             'interest_explanations':[topic+': '+proof['explanation'] for topic,proof in trip.get('interest_evidence',{}).items()],
@@ -174,7 +175,7 @@ class PdfTripPresenter:
         return {'name': item.get('name', 'Unterkunft'), 'type': item.get('type', 'Unterkunft'),
                 'address': item.get('address', 'Genaue Lage offen'),
                 'distance': (german_number(item.get('distance_km')) + ' km Luftlinie zum Basisort') if item.get('distance_km') is not None else '',
-                'occupancy': f"{request.get('adults', '?')} Erwachsene · {request.get('rooms', '?')} Zimmer · "+('Belegung zum Abrufzeitpunkt bestätigt' if item.get('offer_id') and price.get('status')=='aktuell abgerufen' else 'Verfügbarkeit bitte prüfen'),
+                'occupancy': f"{request.get('adults', '?')} Erwachsene{(' und '+str(len(request['children_ages']))+' Kinder (Alter: '+', '.join(map(str,request['children_ages']))+')') if request.get('children_ages') else ''} · {request.get('rooms', '?')} Zimmer · "+('Belegung zum Abrufzeitpunkt bestätigt' if item.get('offer_id') and price.get('status')=='aktuell abgerufen' else 'Verfügbarkeit bitte prüfen'),
                 'price': cls._range(price), 'price_status': price.get('status', 'unbekannt'),
                 'url': item.get('url') or item.get('source', ''), 'map_url': map_url(item.get('latitude'), item.get('longitude')),
                 'image': cls._image(item.get('image')), 'open': list(item.get('open_criteria') or []),
@@ -236,7 +237,7 @@ class PdfTripPresenter:
             title = 'Bekannte Kosten' if missing else ('Geschätzte Reisekosten' if summary.get('status') == 'Schätzspanne' else 'Reisekosten')
             low, high = summary.get('low'), summary.get('high')
             group = cls._range({'low': low, 'high': high})
-            adults = request.get('adults') or 0
+            adults = (request.get('adults') or 0)+len(request.get('children_ages',[]))
             per_person = cls._range({'low': Decimal(str(low)) / adults if low is not None and adults else None,
                                      'high': Decimal(str(high)) / adults if high is not None and adults else None})
         known = []

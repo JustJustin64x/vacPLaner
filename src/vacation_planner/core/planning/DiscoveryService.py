@@ -65,6 +65,7 @@ class DiscoveryService:
         results=[]
         price_context=None
         price_targets=0
+        priced_ids=set()
         for destination in chosen:
             if sum(t['filter_status']=='passend' for t in results)>=request.shortlist:
                 self.diagnostics.data['stop_reason']='Gewünschte Ergebnisanzahl erreicht.';break
@@ -85,6 +86,17 @@ class DiscoveryService:
             finally:
                 if context.calls>before_calls:counts['online_examined']+=1
             if trip is None:continue
+            # Unknown mandatory room facts need the same bounded price path before
+            # exclusion; otherwise no source quote could ever resolve them.
+            if trip['filter_status']=='offen' and request.required and price_targets<request.price_targets and callable(getattr(self.provider,'research_offers',None)):
+                from .SearchContext import SearchContext
+                import time
+                if price_context is None:
+                    price_context=SearchContext(cancel=context.cancel,seconds=max(.1,context.deadline-time.monotonic()),budget=32)
+                    context.price_context=price_context
+                if price_context.calls<price_context.budget:
+                    trip=self.provider.research_offers(trip,price_context,emit)
+                    priced_ids.add(trip['id']);price_targets+=1
             if trip['filter_status']=='offen' and not request.show_ideas:continue
             if any(same_holiday_region(trip['destination'],old['destination']) for old in results):
                 self.diagnostics.data.setdefault('grouped_alternatives',[]).append({'name':trip['destination']['name'],'reason':'Nahe Alternative derselben Urlaubsregion'});continue
@@ -99,7 +111,9 @@ class DiscoveryService:
                 if context.calls>=context.budget:break
                 self.provider.verify_activity_access(trip,context,emit)
                 emit('result',trip)
-        for index,trip in enumerate(results[:request.price_targets]):
+        for index,trip in enumerate(results):
+            if trip['id'] in priced_ids:continue
+            if price_targets>=request.price_targets:break
             if callable(getattr(self.provider,'research_offers',None)):
                 from .SearchContext import SearchContext
                 import time
@@ -222,10 +236,13 @@ class DiscoveryService:
         start,end=request.dates()[0] # Stable, independent of ranking; no date-price provider.
         for item in lodgings:
             item['requested_occupancy']=request.room_occupancy()
-            item['occupancy_status']=f'Anfrage: {request.adults} Erwachsene / {request.rooms} Zimmer, Aufteilung {request.room_occupancy()}; Belegung und freie Zimmer unbestätigt'
+            item['requested_room_parties']=[p.to_dict() for p in request.room_parties()]
+            item['occupancy_status']=f'Anfrage: {request.group_label} / {request.rooms} Zimmer, Aufteilung {request.room_occupancy()}; Belegung und freie Zimmer unbestätigt'
             if item['type']=='Camping':item['occupancy_status']+='; Stellplätze und eigene Ausrüstung gesondert prüfen'
-            item['search_url']='https://www.booking.com/searchresults.de.html?'+urlencode(dict(ss=item['name']+' '+item.get('source_place',destination['name']),checkin=start,checkout=end,group_adults=request.adults,no_rooms=request.rooms,group_children=0,selected_currency='EUR'))
-            item['price']=dict(item['price'],scope=f'{request.adults} Erwachsene / {request.rooms} Zimmer / {(date.fromisoformat(end)-date.fromisoformat(start)).days} Nächte; Gesamtpreis unbekannt')
+            search=dict(ss=item['name']+' '+item.get('source_place',destination['name']),checkin=start,checkout=end,group_adults=request.adults,no_rooms=request.rooms,group_children=len(request.children_ages),selected_currency='EUR')
+            if request.children_ages:search['age']=request.children_ages
+            item['search_url']='https://www.booking.com/searchresults.de.html?'+urlencode(search,doseq=True)
+            item['price']=dict(item['price'],scope=f'{request.group_label} / {request.rooms} Zimmer / {(date.fromisoformat(end)-date.fromisoformat(start)).days} Nächte; Gesamtpreis unbekannt')
         evidence=RankingService.interest_evidence(destination,activities,request)
         status='offen' if reasons else 'passend'
         counts['ideas' if reasons else 'matches']+=1
@@ -245,6 +262,16 @@ class DiscoveryService:
                    'Zug-/Flugfahrpläne und Preise sowie datierte Veranstaltungen sind nicht angebunden.'],
             explanation='; '.join(k+': '+v['explanation'] for k,v in evidence.items()) or 'Offene Suche ohne Interessenfilter.',
             research_status='Passende Reiseidee – Angaben noch offen: '+'; '.join(reasons) if reasons else 'Filtertreffer: zwei Unterkunftsidentitäten; Preise, Verfügbarkeit und Belegung weiterhin unbestätigt')
+        trip['lodging_coverage']=places.get('lodging_coverage',[])
+        from .LodgingResearch import initialize,finish,summarize
+        ledger=initialize(trip,places['lodgings'])
+        for entry in ledger['entries']:
+            item=entry['lodging']
+            if item['type'] not in request.accommodation_types or any(item.get('amenities',{}).get(k) is False for k in request.required):
+                finish(entry,'criteria_mismatch','Unterkunftsart oder belegte Pflichtausstattung passt nicht')
+            elif request.max_center_km and item.get('distance_km') is not None and item['distance_km']>float(request.max_center_km):
+                finish(entry,'criteria_mismatch','Zentrumsentfernung überschritten')
+        summarize(ledger)
         scores=[]
         for i in range(len(transports)):
             trip['selected_transport']=i;RankingService.recompute(trip);scores.append(trip['score'])
@@ -254,7 +281,7 @@ class DiscoveryService:
 
     def transports(self, request, context, origin, destination, start, end, emit):
         result=[]
-        scope=f'{request.adults} Erwachsene, Hin- und Rückreise {start} bis {end}'
+        scope=f'{request.group_label}, Hin- und Rückreise {start} bis {end}'
         for mode in request.modes:
             option=dict(mode=mode,costs=[],hours_high=None,hours_low=None,comfort=0,scope=scope,
                         notes=[],links=[],status='Nicht vollständig vergleichbar')
@@ -295,7 +322,7 @@ class DiscoveryService:
                 if mode=='Zug':
                     option['links']=[dict(label='Deutsche Bahn',url='https://www.bahn.de/buchung/start',kind='Allgemeiner Anbieterlink')]
                 else:
-                    query=f'Flights from {request.origin} to {destination["name"]} {start} return {end} {request.adults} adults'
+                    query=f'Flights from {request.origin} to {destination["name"]} {start} return {end} {request.adults} adults'+(f' and {len(request.children_ages)} children ages '+','.join(map(str,request.children_ages)) if request.children_ages else '')
                     option['links']=[dict(label='Google Flights',url='https://www.google.com/travel/flights?'+urlencode({'q':query}),kind='Parametrierter Suchlink; Eingaben dort prüfen')]
             if request.max_hours:
                 if option['hours_high'] is None:

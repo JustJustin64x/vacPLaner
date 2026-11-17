@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 from datetime import datetime
 
 INTERESTS = ('Wandern', 'Baden', 'Natur', 'Ruhe', 'Berge', 'Kultur', 'Städte', 'Feiern', 'Barhopping', 'Restaurants', 'Veranstaltungen', 'Kostenlos')
-AMENITIES = ('Küche', 'Frühstück', 'Pool', 'Parkplatz', 'Haustiere', 'Kostenlose Stornierung')
+AMENITIES = ('Küche', 'Frühstück', 'Pool', 'Parkplatz', 'Haustiere', 'Kostenlose Stornierung', 'Eigenes Bad')
 INTEREST_SYNONYMS={'nachtleben':'Feiern','nightlife':'Feiern','feiern und nachtleben':'Feiern',
                   'bars':'Barhopping','kneipen':'Barhopping','pubs':'Barhopping','bar hopping':'Barhopping',
                   'natur und ruhe':'Ruhe','ruhe und natur':'Ruhe','kultur und sehenswürdigkeiten':'Kultur','strände':'Baden'}
@@ -64,6 +64,8 @@ class SearchRequest:
     show_ideas: bool = False
     ai_discovery: bool = False
     ai_offer_analysis: bool = False
+    children_ages: list = field(default_factory=list)
+    room_assignments: list = field(default_factory=list)
 
     def validate(self):
         for key in ('min_days','max_days','adults','rooms','cars','seats','shortlist','request_budget','timeout_seconds','price_targets','candidate_pool','regional_queries'):
@@ -118,11 +120,10 @@ class SearchRequest:
             raise ValueError('Bitte einen Startort eingeben.')
         if not 2 <= self.min_days <= self.max_days <= 60 or (last-first).days+1 < self.min_days:
             raise ValueError('Reisedauer: 2–60 Kalendertage; mindestens eine Reise muss in den Zeitraum passen.')
-        if not 1 <= self.adults <= 40 or not 1 <= self.rooms <= self.adults:
-            raise ValueError('1–40 Erwachsene und höchstens ein Zimmer pro Person angeben.')
+        self.room_parties()
         if not self.modes or any(m not in ('Auto', 'Zug', 'Flug') for m in self.modes):
             raise ValueError('Mindestens ein gültiges Verkehrsmittel wählen.')
-        if 'Auto' in self.modes and (self.cars < 1 or self.seats < 1 or self.cars*self.seats < self.adults):
+        if 'Auto' in self.modes and (self.cars < 1 or self.seats < 1 or self.cars*self.seats < self.persons):
             raise ValueError('Die Gruppe passt nicht in die angegebenen Fahrzeuge.')
         if not self.accommodation_types or set(self.accommodation_types)-{'Hotel', 'Ferienwohnung', 'Camping'}:
             raise ValueError('Mindestens einen gültigen Unterkunftstyp wählen.')
@@ -169,7 +170,18 @@ class SearchRequest:
         return result
 
     def room_occupancy(self):
-        return [self.adults//self.rooms+(i < self.adults%self.rooms) for i in range(self.rooms)]
+        return [p.persons for p in self.room_parties()]
+
+    def room_parties(self):
+        from .RoomParty import room_parties
+        return room_parties(self.adults,self.children_ages,self.rooms,self.room_assignments)
+
+    @property
+    def persons(self):return self.adults+len(self.children_ages)
+
+    @property
+    def group_label(self):
+        return f'{self.adults} Erwachsene'+(f' und {len(self.children_ages)} Kinder (Alter am Reisebeginn: '+', '.join(map(str,self.children_ages))+')' if self.children_ages else '')
 
     def to_dict(self):
         return asdict(self)

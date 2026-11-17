@@ -47,22 +47,46 @@ class OfferQuery:
     currency: str = 'EUR'
     travel_class: str = '2'
     discount_cards: tuple = ()
+    children_ages: tuple = ()
+    room_assignments: tuple = ()
+    required_amenities: tuple = ()
 
     def __post_init__(self):
         if date.fromisoformat(self.end) <= date.fromisoformat(self.start): raise ValueError('Ungültige Reisedaten')
-        if not 1 <= self.adults <= 40 or not 1 <= self.rooms <= self.adults: raise ValueError('Ungültige Reisegruppe')
-        occupancy=self.occupancy or tuple(self.adults//self.rooms+(i<self.adults%self.rooms) for i in range(self.rooms))
-        if len(occupancy)!=self.rooms or sum(occupancy)!=self.adults or min(occupancy)<1: raise ValueError('Zimmerbelegung passt nicht zur Reisegruppe')
-        object.__setattr__(self,'occupancy',tuple(occupancy))
+        from .RoomParty import room_parties
+        assignments=self.room_assignments
+        if self.occupancy and not assignments:
+            if self.children_ages:raise ValueError('Kinder benötigen eine eindeutige Zimmeraufteilung.')
+            assignments=[{'adults':n,'children_ages':[]} for n in self.occupancy]
+        parties=room_parties(self.adults,self.children_ages,self.rooms,assignments)
+        occupancy=tuple(p.adults for p in parties)
+        if self.occupancy and tuple(self.occupancy)!=occupancy:raise ValueError('Zimmerbelegung widerspricht der Aufteilung')
+        object.__setattr__(self,'occupancy',occupancy)
+        object.__setattr__(self,'children_ages',tuple(self.children_ages))
+        object.__setattr__(self,'room_assignments',parties)
 
     @classmethod
     def from_trip(cls,trip,start=None,end=None):
         r=trip['request']
         return cls(r['origin'],trip['destination']['name'],start or trip['start'],end or trip['end'],r['adults'],r['rooms'],
-                   accommodation_types=tuple(r.get('accommodation_types') or ('Hotel','Ferienwohnung')))
+                   accommodation_types=tuple(r.get('accommodation_types') or ('Hotel','Ferienwohnung')),
+                   children_ages=tuple(r.get('children_ages',[])),room_assignments=r.get('room_assignments',[]),required_amenities=tuple(r.get('required',[])))
 
     def to_dict(self):
-        return json.loads(json.dumps(asdict(self)))
+        data=json.loads(json.dumps(asdict(self)))
+        # Keep historical adult-only offer/cache contracts readable. Explicit
+        # adult allocations are already represented by occupancy.
+        if not self.children_ages:
+            data.pop('children_ages');data.pop('room_assignments')
+        if not self.required_amenities:data.pop('required_amenities')
+        return data
+
+    @property
+    def persons(self):return self.adults+len(self.children_ages)
+
+    @property
+    def group_label(self):
+        return f'{self.adults} Erwachsene'+(f' und {len(self.children_ages)} Kinder' if self.children_ages else '')
 
     def cache_key(self,provider,category):
         payload={'provider':provider,'category':category,'parameters':self.to_dict(),'direction':'roundtrip','version':1}
@@ -133,8 +157,11 @@ class OfferProvider(Protocol):
 def expire_offers(trip,now=None):
     """No network and no mutation of original prices; expired prices lose budget eligibility."""
     current=now or datetime.now(timezone.utc)
+    try:expected_parameters=OfferQuery.from_trip(trip).to_dict()
+    except (KeyError,TypeError,ValueError):expected_parameters=None  # historical incomplete snapshots still load
     def expired(offer):
         if not offer:return False
+        if expected_parameters is not None and offer.get('category')!='activities' and offer.get('parameters')!=expected_parameters:return True
         try:
             retrieved=datetime.fromisoformat(offer['retrieved_at'])
             if retrieved.tzinfo is None or retrieved>current:return True
@@ -152,6 +179,15 @@ def expire_offers(trip,now=None):
         for offer in result.get('offers',[])+result.get('previous_offers',[]):
             if expired(offer):mark(offer)
         if result.get('offers') and all(x.get('price_status')=='veraltet' for x in result['offers']):result['status']='stale'
+    ledger=trip.get('lodging_research')
+    if ledger:
+        for entry in ledger.get('entries',[]):
+            for offer in entry.get('offers',[])+entry.get('previous_offers',[]):
+                if expired(offer):mark(offer)
+            if entry['state']=='confirmed' and entry.get('offers') and all(expired(o) for o in entry['offers']):
+                entry.update(state='partial',reason='Gespeicherte Preisquote veraltet; erneut prüfen')
+        from .LodgingResearch import summarize
+        summarize(ledger)
     for item in trip.get('lodgings',[]):
         if expired(item.get('offer')):
             mark(item['offer']);item['price']['status']='veraltet';item['booking_status']='Gespeichertes Angebot veraltet; erneut prüfen'

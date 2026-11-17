@@ -22,7 +22,7 @@ class CostService:
         base = Decimal(str(distance_km))*Decimal(request.consumption)/100*Decimal(request.petrol)*request.cars
         return CostItem('Benzin für Hin- und Rückfahrt', str(money(base*Decimal('0.9'))),
                         str(money(base*Decimal('1.2'))), 'geschätzt', source, stamp,
-                        f'{request.adults} Erwachsene, {request.cars} Fahrzeuge, {start} bis {end}',
+                        f'{request.group_label}, {request.cars} Fahrzeuge, {start} bis {end}',
                         f'{distance_km:.1f} Straßen-km × {request.consumption} l/100 km × '
                         f'{request.petrol} EUR/l × {request.cars} Fahrzeuge; -10/+20 % Verbrauch. '
                         'Verbrauch und Benzinpreis sind Nutzereingaben, kein aktueller Tankstellenpreis.').to_dict()

@@ -1,5 +1,7 @@
 # Echte Angebotsrecherche – Stand 29.10.2026
 
+**Aktueller Unterkunftsablauf 10.11.2026:** Der neue allgemeine Provider verarbeitet Verzeichnisidentitäten und beobachtete Buchungslinks; der unten beschriebene Smoobu-Einzelanbieter bleibt historischer Nachweis/Parser. A/B sind integriert, die geforderte Preisabnahme neuer Häuser bleibt offen. [Arbeitsplan, Iststand und getrennte Reichweitenmessung](UNTERKUNFTSSUCHE_ARBEITSPLAN.md).
+
 **Aktualisierung 02.11.2026:** Die folgenden Ergebnisse sind historische Messwerte. Der [Schritt-6-Bericht](LOKALE_KI_SCHRITT6_2026-11-02.md) dokumentiert den aktuellen sicheren Zugriff: RegioJet erneut erfolgreich; Smoobu derzeit wegen nicht auswertbarer Robots-Antwort gesperrt.
 
 ## Umgesetzt und nachgewiesen
@@ -96,3 +98,8 @@ Es gibt derzeit keinen zusätzlich einzurichtenden kostenlosen Schlüssel, der d
 ```
 
 Liveprüfungen benutzen den normalen Discovery-Produktionspfad und frische lokale Datenbanken. Keine Schlüssel, Cookies oder persönlichen Daten in Fixtures oder Protokollen. Testtermine sind in diesem Prüfskript ausdrücklich benannte technische Fälle; die Anwendung selbst verändert Nutzerdaten nicht. Die bereinigten echten Preisantworten unter `tests/fixtures/offers` dienen reproduzierbaren Parserregressionen. Zusätzliche synthetische Vertragstests prüfen unter anderem Flug-Roundtrip-Doppelzählung, behaupten aber keinen erfolgreichen Flug-Liveabruf.
+
+Nachtrag 10.11.2026: Der allgemeine Unterkunftsprovider unterstützt inzwischen zusätzlich eine begrenzte responsive Beds24-Auswahl und einen beobachteten öffentlichen WordPress-Verfügbarkeitsweg. Drei neue echte Teilangebote einschließlich gemeinsamer Mehrzimmerauswahl sind nachgewiesen. Umfang, Belegvertrag, Sicherheitsgrenzen, erfolglose Quellen und offene native Sichtabnahme stehen im fortlaufenden [Unterkunftsarbeitsplan, Abschnitt 9](UNTERKUNFTSSUCHE_ARBEITSPLAN.md#9-fortführung-von-b-neue-preisquoten-und-verbleibende-sichtabnahme-10112026). Die zuvor dokumentierten Quellenstände bleiben historische Befunde.
+
+
+Nachtrag 17.11.2026: Belegte Kinder-Altersgruppen, ausgewählte Zimmermerkmale und die zusätzliche Beds24-Betreiberübersichtsvariante sind im bestehenden Preisablauf integriert. Reale Familien- und Gruppenquoten bleiben Teilangebote bei unbekannten Pflichtkosten. Der neue Reiter **Recherchefortschritt** bewahrt Arbeitsstände separat in `trips-research.sqlite3` und setzt sie nach Neustart gezielt fort; gespeicherte Reise-Snapshots bleiben ausdrücklich gespeichert. Öffentliche Prüffälle und reproduzierbare Quelle-/Zeitnachweise sowie die weiterhin blockierte native Sichtabnahme stehen in [Abschnitt 11 des bestehenden Arbeitsplans](UNTERKUNFTSSUCHE_ARBEITSPLAN.md#11-fortführung-cf-familienbelege-dauerhafte-arbeitsstände-und-zusätzliche-variante-17112026). Die zusätzliche OnePageBooking-Familie ist wegen beobachteter Robots-/Vertragsgrenzen nicht als Preisadapter freigegeben.

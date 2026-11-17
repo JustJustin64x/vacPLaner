@@ -39,22 +39,26 @@ class OfferResearchService:
     def research(self,trip,context,emit=lambda *args:None,categories=None):
         result=copy.deepcopy(trip);result.pop('offer_analysis',None);query=OfferQuery.from_trip(result)
         searches=result.setdefault('offer_searches',{})
+        previous_searches=copy.deepcopy(searches);collected={}
         for provider in self.providers:
             category=provider.category
             if categories and category not in categories:continue
             if category in getattr(context,'skipped_categories',set()) or (not categories and category in result.get('skipped_offer_categories',[])):
                 emit('phase',provider.name+': auf Nutzerwunsch übersprungen');continue
-            emit('phase',f'Preisprüfung {query.destination}: {provider.name} · {query.start} bis {query.end} · {query.adults} Erwachsene')
-            previous=searches.get(category)
+            emit('phase',f'Preisprüfung {query.destination}: {provider.name} · {query.start} bis {query.end} · {query.group_label}')
+            previous=previous_searches.get(category)
             try:
                 context.check()
-                response=provider.search(query,result,context).to_dict()
+                if query.children_ages and not getattr(provider,'supports_child_ages',False):
+                    response=OfferResult(provider.name,category,'unsupported',query.to_dict(),message='Kinderalter für diese Quelle noch nicht unabhängig prüfbar; keine Ersatzanfrage nur für Erwachsene.').to_dict()
+                else:response=provider.search(query,result,context).to_dict()
                 if response['parameters']!=query.to_dict():raise ValueError('Anbieterantwort gehört zu anderen Reiseparametern')
                 for offer in response['offers']:
                     if offer['parameters']!=query.to_dict():raise ValueError('Angebot gehört zu anderen Reiseparametern')
             except InterruptedError as exc:
                 response=OfferResult(provider.name,category,'cancelled',query.to_dict(),message=str(exc)).to_dict()
-                self._remember_previous(response,previous);searches[category]=response
+                self._remember_previous(response,previous)
+                collected.setdefault(category,[]).append(response);searches[category]=self._aggregate(collected[category])
                 emit('warning',provider.name+': '+str(exc));break
             except (OSError,ValueError,KeyError,TypeError) as exc:
                 blocked=any(code in str(exc) for code in ('HTTP 401','HTTP 403','HTTP 406','HTTP 429','Robots','Sperrantwort'))
@@ -66,7 +70,8 @@ class OfferResearchService:
             for offer in response['offers']:offer['quality']=assess(offer,query,result['request'])
             mark_conflicts(response['offers'])
             self._remember_previous(response,previous)
-            searches[category]=response
+            collected.setdefault(category,[]).append(response)
+            searches[category]=self._aggregate(collected[category])
             for offer in response['offers']:
                 if offer.get('eur_amount') is None or offer.get('price_status')!='aktuell abgerufen' or (category!='activities' and not offer['quality']['price_eligible']):continue
                 if category=='rail':self._apply_transport(result,offer,'Zug')
@@ -75,7 +80,7 @@ class OfferResearchService:
                 elif category=='activities':
                     from .ActivityPrices import apply_activity_price
                     apply_activity_price(result,offer)
-            self._invalidate_unavailable(result,category,response)
+            self._invalidate_unavailable(result,category,searches[category])
             expire_offers(result);RankingService.recompute(result)
             emit('offer_partial',copy.deepcopy(result))
             emit('phase',provider.name+': '+STATUS_LABELS[response['status']]+(' · '+response['message'] if response['message'] else ''))
@@ -87,6 +92,17 @@ class OfferResearchService:
                 result['offer_analysis']={'status':'unavailable_or_rejected','accepted':[],'model_calls':0}
                 emit('warning','Angebotsanalyse fehlgeschlagen; vorhandene deterministische Ergebnisse bleiben erhalten.')
         return result
+
+    @staticmethod
+    def _aggregate(responses):
+        if len(responses)==1:return responses[0]
+        latest=copy.deepcopy(responses[-1]);latest['providers']=copy.deepcopy(responses)
+        latest['provider']='Mehrere geprüfte Quellen'
+        latest['offers']=[copy.deepcopy(o) for r in responses for o in r.get('offers',[])]
+        latest['sources']=list(dict.fromkeys(s for r in responses for s in r.get('sources',[])))
+        latest['status']='found' if latest['offers'] else responses[-1]['status']
+        latest['message']=' · '.join(r['provider']+': '+STATUS_LABELS[r['status']] for r in responses)
+        return latest
 
     @staticmethod
     def _recheck(provider,query,trip,parent,original,emit):
@@ -123,6 +139,11 @@ class OfferResearchService:
         for item in collection:
             if not item.get('offer_id'):continue
             if item['offer_id'] in confirmed:continue
+            if category=='lodging' and trip.get('lodging_research'):
+                entry=next((e for e in trip['lodging_research']['entries'] if e['id']==item.get('id')),None)
+                if entry and entry['state'] not in ('no_matching_availability','criteria_mismatch'):
+                    item['offer_refresh_status']=entry['state']
+                    continue  # another house's found result is not a negative refresh of this one
             item['offer_refresh_status']=response['status']
             if response['status'] in ('no_offers','found'):
                 for cost in [item.get('price',{})]+item.get('costs',[]):
@@ -176,19 +197,34 @@ class OfferResearchService:
         if not matches:
             if not identity or not property_data.get('address') or not property_data.get('source'):return
             request=trip['request']
-            if request.get('max_center_km') or any(property_data.get('amenities',{}).get(k) is not True for k in request.get('required',[])):return
-            item=dict(property_data,latitude=None,longitude=None,distance_km=None,rooms=1,price={},
+            if request.get('max_center_km') and (property_data.get('distance_km') is None or property_data['distance_km']>float(request['max_center_km'])):return
+            if any(property_data.get('amenities',{}).get(k) is not True for k in request.get('required',[])):return
+            item=dict(property_data,latitude=property_data.get('latitude'),longitude=property_data.get('longitude'),distance_km=property_data.get('distance_km'),rooms=offer.get('details',{}).get('units'),price={},
                       link_kind='Geprüfte direkte Buchungsstrecke',search_url=offer['source'],open_criteria=[],
-                      data_status='Identität und Standort aus direkter Anbieter-Buchungsstrecke',source_updated='Direkte Angebotsantwort')
+                      data_status='Identität und Standort aus direkter Anbieter-Buchungsstrecke',source_updated='Direkte Angebotsantwort',
+                      source_place=trip['destination']['name'])
             trip.setdefault('lodgings',[]).append(item);matches=[item]
         item=matches[0];item.pop('offer_refresh_status',None)
+        item['amenities']=dict(property_data.get('amenities',item.get('amenities',{})))
         offers=item.setdefault('offers',[])
         offers[:]=[x for x in offers if x.get('identifier')!=offer['identifier']]+[copy.deepcopy(offer)]
         offers[:]=offers[-8:]
         item.update(offer_id=offer['identifier'],offer=offer,price=cls._cost(offer,'Unterkunft für Gruppe und Aufenthalt'),
                                    occupancy_status='Angefragte Zimmerbelegung im Angebot bestätigt',
                                    booking_status='Zum Abrufzeitpunkt angeboten; keine Reservierung',retrieved_at=offer['retrieved_at'])
-        item['price']['scope']=f"{offer['parameters']['adults']} Erwachsene / {offer['parameters']['rooms']} Zimmer / {trip['nights']} Nächte"
+        missing=[k for k in trip['request'].get('required',[]) if item['amenities'].get(k) is not True]
+        if missing:
+            reason='Pflichtausstattung unbelegt: '+', '.join(missing)
+            item['open_criteria']=list(dict.fromkeys(item.get('open_criteria',[])+[reason]))
+            trip['open_criteria']=list(dict.fromkeys(trip.get('open_criteria',[])+[reason]));trip['filter_status']='offen'
+        if all(item['amenities'].get(k) is True for k in trip['request'].get('required',[])):
+            item['open_criteria']=[r for r in item.get('open_criteria',[]) if not r.startswith('Pflichtausstattung unbelegt:')]
+            # Only this selected source-backed room may resolve this criterion.
+            if not item.get('open_criteria'):
+                trip['open_criteria']=[r for r in trip.get('open_criteria',[]) if not r.startswith('Pflichtausstattung unbelegt:')]
+                if not trip['open_criteria']:trip['filter_status']='passend'
+        item['rooms']=offer.get('details',{}).get('units',item.get('rooms'))
+        item['price']['scope']=f"{offer['parameters']['adults']} Erwachsene"+(f" und {len(offer['parameters'].get('children_ages',[]))} Kinder" if offer['parameters'].get('children_ages') else '')+f" / {offer['parameters']['rooms']} Zimmer / {trip['nights']} Nächte"
         from .OfferQuality import fee_costs
         item['mandatory_costs']=fee_costs(offer)[0]
         for gap in offer.get('quality',{}).get('gaps',[]):

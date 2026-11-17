@@ -1,0 +1,1142 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-10",
+  "scope": "Quellenprüfung Schritt 1, keine Produktintegration",
+  "baseline_commit": "95d1b356f9e9fe447ff07f03584c4cd3cf820d43",
+  "constraints": {
+    "costs": "zero",
+    "payment_details": false,
+    "registration_allowed": true,
+    "priority": "Unterkünfte einschließlich Mehrzimmer"
+  },
+  "audited_http_requests": 24,
+  "preliminary_manual_requests": {
+    "count": 21,
+    "included_in_audited_campaign": false,
+    "note": "Initiale begrenzte Requests-Prüfungen von Dokumentation/Robots/Betreiberseiten und Suchformularen; keine vollständige Wire-Telemetrie. Ein früher Beds24-Seitenwechsel hatte noch keine explizite 5-s-Drossel. Die nachfolgenden Kampagnen verwenden zentral mindestens 5,1 s Abstand. Keine Sperrantwort umgangen."
+  },
+  "accepted_source_quotes": [
+    {
+      "evidence_id": "lodging-probe:e12e401a776082bffbee",
+      "case": "palatino-five-adults-three-rooms-quote",
+      "provider": "Beds24 guest booking engine",
+      "property": "Hotel Palatino, Langscheider Straße 46, 59846 Sundern, Deutschland",
+      "property_id": 6949,
+      "source_url": "https://beds24.com/booking2.php?propid=6949&width=960&page=dates&limitstart=0&checkin_hide=&fdate_date=23&fdate_monthyear=2026-11&numnight=2&numadult=5&numchild=0&multiroom=1&sr1-15792=2&na1-15792=2&nc1-15792=0&sr1-15795=0&na1-15795=2&nc1-15795=0&sr1-15797=1&na1-15797=1&nc1-15797=0&sr1-474024=0&na1-474024=2&nc1-474024=0&br1-15792=Buchen",
+      "retrieved_at": "2026-11-09T11:11:11+00:00",
+      "checkin": "2026-11-23",
+      "checkout": "2026-11-25",
+      "nights": 2,
+      "adults": 5,
+      "units": 3,
+      "allocation": [
+        2,
+        2,
+        1
+      ],
+      "currency": "EUR",
+      "displayed_quote_total": "436.00",
+      "rooms": [
+        {
+          "room_id": 15792,
+          "quantity": 2,
+          "adults_per_unit": 2,
+          "name": "Standard Zimmer mit en-suite Badezimmer"
+        },
+        {
+          "room_id": 15797,
+          "quantity": 1,
+          "adults_per_unit": 1,
+          "name": "Economy Zimmer mit Gemeinschaftbad"
+        }
+      ],
+      "original_proof": {
+        "form_controls": {
+          "propid": "6949",
+          "lastnight": "2026-11-24",
+          "checkout": "2026-11-25",
+          "numnight": "2",
+          "firstnight": "2026-11-23",
+          "na1-15792": "2",
+          "nc1-15792": "0",
+          "sr1-15792": "2",
+          "na1-15797": "1",
+          "nc1-15797": "0",
+          "sr1-15797": "1",
+          "subtotalprice": "436,00",
+          "subtotaltax": "0,00"
+        },
+        "total_text": "Gesamt € 436,00"
+      },
+      "status": "source_quote_for_selected_allocation_not_a_reservation",
+      "fees_complete": false,
+      "limitations": [
+        "Frühstück optional und nicht ausgewählt",
+        "Ein Zimmer mit Gemeinschaftsbad",
+        "Keine Buchung oder Preisgarantie",
+        "Vollständigkeit weiterer Pflichtkosten nicht unabhängig bestätigt",
+        "Keine Übernahme in App, Ranking oder Budget"
+      ]
+    },
+    {
+      "evidence_id": "lodging-probe:c10828b46d72bd49ceea",
+      "case": "palatino-july-five-adults-three-rooms-quote",
+      "provider": "Beds24 guest booking engine",
+      "property": "Hotel Palatino, Langscheider Straße 46, 59846 Sundern, Deutschland",
+      "property_id": 6949,
+      "source_url": "https://beds24.com/booking2.php?propid=6949&width=960&page=dates&limitstart=0&checkin_hide=&fdate_date=5&fdate_monthyear=2027-07&numnight=6&numadult=5&numchild=0&multiroom=1&sr1-15792=2&na1-15792=2&nc1-15792=0&sr1-15795=0&na1-15795=2&nc1-15795=0&sr1-15797=1&na1-15797=1&nc1-15797=0&sr1-474024=0&na1-474024=2&nc1-474024=0&br1-15792=Buchen",
+      "retrieved_at": "2026-11-09T11:11:22+00:00",
+      "checkin": "2027-07-05",
+      "checkout": "2027-07-11",
+      "nights": 6,
+      "adults": 5,
+      "units": 3,
+      "allocation": [
+        2,
+        2,
+        1
+      ],
+      "currency": "EUR",
+      "displayed_quote_total": "1428.00",
+      "rooms": [
+        {
+          "room_id": 15792,
+          "quantity": 2,
+          "adults_per_unit": 2,
+          "name": "Standard Zimmer mit en-suite Badezimmer"
+        },
+        {
+          "room_id": 15797,
+          "quantity": 1,
+          "adults_per_unit": 1,
+          "name": "Economy Zimmer mit Gemeinschaftbad"
+        }
+      ],
+      "original_proof": {
+        "form_controls": {
+          "propid": "6949",
+          "lastnight": "2027-07-10",
+          "checkout": "2027-07-11",
+          "numnight": "6",
+          "firstnight": "2027-07-05",
+          "na1-15792": "2",
+          "nc1-15792": "0",
+          "sr1-15792": "2",
+          "na1-15797": "1",
+          "nc1-15797": "0",
+          "sr1-15797": "1",
+          "subtotalprice": "1.428,00",
+          "subtotaltax": "0,00"
+        },
+        "total_text": "Gesamt € 1.428,00"
+      },
+      "status": "source_quote_for_selected_allocation_not_a_reservation",
+      "fees_complete": false,
+      "limitations": [
+        "Frühstück optional und nicht ausgewählt",
+        "Ein Zimmer mit Gemeinschaftsbad",
+        "Keine Buchung oder Preisgarantie",
+        "Vollständigkeit weiterer Pflichtkosten nicht unabhängig bestätigt",
+        "Keine Übernahme in App, Ranking oder Budget"
+      ]
+    }
+  ],
+  "other_findings": [
+    {
+      "case": "laa-regular-room-two-adults",
+      "amount": "208.00",
+      "currency": "EUR",
+      "basis": "ein Zimmer, zwei Erwachsene, zwei Nächte",
+      "status": "bounded_source_rate_only",
+      "fees_complete": false
+    },
+    {
+      "case": "laa-three-units-same-room-type",
+      "amount": "624.00",
+      "accepted_as_group_quote": false,
+      "reason": "nr=3 liefert multiplizierten Betrag; Antwort roomnum bleibt 1. Keine passende bestätigte Belegung 2+2+1 oder unabhängige Verfügbarkeit von drei Zimmern."
+    },
+    {
+      "case": "heidelberg-room-two-adults",
+      "accepted": false,
+      "reason": "Zimmer 300523 ist ein Einzelzimmer; Quelle meldet Maximale Belegung überschritten. Betrag 0 ist kein Gratisangebot."
+    },
+    {
+      "case": "heidelberg-double-two-adults",
+      "amount": "125.00",
+      "currency": "EUR",
+      "basis": "pro Nacht",
+      "daily_prices": {
+        "2026-11-23": 125,
+        "2026-11-24": 125
+      },
+      "accepted_as_stay_total": false,
+      "reason": "roomprice ist hier Nachtpreis; keine Übernahme als zweitägiger Aufenthaltspreis. Tagessumme 250 EUR nur Rechenprüfung, keine angenommene vollständige Quote."
+    },
+    {
+      "case": "smoobu-robots-diagnostic",
+      "accepted": false,
+      "reason": "HTTP 200, text/html statt Textregeln; bestehende ResearchHttp-Prüfung sperrt. Keine bewiesene anbieterseitige Kontosperre; kein Preisabruf."
+    }
+  ],
+  "runs": [
+    {
+      "schema_version": 1,
+      "purpose": "Step 1 feasibility, not application integration",
+      "started_at": "2026-11-09T11:10:38+00:00",
+      "limits": {
+        "http": 32,
+        "seconds": 300,
+        "bytes": 2000000,
+        "beds24_spacing_seconds": 5.1
+      },
+      "cases": [
+        {
+          "name": "palatino-official-identity",
+          "url": "https://hotelpalatino.de/",
+          "request": null,
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T11:10:42+00:00",
+          "data": {
+            "controls": {},
+            "price_cells": [],
+            "quote_excerpt": "",
+            "total_is_group_price": false,
+            "warning": "Search price cells alone do not prove the requested room allocation."
+          },
+          "booking_links": [
+            "https://www.beds24.com/booking2.php?propid=6949&numdisplayed=7&numnight=1&numadult=2-1&referer=iframe"
+          ],
+          "seconds": 3.828
+        },
+        {
+          "name": "laa-official-identity",
+          "url": "https://www.gastinlaa.at/buchen/",
+          "request": null,
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T11:10:54+00:00",
+          "data": {
+            "controls": {},
+            "price_cells": [],
+            "quote_excerpt": "",
+            "total_is_group_price": false,
+            "warning": "Search price cells alone do not prove the requested room allocation."
+          },
+          "booking_links": [
+            "https://www.beds24.com/booking2.php?1&ownerid=40690&hideheader=1&hidefooter=1&numnight=2&numadult=2&numchild=0&referer=gastinlaa&"
+          ],
+          "seconds": 11.807
+        },
+        {
+          "name": "smoobu-robots-diagnostic",
+          "url": "https://booking.smoobu.com/robots.txt",
+          "request": null,
+          "status": "blocked_or_failed",
+          "error": "Robots-Antwort ist keine unterstützte Textdatei.",
+          "seconds": 0.155
+        },
+        {
+          "name": "palatino-two-adults-one-room",
+          "url": "https://beds24.com/booking2.php?propid=6949&checkin=2026-11-23&numnight=2&numadult=2&numchild=0&lang=de&multiroom=0",
+          "request": {
+            "checkin": "2026-11-23",
+            "nights": 2,
+            "adults": 2,
+            "rooms": 1,
+            "allocation": [
+              2
+            ]
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T11:11:00+00:00",
+          "data": {
+            "controls": {
+              "numadult": "2",
+              "numchild": "0",
+              "firstnight": "2026-11-23",
+              "numnight": "2",
+              "multiroom": "1",
+              "propid": "6949",
+              "lang": "de",
+              "sr1-15792": "0",
+              "na1-15792": "2",
+              "nc1-15792": "0",
+              "sr1-15795": "0",
+              "na1-15795": "2",
+              "nc1-15795": "0",
+              "sr1-15797": "0",
+              "na1-15797": "2",
+              "nc1-15797": "0",
+              "sr1-474024": "0",
+              "na1-474024": "2",
+              "nc1-474024": "0"
+            },
+            "price_cells": [
+              {
+                "id": "at_roomofferpriceofferid1-15792",
+                "text": "€ 168 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": []
+              },
+              {
+                "id": "at_roomofferpriceofferid1-15795",
+                "text": "€ 262 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": []
+              },
+              {
+                "id": "at_roomofferpriceofferid1-15797",
+                "text": "€ 140 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": []
+              },
+              {
+                "id": "at_roomofferpriceofferid1-474024",
+                "text": "€ 236 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": []
+              }
+            ],
+            "quote_excerpt": "",
+            "total_is_group_price": false,
+            "warning": "Search price cells alone do not prove the requested room allocation."
+          },
+          "seconds": 5.674
+        },
+        {
+          "name": "palatino-five-adults-three-rooms",
+          "url": "https://beds24.com/booking2.php?propid=6949&checkin=2026-11-23&numnight=2&numadult=5&numchild=0&lang=de&multiroom=1",
+          "request": {
+            "checkin": "2026-11-23",
+            "nights": 2,
+            "adults": 5,
+            "rooms": 3,
+            "allocation": [
+              2,
+              2,
+              1
+            ]
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T11:11:05+00:00",
+          "data": {
+            "controls": {
+              "numadult": "5",
+              "numchild": "0",
+              "firstnight": "2026-11-23",
+              "numnight": "2",
+              "multiroom": "1",
+              "propid": "6949",
+              "lang": "de",
+              "sr1-15792": "0",
+              "na1-15792": "2",
+              "nc1-15792": "0",
+              "sr1-15795": "0",
+              "na1-15795": "2",
+              "nc1-15795": "0",
+              "sr1-15797": "0",
+              "na1-15797": "2",
+              "nc1-15797": "0",
+              "sr1-474024": "0",
+              "na1-474024": "2",
+              "nc1-474024": "0"
+            },
+            "price_cells": [
+              {
+                "id": "at_roomofferpriceofferid1-15792",
+                "text": "€ 168 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8"
+                ]
+              },
+              {
+                "id": "at_roomofferpriceofferid1-15795",
+                "text": "€ 262 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": [
+                  "0",
+                  "1"
+                ]
+              },
+              {
+                "id": "at_roomofferpriceofferid1-15797",
+                "text": "€ 140 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": [
+                  "0",
+                  "1",
+                  "2"
+                ]
+              },
+              {
+                "id": "at_roomofferpriceofferid1-474024",
+                "text": "€ 236 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": [
+                  "0",
+                  "1"
+                ]
+              }
+            ],
+            "quote_excerpt": "",
+            "total_is_group_price": false,
+            "warning": "Search price cells alone do not prove the requested room allocation."
+          },
+          "seconds": 5.536
+        },
+        {
+          "name": "palatino-five-adults-three-rooms-quote",
+          "url": "https://beds24.com/booking2.php?propid=6949&width=960&page=dates&limitstart=0&checkin_hide=&fdate_date=23&fdate_monthyear=2026-11&numnight=2&numadult=5&numchild=0&multiroom=1&sr1-15792=2&na1-15792=2&nc1-15792=0&sr1-15795=0&na1-15795=2&nc1-15795=0&sr1-15797=1&na1-15797=1&nc1-15797=0&sr1-474024=0&na1-474024=2&nc1-474024=0&br1-15792=Buchen",
+          "request": {
+            "checkin": "2026-11-23",
+            "nights": 2,
+            "adults": 5,
+            "rooms": 3,
+            "allocation": [
+              2,
+              2,
+              1
+            ]
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T11:11:11+00:00",
+          "data": {
+            "controls": {
+              "propid": "6949",
+              "lastnight": "2026-11-24",
+              "checkout": "2026-11-25",
+              "numnight": "2",
+              "firstnight": "2026-11-23",
+              "na1-15792": "2",
+              "nc1-15792": "0",
+              "sr1-15792": "2",
+              "na1-15797": "1",
+              "nc1-15797": "0",
+              "sr1-15797": "1",
+              "subtotalprice": "436,00",
+              "subtotaltax": "0,00"
+            },
+            "price_cells": [],
+            "quote_excerpt": "Gesamt € 436,00",
+            "total_is_group_price": false,
+            "warning": "Search price cells alone do not prove the requested room allocation."
+          },
+          "seconds": 5.353
+        },
+        {
+          "name": "palatino-july-five-adults-three-rooms",
+          "url": "https://beds24.com/booking2.php?propid=6949&checkin=2027-07-05&numnight=6&numadult=5&numchild=0&lang=de&multiroom=1",
+          "request": {
+            "checkin": "2027-07-05",
+            "nights": 6,
+            "adults": 5,
+            "rooms": 3,
+            "allocation": [
+              2,
+              2,
+              1
+            ]
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T11:11:16+00:00",
+          "data": {
+            "controls": {
+              "numadult": "5",
+              "numchild": "0",
+              "firstnight": "2027-07-05",
+              "numnight": "6",
+              "multiroom": "1",
+              "propid": "6949",
+              "lang": "de",
+              "sr1-15792": "0",
+              "na1-15792": "2",
+              "nc1-15792": "0",
+              "sr1-15795": "0",
+              "na1-15795": "2",
+              "nc1-15795": "0",
+              "sr1-15797": "0",
+              "na1-15797": "2",
+              "nc1-15797": "0",
+              "sr1-474024": "0",
+              "na1-474024": "2",
+              "nc1-474024": "0"
+            },
+            "price_cells": [
+              {
+                "id": "at_roomofferpriceofferid1-15792",
+                "text": "€ 504 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7"
+                ]
+              },
+              {
+                "id": "at_roomofferpriceofferid1-15795",
+                "text": "€ 786 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": [
+                  "0",
+                  "1"
+                ]
+              },
+              {
+                "id": "at_roomofferpriceofferid1-15797",
+                "text": "€ 420 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": [
+                  "0",
+                  "1",
+                  "2"
+                ]
+              },
+              {
+                "id": "at_roomofferpriceofferid1-474024",
+                "text": "€ 708 ,00",
+                "displayed_adult_icons": 2,
+                "selectable_units": [
+                  "0",
+                  "1"
+                ]
+              }
+            ],
+            "quote_excerpt": "",
+            "total_is_group_price": false,
+            "warning": "Search price cells alone do not prove the requested room allocation."
+          },
+          "seconds": 5.576
+        },
+        {
+          "name": "palatino-july-five-adults-three-rooms-quote",
+          "url": "https://beds24.com/booking2.php?propid=6949&width=960&page=dates&limitstart=0&checkin_hide=&fdate_date=5&fdate_monthyear=2027-07&numnight=6&numadult=5&numchild=0&multiroom=1&sr1-15792=2&na1-15792=2&nc1-15792=0&sr1-15795=0&na1-15795=2&nc1-15795=0&sr1-15797=1&na1-15797=1&nc1-15797=0&sr1-474024=0&na1-474024=2&nc1-474024=0&br1-15792=Buchen",
+          "request": {
+            "checkin": "2027-07-05",
+            "nights": 6,
+            "adults": 5,
+            "rooms": 3,
+            "allocation": [
+              2,
+              2,
+              1
+            ]
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T11:11:22+00:00",
+          "data": {
+            "controls": {
+              "propid": "6949",
+              "lastnight": "2027-07-10",
+              "checkout": "2027-07-11",
+              "numnight": "6",
+              "firstnight": "2027-07-05",
+              "na1-15792": "2",
+              "nc1-15792": "0",
+              "sr1-15792": "2",
+              "na1-15797": "1",
+              "nc1-15797": "0",
+              "sr1-15797": "1",
+              "subtotalprice": "1.428,00",
+              "subtotaltax": "0,00"
+            },
+            "price_cells": [],
+            "quote_excerpt": "Gesamt € 1.428,00",
+            "total_is_group_price": false,
+            "warning": "Search price cells alone do not prove the requested room allocation."
+          },
+          "seconds": 5.492
+        },
+        {
+          "name": "laa-two-adults-one-room",
+          "url": "https://beds24.com/booking2.php?propid=70716&checkin=2026-11-23&numnight=2&numadult=2&numchild=0&lang=de&multiroom=0",
+          "request": {
+            "checkin": "2026-11-23",
+            "nights": 2,
+            "adults": 2,
+            "rooms": 1,
+            "allocation": [
+              2
+            ]
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T11:11:28+00:00",
+          "data": {
+            "controls": {
+              "propid": "70716",
+              "checkin": "",
+              "checkout": "",
+              "numnight": "2",
+              "numadult": "2",
+              "numchild": "0"
+            },
+            "price_cells": [],
+            "quote_excerpt": "",
+            "total_is_group_price": false,
+            "warning": "Search price cells alone do not prove the requested room allocation."
+          },
+          "seconds": 5.828
+        },
+        {
+          "name": "laa-five-adults-three-rooms",
+          "url": "https://beds24.com/booking2.php?propid=70716&checkin=2026-11-23&numnight=2&numadult=5&numchild=0&lang=de&multiroom=1",
+          "request": {
+            "checkin": "2026-11-23",
+            "nights": 2,
+            "adults": 5,
+            "rooms": 3,
+            "allocation": [
+              2,
+              2,
+              1
+            ]
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T11:11:33+00:00",
+          "data": {
+            "controls": {
+              "propid": "70716",
+              "checkin": "",
+              "checkout": "",
+              "numnight": "2",
+              "numadult": "3",
+              "numchild": "0"
+            },
+            "price_cells": [],
+            "quote_excerpt": "",
+            "total_is_group_price": false,
+            "warning": "Search price cells alone do not prove the requested room allocation."
+          },
+          "seconds": 5.657
+        },
+        {
+          "name": "heidelberg-two-adults-one-room",
+          "url": "https://beds24.com/booking2.php?propid=134588&checkin=2026-11-23&numnight=2&numadult=2&numchild=0&lang=de&multiroom=0",
+          "request": {
+            "checkin": "2026-11-23",
+            "nights": 2,
+            "adults": 2,
+            "rooms": 1,
+            "allocation": [
+              2
+            ]
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T11:11:39+00:00",
+          "data": {
+            "controls": {
+              "propid": "134588",
+              "checkin": "",
+              "checkout": "",
+              "numnight": "2",
+              "numadult": "2",
+              "numchild": "0",
+              "multiroom": "1"
+            },
+            "price_cells": [],
+            "quote_excerpt": "",
+            "total_is_group_price": false,
+            "warning": "Search price cells alone do not prove the requested room allocation."
+          },
+          "seconds": 5.611
+        }
+      ],
+      "wire": [
+        {
+          "url": "https://hotelpalatino.de/robots.txt",
+          "retrieved_at": "2026-11-09T11:10:40+00:00",
+          "status": 200,
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 117,
+          "sha256": "8a6161c70edb98ef86e7982b37176e1c567115d944cbccf5d9776b567faa4557",
+          "seconds": 1.877
+        },
+        {
+          "url": "https://hotelpalatino.de/",
+          "retrieved_at": "2026-11-09T11:10:42+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 72908,
+          "sha256": "e33f12b5a7fb9878a137c4c93c324115e60231fc4a64fbadf65f7dc85905e112",
+          "seconds": 0.706
+        },
+        {
+          "url": "https://www.gastinlaa.at/robots.txt",
+          "retrieved_at": "2026-11-09T11:10:42+00:00",
+          "status": 200,
+          "content_type": "text/plain",
+          "bytes": 31,
+          "sha256": "a67c9d9688523ceebfd4b92cd7b606bade75634a9637a2be7a31cf476e17dd14",
+          "seconds": 0.089
+        },
+        {
+          "url": "https://www.gastinlaa.at/buchen/",
+          "retrieved_at": "2026-11-09T11:10:54+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 55361,
+          "sha256": "b9def37de1fe434bf457d2b9ab76336ce4f3812e2bb2053f3143d25e47838b8c",
+          "seconds": 1.665
+        },
+        {
+          "url": "https://booking.smoobu.com/robots.txt",
+          "retrieved_at": "2026-11-09T11:10:54+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 8435,
+          "sha256": "ab3ec73831b2f95d5d17e148a64951e8a9ec69838992d40c4e34f4c74218fdd2",
+          "seconds": 0.131
+        },
+        {
+          "url": "https://beds24.com/robots.txt",
+          "retrieved_at": "2026-11-09T11:10:54+00:00",
+          "status": 200,
+          "content_type": "text/plain",
+          "bytes": 636,
+          "sha256": "0d9c1c9498591acf096453997b40becd34123bd98a60fdf9fc926ad4a9d6e0ca",
+          "seconds": 0.107
+        },
+        {
+          "url": "https://beds24.com/booking2.php?propid=6949&checkin=2026-11-23&numnight=2&numadult=2&numchild=0&lang=de&multiroom=0",
+          "retrieved_at": "2026-11-09T11:11:00+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 98267,
+          "sha256": "f37d0758ec3cd974f693e97189a187042b44af1c17ffca520098edabffc1a41f",
+          "seconds": 0.424
+        },
+        {
+          "url": "https://beds24.com/booking2.php?propid=6949&checkin=2026-11-23&numnight=2&numadult=5&numchild=0&lang=de&multiroom=1",
+          "retrieved_at": "2026-11-09T11:11:05+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 99821,
+          "sha256": "5c992ee44eba4f1ed8460cbe480f43ba0a8d65752ad5bf908cd965415a4c77ae",
+          "seconds": 0.42
+        },
+        {
+          "url": "https://beds24.com/booking2.php?propid=6949&width=960&page=dates&limitstart=0&checkin_hide=&fdate_date=23&fdate_monthyear=2026-11&numnight=2&numadult=5&numchild=0&multiroom=1&sr1-15792=2&na1-15792=2&nc1-15792=0&sr1-15795=0&na1-15795=2&nc1-15795=0&sr1-15797=1&na1-15797=1&nc1-15797=0&sr1-474024=0&na1-474024=2&nc1-474024=0&br1-15792=Buchen",
+          "retrieved_at": "2026-11-09T11:11:11+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 30481,
+          "sha256": "8d3943a89d64657ddc3451150814f7a9c6d87c223032b0cd4fe37bad9a10bf9d",
+          "seconds": 0.285
+        },
+        {
+          "url": "https://beds24.com/booking2.php?propid=6949&checkin=2027-07-05&numnight=6&numadult=5&numchild=0&lang=de&multiroom=1",
+          "retrieved_at": "2026-11-09T11:11:16+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 100977,
+          "sha256": "4272ae98c58a651fa89b293b9c7738b88b7ab3697806e2c6ebf108fb92c67297",
+          "seconds": 0.441
+        },
+        {
+          "url": "https://beds24.com/booking2.php?propid=6949&width=960&page=dates&limitstart=0&checkin_hide=&fdate_date=5&fdate_monthyear=2027-07&numnight=6&numadult=5&numchild=0&multiroom=1&sr1-15792=2&na1-15792=2&nc1-15792=0&sr1-15795=0&na1-15795=2&nc1-15795=0&sr1-15797=1&na1-15797=1&nc1-15797=0&sr1-474024=0&na1-474024=2&nc1-474024=0&br1-15792=Buchen",
+          "retrieved_at": "2026-11-09T11:11:22+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 30452,
+          "sha256": "2ac3bbbeb0df221a1fea01f2289bf08b07b90f58b215b304809620413806c8df",
+          "seconds": 0.424
+        },
+        {
+          "url": "https://beds24.com/booking2.php?propid=70716&checkin=2026-11-23&numnight=2&numadult=2&numchild=0&lang=de&multiroom=0",
+          "retrieved_at": "2026-11-09T11:11:28+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 771629,
+          "sha256": "75a5cca7c5a77b76eafddb9ce88445aca690547af0075c982e934a23e22dc1e4",
+          "seconds": 0.557
+        },
+        {
+          "url": "https://beds24.com/booking2.php?propid=70716&checkin=2026-11-23&numnight=2&numadult=5&numchild=0&lang=de&multiroom=1",
+          "retrieved_at": "2026-11-09T11:11:33+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 771629,
+          "sha256": "5d2f70cb47957aaa73581cc852478ca8f5f83e83016cfdb46022236c3f25b1d2",
+          "seconds": 0.548
+        },
+        {
+          "url": "https://beds24.com/booking2.php?propid=134588&checkin=2026-11-23&numnight=2&numadult=2&numchild=0&lang=de&multiroom=0",
+          "retrieved_at": "2026-11-09T11:11:39+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 736927,
+          "sha256": "66db588c25c15d7160fa3d79013324daa3af6f8eaf681e23060cddb781c9d868",
+          "seconds": 0.532
+        }
+      ],
+      "http_calls": 14,
+      "finished_at": "2026-11-09T11:11:39+00:00"
+    },
+    {
+      "schema_version": 1,
+      "purpose": "Step 1 feasibility, not application integration",
+      "started_at": "2026-11-09T20:23:39+00:00",
+      "limits": {
+        "http": 32,
+        "seconds": 300,
+        "bytes": 2000000,
+        "beds24_spacing_seconds": 5.1
+      },
+      "cases": [
+        {
+          "name": "laa-regular-room-two-adults",
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=163892&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=1&la=de&cu=",
+          "request": {
+            "adults_per_unit": 2,
+            "units": 1,
+            "checkin": "2026-11-23",
+            "checkout": "2026-11-25"
+          },
+          "status": "blocked_or_failed",
+          "error": "Nicht unterstützter Inhaltstyp oder Inhaltskodierung.",
+          "seconds": 5.462
+        },
+        {
+          "name": "laa-three-units-same-room-type",
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=163892&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=3&la=de&cu=",
+          "request": {
+            "adults_per_unit": 2,
+            "units": 3,
+            "checkin": "2026-11-23",
+            "checkout": "2026-11-25"
+          },
+          "status": "blocked_or_failed",
+          "error": "Nicht unterstützter Inhaltstyp oder Inhaltskodierung.",
+          "seconds": 5.762
+        },
+        {
+          "name": "heidelberg-room-two-adults",
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=300523&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=1&la=de&cu=",
+          "request": {
+            "adults_per_unit": 2,
+            "units": 1,
+            "checkin": "2026-11-23",
+            "checkout": "2026-11-25"
+          },
+          "status": "blocked_or_failed",
+          "error": "Nicht unterstützter Inhaltstyp oder Inhaltskodierung.",
+          "seconds": 5.334
+        }
+      ],
+      "wire": [
+        {
+          "url": "https://beds24.com/robots.txt",
+          "retrieved_at": "2026-11-09T20:23:40+00:00",
+          "status": 200,
+          "content_type": "text/plain",
+          "bytes": 636,
+          "sha256": "0d9c1c9498591acf096453997b40becd34123bd98a60fdf9fc926ad4a9d6e0ca",
+          "seconds": 0.15
+        },
+        {
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=163892&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=1&la=de&cu=",
+          "retrieved_at": "2026-11-09T20:24:10+00:00",
+          "status": 200,
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 767,
+          "sha256": "2eba22718f3336ed3a6881e4c62664fe8e68ec51d0d14da3758f4a92fdc2155f",
+          "seconds": 0.178
+        },
+        {
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=163892&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=3&la=de&cu=",
+          "retrieved_at": "2026-11-09T20:24:40+00:00",
+          "status": 200,
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 767,
+          "sha256": "15f047aff97e8f57720c47e28b880aa3661ca5d2b1990a2471a0b202b65d4b1a",
+          "seconds": 0.654
+        },
+        {
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=300523&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=1&la=de&cu=",
+          "retrieved_at": "2026-11-09T20:24:46+00:00",
+          "status": 200,
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 243,
+          "sha256": "03e02c29d90a5312ba76b07b498fce0841f36f50f18c46cbf85e018fc48a15bd",
+          "seconds": 0.224
+        }
+      ],
+      "http_calls": 4,
+      "finished_at": "2026-11-09T20:24:46+00:00"
+    },
+    {
+      "schema_version": 1,
+      "purpose": "Step 1 feasibility, not application integration",
+      "started_at": "2026-11-09T20:25:02+00:00",
+      "limits": {
+        "http": 32,
+        "seconds": 300,
+        "bytes": 2000000,
+        "beds24_spacing_seconds": 5.1
+      },
+      "cases": [
+        {
+          "name": "laa-regular-room-two-adults",
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=163892&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=1&la=de&cu=",
+          "request": {
+            "adults_per_unit": 2,
+            "units": 1,
+            "checkin": "2026-11-23",
+            "checkout": "2026-11-25"
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T20:25:08+00:00",
+          "response": [
+            {
+              "id": true,
+              "roomprice": 208,
+              "roompricedisplay": "<span class=\"bookingpagecurrency\">€</span><span class=\"bookingpagedollars\">208</span><span class=\"bookingpagecents\">,00</span>",
+              "warn": "",
+              "checkin": "2026-11-23",
+              "lastnight": "2026-11-24",
+              "numadult": 2,
+              "numchild": 0,
+              "roomid": 163892,
+              "offerid": 1,
+              "roomnum": 1,
+              "2026-11-23": 104,
+              "2026-11-24": 104,
+              "ratetype": 0,
+              "allowenquire": 0,
+              "sort": 1
+            }
+          ],
+          "seconds": 5.818
+        },
+        {
+          "name": "laa-three-units-same-room-type",
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=163892&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=3&la=de&cu=",
+          "request": {
+            "adults_per_unit": 2,
+            "units": 3,
+            "checkin": "2026-11-23",
+            "checkout": "2026-11-25"
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T20:28:09+00:00",
+          "response": [
+            {
+              "id": true,
+              "roomprice": 624,
+              "roompricedisplay": "<span class=\"bookingpagecurrency\">€</span><span class=\"bookingpagedollars\">624</span><span class=\"bookingpagecents\">,00</span>",
+              "warn": "",
+              "checkin": "2026-11-23",
+              "lastnight": "2026-11-24",
+              "numadult": 2,
+              "numchild": 0,
+              "roomid": 163892,
+              "offerid": 1,
+              "roomnum": 1,
+              "2026-11-23": 104,
+              "2026-11-24": 104,
+              "ratetype": 0,
+              "allowenquire": 0,
+              "sort": 1
+            }
+          ],
+          "seconds": 5.315
+        },
+        {
+          "name": "heidelberg-room-two-adults",
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=300523&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=1&la=de&cu=",
+          "request": {
+            "adults_per_unit": 2,
+            "units": 1,
+            "checkin": "2026-11-23",
+            "checkout": "2026-11-25"
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-09T20:28:15+00:00",
+          "response": [
+            {
+              "id": true,
+              "roomprice": 0,
+              "roompricedisplay": "",
+              "warn": "Maximale Belegung überschritten",
+              "checkin": "2026-11-23",
+              "lastnight": "2026-11-24",
+              "numadult": 2,
+              "numchild": 0,
+              "roomid": 300523,
+              "offerid": 1,
+              "roomnum": 1,
+              "hide": 1,
+              "displayval": [],
+              "sort": 1
+            }
+          ],
+          "seconds": 5.333
+        }
+      ],
+      "wire": [
+        {
+          "url": "https://beds24.com/robots.txt",
+          "retrieved_at": "2026-11-09T20:25:03+00:00",
+          "status": 200,
+          "content_type": "text/plain",
+          "bytes": 636,
+          "sha256": "0d9c1c9498591acf096453997b40becd34123bd98a60fdf9fc926ad4a9d6e0ca",
+          "seconds": 0.5
+        },
+        {
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=163892&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=1&la=de&cu=",
+          "retrieved_at": "2026-11-09T20:25:08+00:00",
+          "status": 200,
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 767,
+          "sha256": "2eba22718f3336ed3a6881e4c62664fe8e68ec51d0d14da3758f4a92fdc2155f",
+          "seconds": 0.209
+        },
+        {
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=163892&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=3&la=de&cu=",
+          "retrieved_at": "2026-11-09T20:28:09+00:00",
+          "status": 200,
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 767,
+          "sha256": "15f047aff97e8f57720c47e28b880aa3661ca5d2b1990a2471a0b202b65d4b1a",
+          "seconds": 0.21
+        },
+        {
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=300523&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=1&la=de&cu=",
+          "retrieved_at": "2026-11-09T20:28:15+00:00",
+          "status": 200,
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 243,
+          "sha256": "03e02c29d90a5312ba76b07b498fce0841f36f50f18c46cbf85e018fc48a15bd",
+          "seconds": 0.227
+        }
+      ],
+      "http_calls": 4,
+      "finished_at": "2026-11-09T20:28:15+00:00"
+    },
+    {
+      "schema_version": 1,
+      "purpose": "Step 1 feasibility, not application integration",
+      "started_at": "2026-11-10T01:47:32+00:00",
+      "limits": {
+        "http": 32,
+        "seconds": 300,
+        "bytes": 2000000,
+        "beds24_spacing_seconds": 5.1
+      },
+      "cases": [
+        {
+          "name": "heidelberg-double-two-adults",
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=300521&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=1&la=de&cu=",
+          "request": {
+            "adults_per_unit": 2,
+            "units": 1,
+            "checkin": "2026-11-23",
+            "checkout": "2026-11-25"
+          },
+          "status": "retrieved",
+          "retrieved_at": "2026-11-10T01:48:02+00:00",
+          "response": [
+            {
+              "id": true,
+              "roomprice": 125,
+              "roompricedisplay": "<span class=\"bookingpagecurrency\">EUR </span><span class=\"bookingpagedollars\">125</span><span class=\"bookingpagecents\">,00</span><div class=\"perpersonperday\"> pro Nacht</div>",
+              "warn": "",
+              "checkin": "2026-11-23",
+              "lastnight": "2026-11-24",
+              "numadult": 2,
+              "numchild": 0,
+              "roomid": 300521,
+              "offerid": 1,
+              "roomnum": 1,
+              "2026-11-23": 125,
+              "2026-11-24": 125,
+              "ratetype": "3",
+              "allowenquire": 0,
+              "sort": 1
+            }
+          ],
+          "seconds": 5.525
+        }
+      ],
+      "wire": [
+        {
+          "url": "https://beds24.com/robots.txt",
+          "retrieved_at": "2026-11-10T01:47:32+00:00",
+          "status": 200,
+          "content_type": "text/plain",
+          "bytes": 636,
+          "sha256": "0d9c1c9498591acf096453997b40becd34123bd98a60fdf9fc926ad4a9d6e0ca",
+          "seconds": 0.163
+        },
+        {
+          "url": "https://beds24.com/api/ajax/getroomprice.php?ro=300521&ci=2026-11-23&co=2026-11-25&na=2&nc=0&of=1&nr=1&la=de&cu=",
+          "retrieved_at": "2026-11-10T01:48:02+00:00",
+          "status": 200,
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 925,
+          "sha256": "f9d0b0048e4c009fee15e1974f7e977ef342c5f69032919239554434e9fd3fa4",
+          "seconds": 0.231
+        }
+      ],
+      "http_calls": 2,
+      "finished_at": "2026-11-10T01:48:02+00:00"
+    }
+  ],
+  "official_documentation": [
+    {
+      "url": "https://wiki.beds24.com/index.php/Category:Developers",
+      "finding": "Dokumentierte Datums-/Gäste-/multiroom-Parameter; keine allgemeine Hotelmarktsuche."
+    },
+    {
+      "url": "https://wiki.beds24.com/index.php/Responsive_Booking_Page",
+      "finding": "Mehrzimmeroption abhängig von Betreiberkonfiguration."
+    },
+    {
+      "url": "https://www.beds24.com/en/company/eula-november",
+      "finding": "Gastgeber-SaaS-Bedingungen; kein registriertes Gastgeberkonto eröffnet. Keine ausdrückliche allgemeine Weiterveröffentlichungslizenz für Preisvergleich abgeleitet."
+    },
+    {
+      "url": "https://developers.booking.com/demand/docs/getting-started/prerequisites",
+      "finding": "Managed Affiliate Partner, Vertrag und Schlüssel erforderlich; kein Preisabruf ohne Zugang behauptet."
+    },
+    {
+      "url": "https://developer.hotelbeds.com/documentation/getting-started/",
+      "finding": "Kostenloser Registrierungsschlüssel für Evaluation, 50 Anfragen/Tag. Kein bestätigter Produktionszugang."
+    },
+    {
+      "url": "https://developers.expediagroup.com/rapid/setup",
+      "finding": "Partnerfreigabe und Site Review für Produktion erforderlich."
+    },
+    {
+      "url": "https://docs.liteapi.travel/docs/getting-a-sandbox-key",
+      "finding": "Kostenloser Sandboxstart ohne Karte, Anleitung verlangt Karte für Produktionsschlüssel."
+    },
+    {
+      "url": "https://docs.liteapi.travel/reference/api-pricing-usage-costs",
+      "finding": "Kostenfreie Kernabläufe unter Nutzungsvoraussetzungen; weitere Endpunkte kostenpflichtig. Keine garantierte kostenfreie reine Vergleichsnutzung nachgewiesen."
+    }
+  ],
+  "verification": {
+    "offer_http_tests_passed": 8,
+    "production_files_changed": false,
+    "model_calls": 0,
+    "accounts_created": 0,
+    "bookings": 0,
+    "personal_or_payment_details_sent": false,
+    "trip_database_opened": false
+  }
+}
